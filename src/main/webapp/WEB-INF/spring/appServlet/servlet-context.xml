@@ -25,7 +25,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="cresco.co.jp.mynumber" />
+	<context:component-scan base-package="com.athuman.mynumber.web" />
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -49,8 +49,7 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
 			<beans:list>
-				<beans:value>cresco.co.jp.mynumber.model.Person</beans:value>
-				<beans:value>cresco.co.jp.mynumber.model.MyNumberRegistration</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.ShainExistCheckDto</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -63,16 +62,13 @@
 	</beans:bean>
 
 	<!--  Bean configuration -->
-	<beans:bean id="personDAO" class="cresco.co.jp.mynumber.dao.PersonDAOImpl">
-		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-	</beans:bean>
-	<beans:bean id="personService" class="cresco.co.jp.mynumber.service.PersonServiceImpl">
-		<beans:property name="personDAO" ref="personDAO"></beans:property>
-	</beans:bean>
+	<!--  Define bean DAO here... -->
+	
+	<!--  Define bean service here... -->
 
 	<beans:bean class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
 		<beans:property name="basename" value="messages" />
 	</beans:bean>
-
+	
 </beans:beans>

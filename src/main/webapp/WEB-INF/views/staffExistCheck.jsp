@@ -23,11 +23,11 @@
 				<div class="title">スタッフ選択</div>
 			</div>
 			<div id="content">
-				<form:form methodParam="POST" commandName="myNumber" action="screenthree" class="mt40">
+				<form:form methodParam="POST" commandName="staffSelection" action="screenthree" class="mt40">
 					<form:label path="staffNo">
 						<spring:message text="スタッフ№"/>
 					</form:label>
-					<form:input path="staffNo" pattern="[0-9]*"/>
+					<form:input path="staffNo"/>
 					<div class="name">○○ 三郎 様</div>
 					<input type="submit" class="btn-next mt40" value="開始" />
 				</form:form>

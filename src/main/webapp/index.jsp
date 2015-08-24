@@ -6,12 +6,5 @@
 	<title>Welcome to My number project</title>
 </head>
 
-<body>
-<h1>My Number</h1>
-<%
- response.setStatus(301);
- response.setHeader( "Location", "/MyNumber/s1");
- response.setHeader( "Connection", "close" );
- %>
-</body>
+<jsp:forward page="shainExistCheck"></jsp:forward>
 
