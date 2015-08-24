@@ -19,16 +19,7 @@ public class ShainExistCheckController {
 	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.GET)
 	public String show(Model model) {
 		
-		// check whether session is initial or not
-		if (shainExistCheckDto == null || shainExistCheckDto.getEmployeeId() == null) {
-			shainExistCheckDto = new ShainExistCheckDto();
-		} else {
-			String employeeInfo = shainExistCheckDto.getFirstName() + " " + shainExistCheckDto.getLastName() + 
-					"(" + shainExistCheckDto.getFirstNameKana() + " " + shainExistCheckDto.getLastNameKana() + ")";
-			
-			model.addAttribute("employeeInfo", employeeInfo);
-		}
-		
+		shainExistCheckDto = new ShainExistCheckDto();
 		model.addAttribute("shainExistCheckDto", shainExistCheckDto);
 		return "shainExistCheck";
 	}
@@ -52,10 +43,7 @@ public class ShainExistCheckController {
 				// FIXME: created dump data for displaying data on GUI
 				shainExistCheckDto = getDataFromAPI();
 				
-				String employeeInfo = shainExistCheckDto.getFirstName() + " " + shainExistCheckDto.getLastName() + 
-						"(" + shainExistCheckDto.getFirstNameKana() + " " + shainExistCheckDto.getLastNameKana() + ")";
-				
-				model.addAttribute("employeeInfo", employeeInfo);
+				model.addAttribute("employeeInfo", getEmployeeInfo());
 				model.addAttribute("shainExistCheckDto", shainExistCheckDto);
 
 			} else { // failed
@@ -89,6 +77,14 @@ public class ShainExistCheckController {
 			return 1;
 		} 
 		return 0;
+	}
+	
+	/** get employee info*/
+	private String getEmployeeInfo() {
+		String employeeInfo = shainExistCheckDto.getFirstName() + " " + shainExistCheckDto.getLastName() + 
+				"(" + shainExistCheckDto.getFirstNameKana() + " " + shainExistCheckDto.getLastNameKana() + ")";
+		
+		return "お名前: " + employeeInfo;
 	}
 	
 	/** create dummy data */

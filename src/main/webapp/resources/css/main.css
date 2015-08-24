@@ -21,7 +21,7 @@ body {
 #header {
     width: 100%;
     display: table;
-    min-height: 60px;
+    height: 75px;
 }
 #header .logo {
     background: url(../images/logo.jpg) scroll no-repeat right center transparent;
@@ -41,8 +41,10 @@ body {
     font-size: 17px;
     font-weight: bold;
     display: table-cell;
-    padding: 3.5% 21% 0px 0px;
+    padding: 10px 0px 0px 10px;
     width: 58%;
+    line-height: 65px;
+    text-align: left;
 }
 #header .title_s {
     font-size: 20px;

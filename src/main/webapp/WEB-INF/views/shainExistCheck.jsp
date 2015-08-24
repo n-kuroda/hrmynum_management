@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/mycheck.js"></script>
+<script src="resources/js/shainExistCheck.js"></script>
 
 </head>
 <body>
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form methodParam="POST" commandName="shainExistCheckDto" action="shainExistCheck" cssClass="mt40">
+				<form:form methodParam="POST" commandName="shainExistCheckDto" action="shainExistCheck" cssClass="mt20">
 					<div class="subtitle"><spring:message text="社員番号を入力して検索ボタンを押してください。" /></div>
 					<form:label path="employeeId">
 						<spring:message text="社員番号"/>
@@ -64,7 +64,9 @@
 					</div>
 					
 					<form:errors path="*" cssClass="error" />
-					<form:button name="action" value="next" class="btn-next mt40"><spring:message text="次へ" /></form:button>
+					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkInput()){return false;}">
+						<spring:message text="次へ" />
+					</form:button>
 				</form:form>
 			</div>
 		</div>
