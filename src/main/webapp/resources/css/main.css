@@ -59,14 +59,13 @@ body {
     display: inline-block;
     text-align: center;
     color: #000;
-    padding: 4px 0px 6px 0px;
-    width: 90px;
+    padding: 4px 15px 6px 0px;
     font-size: 12px;
 }
 #content form input {
     display: inline-block;
     padding: 5px;
-    width: 150px;
+    width: 120px;
 }
 #content form div.name {
     text-align: center;
@@ -95,10 +94,9 @@ body {
     color: #FFF;
     text-align: center;
     border: 0px;
-    padding: 5px 23px 5px 23px;
+    padding: 5px 26px;
     font-size: 14px;
     height: 34px;
-    width: 102px;
 }
 #content form textarea {
     display: block;
