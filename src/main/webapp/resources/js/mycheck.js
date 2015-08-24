@@ -38,5 +38,10 @@ function checkInput() {
 		checkByteId.style.display = 'none';
 	}
 	
+	 var errors = document.getElementById('shainExistCheckDto.errors');
+	 if (errors != null) {
+	  errors.innerHTML ='';
+	 }
+	 
 	return isCheck;
 }
