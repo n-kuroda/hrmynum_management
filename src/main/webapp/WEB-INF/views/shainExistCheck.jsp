@@ -41,7 +41,7 @@
 						
 						<div id="messageInfo">
 							<c:if test="${!empty employeeInfo}">
-								<spring:message text="${employeeInfo}"/>
+								<spring:message text="お名前: ${employeeInfo}"/>
 								<br />
 								<spring:message text="よろしければ「次へ」ボタンを押してください。"/>
 							</c:if>

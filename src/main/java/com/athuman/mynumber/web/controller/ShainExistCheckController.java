@@ -83,7 +83,7 @@ public class ShainExistCheckController {
 		String employeeInfo = shainExistCheckDto.getFirstName() + " " + shainExistCheckDto.getLastName() + 
 				"(" + shainExistCheckDto.getFirstNameKana() + " " + shainExistCheckDto.getLastNameKana() + ")";
 		
-		return "お名前: " + employeeInfo;
+		return employeeInfo;
 	}
 	
 	/** create dummy data */
