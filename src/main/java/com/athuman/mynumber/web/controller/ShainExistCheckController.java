@@ -1,11 +1,12 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.athuman.mynumber.web.dto.ShainExistCheckDto;
 
@@ -26,47 +27,45 @@ public class ShainExistCheckController {
 
 	// submit shainExistCheck page
 	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.POST)
-	public String search(@RequestParam String action, ShainExistCheckDto emp, BindingResult bindingResult, Model model) {
+	public String search(@Valid ShainExistCheckDto emp, BindingResult bindingResult, Model model) {
 		
-		// detect the action is [search] or not
-		if ("search".equals(action)) {
-			
-			// check input value is valid or not
-			if (bindingResult.hasErrors()) {
-				shainExistCheckDto = new ShainExistCheckDto();
-				return "shainExistCheck";
-			}
-			
-			// call API to get data
-			if (callAPIx(emp.getEmployeeId()) == 1) { // success
-
-				// FIXME: created dump data for displaying data on GUI
-				shainExistCheckDto = getDataFromAPI();
-				
-				model.addAttribute("employeeInfo", getEmployeeInfo());
-				model.addAttribute("shainExistCheckDto", shainExistCheckDto);
-
-			} else { // failed
-				bindingResult.rejectValue("employeeId", "NotExist.shainExistCheckDto.employeeId");
-				shainExistCheckDto = new ShainExistCheckDto();
-			}
-
+		// check input value is valid or not
+		if (bindingResult.hasErrors()) {
+			shainExistCheckDto = new ShainExistCheckDto();
 			return "shainExistCheck";
+		}
+
+		// call API to get data
+		if (callAPIx(emp.getEmployeeId()) == 1) { // success
+
+			// FIXME: created dump data for displaying data on GUI
+			shainExistCheckDto = getDataFromAPI();
 			
-		} else { // [next] btn clicked
+			model.addAttribute("employeeInfo", getEmployeeInfo());
+			model.addAttribute("shainExistCheckDto", shainExistCheckDto);
+
+		} else { // failed
 			
-			// check whether employeeId has stored to session or not
-			if (shainExistCheckDto!= null && shainExistCheckDto.getEmployeeId() != null) {
-				return "redirect:/staffExistCheck";
-			} else {
-				
-				bindingResult.rejectValue("employeeId", "Session.shainExistCheckDto.employeeId");
-				shainExistCheckDto = new ShainExistCheckDto();
-				return "shainExistCheck";
-			}
+			shainExistCheckDto = new ShainExistCheckDto();
+			bindingResult.rejectValue("employeeId", "NotExist.shainExistCheckDto.employeeId");
+		}
+
+		return "shainExistCheck";
+
+	}
+
+	@RequestMapping(value = "/next", method = RequestMethod.POST)
+	public String next(ShainExistCheckDto emp, BindingResult bindingResult, Model model) {
+
+		if (shainExistCheckDto!= null && shainExistCheckDto.getEmployeeId() != null) {
+			return "redirect:/staffExistCheck";
+		} else {
+			bindingResult.rejectValue("employeeId", "Session.shainExistCheckDto.employeeId");
+			shainExistCheckDto = new ShainExistCheckDto();
+			return "shainExistCheck";
 		}
 	}
-	
+
 	/** call API to get data
 	 * 
 	 * @Input:  employeeId

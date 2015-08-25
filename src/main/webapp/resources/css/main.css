@@ -30,8 +30,8 @@ body {
 }
 #header .logo_s {
     background: url(../images/logo.jpg) scroll no-repeat 10px 10px transparent;
-    width: 150px;
-    height: 60px;
+    width: 170px;
+    height: 75px;
     display: table-cell;
     position: absolute;
     top: 0px;
@@ -54,6 +54,15 @@ body {
 #content {
 }
 #content form {
+}
+#content form label.color {
+    display: inline-block;
+    text-align: center;
+    background-color: #93CDDD;
+    color: #FFF;
+    padding: 8px 0px 8px 0px;
+    margin-right: -6px;
+    width: 130px;
 }
 #content form label {
     display: inline-block;
@@ -161,4 +170,48 @@ body {
 .h40 {
     height: 40px !important;
     min-height: 40px !important;
+}
+
+.radio-group input[type="radio"] {
+    width: 15px !important;
+
+}
+
+.radio-group {
+    text-align: left;
+}
+
+.radio-group label {
+    padding: 0px !important;
+}
+
+.chkbox-group {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.chkbox-group .col {
+    height: 85px;
+    float: left;
+    margin: 0px 2% 0px 2%;
+    text-align: left;
+    position: relative;
+}
+
+.chkbox-group .col input[type="checkbox"] {
+    width: 15px !important;
+}
+
+.agree {
+    width: 100%;
+    text-align: right;
+}
+
+.agree input[type="checkbox"] {
+    width: 15px !important;
+}
+
+.chkbox-group hr {
+    clear: both;
 }

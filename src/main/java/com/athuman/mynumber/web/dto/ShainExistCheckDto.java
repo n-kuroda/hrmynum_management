@@ -1,10 +1,17 @@
 package com.athuman.mynumber.web.dto;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 
 @Scope("session")
 public class ShainExistCheckDto {
 
+	@NotEmpty
+	@Size(min=6,max=6)
+	@Pattern(regexp = "^[0-9]*$")
 	private String employeeId;
 
 	private int resultCode;
