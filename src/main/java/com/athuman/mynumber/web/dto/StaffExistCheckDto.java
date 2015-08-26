@@ -1,9 +1,24 @@
 package com.athuman.mynumber.web.dto;
 
-import org.springframework.context.annotation.Scope;
-@Scope("session")
-public class StaffExistCheckDto {
+import java.io.Serializable;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
+
+@Scope("session")
+public class StaffExistCheckDto implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -957193794743603714L;
+
+	@NotEmpty
+	@Size(min=9,max=9)
+	@Pattern(regexp = "^[0-9]*$")
 	private String staffNo;
 
 	private String staffName;

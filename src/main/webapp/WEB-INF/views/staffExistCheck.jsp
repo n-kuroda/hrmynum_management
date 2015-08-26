@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form methodParam="POST" commandName="staffExistCheckDto" action="staffExistCheck" class="mt40">
+				<form:form id="staffExistCheckForm" methodParam="POST" commandName="staffExistCheckDto" action="staffExistCheck" class="mt40">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
 					<form:label path="staffNo">
 						<spring:message text="スタッフNo"/>
@@ -42,31 +42,19 @@
 
 						<div id="messageInfo">
 							<c:if test="${!empty staffInfo}">
-								<spring:message text="${staffInfo}"/>
+								<spring:message text="お名前: ${staffInfo}"/>
 								<br />
 								<spring:message text="よろしければ「次へ」ボタンを押してください。"/>
 							</c:if>
 						</div>
 
-						<div id="errorInfo">
-							<div id="checkrequireId" style="color: red;">
-								<fmt:message key="NotEmpty.staffExistCheckDto.staffNo" />
-							</div>
-							<div id="checkLengthId" style="color: red;">
-								<fmt:message key="Size.staffExistCheckDto.staffNo" />
-							</div>
-							<div id="checkByteId" style="color: red;">
-								<fmt:message key="Pattern.staffExistCheckDto.staffNo" />
-							</div>
-						</div>
-
 					</div>
 
 					<form:errors path="*" cssClass="error" />
-					<form:button name="action" value="back" class="btn-next mt40">
+					<form:button name="action" value="back" class="btn-next mt40" onclick="backScreen();">
 						<spring:message text="戻る" />
 					</form:button>
-					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkInput()){return false;}">
+					<form:button name="action" value="next" class="btn-next mt40" onclick="checkDataValid();">
 						<spring:message text="次へ" />
 					</form:button>
 				</form:form>

@@ -70,7 +70,7 @@
 				</p>
 				<form action="purposeConsent" method="post">
 					<button name="action" value="back" class="btn-next">戻る</button>
-					<button name="action" value="next" class="btn-next">承諾</button>
+					<button name="action" value="consent" class="btn-next">承諾</button>
 				</form>
 			</div>
 		</div>

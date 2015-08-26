@@ -1,5 +1,7 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,29 +12,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PurposeConsentController {
 
 
-	// inject shainExistCheckDto
-	//private StaffExistCheckDto staffExistCheckDto;
+	// inject staffExistCheckDto
+//	private StaffExistCheckDto staffExistCheckDto;
 
 	@RequestMapping(value = "/purposeConsent", method = RequestMethod.GET)
-	public String show(Model model) {
+	public String show(Model model, HttpSession session) {
 
+		model.addAttribute("staffName", session.getAttribute("staffExistCheckDto"));
 		return "purposeConsent";
 	}
 
-	// submit shainExistCheck page
+	// submit purposeConsent page
 	@RequestMapping(value = "/purposeConsent", method = RequestMethod.POST)
-	public String search(@RequestParam String action, Model model) {
+	public String doTransit(@RequestParam String action, Model model) {
 
-		// detect the action is [search] or not
-		if ("search".equals(action)) {
-
-			return "staffExistCheck";
-
-		} else if("back".equals(action)) { // [back] btn clicked
+		if("back".equals(action)) { // [back] btn clicked
 
 			return "redirect:/staffExistCheck";
 
-		} else { // [next] btn clicked
+		} else { // [consent] btn clicked
 
 			return "redirect:/myNumberRegist";
 

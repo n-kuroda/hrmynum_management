@@ -50,6 +50,7 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.athuman.mynumber.web.dto.ShainExistCheckDto</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.StaffExistCheckDto</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -63,12 +64,12 @@
 
 	<!--  Bean configuration -->
 	<!--  Define bean DAO here... -->
-	
+
 	<!--  Define bean service here... -->
 
 	<beans:bean class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
 		<beans:property name="basename" value="messages" />
 	</beans:bean>
-	
+
 </beans:beans>
