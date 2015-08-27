@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.athuman.mynumber.web.dto.StaffExistCheckDto;
+
 @Controller
 public class PurposeConsentController {
 
 
 	// inject staffExistCheckDto
-//	private StaffExistCheckDto staffExistCheckDto;
+	private StaffExistCheckDto staffExistCheckDto;
 
 	@RequestMapping(value = "/purposeConsent", method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {

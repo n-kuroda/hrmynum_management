@@ -2,6 +2,8 @@ package com.athuman.mynumber.web.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,17 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.dto.StaffExistCheckDto;
+import com.athuman.mynumber.web.service.MyNumberService;
 
 @Controller
 public class StaffExistCheckController {
 
-
+	private MyNumberService myNumberService;
+	
+	@Autowired(required=true)
+	@Qualifier(value="myNumberService")
+	public void setMyNumberService(MyNumberService myNumberService) {
+		this.myNumberService = myNumberService;
+	}
+	
 	// inject StaffExistCheckDto
 	private StaffExistCheckDto staffExistCheckDto;
 
 	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.GET)
 	public String show(Model model) {
-
+		
 		staffExistCheckDto = new StaffExistCheckDto();
 		model.addAttribute("staffExistCheckDto", staffExistCheckDto);
 		return "staffExistCheck";
@@ -36,10 +46,9 @@ public class StaffExistCheckController {
 		}
 
 		// call API to get data
-		if (callAPIx(staff.getStaffNo()) == 1) { // success
-
-			// FIXME: created dump data for displaying data on GUI
-			staffExistCheckDto = getDataFromAPI();
+		// FIXME: created dump data for displaying data on GUI
+		staffExistCheckDto = myNumberService.readStaff(staff.getStaffNo());
+		if (staffExistCheckDto != null) { // success
 
 			model.addAttribute("staffInfo", getStaffInfo());
 			model.addAttribute("staffExistCheckDto", staffExistCheckDto);
@@ -77,28 +86,5 @@ public class StaffExistCheckController {
 		String staffInfo = staffExistCheckDto.getStaffName() +
 				"(" + staffExistCheckDto.getStaffNameKana() + ")";
 		return staffInfo;
-	}
-
-	/** call API to get data
-	 *
-	 * @Input:  staffNo
-	 *
-	 * */
-	private int callAPIx(String staffNo) {
-		if ("154123456".equals(staffNo)) { // dummy StaffNo
-			return 1;
-		}
-		return 0;
-	}
-
-	/** create dummy data */
-	private StaffExistCheckDto getDataFromAPI() {
-
-		StaffExistCheckDto staffExistCheckDto = new StaffExistCheckDto();
-		staffExistCheckDto.setStaffName("Ly Ngan");
-		staffExistCheckDto.setStaffNameKana("Nham Ngoc");
-		staffExistCheckDto.setStaffNo("154123456");
-
-		return staffExistCheckDto;
 	}
 }

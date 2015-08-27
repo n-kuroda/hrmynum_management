@@ -2,6 +2,8 @@ package com.athuman.mynumber.web.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,12 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.dto.ShainExistCheckDto;
+import com.athuman.mynumber.web.service.MyNumberService;
 
 @Controller
 public class ShainExistCheckController {
-
+	
 	// inject shainExistCheckDto
 	private ShainExistCheckDto shainExistCheckDto;
+	
+	private MyNumberService myNumberService;
+	
+	@Autowired(required=true)
+	@Qualifier(value="myNumberService")
+	public void setMyNumberService(MyNumberService myNumberService) {
+		this.myNumberService = myNumberService;
+	}
 
 	// display shainExistCheck page
 	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.GET)
@@ -36,11 +47,11 @@ public class ShainExistCheckController {
 		}
 
 		// call API to get data
-		if (callAPIx(emp.getEmployeeId()) == 1) { // success
+		// FIXME: created dump data for displaying data on GUI
+		shainExistCheckDto = myNumberService.readShain(emp.getEmployeeId());
+		
+		if (shainExistCheckDto != null) { // success
 
-			// FIXME: created dump data for displaying data on GUI
-			shainExistCheckDto = getDataFromAPI();
-			
 			model.addAttribute("employeeInfo", getEmployeeInfo());
 			model.addAttribute("shainExistCheckDto", shainExistCheckDto);
 
@@ -65,18 +76,6 @@ public class ShainExistCheckController {
 			return "shainExistCheck";
 		}
 	}
-
-	/** call API to get data
-	 * 
-	 * @Input:  employeeId
-	 * 
-	 * */
-	private int callAPIx(String employeeId) {
-		if ("123456".equals(employeeId)) { // dummy employeeId
-			return 1;
-		} 
-		return 0;
-	}
 	
 	/** get employee info*/
 	private String getEmployeeInfo() {
@@ -84,18 +83,5 @@ public class ShainExistCheckController {
 				"(" + shainExistCheckDto.getFirstNameKana() + " " + shainExistCheckDto.getLastNameKana() + ")";
 		
 		return employeeInfo;
-	}
-	
-	/** create dummy data */
-	private ShainExistCheckDto getDataFromAPI() {
-		
-		ShainExistCheckDto shainExistCheckDto = new ShainExistCheckDto();
-		shainExistCheckDto.setFirstName("Phu");
-		shainExistCheckDto.setLastName("Truong");
-		shainExistCheckDto.setFirstNameKana("PHU");
-		shainExistCheckDto.setLastNameKana("TRUONG");
-		shainExistCheckDto.setEmployeeId("123456");
-		
-		return shainExistCheckDto;
 	}
 }

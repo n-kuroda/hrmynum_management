@@ -1,0 +1,12 @@
+$(document).ready(function() {
+	$("#options").hide();
+	$('input[name="cardInfo"]').click(function() {
+		if ($(this).index() === 0) {
+			$("#options").stop().slideUp();
+			$('input[type="checkbox"]').removeAttr('checked');
+		} else {
+			$("#options").stop().slideDown();
+		}
+	})
+	.filter(":checked").trigger("click");
+});
