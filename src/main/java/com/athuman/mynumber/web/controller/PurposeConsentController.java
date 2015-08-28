@@ -1,41 +1,26 @@
 package com.athuman.mynumber.web.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.athuman.mynumber.web.dto.StaffExistCheckDto;
 
 @Controller
 public class PurposeConsentController {
 
-
-	// inject staffExistCheckDto
-	private StaffExistCheckDto staffExistCheckDto;
-
 	@RequestMapping(value = "/purposeConsent", method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
-
-		model.addAttribute("staffName", session.getAttribute("staffExistCheckDto"));
+	public String show(Model model) {
 		return "purposeConsent";
 	}
 
 	// submit purposeConsent page
 	@RequestMapping(value = "/purposeConsent", method = RequestMethod.POST)
-	public String doTransit(@RequestParam String action, Model model) {
+	public String doTransitConsent(Model model) {
+		return "redirect:/myNumberRegist";
+	}
 
-		if("back".equals(action)) { // [back] btn clicked
-
-			return "redirect:/staffExistCheck";
-
-		} else { // [consent] btn clicked
-
-			return "redirect:/myNumberRegist";
-
-		}
+	@RequestMapping(value = "/purposeConsentBack", method = RequestMethod.POST)
+	public String doTransitBack(Model model) {
+		return "redirect:/staffExistCheck";
 	}
 }

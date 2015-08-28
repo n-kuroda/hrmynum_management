@@ -94,7 +94,7 @@
 							</div>
 							<hr />
 							<div class="col">
-								<form:checkbox path="stayCard" value="1" />
+								<form:checkbox path="insuranceCard" value="1" />
 								<form:label path="insuranceCard">
 									<spring:message text="⑧健康保険被保険者証" />
 								</form:label>

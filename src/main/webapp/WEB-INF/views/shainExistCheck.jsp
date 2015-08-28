@@ -29,12 +29,12 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form methodParam="POST" commandName="shainExistCheckDto" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
+				<form:form methodParam="POST" commandName="shainInfoModel" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
 					<div class="subtitle"><spring:message text="社員番号を入力して検索ボタンを押してください。" /></div>
-					<form:label path="employeeId">
+					<form:label path="shainNo">
 						<spring:message text="社員番号"/>
 					</form:label>
-					<form:input path="employeeId"/>
+					<form:input path="shainNo"/>
 					<form:button class="btn-next mt40">
 						<spring:message text="検索" /></form:button>
 					<div class="name">

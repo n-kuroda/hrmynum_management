@@ -49,8 +49,8 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
 			<beans:list>
-				<beans:value>com.athuman.mynumber.web.dto.ShainExistCheckDto</beans:value>
-				<beans:value>com.athuman.mynumber.web.dto.StaffExistCheckDto</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.ShainInfoModel</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.StaffInfoModel</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -62,18 +62,13 @@
 		</beans:property>
 	</beans:bean>
 
-	<!--  Bean configuration -->
-	<!--  Define bean DAO here... -->
-
-	<!--  Define bean service here... -->
-
 	<beans:bean class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
 		<beans:property name="basename" value="messages" />
 	</beans:bean>
 
+	<!--  Bean configuration -->
 	<beans:bean id="tACTService" class="com.athuman.mynumber.web.service.impl.TACTServiceImpl" />
 
 	<beans:bean id="myNumberService" class="com.athuman.mynumber.web.service.impl.MyNumberServiceImpl" />
-
 </beans:beans>

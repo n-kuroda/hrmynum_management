@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/shainExistCheck.js"></script>
+<script src="resources/js/purposeConsent.js"></script>
 
 </head>
 <body>
@@ -26,7 +26,7 @@
 			<div id="header" class="h40">
 				<div class="logo_s"></div>
 				<div class="title_s">
-					<spring:message text="鈴木 花子　様" />
+					<spring:message text="${staffInfoModel.staffName} 様"/>
 				</div>
 			</div>
 			<div id="content">
@@ -68,9 +68,9 @@
 				<p class="txtCenter">
 					<spring:message text="マイナンバーの利用目的を確認し、番号収集に承諾いたします。" />
 				</p>
-				<form action="purposeConsent" method="post">
-					<button name="action" value="back" class="btn-next">戻る</button>
-					<button name="action" value="consent" class="btn-next">承諾</button>
+				<form id="perposeConsentForm" action="purposeConsent" method="post">
+					<button class="btn-next"  onclick="backScreen();">戻る</button>
+					<button class="btn-next">承諾</button>
 				</form>
 			</div>
 		</div>

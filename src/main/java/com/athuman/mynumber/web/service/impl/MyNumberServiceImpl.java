@@ -3,8 +3,8 @@ package com.athuman.mynumber.web.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.athuman.mynumber.web.dto.ShainExistCheckDto;
-import com.athuman.mynumber.web.dto.StaffExistCheckDto;
+import com.athuman.mynumber.web.dto.ShainInfoModel;
+import com.athuman.mynumber.web.dto.StaffInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
 
 @Service
@@ -12,32 +12,32 @@ public class MyNumberServiceImpl implements MyNumberService {
 
 	@Override
 	@Transactional
-	public ShainExistCheckDto readShain(String shainNo) {
+	public ShainInfoModel readShain(String shainNo) {
 		if (shainNo.equals("123456")) {
 
-			ShainExistCheckDto shainExistCheckDto = new ShainExistCheckDto();
-			shainExistCheckDto.setFirstName("Phu");
-			shainExistCheckDto.setLastName("Truong");
-			shainExistCheckDto.setFirstNameKana("PHU");
-			shainExistCheckDto.setLastNameKana("TRUONG");
-			shainExistCheckDto.setEmployeeId(shainNo);
+			ShainInfoModel shainInfoModelDto = new ShainInfoModel();
+			shainInfoModelDto.setShainNo(shainNo);
+			shainInfoModelDto.setShainNameSei("PHU");
+			shainInfoModelDto.setShainNameSeiKana("Phu");
+			shainInfoModelDto.setShainNameMei("TRUONG");
+			shainInfoModelDto.setShainNameMeiKana("Truong");
 			
-			return shainExistCheckDto;
+			return shainInfoModelDto;
 		}
 		return null;
 	}
 
 	@Override
 	@Transactional
-	public StaffExistCheckDto readStaff(String staffNo) {
+	public StaffInfoModel readStaff(String staffNo) {
 		if (staffNo.equals("154123456")) {
 
-			StaffExistCheckDto staffExistCheckDto = new StaffExistCheckDto();
-			staffExistCheckDto.setStaffName("Ly Ngan");
-			staffExistCheckDto.setStaffNameKana("Nham Ngoc");
-			staffExistCheckDto.setStaffNo(staffNo);
+			StaffInfoModel staffInfoModelDto = new StaffInfoModel();
+			staffInfoModelDto.setStaffName("Ly Ngan");
+			staffInfoModelDto.setStaffNameKana("Nham Ngoc");
+			staffInfoModelDto.setStaffNo(staffNo);
 			
-			return staffExistCheckDto;
+			return staffInfoModelDto;
 		}
 		
 		return null;

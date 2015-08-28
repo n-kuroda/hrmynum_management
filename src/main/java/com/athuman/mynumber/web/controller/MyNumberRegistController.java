@@ -1,6 +1,5 @@
 package com.athuman.mynumber.web.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -17,8 +16,10 @@ public class MyNumberRegistController {
 	// inject staffExistCheckDto
 	private MyNumberRegistDto myNumberRegistDto;
 
+
+	// show myNumberRegist page
 	@RequestMapping(value = "/myNumberRegist", method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
+	public String show(Model model) {
 
 		if (myNumberRegistDto != null) {
 			model.addAttribute("myNumberRegistDto", myNumberRegistDto);
@@ -47,16 +48,16 @@ public class MyNumberRegistController {
 				return "myNumberRegist";
 			}
 
-			return "redirect:/myNumberRegist";
+			return "partnerRegist";
 		}
 	}
 
 	/** process data for store session
 	 *
 	 * @param myNumber
-	 * @return
+	 * @return MyNumberRegistDto
 	 */
-	private MyNumberRegistDto processData(MyNumberRegistDto myNumber){
+	private MyNumberRegistDto processData(MyNumberRegistDto myNumber) {
 		MyNumberRegistDto mnRegist = new MyNumberRegistDto();
 		if (myNumber != null) {
 			// store my number
@@ -139,13 +140,14 @@ public class MyNumberRegistController {
 				mnRegist.setOther("0");
 			}
 		}
+
 		return mnRegist;
 	}
 
 	/** Check which radio is checked
 	 *
 	 * @param myNumberRegistDto
-	 * @return
+	 * @return boolean
 	 */
 	private boolean checkSelect(MyNumberRegistDto myNumberRegistDto){
 		if (!"01".equals(myNumberRegistDto.getCardInfo())) {
@@ -159,7 +161,7 @@ public class MyNumberRegistController {
 	/** check at least one check box selected
 	 *
 	 * @param myNumberRegistDto
-	 * @return
+	 * @return boolean
 	 */
 	private boolean checkVerification(MyNumberRegistDto myNumberRegistDto){
 

@@ -105,6 +105,7 @@ p.font12 label {
 }
 
 #content form .btn-next {
+	cursor: pointer;
     background-color: #93CDDD;
     color: #FFF;
     text-align: center;
