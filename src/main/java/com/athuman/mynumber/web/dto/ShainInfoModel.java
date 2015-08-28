@@ -9,8 +9,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope("session")
 public class ShainInfoModel implements Serializable {
 
 	private static final long serialVersionUID = -957193794743603714L;
