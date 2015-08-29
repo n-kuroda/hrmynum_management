@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/partnerRegist.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -26,7 +27,8 @@
             </div>
             <div id="content">
             <div class="title_r">扶養者情報を入力してください。</div>
-                <form action="partnerRegistBack" method="post" class="mt10">
+                <form:form id="partnerRegistForm" action="partnerRegist" method="post" commandName="lstDependentsInfo" cssClass="mt10">
+                <form:errors path="*" cssClass="error" />
                 	<%
                 	for(int i = 1; i <= 10; i++) {
                 	%>
@@ -34,7 +36,8 @@
 		                <div class="titlebox">扶養者<%=i %></div>
                         <p class="font14 name">
                             <span>お名前</span>
-                            <span class="lastname">(姓) </span><input type="text" class="lastname">
+                            <span class="lastname">(姓) </span>
+                            <input name="dependents[<%=i-1 %>].dependentsNameSei" value="${staffInfoModel.staffName}" type="text" class="lastname"/>
                             <span>(名) </span><input type="text" class="firstname">
                         </p>
                         <p class="font14" style="margin-top: -8px;">
@@ -87,10 +90,10 @@
                     <p/>
                     <%} %>
                     <p>
-	                    <button class="btn-back mt20">戻る</button>
+	                    <button class="btn-back mt20" onclick="backScreen();">戻る</button>
 	                    <button class="btn-next mt20">次へ</button>
                     </p>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

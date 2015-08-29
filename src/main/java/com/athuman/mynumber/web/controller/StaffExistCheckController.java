@@ -24,10 +24,10 @@ public class StaffExistCheckController {
 	@Autowired(required=true)
 	@Qualifier(value="myNumberService")
 	private MyNumberService myNumberService;
-
+	
 	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.GET)
 	public String show(Model model) {
-
+		
 		StaffInfoDto staffInfoDto = new StaffInfoDto();
 		model.addAttribute("staffInfoDto", staffInfoDto);
 		return "staffExistCheck";

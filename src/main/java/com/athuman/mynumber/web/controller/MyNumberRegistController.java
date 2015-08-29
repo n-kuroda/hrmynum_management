@@ -48,8 +48,8 @@ public class MyNumberRegistController {
 			return "myNumberRegist";
 		}
 
-		return "partnerRegist";
-		
+		return "redirect:/partnerRegist";
+
 	}
 
 	/** process data for store session

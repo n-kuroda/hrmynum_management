@@ -51,6 +51,7 @@
 			<beans:list>
 				<beans:value>com.athuman.mynumber.web.dto.ShainInfoDto</beans:value>
 				<beans:value>com.athuman.mynumber.web.dto.StaffInfoDto</beans:value>
+				<beans:value>com.athuman.mynumber.web.model.MyNumber</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -68,7 +69,13 @@
 	</beans:bean>
 
 	<!--  Bean configuration -->
-	<beans:bean id="tACTService" class="com.athuman.mynumber.web.service.impl.TACTServiceImpl" />
+	<beans:bean id="tACTServiceDAO" class="com.athuman.mynumber.web.dao.impl.TACTServiceDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
+	<beans:bean id="tACTService" class="com.athuman.mynumber.web.service.impl.TACTServiceImpl" >
+		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
+	</beans:bean>
 
 	<beans:bean id="myNumberService" class="com.athuman.mynumber.web.service.impl.MyNumberServiceImpl" />
 </beans:beans>

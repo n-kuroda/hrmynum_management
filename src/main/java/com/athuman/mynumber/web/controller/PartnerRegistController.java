@@ -1,9 +1,20 @@
 package com.athuman.mynumber.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.athuman.mynumber.web.dto.Dependents;
+import com.athuman.mynumber.web.model.DependentsInfoListModel;
+import com.athuman.mynumber.web.model.StaffInfoModel;
 
 @Controller
 public class PartnerRegistController {
@@ -13,39 +24,37 @@ public class PartnerRegistController {
 
 
 	// show myNumberRegist page
-//	@RequestMapping(value = "/partnerRegist", method = RequestMethod.GET)
-//	public String show(Model model) {
-//
-//		if (dependentsInfoList != null) {
-//			model.addAttribute("dependentsInfoList", dependentsInfoList);
-//		} else {
-//			dependentsInfoList = new DependentsInfoListModel();
-//			model.addAttribute("dependentsInfoList", dependentsInfoList);
-//		}
-//
-//		return "myNumberRegist";
-//	}
+	@RequestMapping(value = "/partnerRegist", method = RequestMethod.GET)
+	public String show(Model model) {
+
+		DependentsInfoListModel dependentsInfoListModel = new DependentsInfoListModel();
+		List<Dependents> lstDependents = new ArrayList<Dependents>();
+		for (int i = 0; i < 9; i++) {
+			lstDependents.add(new Dependents());
+		}
+		dependentsInfoListModel.setDependents(lstDependents);
+		model.addAttribute("lstDependentsInfo", dependentsInfoListModel);
+		return "partnerRegist";
+	}
 
 	// submit myNumberRegist page
-//	@RequestMapping(value = "/partnerRegist", method = RequestMethod.POST)
-//	public String doPartnerRegistNext(@Valid DependentsInfoListModel lstDependentsInfo, BindingResult binding, Model model) {
+	@RequestMapping(value = "/partnerRegist", method = RequestMethod.POST)
+	public String doPartnerRegistNext(
+			@ModelAttribute("lstDependentsInfo")DependentsInfoListModel lstDependentsInfo,
+			BindingResult binding, Model model, HttpSession session) {
 
-//		if (binding.hasErrors()) { // when form has error
-//			return "myNumberRegist";
-//		} else { // success
-//
-//			// TODO store data to session
-//			myNumberRegistDto = processData(myNumber);
-//
-//			// check at last one check box selected
-//			if (checkSelect(myNumberRegistDto)) {
-//				binding.rejectValue("other","Verification.myNumberRegistDto.verification");
-//				return "myNumberRegist";
-//			}
-//
-//		}
-//		return "partnerRegist";
-//	}
+		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
+		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
+		for (int i = 0; i < listdDependents.size(); i++) {
+			if (!listdDependents.get(i).getDependentsNameSei().equals(staffInfoModel.getStaffName())) {
+				binding.rejectValue("dependents",
+						"Test.dependentsInfoListModel.deference",
+						new Object[] {"扶養者" + (i+1)},
+						"dependents" );
+			}
+		}
+		return "partnerRegist";
+	}
 
 	@RequestMapping(value = "/partnerRegistBack", method = RequestMethod.POST)
 	public String doPartnerRegistBack(Model model) {

@@ -1,9 +1,12 @@
 package com.athuman.mynumber.web.service;
 
+import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
+import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
+
 public interface TACTService {
 	
-	public void readRegisteredStaff();
+	public TACTRegisteredStaffResponseDto registeredStaff(String himodukeNo);
 	
-	public void readMyNumber();
+	public TACTMyNumberResponseDto myNumber(String himodukeNo);
 
 }

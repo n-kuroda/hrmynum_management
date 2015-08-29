@@ -306,3 +306,6 @@ p.font12 label {
     margin-left: 95px;
     width: 95px;
 }
+form#partnerRegistForm .error {
+    text-align: left !important;
+}
