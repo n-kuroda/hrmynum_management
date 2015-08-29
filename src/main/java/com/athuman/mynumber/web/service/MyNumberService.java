@@ -1,13 +1,13 @@
 package com.athuman.mynumber.web.service;
 
-import com.athuman.mynumber.web.dto.ShainInfoModel;
-import com.athuman.mynumber.web.dto.StaffInfoModel;
+import com.athuman.mynumber.web.dto.ShainInfoDto;
+import com.athuman.mynumber.web.dto.StaffInfoDto;
 
 public interface MyNumberService {
 
-	public ShainInfoModel readShain(String shainNo);
-	
-	public StaffInfoModel readStaff(String staffNo);
-	
+	public ShainInfoDto readShain(String shainNo);
+
+	public StaffInfoDto readStaff(String staffNo);
+
 	public void addCollectionInfo();
 }

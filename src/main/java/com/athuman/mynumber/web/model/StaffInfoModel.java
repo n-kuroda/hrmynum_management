@@ -1,19 +1,11 @@
-package com.athuman.mynumber.web.dto;
+package com.athuman.mynumber.web.model;
 
 import java.io.Serializable;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class StaffInfoModel implements Serializable {
 
 	private static final long serialVersionUID = -1854357305260610275L;
 
-	@NotEmpty
-	@Size(min = 9, max = 9)
-	@Pattern(regexp = "^[0-9]*$")
 	private String staffNo;
 
 	private String staffName;

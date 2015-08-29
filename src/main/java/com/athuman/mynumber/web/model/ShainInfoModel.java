@@ -1,21 +1,11 @@
-package com.athuman.mynumber.web.dto;
+package com.athuman.mynumber.web.model;
 
 import java.io.Serializable;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 public class ShainInfoModel implements Serializable {
 
 	private static final long serialVersionUID = -957193794743603714L;
 
-	@NotEmpty
-	@Size(min = 6, max = 6)
-	@Pattern(regexp = "^[0-9]*$")
 	private String shainNo;
 	
 	private String shainNameSei;

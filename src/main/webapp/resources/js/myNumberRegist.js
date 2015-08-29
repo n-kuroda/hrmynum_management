@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#options").hide();
-	$('input[name="cardInfo"]').click(function() {
+	$('input[name="myNumberConfirm"]').click(function() {
 		if ($(this).index() === 0) {
 			$("#options").stop().slideUp();
 			$('input[type="checkbox"]').removeAttr('checked');

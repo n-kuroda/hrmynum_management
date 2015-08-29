@@ -1,5 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.athuman.mynumber.web.dto.StaffInfoModel;
+import com.athuman.mynumber.web.dto.StaffInfoDto;
+import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
 import com.athuman.mynumber.web.util.StringUtil;
 
@@ -26,66 +28,75 @@ public class StaffExistCheckController {
 	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.GET)
 	public String show(Model model) {
 
-		StaffInfoModel staffInfoModel = new StaffInfoModel();
-		model.addAttribute("staffInfoModel", staffInfoModel);
+		StaffInfoDto staffInfoDto = new StaffInfoDto();
+		model.addAttribute("staffInfoDto", staffInfoDto);
 		return "staffExistCheck";
 	}
 
 	// submit staffExistCheck page
 	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.POST)
-	public String search(@Valid StaffInfoModel staffInfoModel, BindingResult bindingResult, Model model) {
+	public String search(@Valid StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model) {
 
 		// check input value is valid or not
 		if (bindingResult.hasErrors()) {
-			staffInfoModel = new StaffInfoModel();
+			model.addAttribute("staffInfoModel", new StaffInfoModel());
 			return "staffExistCheck";
 		}
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		staffInfoModel = myNumberService.readStaff(staffInfoModel.getStaffNo());
-		if (staffInfoModel != null) { // success
+		StaffInfoDto staffInfoDto = myNumberService.readStaff(staffInfoDtoForm.getStaffNo());
+		if (staffInfoDto != null) { // success
 
-			model.addAttribute("staffInfo", getStaffInfo(staffInfoModel));
+			model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));
+
+			// convert data from StaffInfoDto to StaffInfoModel
+			StaffInfoModel staffInfoModel = new StaffInfoModel();
+			staffInfoModel.setStaffName(staffInfoDto.getStaffName());
+			staffInfoModel.setStaffNameKana(staffInfoDto.getStaffNameKana());
+			staffInfoModel.setStaffNo(staffInfoDto.getStaffNo());
+
 			model.addAttribute("staffInfoModel", staffInfoModel);
 
 		} else { // failed
 
-			staffInfoModel = new StaffInfoModel();
-			bindingResult.rejectValue("staffNo", "NotExist.staffInfoModel.staffNo");
+			model.addAttribute("staffInfoModel", new StaffInfoModel());
+			bindingResult.rejectValue("staffNo", "NotExist.staffInfoDto.staffNo");
 		}
 
 		return "staffExistCheck";
 	}
 
 	@RequestMapping(value = "/staffnext", method = RequestMethod.POST)
-	public String next(StaffInfoModel staffInfoModel, BindingResult bindingResult, Model model) {
+	public String next(StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model, HttpSession session) {
 
-		if (staffInfoModel!= null && 
+		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
+
+		if (staffInfoModel!= null &&
 				StringUtil.isNotEmpty(staffInfoModel.getStaffNo())) {
 
 			return "redirect:/purposeConsent";
 		} else {
-			bindingResult.rejectValue("staffNo", "Session.staffInfoModel.staffNo");
-			staffInfoModel = new StaffInfoModel();
+			bindingResult.rejectValue("staffNo", "Session.staffInfoDto.staffNo");
 			return "staffExistCheck";
 		}
 	}
 
 	@RequestMapping(value = "/staffback", method = RequestMethod.POST)
-	public String back(Model model) {
+	public String back(Model model, HttpSession sesion) {
 
+		sesion.invalidate();
 		return "redirect:/shainExistCheck";
 
 	}
 
 	/** get staff info*/
-	private String getStaffInfo(StaffInfoModel staffInfoModel) {
-		String staffInfo = staffInfoModel.getStaffName() +
-				"(" + staffInfoModel.getStaffNameKana() + ")";
+	private String getStaffInfo(StaffInfoDto staffInfoDto) {
+		String staffInfo = staffInfoDto.getStaffName() +
+				"(" + staffInfoDto.getStaffNameKana() + ")";
 		return staffInfo;
 	}
-	
+
 	public void setMyNumberService(MyNumberService myNumberService) {
 		this.myNumberService = myNumberService;
 	}

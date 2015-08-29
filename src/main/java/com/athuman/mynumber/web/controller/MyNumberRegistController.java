@@ -1,5 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -7,27 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.athuman.mynumber.web.dto.MyNumberRegistDto;
+import com.athuman.mynumber.web.model.StaffInfoModel;
 
 @Controller
+@SessionAttributes("myNumerRegistModel")
 public class MyNumberRegistController {
-
-	// inject staffExistCheckDto
-	private MyNumberRegistDto myNumberRegistDto;
-
 
 	// show myNumberRegist page
 	@RequestMapping(value = "/myNumberRegist", method = RequestMethod.GET)
-	public String show(Model model) {
+	public String show(Model model, HttpSession session) {
 
-		if (myNumberRegistDto != null) {
-			model.addAttribute("myNumberRegistDto", myNumberRegistDto);
-		} else {
-			myNumberRegistDto = new MyNumberRegistDto();
-			model.addAttribute("myNumberRegistDto", myNumberRegistDto);
+		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("myNumerRegistModel");
+		if (staffInfoModel == null) {
+			staffInfoModel = new StaffInfoModel();
 		}
 
+		model.addAttribute("myNumberRegistDto", staffInfoModel);
 		return "myNumberRegist";
 	}
 
@@ -37,19 +36,20 @@ public class MyNumberRegistController {
 
 		if (binding.hasErrors()) { // when form has error
 			return "myNumberRegist";
-		} else { // success
-
-			// TODO store data to session
-			myNumberRegistDto = processData(myNumber);
-
-			// check at last one check box selected
-			if (checkSelect(myNumberRegistDto)) {
-				binding.rejectValue("other","Verification.myNumberRegistDto.verification");
-				return "myNumberRegist";
-			}
-
-			return "partnerRegist";
 		}
+
+		// TODO store data to session
+		StaffInfoModel staffInfoModel = processData(myNumber);
+		model.addAttribute("myNumerRegistModel", staffInfoModel);
+
+		// check at last one check box selected
+		if (checkSelect(staffInfoModel)) {
+			binding.rejectValue("other","Verification.myNumberRegistDto.verification");
+			return "myNumberRegist";
+		}
+
+		return "partnerRegist";
+		
 	}
 
 	/** process data for store session
@@ -57,59 +57,60 @@ public class MyNumberRegistController {
 	 * @param myNumber
 	 * @return MyNumberRegistDto
 	 */
-	private MyNumberRegistDto processData(MyNumberRegistDto myNumber) {
-		MyNumberRegistDto mnRegist = new MyNumberRegistDto();
+	private StaffInfoModel processData(MyNumberRegistDto myNumber) {
+		StaffInfoModel mnRegist = new StaffInfoModel();
 		if (myNumber != null) {
+
 			// store my number
 			if (myNumber.getMyNumber() != null) {
 				mnRegist.setMyNumber(myNumber.getMyNumber());
 			}
 
-			// store card info
-			if (myNumber.getCardInfo() != null) {
-				mnRegist.setCardInfo(myNumber.getCardInfo());
+			// store MyNumber confirm
+			if (myNumber.getMyNumberConfirm() != null) {
+				mnRegist.setMyNumberConfirm(myNumber.getMyNumberConfirm());
 			}
 
 			// store driver license
-			if (myNumber.getDriverLicense() != null) {
-				mnRegist.setDriverLicense(myNumber.getDriverLicense());
+			if (myNumber.getDriversLicense() != null) {
+				mnRegist.setDriversLicense(myNumber.getDriversLicense());
 			} else {
-				mnRegist.setDriverLicense("0");
+				mnRegist.setDriversLicense("0");
 			}
 
-			// store driving career
-			if (myNumber.getDrivingExperience() != null) {
-				mnRegist.setDrivingExperience(myNumber.getDrivingExperience());
+			// store drive history license
+			if (myNumber.getDriveHistoryLicense() != null) {
+				mnRegist.setDriveHistoryLicense(myNumber.getDriveHistoryLicense());
 			} else {
-				mnRegist.setDrivingExperience("0");
+				mnRegist.setDriveHistoryLicense("0");
 			}
 
 			// store passport
-			if (myNumber.getPassport() != null) {
-				mnRegist.setPassport(myNumber.getPassport());
+			if (myNumber.getPassPort() != null) {
+				mnRegist.setPassPort(myNumber.getPassPort());
 			} else {
-				mnRegist.setPassport("0");
+				mnRegist.setPassPort("0");
 			}
 
-			// store health insurance
-			if (myNumber.getHealthInsurance() != null) {
-				mnRegist.setHealthInsurance(myNumber.getHealthInsurance());
+			// store body disabilities notebook
+			if (myNumber.getBodyDisabilitiesNotebook() != null) {
+				mnRegist.setBodyDisabilitiesNotebook(myNumber.getBodyDisabilitiesNotebook());
 			} else {
-				mnRegist.setHealthInsurance("0");
+				mnRegist.setBodyDisabilitiesNotebook("0");
 			}
 
-			// store insurance handbook
-			if (myNumber.getInsuranceHandbook() != null) {
-				mnRegist.setInsuranceHandbook(myNumber.getInsuranceHandbook());
+			// store mental disabilities notebook
+			if (myNumber.getMentalDisabilitiesNotebook() != null) {
+				mnRegist.setMentalDisabilitiesNotebook(myNumber.getMentalDisabilitiesNotebook());
 			} else {
-				mnRegist.setInsuranceHandbook("0");
+				mnRegist.setMentalDisabilitiesNotebook("0");
 			}
 
-			// store manual care
-			if (myNumber.getManualCare() != null) {
-				mnRegist.setManualCare(myNumber.getManualCare());
+			// store rehabilitation notebook
+			if (myNumber.getRehabilitationNotebook() != null) {
+				mnRegist.setRehabilitationNotebook(myNumber.getRehabilitationNotebook());
 			} else {
-				mnRegist.setManualCare("0");
+				mnRegist.setRehabilitationNotebook("0");
 			}
 
 			// store stay card
@@ -119,18 +120,25 @@ public class MyNumberRegistController {
 				mnRegist.setStayCard("0");
 			}
 
-			// store insurance card
-			if (myNumber.getInsuranceCard() != null) {
-				mnRegist.setInsuranceCard(myNumber.getInsuranceCard());
+			// store clear Person
+			if (myNumber.getClearPerson() != null) {
+				mnRegist.setClearPerson(myNumber.getClearPerson());
 			} else {
-				mnRegist.setInsuranceCard("0");
+				mnRegist.setClearPerson("0");
+			}
+
+			// store insurance card license
+			if (myNumber.getHealthInsuranceLicense() != null) {
+				mnRegist.setHealthInsuranceLicense(myNumber.getHealthInsuranceLicense());
+			} else {
+				mnRegist.setHealthInsuranceLicense("0");
 			}
 
 			// store pension book
-			if (myNumber.getPensionBook() != null) {
-				mnRegist.setPensionBook(myNumber.getPensionBook());
+			if (myNumber.getPensionNotebook() != null) {
+				mnRegist.setPensionNotebook(myNumber.getPensionNotebook());
 			} else {
-				mnRegist.setPensionBook("0");
+				mnRegist.setPensionNotebook("0");
 			}
 
 			// store other
@@ -146,12 +154,12 @@ public class MyNumberRegistController {
 
 	/** Check which radio is checked
 	 *
-	 * @param myNumberRegistDto
+	 * @param staffInfoModel
 	 * @return boolean
 	 */
-	private boolean checkSelect(MyNumberRegistDto myNumberRegistDto){
-		if (!"01".equals(myNumberRegistDto.getCardInfo())) {
-			if (checkVerification(myNumberRegistDto)) {
+	private boolean checkSelect(StaffInfoModel staffInfoModel){
+		if (!"01".equals(staffInfoModel.getMyNumberConfirm())) {
+			if (checkVerification(staffInfoModel)) {
 				return true;
 			}
 		}
@@ -160,60 +168,76 @@ public class MyNumberRegistController {
 
 	/** check at least one check box selected
 	 *
-	 * @param myNumberRegistDto
+	 * @param staffInfoModel
 	 * @return boolean
 	 */
-	private boolean checkVerification(MyNumberRegistDto myNumberRegistDto){
+	private boolean checkVerification(StaffInfoModel staffInfoModel){
 
+		boolean flag = true;
+		int checkTime = 0;
 		// check driver license
-		if ("1".equals(myNumberRegistDto.getDriverLicense())) {
-			return false;
+		if ("1".equals(staffInfoModel.getDriversLicense())) {
+			flag = false;
 		}
 
-		// check driving career
-		if ("1".equals(myNumberRegistDto.getDrivingExperience())) {
-			return false;
+		// check driving history license
+		if ("1".equals(staffInfoModel.getDriveHistoryLicense())) {
+			flag = false;
 		}
 
 		// check passport
-		if ("1".equals(myNumberRegistDto.getPassport())) {
-			return false;
+		if ("1".equals(staffInfoModel.getPassPort())) {
+			flag = false;
 		}
 
-		// check health insurance
-		if ("1".equals(myNumberRegistDto.getHealthInsurance())) {
-			return false;
+		// check body disabilities notebook
+		if ("1".equals(staffInfoModel.getBodyDisabilitiesNotebook())) {
+			flag = false;
 		}
 
-		// check insurance handbook
-		if ("1".equals(myNumberRegistDto.getInsuranceHandbook())) {
-			return false;
+		// check mental disabilities notebook
+		if ("1".equals(staffInfoModel.getMentalDisabilitiesNotebook())) {
+			flag = false;
 		}
 
-		// check manual care
-		if ("1".equals(myNumberRegistDto.getManualCare())) {
-			return false;
+		// check rehabilitation notebook
+		if ("1".equals(staffInfoModel.getRehabilitationNotebook())) {
+			flag = false;
 		}
 
 		// check stay card
-		if ("1".equals(myNumberRegistDto.getStayCard())) {
-			return false;
+		if ("1".equals(staffInfoModel.getStayCard())) {
+			flag = false;
 		}
 
-		// check insurance card
-		if ("1".equals(myNumberRegistDto.getInsuranceCard())) {
-			return false;
+		// check clear person
+		if ("1".equals(staffInfoModel.getClearPerson())) {
+			flag = false;
 		}
 
-		// check pension book
-		if ("1".equals(myNumberRegistDto.getPensionBook())) {
-			return false;
-		}
+		if (!flag) {
+			// check health insurance license
+			if ("1".equals(staffInfoModel.getHealthInsuranceLicense())) {
+				flag = false;
+				checkTime ++;
+			}
 
-		// check other
-		if ("1".equals(myNumberRegistDto.getOther())) {
-			return false;
+			// check pension book
+			if ("1".equals(staffInfoModel.getPensionNotebook())) {
+				flag = false;
+				checkTime ++;
+			}
+
+			// check other
+			if ("1".equals(staffInfoModel.getOther())) {
+				flag = false;
+				checkTime ++;
+			}
+
+			if (checkTime <= 1) {
+				flag = true;
+			}
 		}
-		return true;
+		return flag;
 	}
 }

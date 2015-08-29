@@ -1,5 +1,7 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,9 @@ public class PurposeConsentController {
 	}
 
 	@RequestMapping(value = "/purposeConsentBack", method = RequestMethod.POST)
-	public String doTransitBack(Model model) {
+	public String doTransitBack(Model model, HttpSession sesion) {
+		
+		sesion.invalidate();
 		return "redirect:/staffExistCheck";
 	}
 }

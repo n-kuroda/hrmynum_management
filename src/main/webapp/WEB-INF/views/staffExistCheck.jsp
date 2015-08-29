@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form id="staffExistCheckForm" methodParam="POST" commandName="staffInfoModel" action="staffExistCheck" class="mt40">
+				<form:form id="staffExistCheckForm" methodParam="POST" commandName="staffInfoDto" action="staffExistCheck" class="mt40">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
 					<form:label path="staffNo">
 						<spring:message text="スタッフNo"/>

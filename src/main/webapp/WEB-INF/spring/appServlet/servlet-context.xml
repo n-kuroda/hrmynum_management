@@ -49,8 +49,8 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
 			<beans:list>
-				<beans:value>com.athuman.mynumber.web.dto.ShainInfoModel</beans:value>
-				<beans:value>com.athuman.mynumber.web.dto.StaffInfoModel</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.ShainInfoDto</beans:value>
+				<beans:value>com.athuman.mynumber.web.dto.StaffInfoDto</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

@@ -4,8 +4,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.context.annotation.Scope;
-@Scope("session")
+
 public class MyNumberRegistDto {
 
 	@NotEmpty
@@ -14,25 +13,27 @@ public class MyNumberRegistDto {
 	private String myNumber;
 
 	@NotEmpty
-	private String cardInfo;
+	private String myNumberConfirm;
 
-	private String driverLicense;
+	private String driversLicense;
 
-	private String drivingExperience;
+	private String driveHistoryLicense;
 
-	private String passport;
+	private String passPort;
 
-	private String healthInsurance;
+	private String bodyDisabilitiesNotebook;
 
-	private String insuranceHandbook;
+	private String mentalDisabilitiesNotebook;
 
-	private String manualCare;
+	private String rehabilitationNotebook;
 
 	private String stayCard;
 
-	private String insuranceCard;
+	private String clearPerson;
 
-	private String pensionBook;
+	private String healthInsuranceLicense;
+
+	private String pensionNotebook;
 
 	private String other;
 
@@ -44,60 +45,60 @@ public class MyNumberRegistDto {
 		this.myNumber = myNumber;
 	}
 
-	public String getCardInfo() {
-		return cardInfo;
+	public String getMyNumberConfirm() {
+		return myNumberConfirm;
 	}
 
-	public void setCardInfo(String cardInfo) {
-		this.cardInfo = cardInfo;
+	public void setMyNumberConfirm(String myNumberConfirm) {
+		this.myNumberConfirm = myNumberConfirm;
 	}
 
-	public String getDriverLicense() {
-		return driverLicense;
+	public String getDriversLicense() {
+		return driversLicense;
 	}
 
-	public void setDriverLicense(String driverLicense) {
-		this.driverLicense = driverLicense;
+	public void setDriversLicense(String driversLicense) {
+		this.driversLicense = driversLicense;
 	}
 
-	public String getDrivingExperience() {
-		return drivingExperience;
+	public String getDriveHistoryLicense() {
+		return driveHistoryLicense;
 	}
 
-	public void setDrivingExperience(String drivingExperience) {
-		this.drivingExperience = drivingExperience;
+	public void setDriveHistoryLicense(String driveHistoryLicense) {
+		this.driveHistoryLicense = driveHistoryLicense;
 	}
 
-	public String getPassport() {
-		return passport;
+	public String getPassPort() {
+		return passPort;
 	}
 
-	public void setPassport(String passport) {
-		this.passport = passport;
+	public void setPassPort(String passPort) {
+		this.passPort = passPort;
 	}
 
-	public String getHealthInsurance() {
-		return healthInsurance;
+	public String getBodyDisabilitiesNotebook() {
+		return bodyDisabilitiesNotebook;
 	}
 
-	public void setHealthInsurance(String healthInsurance) {
-		this.healthInsurance = healthInsurance;
+	public void setBodyDisabilitiesNotebook(String bodyDisabilitiesNotebook) {
+		this.bodyDisabilitiesNotebook = bodyDisabilitiesNotebook;
 	}
 
-	public String getInsuranceHandbook() {
-		return insuranceHandbook;
+	public String getMentalDisabilitiesNotebook() {
+		return mentalDisabilitiesNotebook;
 	}
 
-	public void setInsuranceHandbook(String insuranceHandbook) {
-		this.insuranceHandbook = insuranceHandbook;
+	public void setMentalDisabilitiesNotebook(String mentalDisabilitiesNotebook) {
+		this.mentalDisabilitiesNotebook = mentalDisabilitiesNotebook;
 	}
 
-	public String getManualCare() {
-		return manualCare;
+	public String getRehabilitationNotebook() {
+		return rehabilitationNotebook;
 	}
 
-	public void setManualCare(String manualCare) {
-		this.manualCare = manualCare;
+	public void setRehabilitationNotebook(String rehabilitationNotebook) {
+		this.rehabilitationNotebook = rehabilitationNotebook;
 	}
 
 	public String getStayCard() {
@@ -108,20 +109,28 @@ public class MyNumberRegistDto {
 		this.stayCard = stayCard;
 	}
 
-	public String getInsuranceCard() {
-		return insuranceCard;
+	public String getClearPerson() {
+		return clearPerson;
 	}
 
-	public void setInsuranceCard(String insuranceCard) {
-		this.insuranceCard = insuranceCard;
+	public void setClearPerson(String clearPerson) {
+		this.clearPerson = clearPerson;
 	}
 
-	public String getPensionBook() {
-		return pensionBook;
+	public String getHealthInsuranceLicense() {
+		return healthInsuranceLicense;
 	}
 
-	public void setPensionBook(String pensionBook) {
-		this.pensionBook = pensionBook;
+	public void setHealthInsuranceLicense(String healthInsuranceLicense) {
+		this.healthInsuranceLicense = healthInsuranceLicense;
+	}
+
+	public String getPensionNotebook() {
+		return pensionNotebook;
+	}
+
+	public void setPensionNotebook(String pensionNotebook) {
+		this.pensionNotebook = pensionNotebook;
 	}
 
 	public String getOther() {
@@ -131,4 +140,5 @@ public class MyNumberRegistDto {
 	public void setOther(String other) {
 		this.other = other;
 	}
+
 }
