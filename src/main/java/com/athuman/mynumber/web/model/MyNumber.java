@@ -1,6 +1,7 @@
 package com.athuman.mynumber.web.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -90,8 +92,9 @@ public class MyNumber implements Serializable {
 	@Column(name = "SONOTA", nullable = false, length = 1)
 	private String sonota;
 	
-/*	@Column(name = "HONNIN_SYOMEI", nullable = false)   BLOB
-	private String honninSyomei;*/
+	@Column(name = "HONNIN_SYOMEI", nullable = false)//   BLOB
+	@Lob
+	private Blob honninSyomei;
 	
 	@Column(name = "KAKUNINSHA", nullable = false, length = 6)
 	private String kakuninsha;
@@ -364,5 +367,21 @@ public class MyNumber implements Serializable {
 	public void setDeleteTimeStamp(Date deleteTimeStamp) {
 		this.deleteTimeStamp = deleteTimeStamp;
 	}
+
+	public Blob getHonninSyomei() {
+		return honninSyomei;
+	}
+
+	public void setHonninSyomei(Blob honninSyomei) {
+		this.honninSyomei = honninSyomei;
+	}
+
+//	public Date getTorokuTimestamp() {
+//		return torokuTimestamp;
+//	}
+//
+//	public void setTorokuTimestamp(Date torokuTimestamp) {
+//		this.torokuTimestamp = torokuTimestamp;
+//	}
 
 }
