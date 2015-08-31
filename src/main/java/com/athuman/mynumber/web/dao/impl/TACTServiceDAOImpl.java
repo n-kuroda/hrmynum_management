@@ -19,7 +19,7 @@ public class TACTServiceDAOImpl implements TACTServiceDAO {
 	public List<MyNumber> queryMyNumberByHimodukeNo(String himodukeNo) {
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		List<MyNumber> list = session.createQuery("from MyNumber where HIMODUKE_NO = " + himodukeNo).list();
+		List<MyNumber> list = session.createQuery("from MyNumber where HIMODUKE_NO = '" + himodukeNo + "'").list();
 		
 		return list;
 	}

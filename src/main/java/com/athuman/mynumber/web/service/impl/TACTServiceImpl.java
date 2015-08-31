@@ -10,6 +10,7 @@ import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
 import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.TACTService;
+import com.athuman.mynumber.web.util.StringUtil;
 
 @Service
 public class TACTServiceImpl implements TACTService {
@@ -22,52 +23,70 @@ public class TACTServiceImpl implements TACTService {
 		TACTRegisteredStaffResponseDto dto = new TACTRegisteredStaffResponseDto();
 		
 		// check [himodukeNo] is valid or not
+		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 36 && 
+				StringUtil.isValid(himodukeNo)) {
 		
-		
-		// search [himodukeNo] in [MyNumber] table
-		List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
-		
-		if (list.size() == 0) {
-			dto.setHttpStatus(204);
-			dto.setResultMessage("検索結果が0件です。");
-			dto.setResult("0");
-		} else if (list.size() == 1) {
-			dto.setHttpStatus(200);
-			dto.setResultMessage("正常に処理は行われました。");
-			dto.setResult("1");
-		} else {
+			// search [himodukeNo] in [MyNumber] table
+			List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
+			
+			if (list.size() == 0) {
+				dto.setHttpStatus(204);
+				dto.setResultMessage("検索結果が0件です。");
+				dto.setResult("0");
+			} else if (list.size() == 1) {
+				dto.setHttpStatus(200);
+				dto.setResultMessage("正常に処理は行われました。");
+				dto.setResult("1");
+			} else {
+				dto.setHttpStatus(400);
+				dto.setResultMessage("予期せぬエラー。複数件取得されました。");
+				dto.setResult("0");
+			}
+			return dto;
+		} else { // invalid parameter
+
 			dto.setHttpStatus(400);
-			dto.setResultMessage("予期せぬエラー。複数件取得されました。");
+			dto.setResultMessage("リクエストが不正です。");
 			dto.setResult("0");
+			
+			return dto;
 		}
-		return dto;
-		
 	}
 
 	@Override
 	@Transactional
 	public TACTMyNumberResponseDto myNumber(String himodukeNo) {
+
 		TACTMyNumberResponseDto dto = new TACTMyNumberResponseDto();
 		// check [himodukeNo] is valid or not
+		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 12 && 
+				StringUtil.isValid(himodukeNo)) {
 		
-		
-		// search [himodukeNo] in [MyNumber] table
-		List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
-		
-		if (list.size() == 0) {
-			dto.setHttpStatus(204);
-			dto.setResultMessage("検索結果が0件です。");
-			dto.setMyNumber("");
-		} else if (list.size() == 1) {
-			dto.setHttpStatus(200);
-			dto.setResultMessage("正常に処理は行われました。");
-			dto.setMyNumber(list.get(0).getStaffMyNumber());
-		} else {
+			// search [himodukeNo] in [MyNumber] table
+			List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
+			
+			if (list.size() == 0) {
+				dto.setHttpStatus(204);
+				dto.setResultMessage("検索結果が0件です。");
+				dto.setMyNumber("");
+			} else if (list.size() == 1) {
+				dto.setHttpStatus(200);
+				dto.setResultMessage("正常に処理は行われました。");
+				dto.setMyNumber(list.get(0).getStaffMyNumber());
+			} else {
+				dto.setHttpStatus(400);
+				dto.setResultMessage("予期せぬエラー。複数件取得されました。");
+				dto.setMyNumber("");
+			}
+			return dto;
+		} else { // invalid parameter
+
 			dto.setHttpStatus(400);
-			dto.setResultMessage("予期せぬエラー。複数件取得されました。");
+			dto.setResultMessage("リクエストが不正です。");
 			dto.setMyNumber("");
+			
+			return dto;
 		}
-		return dto;
 	}
 
 	public void settACTServiceDAO(TACTServiceDAO tACTServiceDAO) {
