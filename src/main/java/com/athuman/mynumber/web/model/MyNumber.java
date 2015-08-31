@@ -2,6 +2,7 @@ package com.athuman.mynumber.web.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -102,14 +103,14 @@ public class MyNumber implements Serializable {
 	@Column(name = "TOROKU_USER", nullable = false, length = 6)
 	private String torokuUser;
 	
-//	@Column(name = "TOROKU_TIMESTAMP", nullable = false)
-//	private Date torokuTimestamp;
+	@Column(name = "TOROKU_TIMESTAMP", nullable = false)
+	private Timestamp torokuTimestamp;
 	
 	@Column(name = "LAST_UPDATE_USER", nullable = false, length = 6)
 	private String lastUpdateUser;
 	
 	@Column(name = "LAST_UPDATE_TIMESTAMP", nullable = false)
-	private Date lastUpdateTimeStamp;
+	private Timestamp lastUpdateTimeStamp;
 	
 	@Column(name = "DELETE_FLAG", nullable = false, length = 1)
 	private String deleteFlag;
@@ -336,11 +337,11 @@ public class MyNumber implements Serializable {
 		this.lastUpdateUser = lastUpdateUser;
 	}
 
-	public Date getLastUpdateTimeStamp() {
+	public Timestamp getLastUpdateTimeStamp() {
 		return lastUpdateTimeStamp;
 	}
 
-	public void setLastUpdateTimeStamp(Date lastUpdateTimeStamp) {
+	public void setLastUpdateTimeStamp(Timestamp lastUpdateTimeStamp) {
 		this.lastUpdateTimeStamp = lastUpdateTimeStamp;
 	}
 
@@ -376,12 +377,11 @@ public class MyNumber implements Serializable {
 		this.honninSyomei = honninSyomei;
 	}
 
-//	public Date getTorokuTimestamp() {
-//		return torokuTimestamp;
-//	}
-//
-//	public void setTorokuTimestamp(Date torokuTimestamp) {
-//		this.torokuTimestamp = torokuTimestamp;
-//	}
+	public Timestamp getTorokuTimestamp() {
+		return torokuTimestamp;
+	}
 
+	public void setTorokuTimestamp(Timestamp torokuTimestamp) {
+		this.torokuTimestamp = torokuTimestamp;
+	}
 }

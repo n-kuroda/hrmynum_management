@@ -40,7 +40,11 @@
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 
-						<div id="messageInfo">
+						<div id="messageInfo">						
+							<c:if test="${!empty staffNo}">
+								<spring:message text="スタッフNo: ${staffNo}"/>
+								<br />
+							</c:if>
 							<c:if test="${!empty staffInfo}">
 								<spring:message text="お名前: ${staffInfo}"/>
 								<br />

@@ -40,6 +40,10 @@
 					<div class="name">
 						
 						<div id="messageInfo">
+							<c:if test="${!empty employeeNo}">
+								<spring:message text="社員番号: ${employeeNo}"/>
+								<br />
+							</c:if>
 							<c:if test="${!empty shainInfo}">
 								<spring:message text="お名前: ${shainInfo}"/>
 								<br />

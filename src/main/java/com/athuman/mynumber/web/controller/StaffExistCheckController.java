@@ -1,7 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.athuman.mynumber.web.dto.StaffInfoDto;
+import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
 import com.athuman.mynumber.web.util.StringUtil;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 @SessionAttributes("staffInfoModel")
@@ -35,19 +36,23 @@ public class StaffExistCheckController {
 
 	// submit staffExistCheck page
 	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.POST)
-	public String search(@Valid StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model) {
+	public String search(StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model) {
 
 		// check input value is valid or not
-		if (bindingResult.hasErrors()) {
+		if (ValidateUtil.checkInputValid("staffNo", staffInfoDtoForm.getStaffNo(), bindingResult, 9).hasErrors()) {
 			model.addAttribute("staffInfoModel", new StaffInfoModel());
 			return "staffExistCheck";
 		}
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		StaffInfoDto staffInfoDto = myNumberService.readStaff(staffInfoDtoForm.getStaffNo());
-		if (staffInfoDto != null) { // success
+		StaffInfoResponseDto staffInfoResponseDto = myNumberService.readStaff(staffInfoDtoForm.getStaffNo());
 
+		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
+
+			StaffInfoDto staffInfoDto = staffInfoResponseDto.getStaffInfoDto();		
+
+			model.addAttribute("staffNo", staffInfoDtoForm.getStaffNo());
 			model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));
 
 			// convert data from StaffInfoDto to StaffInfoModel
@@ -55,13 +60,18 @@ public class StaffExistCheckController {
 			staffInfoModel.setStaffName(staffInfoDto.getStaffName());
 			staffInfoModel.setStaffNameKana(staffInfoDto.getStaffNameKana());
 			staffInfoModel.setStaffNo(staffInfoDto.getStaffNo());
-
+			// store to session
 			model.addAttribute("staffInfoModel", staffInfoModel);
 
-		} else { // failed
+		} else if (staffInfoResponseDto.getHttpStatus() == 204) { // error 204
 
 			model.addAttribute("staffInfoModel", new StaffInfoModel());
-			bindingResult.rejectValue("staffNo", "NotExist.staffInfoDto.staffNo");
+			bindingResult.rejectValue("staffNo", "I00001",
+					new Object[] {}, null);
+		} else { // other error
+			model.addAttribute("staffInfoModel", new StaffInfoModel());
+			bindingResult.rejectValue("staffNo", "S00001",
+					new Object[] { staffInfoDtoForm.getStaffNo() }, null);
 		}
 
 		return "staffExistCheck";
@@ -77,7 +87,7 @@ public class StaffExistCheckController {
 
 			return "redirect:/purposeConsent";
 		} else {
-			bindingResult.rejectValue("staffNo", "Session.staffInfoDto.staffNo");
+			bindingResult.rejectValue("staffNo", "V00001", new Object [] {"staffNo"}, null);
 			return "staffExistCheck";
 		}
 	}

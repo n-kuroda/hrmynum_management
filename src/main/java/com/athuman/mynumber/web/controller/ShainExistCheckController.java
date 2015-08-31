@@ -1,7 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.athuman.mynumber.web.dto.ShainInfoDto;
+import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
 import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
 import com.athuman.mynumber.web.util.StringUtil;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 @SessionAttributes("shainInfoModel")
@@ -35,37 +36,44 @@ public class ShainExistCheckController {
 
 	// submit shainExistCheck page
 	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.POST)
-	public String search(@Valid ShainInfoDto shainInfoDtoForm, BindingResult bindingResult, Model model) {
+	public String search(ShainInfoDto shainInfoDtoForm, BindingResult bindingResult, Model model) {
 		
 		// check input value is valid or not
-		if (bindingResult.hasErrors()) {
+		if (ValidateUtil.checkInputValid("shainNo", shainInfoDtoForm.getShainNo(), bindingResult, 6).hasErrors()) {
 			model.addAttribute("shainInfoModel", new ShainInfoModel());
 			return "shainExistCheck";
 		}
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		ShainInfoDto shainInfoDto = myNumberService.readShain(shainInfoDtoForm.getShainNo());
-		
-		if (shainInfoDto != null) { // success
+		ShainInfoResponseDto shainInfoResponseDto = myNumberService.readShain(shainInfoDtoForm.getShainNo());
 			
+		if (shainInfoResponseDto.getHttpStatus() == 200) { // OK
+			ShainInfoDto shainInfoDto = shainInfoResponseDto.getShainInfoDto();
+
+			model.addAttribute("employeeNo", shainInfoDtoForm.getShainNo());
 			model.addAttribute("shainInfo", getShainInfo(shainInfoDto));
-			
+
 			// convert data from dto to model and store to session
 			ShainInfoModel shainInfoModel = new ShainInfoModel();
-			
+
 			shainInfoModel.setShainNameMei(shainInfoDto.getShainNameMei());
 			shainInfoModel.setShainNameMeiKana(shainInfoDto.getShainNameMeiKana());
 			shainInfoModel.setShainNameSei(shainInfoDto.getShainNameSei());
 			shainInfoModel.setShainNameSeiKana(shainInfoDto.getShainNameSeiKana());
 			shainInfoModel.setShainNo(shainInfoDto.getShainNo());
-			
+			// store to session
 			model.addAttribute("shainInfoModel", shainInfoModel);
 
-		} else { // failed
-			
+		} else if (shainInfoResponseDto.getHttpStatus() == 204) { // error 204
+
 			model.addAttribute("shainInfoModel", new ShainInfoModel());
-			bindingResult.rejectValue("shainNo", "NotExist.shainInfoDto.shainNo");
+			bindingResult.rejectValue("shainNo", "I00001",
+					new Object[] {}, null);
+		} else { // other error
+			model.addAttribute("shainInfoModel", new ShainInfoModel());
+			bindingResult.rejectValue("shainNo", "S00001",
+					new Object[] { shainInfoDtoForm.getShainNo() }, null);
 		}
 
 		return "shainExistCheck";
@@ -82,7 +90,7 @@ public class ShainExistCheckController {
 			
 			return "redirect:/staffExistCheck";
 		} else {
-			bindingResult.rejectValue("shainNo", "Session.shainInfoDto.shainNo");
+			bindingResult.rejectValue("shainNo", "V00001", new Object [] {"shainNo"}, null);
 			shainInfoModel = new ShainInfoModel();
 			return "shainExistCheck";
 		}
@@ -99,4 +107,5 @@ public class ShainExistCheckController {
 	public void setMyNumberService(MyNumberService myNumberService) {
 		this.myNumberService = myNumberService;
 	}
+
 }
