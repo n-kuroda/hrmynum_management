@@ -29,69 +29,56 @@
             <div class="title_r">扶養者情報を入力してください。</div>
                 <form:form id="partnerRegistForm" action="partnerRegist" method="post" commandName="lstDependentsInfo" cssClass="mt10">
                 <form:errors path="*" cssClass="error" />
-                	<%
-                	for(int i = 1; i <= 10; i++) {
-                	%>
-                    <div class="box">
-		                <div class="titlebox">扶養者<%=i %></div>
+                <c:forEach items="${lstDependentsInfo.dependents}" var="dependent" varStatus="status">
+                	<div class="box">
+		                <div class="titlebox">扶養者${status.index + 1}</div>
                         <p class="font14 name">
                             <span>お名前</span>
                             <span class="lastname">(姓) </span>
-                            <input name="dependents[<%=i-1 %>].dependentsNameSei" value="${staffInfoModel.staffName}" type="text" class="lastname"/>
-                            <span>(名) </span><input type="text" class="firstname">
+                            <form:input path="dependents[${status.index}].dependentsNameSei" cssClass="lastname"/>
+                            <span>(名) </span>
+                            <form:input path="dependents[${status.index}].dependentsNameMei" cssClass="firstname"/>
                         </p>
                         <p class="font14" style="margin-top: -8px;">
                             <span>生年月日(西暦)</span>
-                            <select class="year">
-							  <option></option>
-                              <%for(int year = 1990; year <= 2020; year++) { %>
-							  	<option value=<%=year%>><%=year%></option>
-							  <%}%>
-							</select>
+                            <form:select path="dependents[${status.index}].dependentsBirthdayYear" cssClass="year">
+                            	<form:option value=""></form:option>
+                            	<form:options items="${listYear}"/>
+                            </form:select>
                             <span class="year">年 </span>
-                            <select class="month">
-							  <option></option>
-                              <%for(int month = 1; month <= 12; month++) { %>
-							  	<option value=<%=month%>><%=month%></option>
-							  <%}%>
-							</select>
+                            <form:select path="dependents[${status.index}].dependentsBirthdayMonth" cssClass="month">
+                            	<form:option value=""></form:option>
+                            	<form:options items="${listMonth}"/>
+                            </form:select>
 							<span class="month">月 </span>
-                            <select class="day">
-                              <option></option>
-                              <%for(int day = 1; day <= 31; day++) { %>
-							  	<option value=<%=day%>><%=day%></option>
-							  <%}%>
-							</select>
+                            <form:select path="dependents[${status.index}].dependentsBirthdayDay" cssClass="day">
+                            	<form:option value=""></form:option>
+                            	<form:options items="${listDay}"/>
+                            </form:select>
 							<span class="day">日</span>
                         </p>
                         <p class="font14" style="margin-top: -4px;">
                         	<span>続柄</span>
-                            <select class="relationship">
-                              <option></option>
-							  <option value="husband">夫</option>
-							  <option value="wife">妻</option>
-							  <option value="children">子供</option>
-							  <option value="father">父</option>
-							  <option value="mother">母</option>
-							  <option value="brother_sister">兄弟・姉妹</option>
-							  <option value="grandfather">祖父・祖母</option>
-							</select>
+                        	<form:select path="dependents[${status.index}].dependentsRelationship" cssClass="relationship">
+                            	<form:option value=""></form:option>
+                            	<form:options items="${listRelationship}"/>
+                            </form:select>
                         </p>
                         <p class="font14" style="margin-top: -8px;">
-                            <span>フリガナ</span>
-                            <span class="relationshipOther"></span><input type="text" class="relationshipOther">
+                            <span>続柄（その他）</span>
+                            <span class="relationshipOther"></span>
+                            <form:input path="dependents[${status.index}].dependentsRelationshipOther" cssClass="relationshipOther"/>
                         </p>
                         <p class="font14" style="margin-top: -4px;">
                         	<span>マイナンバー</span>
-                            <input type="text" class="mynumber">
-	                    	<button class="btn-clear">この扶養者の情報をクリアする</button>
+                            <form:input path="dependents[${status.index}].dependentsMyNumber" cssClass="mynumber"/>
+	                    	<button value="扶養者${status.index + 1}" class="btn-clear" onclick="return false;">この扶養者の情報をクリアする</button>
                         </p>
                     </div>
-                    <p/>
-                    <%} %>
+                </c:forEach>
                     <p>
-	                    <button class="btn-back mt20" onclick="backScreen();">戻る</button>
-	                    <button class="btn-next mt20">次へ</button>
+	                    <button class="btn-back" onclick="backScreen();">戻る</button>
+	                    <button class="btn-next" >次へ</button>
                     </p>
                 </form:form>
             </div>

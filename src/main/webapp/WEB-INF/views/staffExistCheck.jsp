@@ -40,7 +40,7 @@
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 
-						<div id="messageInfo">						
+						<div id="messageInfoStaffExistCheck">
 							<c:if test="${!empty staffNo}">
 								<spring:message text="スタッフNo: ${staffNo}"/>
 								<br />
@@ -54,7 +54,7 @@
 
 					</div>
 
-					<form:errors path="*" cssClass="error" />
+					<form:errors path="*" cssClass="errorStaffExistCheck" />
 					<form:button name="action" value="back" class="btn-next mt40" onclick="backScreen();">
 						<spring:message text="戻る" />
 					</form:button>

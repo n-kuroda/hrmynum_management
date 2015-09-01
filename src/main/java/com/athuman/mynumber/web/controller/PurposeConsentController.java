@@ -7,24 +7,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.athuman.mynumber.web.util.MyNumberJsp;
+import com.athuman.mynumber.web.util.MyNumberUrl;
+
 @Controller
 public class PurposeConsentController {
 
-	@RequestMapping(value = "/purposeConsent", method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.GET)
 	public String show(Model model) {
-		return "purposeConsent";
+		return MyNumberJsp.PURPOSE_CONSENT;
 	}
 
 	// submit purposeConsent page
-	@RequestMapping(value = "/purposeConsent", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.POST)
 	public String doTransitConsent(Model model) {
-		return "redirect:/myNumberRegist";
+		return MyNumberJsp.REDIRECT_MYNUMBER_REGIST;
 	}
 
-	@RequestMapping(value = "/purposeConsentBack", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.BACK_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String doTransitBack(Model model, HttpSession sesion) {
-		
-		sesion.invalidate();
-		return "redirect:/staffExistCheck";
+		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
 }

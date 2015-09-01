@@ -15,6 +15,8 @@ import com.athuman.mynumber.web.dto.ShainInfoDto;
 import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
 import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
+import com.athuman.mynumber.web.util.MyNumberJsp;
+import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
@@ -27,21 +29,21 @@ public class ShainExistCheckController {
 	private MyNumberService myNumberService;
 	
 	// display shainExistCheck page
-	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model) {
 		
 		model.addAttribute("shainInfoDto", new ShainInfoDto());
-		return "shainExistCheck";
+		return MyNumberJsp.SHAIN_EXIST_CHECK;
 	}
 
 	// submit shainExistCheck page
-	@RequestMapping(value = "/shainExistCheck", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String search(ShainInfoDto shainInfoDtoForm, BindingResult bindingResult, Model model) {
 		
 		// check input value is valid or not
-		if (ValidateUtil.checkInputValid("shainNo", shainInfoDtoForm.getShainNo(), bindingResult, 6).hasErrors()) {
+		if (ValidateUtil.checkInputValid("shainNo", "社員番号", shainInfoDtoForm.getShainNo(), bindingResult, 6).hasErrors()) {
 			model.addAttribute("shainInfoModel", new ShainInfoModel());
-			return "shainExistCheck";
+			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 
 		// call API to get data
@@ -73,14 +75,14 @@ public class ShainExistCheckController {
 		} else { // other error
 			model.addAttribute("shainInfoModel", new ShainInfoModel());
 			bindingResult.rejectValue("shainNo", "S00001",
-					new Object[] { shainInfoDtoForm.getShainNo() }, null);
+					new Object[] {"社員番号"}, null);
 		}
 
-		return "shainExistCheck";
+		return MyNumberJsp.SHAIN_EXIST_CHECK;
 
 	}
 
-	@RequestMapping(value = "/next", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.NEXT_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String next(ShainInfoDto shainInfoDtoForm, BindingResult bindingResult, Model model, HttpSession session) {
 
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
@@ -88,11 +90,11 @@ public class ShainExistCheckController {
 		if (shainInfoModel != null && 
 				StringUtil.isNotEmpty(shainInfoModel.getShainNo())) {
 			
-			return "redirect:/staffExistCheck";
+			return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 		} else {
-			bindingResult.rejectValue("shainNo", "V00001", new Object [] {"shainNo"}, null);
+			bindingResult.rejectValue("shainNo", "V00001", new Object [] {"社員番号"}, null);
 			shainInfoModel = new ShainInfoModel();
-			return "shainExistCheck";
+			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 	}
 	

@@ -28,8 +28,8 @@
             </div>
             <div id="content">
                 <form:form action="myNumberRegist" commandName="myNumberRegistDto" methodParam="POST" class="mt30">
-                	<form:errors path="*" cssClass="error" />
-                	<form:label path="myNumber" cssClass="color">
+                	<form:errors path="*" cssClass="errorMyNumberRegist" />
+                	<form:label path="myNumber" cssClass="color mt10">
 						<spring:message text="マイナンバー"/>
 					</form:label>
 					<form:input path="myNumber"/>

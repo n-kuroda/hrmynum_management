@@ -31,43 +31,46 @@
 			</div>
 			<div id="content">
 				<p class="txtCenter"><spring:message text="マイナンバー（個人情報）収集のための承諾のお願い" /></p>
-				<p><spring:message text="マイナンバー（個人番号）の利用目的" /></p>
+				<div id="purponeConsent">
 
-				<p>
-					<spring:message text="ヒューマンリソシア株式会社は、派遣スタッフの皆様及び皆様の扶養家族の個人番号（行政手続きにおける" />
-					<br />
-					<spring:message text="特定の個人を認識するための番号の利用等に関する法律に定める個人番号をいいます。）を以下の目的で" />
-					<br />
-					<spring:message text="利用します。（同法第18条）" />
-				</p>
+					<p><spring:message text="マイナンバー（個人番号）の利用目的" /></p>
 
-				<p>
-					<spring:message text="1.給与所得・退職所得の源泉徴収票作成事務" />
-					<br />
-					<spring:message text="2.雇用保険届出・申請事務" />
-					<br />
-					<spring:message text="3.健康保険・厚生年金保険届出・申請事務" />
-					<br />
-					<spring:message text="4.国民年金の第3号被保険者の届出に関する事務" />
-					<br />
-					<spring:message text="5.労働者災害補償保険法に基づく請求に関する事務" />
-				</p>
+					<p>
+						<spring:message text="ヒューマンリソシア株式会社は、派遣スタッフの皆様及び皆様の扶養家族の個人番号（行政手続きにおける" />
+						<br />
+						<spring:message text="特定の個人を認識するための番号の利用等に関する法律に定める個人番号をいいます。）を以下の目的で" />
+						<br />
+						<spring:message text="利用します。（同法第18条）" />
+					</p>
 
-				<p>
-					<spring:message text="質問および苦情処理の窓口" />
-					<br />
-					<spring:message text="ヒューマンリソシアは、特定個人情報の苦情や相談に関して、以下の相談窓口を設け、適切かつ迅速に対応し、" />
-					<br />
-					<spring:message text="問題の解決を図るように努めます。" />
-					<br />
-					<spring:message text="担当部署　：　コンプライアンス相談室" />
-					<br />
-					<spring:message text="ＴＥＬ　　：　0120-96-5288" />
-				</p>
+					<p>
+						<spring:message text="1.給与所得・退職所得の源泉徴収票作成事務" />
+						<br />
+						<spring:message text="2.雇用保険届出・申請事務" />
+						<br />
+						<spring:message text="3.健康保険・厚生年金保険届出・申請事務" />
+						<br />
+						<spring:message text="4.国民年金の第3号被保険者の届出に関する事務" />
+						<br />
+						<spring:message text="5.労働者災害補償保険法に基づく請求に関する事務" />
+					</p>
 
-				<p class="txtCenter">
-					<spring:message text="マイナンバーの利用目的を確認し、番号収集に承諾いたします。" />
-				</p>
+					<p>
+						<spring:message text="質問および苦情処理の窓口" />
+						<br />
+						<spring:message text="ヒューマンリソシアは、特定個人情報の苦情や相談に関して、以下の相談窓口を設け、適切かつ迅速に対応し、" />
+						<br />
+						<spring:message text="問題の解決を図るように努めます。" />
+						<br />
+						<spring:message text="担当部署　：　コンプライアンス相談室" />
+						<br />
+						<spring:message text="ＴＥＬ　　：　0120-96-5288" />
+					</p>
+
+					<p class="txtCenter">
+						<spring:message text="マイナンバーの利用目的を確認し、番号収集に承諾いたします。" />
+					</p>
+				</div>
 				<form id="perposeConsentForm" action="purposeConsent" method="post">
 					<button class="btn-next"  onclick="backScreen();">戻る</button>
 					<button class="btn-next">承諾</button>

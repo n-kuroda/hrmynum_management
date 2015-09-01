@@ -39,7 +39,7 @@
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 						
-						<div id="messageInfo">
+						<div id="messageInfoShainExistCheck">
 							<c:if test="${!empty employeeNo}">
 								<spring:message text="社員番号: ${employeeNo}"/>
 								<br />
@@ -53,7 +53,7 @@
 						</div>
 					</div>
 
-					<form:errors path="*" cssClass="error" />
+					<form:errors path="*" cssClass="errorShainExistCheck" />
 					<form:button class="btn-next mt40" onclick="checkDataValid();"><spring:message text="次へ" /></form:button>
 				</form:form>
 			</div>

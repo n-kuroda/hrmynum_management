@@ -17,25 +17,33 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/shainExistCheck.js"></script>
+<script src="resources/js/signature.js"></script>
 
 </head>
 <body>
 	<div id="wrapper">
-        <div id="main-content">
+        <div id="main-content-staffsignning">
             <div id="header" class="h40">
-                <div class="logo_s"></div>
+                <div class="logo_l"></div>
             </div>
             <div id="content">
-                <form:form commandName="staffSignningDto" action="staffSignning" method="post" class="txtCenterC">
-                	<spring:message text="以下に署名してください。" />
-                	<form:textarea cssClass="mt30" path="textArea"/>
-                    <form:button name="action" value="back" class="btn-next mt40" onclick="if(checkInput()){return false;}">
-						<spring:message text="戻る" />
-					</form:button>
-					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkInput()){return false;}">
-						<spring:message text="次へ" />
-					</form:button>
+                <form:form id= "staffSignningForm" commandName="staffSignningDto" action="staffSignning" method="post" class="txtCenterC">
+                	<div class="txtLeft mt10 mb10"><spring:message text="以下に署名してください。" /></div>
+                	<div id="signingImage">
+					</div>
+		
+					<script>
+ 						signatureCapture();
+					</script>
+					<div id="errorInfo">
+						<div id ="checkrequireSigning" style="color: red;">
+				       		<fmt:message key="V00001">
+				       			 <fmt:param value="signingImage"/>
+				       		</fmt:message>
+				      	</div>
+				    </div>
+                    <form:button value="back" class="btn-next mt40" onclick="backScreen();"><spring:message text="戻る" /></form:button>
+					<form:button class="btn-next mt40" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></form:button>
                 </form:form>
             </div>
         </div>

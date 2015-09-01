@@ -15,6 +15,8 @@ import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.service.MyNumberService;
+import com.athuman.mynumber.web.util.MyNumberJsp;
+import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
@@ -26,22 +28,22 @@ public class StaffExistCheckController {
 	@Qualifier(value="myNumberService")
 	private MyNumberService myNumberService;
 	
-	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model) {
 		
 		StaffInfoDto staffInfoDto = new StaffInfoDto();
 		model.addAttribute("staffInfoDto", staffInfoDto);
-		return "staffExistCheck";
+		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
 
 	// submit staffExistCheck page
-	@RequestMapping(value = "/staffExistCheck", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String search(StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model) {
 
 		// check input value is valid or not
-		if (ValidateUtil.checkInputValid("staffNo", staffInfoDtoForm.getStaffNo(), bindingResult, 9).hasErrors()) {
+		if (ValidateUtil.checkInputValid("staffNo", "スタッフNo", staffInfoDtoForm.getStaffNo(), bindingResult, 9).hasErrors()) {
 			model.addAttribute("staffInfoModel", new StaffInfoModel());
-			return "staffExistCheck";
+			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
 
 		// call API to get data
@@ -71,13 +73,13 @@ public class StaffExistCheckController {
 		} else { // other error
 			model.addAttribute("staffInfoModel", new StaffInfoModel());
 			bindingResult.rejectValue("staffNo", "S00001",
-					new Object[] { staffInfoDtoForm.getStaffNo() }, null);
+					new Object[] {"スタッフNo"}, null);
 		}
 
-		return "staffExistCheck";
+		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
 
-	@RequestMapping(value = "/staffnext", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.NEXT_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
 	public String next(StaffInfoDto staffInfoDtoForm, BindingResult bindingResult, Model model, HttpSession session) {
 
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
@@ -85,19 +87,16 @@ public class StaffExistCheckController {
 		if (staffInfoModel!= null &&
 				StringUtil.isNotEmpty(staffInfoModel.getStaffNo())) {
 
-			return "redirect:/purposeConsent";
+			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		} else {
-			bindingResult.rejectValue("staffNo", "V00001", new Object [] {"staffNo"}, null);
-			return "staffExistCheck";
+			bindingResult.rejectValue("staffNo", "V00001", new Object [] {"スタッフNo"}, null);
+			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
 	}
 
-	@RequestMapping(value = "/staffback", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.BACK_TO_SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String back(Model model, HttpSession sesion) {
-
-		sesion.invalidate();
-		return "redirect:/shainExistCheck";
-
+		return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 	}
 
 	/** get staff info*/

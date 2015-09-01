@@ -2,21 +2,12 @@ package com.athuman.mynumber.web.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class MyNumberRegistDto implements Serializable {
 
 	private static final long serialVersionUID = -2743699340471293639L;
 
-	@NotEmpty
-	@Size(min=12,max=12)
-	@Pattern(regexp = "^[0-9]*$")
 	private String myNumber;
 
-	@NotEmpty
 	private String myNumberConfirm;
 
 	private String driversLicense;

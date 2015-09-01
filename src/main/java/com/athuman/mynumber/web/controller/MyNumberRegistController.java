@@ -1,7 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +11,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.athuman.mynumber.web.dto.MyNumberRegistDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.MyNumberJsp;
+import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.StringUtil;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 @SessionAttributes("myNumerRegistModel")
 public class MyNumberRegistController {
 
 	// show myNumberRegist page
-	@RequestMapping(value = "/myNumberRegist", method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("myNumerRegistModel");
@@ -27,28 +30,30 @@ public class MyNumberRegistController {
 		}
 
 		model.addAttribute("myNumberRegistDto", staffInfoModel);
-		return "myNumberRegist";
+		return MyNumberJsp.MYNUMBER_REGIST;
 	}
 
 	// submit myNumberRegist page
-	@RequestMapping(value = "/myNumberRegist", method = RequestMethod.POST)
-	public String doNext(@Valid MyNumberRegistDto myNumber, BindingResult binding, Model model) {
+	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.POST)
+	public String doNext(MyNumberRegistDto myNumber, BindingResult binding, Model model) {
 
-		if (binding.hasErrors()) { // when form has error
-			return "myNumberRegist";
+		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumber.getMyNumber(), binding, 12).hasErrors()) { // when form has error
+			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-
-		// TODO store data to session
+		if (!StringUtil.isNotEmpty(myNumber.getMyNumberConfirm())) {
+			binding.rejectValue("myNumberConfirm", "V00001", new Object [] {"マイナンバー確認書類"}, null);
+		}
+		// store data to session
 		StaffInfoModel staffInfoModel = processData(myNumber);
 		model.addAttribute("myNumerRegistModel", staffInfoModel);
 
 		// check at last one check box selected
 		if (checkSelect(staffInfoModel)) {
-			binding.rejectValue("other","Verification.myNumberRegistDto.verification");
-			return "myNumberRegist";
+			binding.rejectValue("other","V00004");
+			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 
-		return "redirect:/partnerRegist";
+		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
 
 	}
 
@@ -62,87 +67,87 @@ public class MyNumberRegistController {
 		if (myNumber != null) {
 
 			// store my number
-			if (myNumber.getMyNumber() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getMyNumber())) {
 				mnRegist.setMyNumber(myNumber.getMyNumber());
 			}
 
 			// store MyNumber confirm
-			if (myNumber.getMyNumberConfirm() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getMyNumberConfirm())) {
 				mnRegist.setMyNumberConfirm(myNumber.getMyNumberConfirm());
 			}
 
 			// store driver license
-			if (myNumber.getDriversLicense() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getDriversLicense())) {
 				mnRegist.setDriversLicense(myNumber.getDriversLicense());
 			} else {
 				mnRegist.setDriversLicense("0");
 			}
 
 			// store drive history license
-			if (myNumber.getDriveHistoryLicense() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getDriveHistoryLicense())) {
 				mnRegist.setDriveHistoryLicense(myNumber.getDriveHistoryLicense());
 			} else {
 				mnRegist.setDriveHistoryLicense("0");
 			}
 
 			// store passport
-			if (myNumber.getPassPort() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getPassPort())) {
 				mnRegist.setPassPort(myNumber.getPassPort());
 			} else {
 				mnRegist.setPassPort("0");
 			}
 
 			// store body disabilities notebook
-			if (myNumber.getBodyDisabilitiesNotebook() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getBodyDisabilitiesNotebook())) {
 				mnRegist.setBodyDisabilitiesNotebook(myNumber.getBodyDisabilitiesNotebook());
 			} else {
 				mnRegist.setBodyDisabilitiesNotebook("0");
 			}
 
 			// store mental disabilities notebook
-			if (myNumber.getMentalDisabilitiesNotebook() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getMentalDisabilitiesNotebook())) {
 				mnRegist.setMentalDisabilitiesNotebook(myNumber.getMentalDisabilitiesNotebook());
 			} else {
 				mnRegist.setMentalDisabilitiesNotebook("0");
 			}
 
 			// store rehabilitation notebook
-			if (myNumber.getRehabilitationNotebook() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getRehabilitationNotebook())) {
 				mnRegist.setRehabilitationNotebook(myNumber.getRehabilitationNotebook());
 			} else {
 				mnRegist.setRehabilitationNotebook("0");
 			}
 
 			// store stay card
-			if (myNumber.getStayCard() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getStayCard())) {
 				mnRegist.setStayCard(myNumber.getStayCard());
 			} else {
 				mnRegist.setStayCard("0");
 			}
 
 			// store clear Person
-			if (myNumber.getClearPerson() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getClearPerson())) {
 				mnRegist.setClearPerson(myNumber.getClearPerson());
 			} else {
 				mnRegist.setClearPerson("0");
 			}
 
 			// store insurance card license
-			if (myNumber.getHealthInsuranceLicense() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getHealthInsuranceLicense())) {
 				mnRegist.setHealthInsuranceLicense(myNumber.getHealthInsuranceLicense());
 			} else {
 				mnRegist.setHealthInsuranceLicense("0");
 			}
 
 			// store pension book
-			if (myNumber.getPensionNotebook() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getPensionNotebook())) {
 				mnRegist.setPensionNotebook(myNumber.getPensionNotebook());
 			} else {
 				mnRegist.setPensionNotebook("0");
 			}
 
 			// store other
-			if (myNumber.getOther() != null) {
+			if (StringUtil.isNotEmpty(myNumber.getOther())) {
 				mnRegist.setOther(myNumber.getOther());
 			} else {
 				mnRegist.setOther("0");
