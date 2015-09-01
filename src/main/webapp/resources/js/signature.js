@@ -159,7 +159,7 @@ function signatureSave() {
 		localStorage.setObject("signature", dataURL);
 		console.log(dataURL);
 		
-		var form = document.forms["staffSignningForm"].action = "staffSignning"; // TODO: change to partnerRegistBack
+		var form = document.forms["staffSignningForm"].action = "staffSignning";
 		form.submit();
 	}
 };
