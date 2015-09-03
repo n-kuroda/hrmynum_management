@@ -324,9 +324,9 @@ div#purponeConsent {
     margin-left: 10px;
 }
 #content #partnerRegistForm select.year {
-	margin-left: 30px;
+    margin-left: 30px;
     width: 116px;
-	height: 30px;
+    height: 30px;
 }
 #content #partnerRegistForm select.month,
 #content #partnerRegistForm select.day {
@@ -449,4 +449,8 @@ margin-left: -52px;
     color: red;
     display: inline-block;
     margin-left: 165px;
+}
+.messagecomplete {
+	margin-top: 50px;
+	margin-bottom: 50px;
 }

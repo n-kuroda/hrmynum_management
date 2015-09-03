@@ -14,17 +14,15 @@ public class MyNumberJsp {
 	// S3
 	public static final String PURPOSE_CONSENT = "purposeConsent";
 	public static final String REDIRECT_MYNUMBER_REGIST = "redirect:/myNumberRegist";
-	
+
 	// S4
 	public static final String MYNUMBER_REGIST = "myNumberRegist";
 	public static final String REDIRECT_PARTNER_REGIST = "redirect:/partnerRegist";
 
-	// S5
-	public static final String PARTNER_REGIST = "partnerRegist";
+	// S7
+	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";
 
-	// S6
-	public static final String STAFF_SIGNNING = "staffSignning";
-	public static final String REDIRECT_STAFF_SIGNNING = "redirect:/staffSignning";
-	public static final String REGIST_CONFIRM = "registConfirm";
-	
+	// S8
+	public static final String REGIST_COMPLETE = "registComplete";
+
 }

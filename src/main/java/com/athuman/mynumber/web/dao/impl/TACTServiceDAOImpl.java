@@ -18,10 +18,16 @@ public class TACTServiceDAOImpl implements TACTServiceDAO {
 	@Override
 	public List<MyNumber> queryMyNumberByHimodukeNo(String himodukeNo) {
 		Session session = this.sessionFactory.getCurrentSession();
-		
+
 		List<MyNumber> list = session.createQuery("from MyNumber where HIMODUKE_NO = '" + himodukeNo + "'").list();
-		
+
 		return list;
+	}
+
+	@Override
+	public void addMyNumber(MyNumber myNumber) {
+		// TODO Auto-generated method stub
+
 	}
 
 	public void setSessionFactory(SessionFactory sf) {

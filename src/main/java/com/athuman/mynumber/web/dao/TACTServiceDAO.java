@@ -8,5 +8,6 @@ public interface TACTServiceDAO {
 
 	/** Query [MyNumber] table by himodukeNo*/
 	public List<MyNumber> queryMyNumberByHimodukeNo(String himodukeNo);
-	
+
+	public void addMyNumber(MyNumber myNumber);
 }

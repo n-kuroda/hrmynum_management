@@ -1,6 +1,7 @@
 package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,7 @@ public class MyNumberRegistController {
 
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.POST)
-	public String doNext(MyNumberRegistDto myNumber, BindingResult binding, Model model) {
+	public String doNext(@Valid MyNumberRegistDto myNumber, BindingResult binding, Model model) {
 
 		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumber.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;

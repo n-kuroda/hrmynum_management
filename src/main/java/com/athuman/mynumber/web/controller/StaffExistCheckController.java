@@ -27,10 +27,10 @@ public class StaffExistCheckController {
 	@Autowired(required=true)
 	@Qualifier(value="myNumberService")
 	private MyNumberService myNumberService;
-	
+
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model) {
-		
+
 		StaffInfoDto staffInfoDto = new StaffInfoDto();
 		model.addAttribute("staffInfoDto", staffInfoDto);
 		return MyNumberJsp.STAFF_EXIST_CHECK;
@@ -52,7 +52,7 @@ public class StaffExistCheckController {
 
 		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
 
-			StaffInfoDto staffInfoDto = staffInfoResponseDto.getStaffInfoDto();		
+			StaffInfoDto staffInfoDto = staffInfoResponseDto.getStaffInfoDto();
 
 			model.addAttribute("staffNo", staffInfoDtoForm.getStaffNo());
 			model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));

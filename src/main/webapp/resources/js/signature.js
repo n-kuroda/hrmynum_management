@@ -159,15 +159,10 @@ function signatureSave() {
 		localStorage.setObject("signature", dataURL);
 		console.log(dataURL);
 		
-		var form = document.forms["staffSignningForm"].action = "staffSignning";
+		var form = document.forms["staffSignningForm"].action = "staffSignning"; // TODO: change to partnerRegistBack
 		form.submit();
 	}
 };
-
-function backScreen() {
-	var form = document.forms["staffSignningForm"].action = "backToPartnerRegist";
-	form.submit();
-}
 
 Storage.prototype.setObject = function(key, value) {
     this.setItem(key, JSON.stringify(value));

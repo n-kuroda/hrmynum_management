@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
-import com.athuman.mynumber.web.util.MyNumberJsp;
-import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
@@ -29,7 +27,7 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class PartnerRegistController {
 
 	// show partnerRegist page
-	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.GET)
+	@RequestMapping(value = "/partnerRegist", method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("lstDependentsSesion");
@@ -39,11 +37,11 @@ public class PartnerRegistController {
 		}
 		initModelList(model);
 		model.addAttribute("lstDependentsInfo", lstDependents);
-		return MyNumberJsp.PARTNER_REGIST;
+		return "partnerRegist";
 	}
 
 	// submit partnerRegist page
-	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.POST)
+	@RequestMapping(value = "/partnerRegist", method = RequestMethod.POST)
 	public String doPartnerRegistNext(
 			@ModelAttribute("lstDependentsInfo")DependentsInfoListModel lstDependentsInfo,
 			BindingResult binding, Model model, HttpSession session) {
@@ -60,15 +58,15 @@ public class PartnerRegistController {
 		// when form has error
 		if (binding.hasErrors()) {
 			initModelList(model);
-			return MyNumberJsp.PARTNER_REGIST;
+			return "partnerRegist";
 		}
 
 		// when form don't has error store session
 		storeSession(model, lstDependentsInfo, staffInfoModel);
-		return MyNumberJsp.REDIRECT_STAFF_SIGNNING;
+		return "redirect:/staffSignning";
 	}
 
-	@RequestMapping(value = MyNumberUrl.BACK_TO_MYNUMBER_REGIST, method = RequestMethod.POST)
+	@RequestMapping(value = "/partnerRegistBack", method = RequestMethod.POST)
 	public String doPartnerRegistBack(Model model,
 			@ModelAttribute("lstDependentsInfo")DependentsInfoListModel lstDependentsInfo,
 			HttpSession session) {
@@ -77,7 +75,7 @@ public class PartnerRegistController {
 		StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		// store session
 		storeSession(model, lstDependentsInfo, staffSession);
-		return MyNumberJsp.REDIRECT_MYNUMBER_REGIST;
+		return "redirect:/myNumberRegist";
 	}
 
 	/** Store DependentsInfoList to session
