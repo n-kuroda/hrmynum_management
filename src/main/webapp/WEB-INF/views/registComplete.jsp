@@ -17,8 +17,6 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/signature.js"></script>
-
 
 </head>
 <body>

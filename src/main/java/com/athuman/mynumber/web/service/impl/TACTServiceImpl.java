@@ -14,21 +14,21 @@ import com.athuman.mynumber.web.util.StringUtil;
 
 @Service
 public class TACTServiceImpl implements TACTService {
-	
+
 	private TACTServiceDAO tACTServiceDAO;
 
 	@Override
 	@Transactional
 	public TACTRegisteredStaffResponseDto registeredStaff(String himodukeNo) {
 		TACTRegisteredStaffResponseDto dto = new TACTRegisteredStaffResponseDto();
-		
+
 		// check [himodukeNo] is valid or not
-		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 36 && 
+		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 36 &&
 				StringUtil.isValid(himodukeNo)) {
-		
+
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
-			
+
 			if (list.size() == 0) {
 				dto.setHttpStatus(204);
 				dto.setResultMessage("検索結果が0件です。");
@@ -48,7 +48,7 @@ public class TACTServiceImpl implements TACTService {
 			dto.setHttpStatus(400);
 			dto.setResultMessage("リクエストが不正です。");
 			dto.setResult("0");
-			
+
 			return dto;
 		}
 	}
@@ -59,12 +59,12 @@ public class TACTServiceImpl implements TACTService {
 
 		TACTMyNumberResponseDto dto = new TACTMyNumberResponseDto();
 		// check [himodukeNo] is valid or not
-		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 12 && 
+		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 12 &&
 				StringUtil.isValid(himodukeNo)) {
-		
+
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = tACTServiceDAO.queryMyNumberByHimodukeNo(himodukeNo);
-			
+
 			if (list.size() == 0) {
 				dto.setHttpStatus(204);
 				dto.setResultMessage("検索結果が0件です。");
@@ -84,7 +84,7 @@ public class TACTServiceImpl implements TACTService {
 			dto.setHttpStatus(400);
 			dto.setResultMessage("リクエストが不正です。");
 			dto.setMyNumber("");
-			
+
 			return dto;
 		}
 	}
@@ -92,5 +92,5 @@ public class TACTServiceImpl implements TACTService {
 	public void settACTServiceDAO(TACTServiceDAO tACTServiceDAO) {
 		this.tACTServiceDAO = tACTServiceDAO;
 	}
-	
+
 }

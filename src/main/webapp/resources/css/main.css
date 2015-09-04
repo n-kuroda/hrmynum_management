@@ -454,3 +454,8 @@ margin-left: -52px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
+.pesonal_information label {
+    font-size: 16px !important;
+    padding: 0px !important;
+    text-align: left !important;
+}

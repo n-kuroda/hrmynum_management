@@ -3,15 +3,24 @@ package com.athuman.mynumber.web.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.athuman.mynumber.web.dao.MyNumberDAO;
 import com.athuman.mynumber.web.dto.ShainInfoDto;
 import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
 import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
+import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
+import com.athuman.mynumber.web.dto.TACTRegistConfirmDto;
+import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.MyNumberService;
 
 @Service
 public class MyNumberServiceImpl implements MyNumberService {
 
+	private MyNumberDAO myNumberDAO;
+
+	public void setMyNumberDAO(MyNumberDAO myNumberDAO) {
+		this.myNumberDAO = myNumberDAO;
+	}
 	@Override
 //	@Transactional
 	public ShainInfoResponseDto readShain(String shainNo) {
@@ -83,4 +92,21 @@ public class MyNumberServiceImpl implements MyNumberService {
 	public void addCollectionInfo() {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	@Transactional
+	public String registMyNumber(MyNumber myNumber) {
+
+		return myNumberDAO.addMyNumber(myNumber);
+	}
+
+	@Override
+	public TACTMyNumberResponseDto registrationInformationCollected(TACTRegistConfirmDto tactRegistration) {
+		TACTMyNumberResponseDto responseDto = new TACTMyNumberResponseDto();
+		responseDto.setHttpStatus(204);
+		responseDto.setMyNumber("");
+		responseDto.setResultMessage("");
+		return responseDto;
+	}
+
 }

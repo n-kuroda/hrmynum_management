@@ -77,5 +77,10 @@
 		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
 	</beans:bean>
 
-	<beans:bean id="myNumberService" class="com.athuman.mynumber.web.service.impl.MyNumberServiceImpl" />
+	<beans:bean id="myNumberDAO" class="com.athuman.mynumber.web.dao.impl.MyNumberDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="myNumberService" class="com.athuman.mynumber.web.service.impl.MyNumberServiceImpl" >
+		<beans:property name="myNumberDAO" ref="myNumberDAO"></beans:property>
+	</beans:bean>
 </beans:beans>

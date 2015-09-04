@@ -27,168 +27,50 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-                <form:form action="aaaaa" method="post">
+            	${tactMyNumber.httpStatus}
+                <form:form action="registConfirm" method="post" commandName="registConfirmDto">
+                	<form:errors path="*" cssClass="error" />
                 	<div class="pesonal_information mt10">
 	                	<div><spring:message text="【本人情報】" /></div>
 	                	<div>
-	                		<spring:message text="お名前：" />
-	                		<spring:message text="${staffInfoModel.staffName }(${staffInfoModel.staffNameKana })様" />
+	                		<form:label path="staffName">
+	                			<spring:message text="お名前：" />
+	                			<spring:message text="${registConfirmDto.staffName }" />
+	                		</form:label>
 	                	</div>
 	                	<div>
-	                		<spring:message text="マイナンバー：" />
-	                		<spring:message text="${myNumerRegistModel.myNumber }" />
+	                		<form:label path="myNumber">
+	                			<spring:message text="マイナンバー：" />
+	                			<spring:message text="${registConfirmDto.myNumber }" />
+	                		</form:label>
 	                	</div>
 	                	<div>
-	                		<spring:message text="マイナンバー確認書類：" />
-	                		<c:if test="${myNumerRegistModel.myNumberConfirm == '01' }">
-	                			<spring:message text="個人番号カード" />
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.myNumberConfirm == '02' }">
-	                			<spring:message text="通知カード" />
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.myNumberConfirm == '03' }">
-	                			<spring:message text="番号が記載された住民票のコピー" />
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.myNumberConfirm == '04' }">
-	                			<spring:message text="番号が記載された住民票記載事項証明書" />
-	                		</c:if>
+	                		<form:label path="myNumberConfirm">
+	                			<spring:message text="マイナンバー確認書類：" />
+	                			<spring:message text="${registConfirmDto.myNumberConfirm }" />
+	                		</form:label>
 	                	</div>
 	                	<div>
+
 	                		<c:if test="${myNumerRegistModel.myNumberConfirm != '01' }">
-	                			<spring:message text="本人確認書類：" />
+	                			<form:label path="identification">
+		                			<spring:message text="本人確認書類：" />
+		                			<spring:message text="${registConfirmDto.identification }" />
+		                		</form:label>
 	                		</c:if>
 
-	                		<c:set var="isFirst" value="true"/>
-							<c:if test="${myNumerRegistModel.driversLicense == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="運転免許証" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 運転免許証" />
-								    </c:otherwise>
-								</c:choose>
-							</c:if>
-							<c:if test="${myNumerRegistModel.driveHistoryLicense == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="運転経歴証明書" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 運転経歴証明書" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.passPort == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="パスポート" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", パスポート" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.bodyDisabilitiesNotebook == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="身体障碍者手帳" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 身体障碍者手帳" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.mentalDisabilitiesNotebook == '1'}">
-	                			<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="精神障碍者保健福祉手帳" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 精神障碍者保健福祉手帳" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.rehabilitationNotebook == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="療育手帳" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 療育手帳" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.stayCard == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="在留カード" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 在留カード" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.clearPerson == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="本人であることが明らか" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 本人であることが明らか" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.healthInsuranceLicense == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="健康保険被保険者証" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 健康保険被保険者証" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.pensionNotebook == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="年金手帳" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", 年金手帳" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
-	                		<c:if test="${myNumerRegistModel.other == '1'}">
-								<c:choose>
-								    <c:when test="${isFirst == 'true'}">
-			                			<spring:message text="その他" />
-										<c:set var="isFirst" value="false"/>
-								    </c:when>
-								    <c:otherwise>
-								        <spring:message text=", その他" />
-								    </c:otherwise>
-								</c:choose>
-	                		</c:if>
 	                	</div>
                 	</div>
-                    <div class="personsigning"><img id="signature"></div>
+                    <div class="personsigning">
+                    	<img id="signature">
+                    	<form:hidden path="staffSignning"/>
+                    </div>
                     <script>
                     	initScreen();
                     </script>
                     <div class="dependents_information mt30">
 	                    <div><spring:message text="【扶養者情報】" /></div>
-	                    <c:forEach items="${lstDependentsSesion.dependents}" var="dependent" varStatus="status">
+	                    <c:forEach items="${registConfirmDto.lstDependents}" var="dependent" varStatus="status">
 	                    	<c:if test="${! empty dependent.dependentsNameMei }">
 			                    <div><spring:message text="扶養者${status.index + 1}" /></div>
 			                    <div class="dependent1">
@@ -249,7 +131,7 @@
                 		<spring:message text="上記の内容で登録します。よろしいですか？" />
                 	</div>
                 	<p>
-	                   <button class="btn-goback mt20" >
+	                   <button class="btn-goback mt20" onclick="backScreen();">
 	                    	<spring:message text="戻る" />
 	                    </button>
 	                    <button class="btn-registration mt20">

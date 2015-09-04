@@ -20,6 +20,8 @@ public class MyNumberUrl {
 
 	// S7
 	public static final String REGISTCONFIRM = "/registConfirm";
+	public static final String REGISTCONFIRM_BACK = "/registConfirmBack";
+
 
 	// S8
 	public static final String REGIST_COMPLETE = "/registComplete";

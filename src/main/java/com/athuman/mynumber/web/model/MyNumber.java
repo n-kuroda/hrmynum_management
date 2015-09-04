@@ -1,7 +1,6 @@
 package com.athuman.mynumber.web.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -23,101 +22,101 @@ public class MyNumber implements Serializable {
 	@Id
 	@Column(name = "HIMODUKE_NO", nullable = false, length = 36)
 	private String himodukeNo;
-	
+
 	@Column(name = "STAFF_MYNUMBER", nullable = false, length = 12)
 	private String staffMyNumber;
-	
+
 	@Column(name = "FUYO1_MYNUMBER", length = 12)
 	private String fuyo1MyNumber;
-	
+
 	@Column(name = "FUYO2_MYNUMBER", length = 12)
 	private String fuyo2MyNumber;
-	
+
 	@Column(name = "FUYO3_MYNUMBER", length = 12)
 	private String fuyo3MyNumber;
-	
+
 	@Column(name = "FUYO4_MYNUMBER", length = 12)
 	private String fuyo4MyNumber;
-	
+
 	@Column(name = "FUYO5_MYNUMBER", length = 12)
 	private String fuyo5MyNumber;
-	
+
 	@Column(name = "FUYO6_MYNUMBER", length = 12)
 	private String fuyo6MyNumber;
-	
+
 	@Column(name = "FUYO7_MYNUMBER", length = 12)
 	private String fuyo7MyNumber;
-	
+
 	@Column(name = "FUYO8_MYNUMBER", length = 12)
 	private String fuyo8MyNumber;
-	
+
 	@Column(name = "FUYO9_MYNUMBER", length = 12)
 	private String fuyo9MyNumber;
-	
+
 	@Column(name = "FUYO10_MYNUMBER", length = 12)
 	private String fuyo10MyNumber;
-	
+
 	@Column(name = "MYNUMBER_KAKUNINSHORUI", nullable = false, length = 2)
 	private String myNumberKakuninshorui;
-	
+
 	@Column(name = "UNTEN_MENKYOSHO", nullable = false, length = 1)
 	private String untenMenkyyosho;
-	
+
 	@Column(name = "UNTEN_KEIREKI_SHOUMEISHO", nullable = false, length = 1)
 	private String untenKeirekiShoumeisho;
-	
+
 	@Column(name = "PASSPORT", nullable = false, length = 1)
 	private String passport;
-	
+
 	@Column(name = "SHINTAI_SHOGAISHA_TECHO", nullable = false, length = 1)
 	private String shintaiShogaishaTecho;
-	
+
 	@Column(name = "SEISHIN_SHOGAISHA_TECHO", nullable = false, length = 1)
 	private String seishinShogaishaTecho;
-	
+
 	@Column(name = "RYOIKU_TECHO", nullable = false, length = 1)
 	private String ryoikuTecho;
-	
+
 	@Column(name = "ZAIRYU_CARD", nullable = false, length = 1)
 	private String zairyuCard;
-	
+
 	@Column(name = "HONNIN_AKIRAKA", nullable = false, length = 1)
 	private String honninAkiraka;
-	
+
 	@Column(name = "KENKO_HOKENSHASHO", nullable = false, length = 1)
 	private String kenkoHokenshasho;
-	
+
 	@Column(name = "NENKIN_TECHO", nullable = false, length = 1)
 	private String nenkonTecho;
-	
+
 	@Column(name = "SONOTA", nullable = false, length = 1)
 	private String sonota;
-	
+
 	@Column(name = "HONNIN_SYOMEI", nullable = false)//   BLOB
 	@Lob
-	private Blob honninSyomei;
-	
+	private byte[] honninSyomei;
+
 	@Column(name = "KAKUNINSHA", nullable = false, length = 6)
 	private String kakuninsha;
-	
+
 	@Column(name = "TOROKU_USER", nullable = false, length = 6)
 	private String torokuUser;
-	
+
 	@Column(name = "TOROKU_TIMESTAMP", nullable = false)
 	private Timestamp torokuTimestamp;
-	
+
 	@Column(name = "LAST_UPDATE_USER", nullable = false, length = 6)
 	private String lastUpdateUser;
-	
+
 	@Column(name = "LAST_UPDATE_TIMESTAMP", nullable = false)
 	private Timestamp lastUpdateTimeStamp;
-	
+
 	@Column(name = "DELETE_FLAG", nullable = false, length = 1)
 	private String deleteFlag;
-	
+
 	@Column(name = "DELETE_USER", length = 6)
 	private String deleteUser;
-	
+
 	@Column(name = "DELETE_TIMESTAMP")
 	private Date deleteTimeStamp;
 
@@ -369,11 +368,11 @@ public class MyNumber implements Serializable {
 		this.deleteTimeStamp = deleteTimeStamp;
 	}
 
-	public Blob getHonninSyomei() {
+	public byte[] getHonninSyomei() {
 		return honninSyomei;
 	}
 
-	public void setHonninSyomei(Blob honninSyomei) {
+	public void setHonninSyomei(byte[] honninSyomei) {
 		this.honninSyomei = honninSyomei;
 	}
 
