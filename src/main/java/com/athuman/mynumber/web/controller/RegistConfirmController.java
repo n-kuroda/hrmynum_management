@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.dto.RegistConfirmDto;
 import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
 import com.athuman.mynumber.web.dto.TACTRegistConfirmDto;
@@ -108,9 +109,13 @@ public class RegistConfirmController {
 			DependentsInfoListModel dependentInfo){
 		RegistConfirmDto registConfirmDto = new RegistConfirmDto();
 		registConfirmDto.setStaffName(getStaffName(staffInfo));
-		registConfirmDto.setMyNumberConfirm(getMyNumberConfirm(myNumberRegist));
-		registConfirmDto.setIdentification(getIdentification(myNumberRegist));
-		registConfirmDto.setMyNumber(myNumberRegist.getMyNumber());
+		
+		if (myNumberRegist != null) {
+			registConfirmDto.setMyNumberConfirm(getMyNumberConfirm(myNumberRegist));
+			registConfirmDto.setIdentification(getIdentification(myNumberRegist));
+			registConfirmDto.setMyNumber(myNumberRegist.getMyNumber());
+		}
+
 		registConfirmDto.setLstDependents(dependentInfo.getDependents());
 		model.addAttribute("registConfirmDto", registConfirmDto );
 	}
@@ -208,34 +213,42 @@ public class RegistConfirmController {
 	 * @param dependentInfo
 	 * @return MyNumber
 	 */
-	private MyNumber setData4MyNumber (StaffInfoModel staffInfo, String uuid, ShainInfoModel shainInfoModel,
+	private MyNumber setData4MyNumber(StaffInfoModel staffInfo, String uuid, ShainInfoModel shainInfoModel,
 			StaffInfoModel myNumberRegist, DependentsInfoListModel dependentInfo, RegistConfirmDto registConfirmDto){
 		MyNumber myNumber = new MyNumber();
 		Date today = new Date();
 		myNumber.setHimodukeNo(uuid);
-		myNumber.setStaffMyNumber(myNumberRegist.getMyNumber());
-		myNumber.setFuyo1MyNumber(dependentInfo.getDependents().get(0).getDependentsMyNumber());
-		myNumber.setFuyo2MyNumber(dependentInfo.getDependents().get(1).getDependentsMyNumber());
-		myNumber.setFuyo3MyNumber(dependentInfo.getDependents().get(2).getDependentsMyNumber());
-		myNumber.setFuyo4MyNumber(dependentInfo.getDependents().get(3).getDependentsMyNumber());
-		myNumber.setFuyo5MyNumber(dependentInfo.getDependents().get(4).getDependentsMyNumber());
-		myNumber.setFuyo6MyNumber(dependentInfo.getDependents().get(5).getDependentsMyNumber());
-		myNumber.setFuyo7MyNumber(dependentInfo.getDependents().get(6).getDependentsMyNumber());
-		myNumber.setFuyo8MyNumber(dependentInfo.getDependents().get(7).getDependentsMyNumber());
-		myNumber.setFuyo9MyNumber(dependentInfo.getDependents().get(8).getDependentsMyNumber());
-		myNumber.setFuyo10MyNumber(dependentInfo.getDependents().get(9).getDependentsMyNumber());
-		myNumber.setMyNumberKakuninshorui(myNumberRegist.getMyNumberConfirm());
-		myNumber.setUntenKeirekiShoumeisho(myNumberRegist.getDriveHistoryLicense());
-		myNumber.setUntenMenkyyosho(myNumberRegist.getDriversLicense());
-		myNumber.setPassport(myNumberRegist.getPassPort());
-		myNumber.setShintaiShogaishaTecho(myNumberRegist.getBodyDisabilitiesNotebook());
-		myNumber.setSeishinShogaishaTecho(myNumberRegist.getMentalDisabilitiesNotebook());
-		myNumber.setRyoikuTecho(myNumberRegist.getRehabilitationNotebook());
-		myNumber.setZairyuCard(myNumberRegist.getStayCard());
-		myNumber.setHonninAkiraka(myNumberRegist.getClearPerson());
-		myNumber.setKenkoHokenshasho(myNumberRegist.getHealthInsuranceLicense());
-		myNumber.setNenkonTecho(myNumberRegist.getPensionNotebook());
-		myNumber.setSonota(myNumberRegist.getOther());
+		
+		List<Dependents> dependents = dependentInfo.getDependents();
+		if (dependents != null) {
+			myNumber.setFuyo1MyNumber(dependents.get(0).getDependentsMyNumber());
+			myNumber.setFuyo2MyNumber(dependents.get(1).getDependentsMyNumber());
+			myNumber.setFuyo3MyNumber(dependents.get(2).getDependentsMyNumber());
+			myNumber.setFuyo4MyNumber(dependents.get(3).getDependentsMyNumber());
+			myNumber.setFuyo5MyNumber(dependents.get(4).getDependentsMyNumber());
+			myNumber.setFuyo6MyNumber(dependents.get(5).getDependentsMyNumber());
+			myNumber.setFuyo7MyNumber(dependents.get(6).getDependentsMyNumber());
+			myNumber.setFuyo8MyNumber(dependents.get(7).getDependentsMyNumber());
+			myNumber.setFuyo9MyNumber(dependents.get(8).getDependentsMyNumber());
+			myNumber.setFuyo10MyNumber(dependents.get(9).getDependentsMyNumber());
+		}
+
+		if (myNumberRegist != null) {
+			myNumber.setStaffMyNumber(myNumberRegist.getMyNumber());
+			myNumber.setMyNumberKakuninshorui(myNumberRegist.getMyNumberConfirm());
+			myNumber.setUntenKeirekiShoumeisho(myNumberRegist.getDriveHistoryLicense());
+			myNumber.setUntenMenkyyosho(myNumberRegist.getDriversLicense());
+			myNumber.setPassport(myNumberRegist.getPassPort());
+			myNumber.setShintaiShogaishaTecho(myNumberRegist.getBodyDisabilitiesNotebook());
+			myNumber.setSeishinShogaishaTecho(myNumberRegist.getMentalDisabilitiesNotebook());
+			myNumber.setRyoikuTecho(myNumberRegist.getRehabilitationNotebook());
+			myNumber.setZairyuCard(myNumberRegist.getStayCard());
+			myNumber.setHonninAkiraka(myNumberRegist.getClearPerson());
+			myNumber.setKenkoHokenshasho(myNumberRegist.getHealthInsuranceLicense());
+			myNumber.setNenkonTecho(myNumberRegist.getPensionNotebook());
+			myNumber.setSonota(myNumberRegist.getOther());
+		}
+
 		myNumber.setHonninSyomei(registConfirmDto.getStaffSignning());
 		myNumber.setKakuninsha("123456");// unknow field
 		myNumber.setTorokuUser(shainInfoModel.getShainNo());

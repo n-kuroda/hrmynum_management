@@ -35,8 +35,8 @@
 					<form:label path="staffNo">
 						<spring:message text="スタッフNo"/>
 					</form:label>
-					<form:input path="staffNo"/>
-					<form:button name="action" value="search" class="btn-next mt40" onclick="if(checkInput()){return false;}">
+					<form:input path="staffNo" cssErrorClass="error"/>
+					<form:button name="action" value="search" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 
@@ -55,10 +55,13 @@
 					</div>
 
 					<form:errors path="*" cssClass="errorStaffExistCheck" />
+					<div id ="checkStaffNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
 					<form:button name="action" value="back" class="btn-next mt40" onclick="backScreen();">
 						<spring:message text="戻る" />
 					</form:button>
-					<form:button name="action" value="next" class="btn-next mt40" onclick="checkDataValid();">
+					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkDataValid()){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
 				</form:form>

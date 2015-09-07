@@ -36,11 +36,14 @@
  						signatureCapture();
 					</script>
 					<div id="errorInfo">
-						<div id ="checkrequireSigning" style="color: red;">
+						<div id ="checkrequireSigning">
 				       		<fmt:message key="V00001">
-				       			 <fmt:param value="signingImage"/>
+				       			 <fmt:param value="署名"/>
 				       		</fmt:message>
 				      	</div>
+				      	<div id ="checkSignningNetworkOffLine">
+							<fmt:message key="I00002"/>
+						</div>
 				    </div>
                     <form:button value="back" class="btn-next mt40" onclick="backScreen();"><spring:message text="戻る" /></form:button>
 					<form:button class="btn-next mt40" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></form:button>

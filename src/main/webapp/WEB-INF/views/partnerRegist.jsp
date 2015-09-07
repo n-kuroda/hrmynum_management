@@ -28,30 +28,33 @@
             <div id="content">
             <div class="title_r">扶養者情報を入力してください。</div>
                 <form:form id="partnerRegistForm" action="partnerRegist" method="post" commandName="lstDependentsInfo" cssClass="mt10">
-                <form:errors path="*" cssClass="error" />
+                <form:errors path="*" cssClass="errorPartnerRegist" />
+                <div id ="checkPartnerNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
                 <c:forEach items="${lstDependentsInfo.dependents}" var="dependent" varStatus="status">
                 	<div class="box">
 		                <div class="titlebox">扶養者${status.index + 1}</div>
                         <p class="font14 name">
                             <span>お名前</span>
                             <span class="lastname">(姓) </span>
-                            <form:input path="dependents[${status.index}].dependentsNameSei" cssClass="lastname"/>
+                            <form:input path="dependents[${status.index}].dependentsNameSei" cssClass="lastname" cssErrorClass="error lastname"/>
                             <span>(名) </span>
-                            <form:input path="dependents[${status.index}].dependentsNameMei" cssClass="firstname"/>
+                            <form:input path="dependents[${status.index}].dependentsNameMei" cssClass="firstname" cssErrorClass="error firstname"/>
                         </p>
                         <p class="font14" style="margin-top: -8px;">
                             <span>生年月日(西暦)</span>
-                            <form:select path="dependents[${status.index}].dependentsBirthdayYear" cssClass="year">
+                            <form:select path="dependents[${status.index}].dependentsBirthdayYear" cssClass="year" cssErrorClass="error year">
                             	<form:option value=""></form:option>
                             	<form:options items="${listYear}"/>
                             </form:select>
                             <span class="year">年 </span>
-                            <form:select path="dependents[${status.index}].dependentsBirthdayMonth" cssClass="month">
+                            <form:select path="dependents[${status.index}].dependentsBirthdayMonth" cssClass="month" cssErrorClass="error month">
                             	<form:option value=""></form:option>
                             	<form:options items="${listMonth}"/>
                             </form:select>
 							<span class="month">月 </span>
-                            <form:select path="dependents[${status.index}].dependentsBirthdayDay" cssClass="day">
+                            <form:select path="dependents[${status.index}].dependentsBirthdayDay" cssClass="day" cssErrorClass="error day">
                             	<form:option value=""></form:option>
                             	<form:options items="${listDay}"/>
                             </form:select>
@@ -59,7 +62,7 @@
                         </p>
                         <p class="font14" style="margin-top: -4px;">
                         	<span>続柄</span>
-                        	<form:select path="dependents[${status.index}].dependentsRelationship" cssClass="relationship">
+                        	<form:select path="dependents[${status.index}].dependentsRelationship" cssClass="relationship" cssErrorClass="error relationship">
                             	<form:option value=""></form:option>
                             	<form:options items="${listRelationship}"/>
                             </form:select>
@@ -67,18 +70,18 @@
                         <p class="font14" style="margin-top: -8px;">
                             <span>続柄（その他）</span>
                             <span class="relationshipOther"></span>
-                            <form:input path="dependents[${status.index}].dependentsRelationshipOther" cssClass="relationshipOther"/>
+                            <form:input path="dependents[${status.index}].dependentsRelationshipOther" cssClass="relationshipOther" cssErrorClass="error relationshipOther"/>
                         </p>
                         <p class="font14" style="margin-top: -4px;">
                         	<span>マイナンバー</span>
-                            <form:input path="dependents[${status.index}].dependentsMyNumber" cssClass="mynumber"/>
+                            <form:input path="dependents[${status.index}].dependentsMyNumber" cssClass="mynumber" cssErrorClass="error mynumber"/>
 	                    	<button value="扶養者${status.index + 1}" class="btn-clear" onclick="return false;">この扶養者の情報をクリアする</button>
                         </p>
                     </div>
                 </c:forEach>
                     <p>
-	                    <button class="btn-back" onclick="backScreen();">戻る</button>
-	                    <button class="btn-next" >次へ</button>
+	                    <button class="btn-back" onclick="if(backScreen()){return false;}">戻る</button>
+	                    <button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">次へ</button>
                     </p>
                 </form:form>
             </div>

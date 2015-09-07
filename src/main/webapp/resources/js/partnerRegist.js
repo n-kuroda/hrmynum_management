@@ -1,6 +1,10 @@
 function backScreen() {
-	var form = document.forms["partnerRegistForm"].action = "partnerRegistBack";
-	form.submit();
+	if (checkNetworkOffLine()) {
+		return true;
+	} else {
+		var form = document.forms["partnerRegistForm"].action = "partnerRegistBack";
+		form.submit();
+	}
 };
 
 $(document).ready(function() {
@@ -12,3 +16,17 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function checkNetworkOffLine() {
+	if (!navigator.onLine) {
+		var requireSigning = document.getElementById('checkPartnerNetworkOffLine');
+		requireSigning.style.display = 'block';
+		var errorOther = document.getElementById('lstDependentsInfo.errors');
+		if(errorOther != null) {
+			errorOther.style.display = 'none';
+		}
+		return true;
+	} else {
+		return false;
+	}
+}

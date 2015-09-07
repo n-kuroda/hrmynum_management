@@ -13,3 +13,12 @@ function backScreen() {
 	var form = document.forms["registConfirmDto"].action = "registConfirmBack";
 	form.submit();
 };
+function checkNetworkOffLine() {
+	if (!navigator.onLine) {
+		var requireSigning = document.getElementById('checkRegistNetworkOffLine');
+		requireSigning.style.display = 'block';
+		return true;
+	} else {
+		return false;
+	}
+}

@@ -31,7 +31,9 @@ public class PartnerRegistController {
 	public String show(Model model, HttpSession session) {
 
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("lstDependentsSesion");
-		if (lstDependents == null) {
+		if (lstDependents == null ||
+				lstDependents.getDependents() == null) {
+
 			StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 			lstDependents = initDataForm(staffSession);
 		}

@@ -34,8 +34,8 @@
 					<form:label path="shainNo">
 						<spring:message text="社員番号"/>
 					</form:label>
-					<form:input path="shainNo"/>
-					<form:button class="btn-next mt40">
+					<form:input path="shainNo" cssErrorClass="error"/>
+					<form:button class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 						
@@ -49,12 +49,13 @@
 								<br />
 								<spring:message text="よろしければ「次へ」ボタンを押してください。"/>
 							</c:if>
-							
 						</div>
 					</div>
-
 					<form:errors path="*" cssClass="errorShainExistCheck" />
-					<form:button class="btn-next mt40" onclick="checkDataValid();"><spring:message text="次へ" /></form:button>
+					<div id ="checkShainNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
+					<form:button class="btn-next mt40" onclick="if(checkDataValid()){return false;}"><spring:message text="次へ" /></form:button>
 				</form:form>
 			</div>
 		</div>

@@ -339,9 +339,6 @@ div#purponeConsent {
     width: 95px;
     height: 30px;
 }
-form#partnerRegistForm .error {
-    text-align: left !important;
-}
 #checkrequireSigning{
 	display: none;
 }
@@ -422,7 +419,7 @@ margin-left: -52px;
     font-size: 12px;
     color: red;
     display: inline-block;
-    margin-left: 220px;
+    margin-left: 225px;
 }
 #content form span.errorStaffExistCheck {
     text-align: left;
@@ -458,4 +455,67 @@ margin-left: -52px;
     font-size: 16px !important;
     padding: 0px !important;
     text-align: left !important;
+}
+.error {
+    border: 1px solid #ff0000;
+}
+.errorPartnerRegist {
+	text-align: left;
+	width: 100%;
+    margin-top: 15px;
+    font-size: 12px;
+    color: red;
+    display: inline-block;
+}
+#checkShainNetworkOffLine {
+    text-align: left;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 12px;
+    color: red;
+    margin-left: 225px;
+	display: none;
+}
+#checkStaffNetworkOffLine {
+    text-align: left;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 12px;
+    color: red;
+    margin-left: 225px;
+	display: none;
+}
+#checkPurposeNetworkOffLine, #checkRegistNetworkOffLine {
+	text-align: center;
+    width: 100%;
+	margin-top: 15px;
+    font-size: 12px;
+    color: red;
+	margin-bottom: 15px;
+	display: none;
+}
+#checkMyNumberNetworkOffLine {
+	text-align: left;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 12px;
+    color: red;
+    margin-left: 165px;
+	display: none;
+}
+#checkPartnerNetworkOffLine {
+	text-align: left;
+    width: 100%;
+    font-size: 12px;
+    color: red;  
+	margin-bottom: 10px;
+	display: none;
+}
+#checkSignningNetworkOffLine, #checkrequireSigning {
+	text-align: center;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 12px;
+    color: red;
+	display: none;
 }

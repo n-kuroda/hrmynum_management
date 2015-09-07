@@ -72,8 +72,12 @@
 					</p>
 				</div>
 				<form id="perposeConsentForm" action="purposeConsent" method="post">
-					<button class="btn-next"  onclick="backScreen();">戻る</button>
-					<button class="btn-next">承諾</button>
+					<div id ="checkPurposeNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
+					<button class="btn-next"  onclick="if(backScreen()){return false;}">戻る</button>
+					<button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">承諾</button>
+					<button class="btn-next" onclick="if(skipToSignning()){return false;}">非承諾</button>
 				</form>
 			</div>
 		</div>

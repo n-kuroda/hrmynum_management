@@ -10,3 +10,17 @@ $(document).ready(function() {
 	})
 	.filter(":checked").trigger("click");
 });
+
+function checkNetworkOffLine() {
+	if (!navigator.onLine) {
+		var requireSigning = document.getElementById('checkMyNumberNetworkOffLine');
+		requireSigning.style.display = 'block';
+		var errorOther = document.getElementById('myNumberRegistDto.errors');
+		if(errorOther != null) {
+			errorOther.style.display = 'none';
+		}
+		return true;
+	} else {
+		return false;
+	}
+}

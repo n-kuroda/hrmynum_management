@@ -51,49 +51,49 @@ public class ValidateUtil {
 
 			// check DependentsNameSei is required
 			if ("".equals(dependents.getDependentsNameSei())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 						"V00009", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
 			// check DependentsNameSei >= 26 characters
 			if (dependents.getDependentsNameSei().length() >= 26) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（姓）", "26"}, null );
 			}
 
 			// check format nameSei
 			if (!is2ByteCharacters(dependents.getDependentsNameSei())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（姓）"}, null );
 			}
 
 			// check DependentsNameMei >= 26 characters
 			if (dependents.getDependentsNameMei().length() >= 26) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（名）", "26"}, null );
 			}
 
 			// check format nameMei
 			if (!is2ByteCharacters(dependents.getDependentsNameMei())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（名）"}, null );
 			}
 
 			// check year invalid
 			if (checkYearInvalidRange(dependents.getDependentsBirthdayYear())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
 						"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（年）"}, null );
 			}
 
 			// check month invalid
 			if (checkMonthInvalidRange(dependents.getDependentsBirthdayMonth())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
 						"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（月）"}, null );
 			}
 
 			// check day invalid
 			if (checkDayInvalidRange(dependents.getDependentsBirthdayDay())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 						"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（日）"}, null );
 			}
 
@@ -101,27 +101,27 @@ public class ValidateUtil {
 			if (!isThisDateValid(dependents.getDependentsBirthdayYear(),
 					dependents.getDependentsBirthdayMonth(),
 					dependents.getDependentsBirthdayDay())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 						"V00007", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
 			// check code DependentsRelationship invalid
 			if (checkRelationshipInvalid(dependents.getDependentsRelationship())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
 						"V00013", new Object[] {"扶養者" + (index + 1), "続柄"}, null );
 			}
 
 			// check DependentsRelationshipOther
 			if ("07".equals(dependents.getDependentsRelationship()) &&
 					"".equals(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00014", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
 			// check DependentsRelationshipOther
 			if (!"07".equals(dependents.getDependentsRelationship()) &&
 					!"".equals(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00015", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
@@ -129,19 +129,19 @@ public class ValidateUtil {
 			if ("07".equals(dependents.getDependentsRelationship()) &&
 					!"".equals(dependents.getDependentsRelationshipOther()) &&
 					!is2ByteCharacters(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00011", new Object[] {"扶養者" + (index + 1), "続柄（その他）"}, null );
 			}
 
 			// check DependentsMyNumber must be 12 characters
 			if (dependents.getDependentsMyNumber().length() != 12) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
 						"V00010", new Object[] {"扶養者" + (index + 1), "マイナンバー", "12"}, null );
 			}
 
 			// check format My number
 			if (checkFormatField("^[0-9]*$",dependents.getDependentsMyNumber())) {
-				bindingResult.rejectValue("dependents",
+				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
 						"V00012", new Object[] {"扶養者" + (index + 1), "マイナンバー"}, null );
 			}
 		}

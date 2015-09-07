@@ -147,22 +147,44 @@ function signatureCapture() {
 }
 
 function signatureSave() {
-	
-	if (isDrawn == false) {
-		var requireSigning = document.getElementById('checkrequireSigning');
-		requireSigning.style.display = 'block';
+	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var canvas = document.getElementById("newSignature");	
-		// save canvas image as data url (png format by default)
-		var dataURL = canvas.toDataURL("image/png");
-		localStorage.setObject("signature", dataURL);
-		console.log(dataURL);
-		
-		var form = document.forms["staffSignningForm"].action = "staffSignning"; // TODO: change to partnerRegistBack
-		form.submit();
+		if (isDrawn == false) {
+			var requireSigning = document.getElementById('checkrequireSigning');
+			requireSigning.style.display = 'block';
+			return true;
+		} else {
+			var canvas = document.getElementById("newSignature");	
+			// save canvas image as data url (png format by default)
+			var dataURL = canvas.toDataURL("image/png");
+			localStorage.setObject("signature", dataURL);
+			console.log(dataURL);
+			
+			var form = document.forms["staffSignningForm"].action = "staffSignning"; // TODO: change to partnerRegistBack
+			form.submit();
+		}
 	}
 };
+
+function checkNetworkOffLine() {
+	if (!navigator.onLine) {
+		var requireSigning = document.getElementById('checkSignningNetworkOffLine');
+		requireSigning.style.display = 'block';
+		var errorOther = document.getElementById('checkrequireSigning');
+		if(errorOther != null) {
+			errorOther.style.display = 'none';
+		}
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function backScreen() {
+	var form = document.forms["staffSignningForm"].action = "backToPreviousScreen";
+	form.submit();
+}
 
 Storage.prototype.setObject = function(key, value) {
     this.setItem(key, JSON.stringify(value));

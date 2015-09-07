@@ -29,10 +29,13 @@
             <div id="content">
                 <form:form action="myNumberRegist" commandName="myNumberRegistDto" methodParam="POST" class="mt30">
                 	<form:errors path="*" cssClass="errorMyNumberRegist" />
+                	<div id ="checkMyNumberNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
                 	<form:label path="myNumber" cssClass="color mt10">
 						<spring:message text="マイナンバー"/>
 					</form:label>
-					<form:input path="myNumber"/>
+					<form:input path="myNumber" cssErrorClass="error"/>
 					<p class="mt30 font12"><spring:message text="◆マイナンバー確認書類"/></p>
                     <p class="font12">
 	                    <form:radiobutton path="myNumberConfirm" value="01"/>
@@ -116,7 +119,7 @@
 							</div>
 						</div>
 					</div>
-                    <form:button name="action" value="next" class="btn-next mt40" onclick="if(checkInput()){return false;}">
+                    <form:button name="action" value="next" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="次へ" /></form:button>
                 </form:form>
             </div>

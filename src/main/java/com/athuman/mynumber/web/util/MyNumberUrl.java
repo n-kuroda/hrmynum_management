@@ -14,9 +14,14 @@ public class MyNumberUrl {
 
 	// S3
 	public static final String PURPOSE_CONSENT = "/purposeConsent";
+	public static final String SKIP_TO_SIGNNING_SCREEN = "/skipToSignningScreen";
 
 	// S4
 	public static final String MYNUMBER_REGIST = "/myNumberRegist";
+	
+	// S6
+	public static final String STAFF_SIGNNING = "/staffSignning";
+	public static final String BACK_TO_PREVIOUS_SCREEN = "/backToPreviousScreen";
 
 	// S7
 	public static final String REGISTCONFIRM = "/registConfirm";

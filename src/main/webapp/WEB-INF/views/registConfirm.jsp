@@ -130,11 +130,14 @@
                 	<div class="confirmtext mt20">
                 		<spring:message text="上記の内容で登録します。よろしいですか？" />
                 	</div>
+                	<div id ="checkRegistNetworkOffLine">
+						<fmt:message key="I00002"/>
+					</div>
                 	<p>
 	                   <button class="btn-goback mt20" onclick="backScreen();">
 	                    	<spring:message text="戻る" />
 	                    </button>
-	                    <button class="btn-registration mt20">
+	                    <button class="btn-registration mt20" onclick="if(checkNetworkOffLine()){return false;}">
 	                    	<spring:message text="登録" />
 	                    </button>
                     </p>

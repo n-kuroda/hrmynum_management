@@ -38,6 +38,8 @@ public class StaffInfoModel implements Serializable {
 
 	private String other;
 
+	private String consent;
+
 	public String getStaffNo() {
 		return staffNo;
 	}
@@ -164,6 +166,14 @@ public class StaffInfoModel implements Serializable {
 
 	public void setOther(String other) {
 		this.other = other;
+	}
+
+	public String getConsent() {
+		return consent;
+	}
+
+	public void setConsent(String consent) {
+		this.consent = consent;
 	}
 
 }
