@@ -22,6 +22,8 @@ public class Dependents implements Serializable {
 
 	private String dependentsMyNumber;
 
+	private String no3Insured;
+
 	public String getDependentsNameSei() {
 		return dependentsNameSei;
 	}
@@ -84,6 +86,14 @@ public class Dependents implements Serializable {
 
 	public void setDependentsMyNumber(String dependentsMyNumber) {
 		this.dependentsMyNumber = dependentsMyNumber;
+	}
+
+	public String getNo3Insured() {
+		return no3Insured;
+	}
+
+	public void setNo3Insured(String no3Insured) {
+		this.no3Insured = no3Insured;
 	}
 
 }

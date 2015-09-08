@@ -140,7 +140,7 @@ p.font12 label {
     font-size: 12px;
     height: 23px;
     width: 200px;
-    margin-left: 7px;
+    right: 65px;
     position: absolute;
     cursor: pointer;
 }
@@ -507,7 +507,7 @@ margin-left: -52px;
 	text-align: left;
     width: 100%;
     font-size: 12px;
-    color: red;  
+    color: red;
 	margin-bottom: 10px;
 	display: none;
 }
@@ -518,4 +518,9 @@ margin-left: -52px;
     font-size: 12px;
     color: red;
 	display: none;
+}
+#content #partnerRegistForm input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 30px;
 }

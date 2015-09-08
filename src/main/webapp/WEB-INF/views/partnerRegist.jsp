@@ -32,6 +32,7 @@
                 <div id ="checkPartnerNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
+				<input type="hidden" id="staffName" value="${staffInfoModel.staffNameSei}">
                 <c:forEach items="${lstDependentsInfo.dependents}" var="dependent" varStatus="status">
                 	<div class="box">
 		                <div class="titlebox">扶養者${status.index + 1}</div>
@@ -75,6 +76,10 @@
                         <p class="font14" style="margin-top: -4px;">
                         	<span>マイナンバー</span>
                             <form:input path="dependents[${status.index}].dependentsMyNumber" cssClass="mynumber" cssErrorClass="error mynumber"/>
+                        </p>
+                        <p class="font14" style="margin-top: -4px;">
+                        	<span>第3号被保険者</span>
+                            <form:checkbox path="dependents[${status.index}].no3Insured" value="1"/>
 	                    	<button value="扶養者${status.index + 1}" class="btn-clear" onclick="return false;">この扶養者の情報をクリアする</button>
                         </p>
                     </div>

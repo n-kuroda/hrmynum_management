@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form id="staffExistCheckForm" methodParam="POST" commandName="staffInfoDto" action="staffExistCheck" class="mt40">
+				<form:form id="staffExistCheckForm" methodParam="POST" commandName="staffInfoModel" action="staffExistCheck" class="mt40">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
 					<form:label path="staffNo">
 						<spring:message text="スタッフNo"/>
@@ -58,7 +58,7 @@
 					<div id ="checkStaffNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
-					<form:button name="action" value="back" class="btn-next mt40" onclick="backScreen();">
+					<form:button name="action" value="back" class="btn-next mt40" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
 					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkDataValid()){return false;}">

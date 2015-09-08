@@ -201,7 +201,7 @@ public class RegistConfirmController {
 	 * @return String
 	 */
 	private String getStaffName(StaffInfoModel staffInfo){
-		return staffInfo.getStaffName() + "(" + staffInfo.getStaffNameKana() + ")様";
+		return staffInfo.getStaffNameSei() + "(" + staffInfo.getStaffNameSeiKana() + ")様";
 	}
 
 	/** set data for my number

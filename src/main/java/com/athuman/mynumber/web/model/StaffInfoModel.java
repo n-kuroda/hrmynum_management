@@ -8,9 +8,13 @@ public class StaffInfoModel implements Serializable {
 
 	private String staffNo;
 
-	private String staffName;
+	private String staffNameSei;
 
-	private String staffNameKana;
+	private String staffNameMei;
+
+	private String staffNameSeiKana;
+
+	private String staffNameMeiKana;
 
 	private String myNumber;
 
@@ -48,20 +52,36 @@ public class StaffInfoModel implements Serializable {
 		this.staffNo = staffNo;
 	}
 
-	public String getStaffName() {
-		return staffName;
+	public String getStaffNameSei() {
+		return staffNameSei;
 	}
 
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
+	public void setStaffNameSei(String staffNameSei) {
+		this.staffNameSei = staffNameSei;
 	}
 
-	public String getStaffNameKana() {
-		return staffNameKana;
+	public String getStaffNameMei() {
+		return staffNameMei;
 	}
 
-	public void setStaffNameKana(String staffNameKana) {
-		this.staffNameKana = staffNameKana;
+	public void setStaffNameMei(String staffNameMei) {
+		this.staffNameMei = staffNameMei;
+	}
+
+	public String getStaffNameSeiKana() {
+		return staffNameSeiKana;
+	}
+
+	public void setStaffNameSeiKana(String staffNameSeiKana) {
+		this.staffNameSeiKana = staffNameSeiKana;
+	}
+
+	public String getStaffNameMeiKana() {
+		return staffNameMeiKana;
+	}
+
+	public void setStaffNameMeiKana(String staffNameMeiKana) {
+		this.staffNameMeiKana = staffNameMeiKana;
 	}
 
 	public String getMyNumber() {

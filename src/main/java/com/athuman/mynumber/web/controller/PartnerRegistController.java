@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.MyNumberJsp;
+import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
@@ -27,7 +29,7 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class PartnerRegistController {
 
 	// show partnerRegist page
-	@RequestMapping(value = "/partnerRegist", method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("lstDependentsSesion");
@@ -39,11 +41,11 @@ public class PartnerRegistController {
 		}
 		initModelList(model);
 		model.addAttribute("lstDependentsInfo", lstDependents);
-		return "partnerRegist";
+		return MyNumberJsp.PARTNER_REGIST;
 	}
 
 	// submit partnerRegist page
-	@RequestMapping(value = "/partnerRegist", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.POST)
 	public String doPartnerRegistNext(
 			@ModelAttribute("lstDependentsInfo")DependentsInfoListModel lstDependentsInfo,
 			BindingResult binding, Model model, HttpSession session) {
@@ -54,21 +56,24 @@ public class PartnerRegistController {
 		// begin valid each form partner
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
 		for (int i = 0; i < listdDependents.size(); i++) {
+			if (listdDependents.get(i).getNo3Insured() == null) {
+				listdDependents.get(i).setNo3Insured("0");
+			}
 			binding = ValidateUtil.validFormPartner(binding, listdDependents.get(i), staffInfoModel, i);
 		}
 
 		// when form has error
 		if (binding.hasErrors()) {
 			initModelList(model);
-			return "partnerRegist";
+			return MyNumberJsp.PARTNER_REGIST;
 		}
 
 		// when form don't has error store session
 		storeSession(model, lstDependentsInfo, staffInfoModel);
-		return "redirect:/staffSignning";
+		return MyNumberJsp.REDIRECT_STAFF_SIGNNING;
 	}
 
-	@RequestMapping(value = "/partnerRegistBack", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.BACK_TO_MYNUMBER_REGIST, method = RequestMethod.POST)
 	public String doPartnerRegistBack(Model model,
 			@ModelAttribute("lstDependentsInfo")DependentsInfoListModel lstDependentsInfo,
 			HttpSession session) {
@@ -77,7 +82,7 @@ public class PartnerRegistController {
 		StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		// store session
 		storeSession(model, lstDependentsInfo, staffSession);
-		return "redirect:/myNumberRegist";
+		return MyNumberJsp.REDIRECT_MYNUMBER_REGIST;
 	}
 
 	/** Store DependentsInfoList to session
@@ -116,7 +121,7 @@ public class PartnerRegistController {
 		DependentsInfoListModel dependentsInfoListModel = new DependentsInfoListModel();
 		List<Dependents> lstDependents = new ArrayList<Dependents>();
 		Dependents dependents = new Dependents();
-		dependents.setDependentsNameSei(staffInfoModel.getStaffName());
+		dependents.setDependentsNameSei(staffInfoModel.getStaffNameSei());
 		for (int i = 0; i < 10; i++) {
 			lstDependents.add(dependents);
 		}

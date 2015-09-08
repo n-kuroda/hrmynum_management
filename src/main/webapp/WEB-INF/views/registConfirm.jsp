@@ -119,6 +119,11 @@
 				                		<spring:message text="マイナンバー：" />
 				                		<spring:message text="${dependent.dependentsMyNumber }" />
 				                	</div>
+				                	<c:if test="${dependent.no3Insured == '1' }">
+										<div>
+					                		<spring:message text="第3号被保険者" />
+					                	</div>
+	                    			</c:if>
 			                    </div>
 	                    	</c:if>
 	                    </c:forEach>
@@ -134,7 +139,7 @@
 						<fmt:message key="I00002"/>
 					</div>
                 	<p>
-	                   <button class="btn-goback mt20" onclick="backScreen();">
+	                   <button class="btn-goback mt20" onclick="if(backScreen()){return false;}">
 	                    	<spring:message text="戻る" />
 	                    </button>
 	                    <button class="btn-registration mt20" onclick="if(checkNetworkOffLine()){return false;}">

@@ -45,7 +45,7 @@
 							<fmt:message key="I00002"/>
 						</div>
 				    </div>
-                    <form:button value="back" class="btn-next mt40" onclick="backScreen();"><spring:message text="戻る" /></form:button>
+                    <form:button value="back" class="btn-next mt40" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></form:button>
 					<form:button class="btn-next mt40" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></form:button>
                 </form:form>
             </div>

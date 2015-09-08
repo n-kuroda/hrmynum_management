@@ -273,7 +273,7 @@ public class ValidateUtil {
 	 * @return boolean
 	 */
 	public static boolean checkPartnerHasChange(Dependents dependents, StaffInfoModel staffInfoModel){
-		if (!dependents.getDependentsNameSei().equals(staffInfoModel.getStaffName())) {
+		if (!dependents.getDependentsNameSei().equals(staffInfoModel.getStaffNameSei())) {
 			return true;
 		}
 		return false;

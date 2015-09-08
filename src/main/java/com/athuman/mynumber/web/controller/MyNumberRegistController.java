@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.athuman.mynumber.web.dto.MyNumberRegistDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
@@ -43,6 +44,7 @@ public class MyNumberRegistController {
 		}
 		if (!StringUtil.isNotEmpty(myNumber.getMyNumberConfirm())) {
 			binding.rejectValue("myNumberConfirm", "V00001", new Object [] {"マイナンバー確認書類"}, null);
+			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 		// store data to session
 		StaffInfoModel staffInfoModel = processData(myNumber);
@@ -81,77 +83,77 @@ public class MyNumberRegistController {
 			if (StringUtil.isNotEmpty(myNumber.getDriversLicense())) {
 				mnRegist.setDriversLicense(myNumber.getDriversLicense());
 			} else {
-				mnRegist.setDriversLicense("0");
+				mnRegist.setDriversLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store drive history license
 			if (StringUtil.isNotEmpty(myNumber.getDriveHistoryLicense())) {
 				mnRegist.setDriveHistoryLicense(myNumber.getDriveHistoryLicense());
 			} else {
-				mnRegist.setDriveHistoryLicense("0");
+				mnRegist.setDriveHistoryLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store passport
 			if (StringUtil.isNotEmpty(myNumber.getPassPort())) {
 				mnRegist.setPassPort(myNumber.getPassPort());
 			} else {
-				mnRegist.setPassPort("0");
+				mnRegist.setPassPort(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store body disabilities notebook
 			if (StringUtil.isNotEmpty(myNumber.getBodyDisabilitiesNotebook())) {
 				mnRegist.setBodyDisabilitiesNotebook(myNumber.getBodyDisabilitiesNotebook());
 			} else {
-				mnRegist.setBodyDisabilitiesNotebook("0");
+				mnRegist.setBodyDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store mental disabilities notebook
 			if (StringUtil.isNotEmpty(myNumber.getMentalDisabilitiesNotebook())) {
 				mnRegist.setMentalDisabilitiesNotebook(myNumber.getMentalDisabilitiesNotebook());
 			} else {
-				mnRegist.setMentalDisabilitiesNotebook("0");
+				mnRegist.setMentalDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store rehabilitation notebook
 			if (StringUtil.isNotEmpty(myNumber.getRehabilitationNotebook())) {
 				mnRegist.setRehabilitationNotebook(myNumber.getRehabilitationNotebook());
 			} else {
-				mnRegist.setRehabilitationNotebook("0");
+				mnRegist.setRehabilitationNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store stay card
 			if (StringUtil.isNotEmpty(myNumber.getStayCard())) {
 				mnRegist.setStayCard(myNumber.getStayCard());
 			} else {
-				mnRegist.setStayCard("0");
+				mnRegist.setStayCard(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store clear Person
 			if (StringUtil.isNotEmpty(myNumber.getClearPerson())) {
 				mnRegist.setClearPerson(myNumber.getClearPerson());
 			} else {
-				mnRegist.setClearPerson("0");
+				mnRegist.setClearPerson(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store insurance card license
 			if (StringUtil.isNotEmpty(myNumber.getHealthInsuranceLicense())) {
 				mnRegist.setHealthInsuranceLicense(myNumber.getHealthInsuranceLicense());
 			} else {
-				mnRegist.setHealthInsuranceLicense("0");
+				mnRegist.setHealthInsuranceLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store pension book
 			if (StringUtil.isNotEmpty(myNumber.getPensionNotebook())) {
 				mnRegist.setPensionNotebook(myNumber.getPensionNotebook());
 			} else {
-				mnRegist.setPensionNotebook("0");
+				mnRegist.setPensionNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store other
 			if (StringUtil.isNotEmpty(myNumber.getOther())) {
 				mnRegist.setOther(myNumber.getOther());
 			} else {
-				mnRegist.setOther("0");
+				mnRegist.setOther(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 		}
 
@@ -164,10 +166,8 @@ public class MyNumberRegistController {
 	 * @return boolean
 	 */
 	private boolean checkSelect(StaffInfoModel staffInfoModel){
-		if (!"01".equals(staffInfoModel.getMyNumberConfirm())) {
-			if (checkVerification(staffInfoModel)) {
-				return true;
-			}
+		if (!ConstValues.RADIO_SELECT.equals(staffInfoModel.getMyNumberConfirm())) {
+			return checkVerification(staffInfoModel);
 		}
 		return false;
 	}
@@ -179,71 +179,65 @@ public class MyNumberRegistController {
 	 */
 	private boolean checkVerification(StaffInfoModel staffInfoModel){
 
-		boolean flag = true;
 		int checkTime = 0;
 		// check driver license
-		if ("1".equals(staffInfoModel.getDriversLicense())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriversLicense())) {
+			return false;
 		}
 
 		// check driving history license
-		if ("1".equals(staffInfoModel.getDriveHistoryLicense())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriveHistoryLicense())) {
+			return false;
 		}
 
 		// check passport
-		if ("1".equals(staffInfoModel.getPassPort())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPassPort())) {
+			return false;
 		}
 
 		// check body disabilities notebook
-		if ("1".equals(staffInfoModel.getBodyDisabilitiesNotebook())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook())) {
+			return false;
 		}
 
 		// check mental disabilities notebook
-		if ("1".equals(staffInfoModel.getMentalDisabilitiesNotebook())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook())) {
+			return false;
 		}
 
 		// check rehabilitation notebook
-		if ("1".equals(staffInfoModel.getRehabilitationNotebook())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook())) {
+			return false;
 		}
 
 		// check stay card
-		if ("1".equals(staffInfoModel.getStayCard())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard())) {
+			return false;
 		}
 
 		// check clear person
-		if ("1".equals(staffInfoModel.getClearPerson())) {
-			flag = false;
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getClearPerson())) {
+			return false;
 		}
 
-		if (!flag) {
-			// check health insurance license
-			if ("1".equals(staffInfoModel.getHealthInsuranceLicense())) {
-				flag = false;
-				checkTime ++;
-			}
-
-			// check pension book
-			if ("1".equals(staffInfoModel.getPensionNotebook())) {
-				flag = false;
-				checkTime ++;
-			}
-
-			// check other
-			if ("1".equals(staffInfoModel.getOther())) {
-				flag = false;
-				checkTime ++;
-			}
-
-			if (checkTime <= 1) {
-				flag = true;
-			}
+		// check health insurance license
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getHealthInsuranceLicense())) {
+			checkTime ++;
 		}
-		return flag;
+
+		// check pension book
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPensionNotebook())) {
+			checkTime ++;
+		}
+
+		// check other
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getOther())) {
+			checkTime ++;
+		}
+
+		if (checkTime <= 1) {
+			return true;
+		}
+		return false;
 	}
 }

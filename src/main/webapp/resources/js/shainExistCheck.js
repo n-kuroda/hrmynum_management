@@ -11,7 +11,7 @@ function checkNetworkOffLine() {
 	if (!navigator.onLine) {
 		var requireSigning = document.getElementById('checkShainNetworkOffLine');
 		requireSigning.style.display = 'block';
-		var errorOther = document.getElementById('shainInfoDto.errors');
+		var errorOther = document.getElementById('shainInfoModel.errors');
 		if(errorOther != null) {
 			errorOther.style.display = 'none';
 		}

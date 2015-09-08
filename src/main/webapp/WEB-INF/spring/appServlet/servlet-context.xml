@@ -73,7 +73,11 @@
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
-	<beans:bean id="tACTService" class="com.athuman.mynumber.web.service.impl.TACTServiceImpl" >
+	<beans:bean id="myNumberAPIService" class="com.athuman.mynumber.web.service.impl.MyNumberAPIServiceImpl" >
+		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="registeredStaffAPIService" class="com.athuman.mynumber.web.service.impl.RegisteredStaffAPIServiceImpl" >
 		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
 	</beans:bean>
 

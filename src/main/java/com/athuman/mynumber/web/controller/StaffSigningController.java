@@ -19,7 +19,7 @@ public class StaffSigningController {
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.GET)
 	public String show(Model model) {
 		model.addAttribute("staffSignningDto", new StaffSigningDto());
-		return "staffSignning";
+		return MyNumberJsp.STAFF_SIGNNING;
 	}
 
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.POST)
@@ -35,6 +35,6 @@ public class StaffSigningController {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
 		
-		return "redirect:/partnerRegist";
+		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
 	}
 }

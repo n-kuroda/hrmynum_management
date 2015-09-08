@@ -9,8 +9,15 @@ $(document).ready(function() {
 		}
 	})
 	.filter(":checked").trigger("click");
+	clearCheckBox();
 });
 
+function clearCheckBox(){
+	var dtoErrors = document.getElementById('myNumberRegistDto.errors');
+	if (dtoErrors.innerText != "") {
+		$('input[type="checkbox"]').removeAttr('checked');
+	}
+}
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
 		var requireSigning = document.getElementById('checkMyNumberNetworkOffLine');
@@ -19,6 +26,7 @@ function checkNetworkOffLine() {
 		if(errorOther != null) {
 			errorOther.style.display = 'none';
 		}
+
 		return true;
 	} else {
 		return false;

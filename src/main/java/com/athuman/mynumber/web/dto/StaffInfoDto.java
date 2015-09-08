@@ -6,34 +6,44 @@ public class StaffInfoDto implements Serializable {
 
 	private static final long serialVersionUID = -1854357305260610275L;
 
-	private String staffNo;
+	private String nameSei;
 
-	private String staffName;
+	private String nameMei;
 
-	private String staffNameKana;
+	private String nameKanaSei;
 
-	public String getStaffNo() {
-		return staffNo;
+	private String nameKanaMei;
+
+	public String getNameSei() {
+		return nameSei;
 	}
 
-	public void setStaffNo(String staffNo) {
-		this.staffNo = staffNo;
+	public void setNameSei(String nameSei) {
+		this.nameSei = nameSei;
 	}
 
-	public String getStaffName() {
-		return staffName;
+	public String getNameMei() {
+		return nameMei;
 	}
 
-	public void setStaffName(String staffName) {
-		this.staffName = staffName;
+	public void setNameMei(String nameMei) {
+		this.nameMei = nameMei;
 	}
 
-	public String getStaffNameKana() {
-		return staffNameKana;
+	public String getNameKanaSei() {
+		return nameKanaSei;
 	}
 
-	public void setStaffNameKana(String staffNameKana) {
-		this.staffNameKana = staffNameKana;
+	public void setNameKanaSei(String nameKanaSei) {
+		this.nameKanaSei = nameKanaSei;
+	}
+
+	public String getNameKanaMei() {
+		return nameKanaMei;
+	}
+
+	public void setNameKanaMei(String nameKanaMei) {
+		this.nameKanaMei = nameKanaMei;
 	}
 
 }

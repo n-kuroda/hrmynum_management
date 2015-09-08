@@ -19,6 +19,10 @@ public class MyNumberUrl {
 	// S4
 	public static final String MYNUMBER_REGIST = "/myNumberRegist";
 	
+	// S5
+	public static final String PARTNER_REGIST = "/partnerRegist";
+	public static final String BACK_TO_MYNUMBER_REGIST = "/partnerRegistBack";
+	
 	// S6
 	public static final String STAFF_SIGNNING = "/staffSignning";
 	public static final String BACK_TO_PREVIOUS_SCREEN = "/backToPreviousScreen";

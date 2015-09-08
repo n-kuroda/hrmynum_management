@@ -26,7 +26,7 @@
 			<div id="header" class="h40">
 				<div class="logo_s"></div>
 				<div class="title_s">
-					<spring:message text="${staffInfoModel.staffName} 様"/>
+					<spring:message text="${staffInfoModel.staffNameSei} ${staffInfoModel.staffNameMei} 様"/>
 				</div>
 			</div>
 			<div id="content">

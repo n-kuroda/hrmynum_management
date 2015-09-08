@@ -8,11 +8,13 @@ function backScreen() {
 };
 
 $(document).ready(function() {
+	var stafName = $('#staffName').val();
 	$('.btn-clear').click(function() {
 		var confirmBox = confirm($(this).val() + "の入力値を全て削除します。\nよろしいですか？");
 		if (confirmBox == true) {
-			$(this).parents(".box").find('input').val("");
-			$(this).parents(".box").find('select').val("");
+			$(this).parents(".box").find('input, select').val("");
+			$(this).parents(".box").find('input[type="checkbox"]').prop("checked",false);
+			$(this).parents(".box").find('.lastname').val(stafName);
 		}
 	});
 });

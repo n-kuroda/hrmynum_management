@@ -10,8 +10,12 @@ Storage.prototype.getObject = function(key) {
 }
 
 function backScreen() {
-	var form = document.forms["registConfirmDto"].action = "registConfirmBack";
-	form.submit();
+	if (checkNetworkOffLine()) {
+		return true;
+	} else {
+		var form = document.forms["registConfirmDto"].action = "registConfirmBack";
+		form.submit();
+	}
 };
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {

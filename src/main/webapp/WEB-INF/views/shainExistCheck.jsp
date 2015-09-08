@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<form:form methodParam="POST" commandName="shainInfoDto" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
+				<form:form methodParam="POST" commandName="shainInfoModel" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
 					<div class="subtitle"><spring:message text="社員番号を入力して検索ボタンを押してください。" /></div>
 					<form:label path="shainNo">
 						<spring:message text="社員番号"/>
@@ -40,8 +40,8 @@
 					<div class="name">
 						
 						<div id="messageInfoShainExistCheck">
-							<c:if test="${!empty employeeNo}">
-								<spring:message text="社員番号: ${employeeNo}"/>
+							<c:if test="${!empty shainNo}">
+								<spring:message text="社員番号: ${shainNo}"/>
 								<br />
 							</c:if>
 							<c:if test="${!empty shainInfo}">

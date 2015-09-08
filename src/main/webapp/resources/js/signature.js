@@ -182,8 +182,12 @@ function checkNetworkOffLine() {
 }
 
 function backScreen() {
-	var form = document.forms["staffSignningForm"].action = "backToPreviousScreen";
-	form.submit();
+	if (checkNetworkOffLine()) {
+		return true;
+	} else {
+		var form = document.forms["staffSignningForm"].action = "backToPreviousScreen";
+		form.submit();
+	}
 }
 
 Storage.prototype.setObject = function(key, value) {

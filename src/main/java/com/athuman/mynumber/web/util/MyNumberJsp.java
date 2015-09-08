@@ -18,9 +18,13 @@ public class MyNumberJsp {
 	// S4
 	public static final String MYNUMBER_REGIST = "myNumberRegist";
 	public static final String REDIRECT_PARTNER_REGIST = "redirect:/partnerRegist";
+	
+	// S5
+	public static final String PARTNER_REGIST = "partnerRegist";
 
 	// S6
 	public static final String REDIRECT_REGIST_COMFIRM = "redirect:/registConfirm";
+	public static final String STAFF_SIGNNING = "staffSignning";
 
 	// S7
 	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";

@@ -31,10 +31,10 @@ public class MyNumberServiceImpl implements MyNumberService {
 
 			ShainInfoDto shainInfoDto = new ShainInfoDto();
 			shainInfoDto.setShainNo(shainNo);
-			shainInfoDto.setShainNameSei("PHU");
-			shainInfoDto.setShainNameSeiKana("Phu");
-			shainInfoDto.setShainNameMei("TRUONG");
-			shainInfoDto.setShainNameMeiKana("Truong");
+			shainInfoDto.setShainNameSei("Phu");
+			shainInfoDto.setShainNameSeiKana("PHU");
+			shainInfoDto.setShainNameMei("Truong");
+			shainInfoDto.setShainNameMeiKana("TRUONG");
 
 			dto.setHttpStatus(200);
 			dto.setResultMessage("OK");
@@ -64,9 +64,10 @@ public class MyNumberServiceImpl implements MyNumberService {
 		if (staffNo.equals("154123456")) {
 
 			StaffInfoDto staffInfoDto = new StaffInfoDto();
-			staffInfoDto.setStaffName("Ly Ngan");
-			staffInfoDto.setStaffNameKana("Nham Ngoc");
-			staffInfoDto.setStaffNo(staffNo);
+			staffInfoDto.setNameSei("Ngan");
+			staffInfoDto.setNameKanaSei("NGAN");
+			staffInfoDto.setNameMei("Ly");
+			staffInfoDto.setNameKanaMei("LY");
 
 			dto.setHttpStatus(200);
 			dto.setResultMessage("OK");
