@@ -80,77 +80,88 @@ public class MyNumberRegistController {
 			}
 
 			// store driver license
-			if (StringUtil.isNotEmpty(myNumber.getDriversLicense())) {
+			if (StringUtil.isNotEmpty(myNumber.getDriversLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setDriversLicense(myNumber.getDriversLicense());
 			} else {
 				mnRegist.setDriversLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store drive history license
-			if (StringUtil.isNotEmpty(myNumber.getDriveHistoryLicense())) {
+			if (StringUtil.isNotEmpty(myNumber.getDriveHistoryLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setDriveHistoryLicense(myNumber.getDriveHistoryLicense());
 			} else {
 				mnRegist.setDriveHistoryLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store passport
-			if (StringUtil.isNotEmpty(myNumber.getPassPort())) {
+			if (StringUtil.isNotEmpty(myNumber.getPassPort()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setPassPort(myNumber.getPassPort());
 			} else {
 				mnRegist.setPassPort(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store body disabilities notebook
-			if (StringUtil.isNotEmpty(myNumber.getBodyDisabilitiesNotebook())) {
+			if (StringUtil.isNotEmpty(myNumber.getBodyDisabilitiesNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setBodyDisabilitiesNotebook(myNumber.getBodyDisabilitiesNotebook());
 			} else {
 				mnRegist.setBodyDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store mental disabilities notebook
-			if (StringUtil.isNotEmpty(myNumber.getMentalDisabilitiesNotebook())) {
+			if (StringUtil.isNotEmpty(myNumber.getMentalDisabilitiesNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setMentalDisabilitiesNotebook(myNumber.getMentalDisabilitiesNotebook());
 			} else {
 				mnRegist.setMentalDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store rehabilitation notebook
-			if (StringUtil.isNotEmpty(myNumber.getRehabilitationNotebook())) {
+			if (StringUtil.isNotEmpty(myNumber.getRehabilitationNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setRehabilitationNotebook(myNumber.getRehabilitationNotebook());
 			} else {
 				mnRegist.setRehabilitationNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store stay card
-			if (StringUtil.isNotEmpty(myNumber.getStayCard())) {
+			if (StringUtil.isNotEmpty(myNumber.getStayCard()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setStayCard(myNumber.getStayCard());
 			} else {
 				mnRegist.setStayCard(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store clear Person
-			if (StringUtil.isNotEmpty(myNumber.getClearPerson())) {
+			if (StringUtil.isNotEmpty(myNumber.getClearPerson()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setClearPerson(myNumber.getClearPerson());
 			} else {
 				mnRegist.setClearPerson(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store insurance card license
-			if (StringUtil.isNotEmpty(myNumber.getHealthInsuranceLicense())) {
+			if (StringUtil.isNotEmpty(myNumber.getHealthInsuranceLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setHealthInsuranceLicense(myNumber.getHealthInsuranceLicense());
 			} else {
 				mnRegist.setHealthInsuranceLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store pension book
-			if (StringUtil.isNotEmpty(myNumber.getPensionNotebook())) {
+			if (StringUtil.isNotEmpty(myNumber.getPensionNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setPensionNotebook(myNumber.getPensionNotebook());
 			} else {
 				mnRegist.setPensionNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store other
-			if (StringUtil.isNotEmpty(myNumber.getOther())) {
+			if (StringUtil.isNotEmpty(myNumber.getOther()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
 				mnRegist.setOther(myNumber.getOther());
 			} else {
 				mnRegist.setOther(ConstValues.CHECKBOX_NOT_SELECT);

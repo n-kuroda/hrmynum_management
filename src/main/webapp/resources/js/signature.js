@@ -153,6 +153,10 @@ function signatureSave() {
 		if (isDrawn == false) {
 			var requireSigning = document.getElementById('checkrequireSigning');
 			requireSigning.style.display = 'block';
+			var errorOther = document.getElementById('checkSignningNetworkOffLine');
+			if(errorOther != null) {
+				errorOther.style.display = 'none';
+			}
 			return true;
 		} else {
 			var canvas = document.getElementById("newSignature");	
