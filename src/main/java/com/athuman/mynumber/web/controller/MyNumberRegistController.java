@@ -37,7 +37,7 @@ public class MyNumberRegistController {
 
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.POST)
-	public String doNext(@Valid MyNumberRegistDto myNumber, BindingResult binding, Model model) {
+	public String next(@Valid MyNumberRegistDto myNumber, BindingResult binding, Model model) {
 
 		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumber.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;
@@ -58,6 +58,12 @@ public class MyNumberRegistController {
 
 		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
 
+	}
+	
+	// submit myNumberRegist page
+	@RequestMapping(value = MyNumberUrl.BACK_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
+	public String back(Model model, HttpSession sesion) {
+		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
 	/** process data for store session

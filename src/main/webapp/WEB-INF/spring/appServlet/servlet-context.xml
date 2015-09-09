@@ -81,10 +81,10 @@
 		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
 	</beans:bean>
 
-	<beans:bean id="myNumberDAO" class="com.athuman.mynumber.web.dao.impl.MyNumberDAOImpl">
-		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	<beans:bean id="shainAPIService" class="com.athuman.mynumber.web.service.impl.ShainAPIServiceImpl" >
 	</beans:bean>
-	<beans:bean id="myNumberService" class="com.athuman.mynumber.web.service.impl.MyNumberServiceImpl" >
-		<beans:property name="myNumberDAO" ref="myNumberDAO"></beans:property>
+	
+	<beans:bean id="staffAPIService" class="com.athuman.mynumber.web.service.impl.StaffAPIServiceImpl" >
 	</beans:bean>
+
 </beans:beans>

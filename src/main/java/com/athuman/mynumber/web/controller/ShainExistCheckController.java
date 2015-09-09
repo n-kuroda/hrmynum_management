@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.athuman.mynumber.web.dto.ShainInfoDto;
 import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
 import com.athuman.mynumber.web.model.ShainInfoModel;
-import com.athuman.mynumber.web.service.MyNumberService;
+import com.athuman.mynumber.web.service.ShainAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
@@ -23,8 +23,8 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class ShainExistCheckController {
 
 	@Autowired(required=true)
-	@Qualifier(value="myNumberService")
-	private MyNumberService myNumberService;
+	@Qualifier(value="shainAPIService")
+	private ShainAPIService shainAPIService;
 	
 	// display shainExistCheck page
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class ShainExistCheckController {
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		ShainInfoResponseDto shainInfoResponseDto = myNumberService.readShain(shainInfoModelForm.getShainNo());
+		ShainInfoResponseDto shainInfoResponseDto = shainAPIService.readShain(shainInfoModelForm.getShainNo());
 			
 		if (shainInfoResponseDto.getHttpStatus() == 200) { // OK
 			ShainInfoDto shainInfoDto = shainInfoResponseDto.getShainInfoDto();
@@ -106,8 +106,8 @@ public class ShainExistCheckController {
 		return shainInfo;
 	}
 
-	public void setMyNumberService(MyNumberService myNumberService) {
-		this.myNumberService = myNumberService;
+	public void setShainAPIService(ShainAPIService shainAPIService) {
+		this.shainAPIService = shainAPIService;
 	}
 
 }

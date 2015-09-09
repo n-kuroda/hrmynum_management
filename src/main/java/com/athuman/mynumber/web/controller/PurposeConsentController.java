@@ -22,20 +22,20 @@ public class PurposeConsentController {
 
 	// submit purposeConsent page
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.POST)
-	public String doTransitConsent(Model model, HttpSession sesion) {
-		
+	public String next(Model model, HttpSession sesion) {
+
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		staffInfoModelSession.setConsent("1");
 		sesion.setAttribute("staffInfoModel", staffInfoModelSession);
-		
+
 		return MyNumberJsp.REDIRECT_MYNUMBER_REGIST;
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String doTransitBack(Model model, HttpSession sesion) {
+	public String back(Model model, HttpSession sesion) {
 		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
-	
+
 	@RequestMapping(value = MyNumberUrl.SKIP_TO_SIGNNING_SCREEN, method = RequestMethod.POST)
 	public String skipToSignningScreen(Model model, HttpSession sesion) {
 
@@ -55,13 +55,13 @@ public class PurposeConsentController {
 		staffInfoModelSession.setPensionNotebook("");
 		staffInfoModelSession.setOther("");
 		staffInfoModelSession.setConsent("0");
-		
-		DependentsInfoListModel dependentsSession = (DependentsInfoListModel)sesion.getAttribute("lstDependentsSesion");
+
+		DependentsInfoListModel dependentsSession = (DependentsInfoListModel)sesion.getAttribute("dependentsInfoListModel");
 		dependentsSession = new DependentsInfoListModel();
-		
+
 		sesion.setAttribute("staffInfoModel", staffInfoModelSession);
-		sesion.setAttribute("lstDependentsSesion", dependentsSession);
-		
+		sesion.setAttribute("dependentsInfoListModel", dependentsSession);
+
 		return MyNumberJsp.REDIRECT_STAFF_SIGNNING;
 	}
 }

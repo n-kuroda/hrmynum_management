@@ -20,41 +20,74 @@ public class MyNumber implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "HIMODUKE_NO", nullable = false, length = 36)
+	@Column(name = "HIMODUKE_NO", nullable = false, length = 200)
 	private String himodukeNo;
 
-	@Column(name = "STAFF_MYNUMBER", nullable = false, length = 12)
+	@Column(name = "SHODAKU_FLAG", length = 1, nullable = false)
+	private String shodakuFlag;
+
+	@Column(name = "STAFF_MYNUMBER", length = 100)
 	private String staffMyNumber;
 
-	@Column(name = "FUYO1_MYNUMBER", length = 12)
+	@Column(name = "FUYO1_MYNUMBER", length = 100)
 	private String fuyo1MyNumber;
 
-	@Column(name = "FUYO2_MYNUMBER", length = 12)
+	@Column(name = "FUYO2_MYNUMBER", length = 100)
 	private String fuyo2MyNumber;
 
-	@Column(name = "FUYO3_MYNUMBER", length = 12)
+	@Column(name = "FUYO3_MYNUMBER", length = 100)
 	private String fuyo3MyNumber;
 
-	@Column(name = "FUYO4_MYNUMBER", length = 12)
+	@Column(name = "FUYO4_MYNUMBER", length = 100)
 	private String fuyo4MyNumber;
 
-	@Column(name = "FUYO5_MYNUMBER", length = 12)
+	@Column(name = "FUYO5_MYNUMBER", length = 100)
 	private String fuyo5MyNumber;
 
-	@Column(name = "FUYO6_MYNUMBER", length = 12)
+	@Column(name = "FUYO6_MYNUMBER", length = 100)
 	private String fuyo6MyNumber;
 
-	@Column(name = "FUYO7_MYNUMBER", length = 12)
+	@Column(name = "FUYO7_MYNUMBER", length = 100)
 	private String fuyo7MyNumber;
 
-	@Column(name = "FUYO8_MYNUMBER", length = 12)
+	@Column(name = "FUYO8_MYNUMBER", length = 100)
 	private String fuyo8MyNumber;
 
-	@Column(name = "FUYO9_MYNUMBER", length = 12)
+	@Column(name = "FUYO9_MYNUMBER", length = 100)
 	private String fuyo9MyNumber;
 
-	@Column(name = "FUYO10_MYNUMBER", length = 12)
+	@Column(name = "FUYO10_MYNUMBER", length = 100)
 	private String fuyo10MyNumber;
+
+	@Column(name = "FUYO11_MYNUMBER", length = 100)
+	private String fuyo11MyNumber;
+
+	@Column(name = "FUYO12_MYNUMBER", length = 100)
+	private String fuyo12MyNumber;
+
+	@Column(name = "FUYO13_MYNUMBER", length = 100)
+	private String fuyo13MyNumber;
+
+	@Column(name = "FUYO14_MYNUMBER", length = 100)
+	private String fuyo14MyNumber;
+
+	@Column(name = "FUYO15_MYNUMBER", length = 100)
+	private String fuyo15MyNumber;
+
+	@Column(name = "FUYO16_MYNUMBER", length = 100)
+	private String fuyo16MyNumber;
+
+	@Column(name = "FUYO17_MYNUMBER", length = 100)
+	private String fuyo17MyNumber;
+
+	@Column(name = "FUYO18_MYNUMBER", length = 100)
+	private String fuyo18MyNumber;
+
+	@Column(name = "FUYO19_MYNUMBER", length = 100)
+	private String fuyo19MyNumber;
+
+	@Column(name = "FUYO20_MYNUMBER", length = 100)
+	private String fuyo20MyNumber;
 
 	@Column(name = "MYNUMBER_KAKUNINSHORUI", nullable = false, length = 2)
 	private String myNumberKakuninshorui;
@@ -126,6 +159,14 @@ public class MyNumber implements Serializable {
 
 	public void setHimodukeNo(String himodukeNo) {
 		this.himodukeNo = himodukeNo;
+	}
+
+	public String getShodakuFlag() {
+		return shodakuFlag;
+	}
+
+	public void setShodakuFlag(String shodakuFlag) {
+		this.shodakuFlag = shodakuFlag;
 	}
 
 	public String getStaffMyNumber() {
@@ -214,6 +255,86 @@ public class MyNumber implements Serializable {
 
 	public void setFuyo10MyNumber(String fuyo10MyNumber) {
 		this.fuyo10MyNumber = fuyo10MyNumber;
+	}
+
+	public String getFuyo11MyNumber() {
+		return fuyo11MyNumber;
+	}
+
+	public void setFuyo11MyNumber(String fuyo11MyNumber) {
+		this.fuyo11MyNumber = fuyo11MyNumber;
+	}
+
+	public String getFuyo12MyNumber() {
+		return fuyo12MyNumber;
+	}
+
+	public void setFuyo12MyNumber(String fuyo12MyNumber) {
+		this.fuyo12MyNumber = fuyo12MyNumber;
+	}
+
+	public String getFuyo13MyNumber() {
+		return fuyo13MyNumber;
+	}
+
+	public void setFuyo13MyNumber(String fuyo13MyNumber) {
+		this.fuyo13MyNumber = fuyo13MyNumber;
+	}
+
+	public String getFuyo14MyNumber() {
+		return fuyo14MyNumber;
+	}
+
+	public void setFuyo14MyNumber(String fuyo14MyNumber) {
+		this.fuyo14MyNumber = fuyo14MyNumber;
+	}
+
+	public String getFuyo15MyNumber() {
+		return fuyo15MyNumber;
+	}
+
+	public void setFuyo15MyNumber(String fuyo15MyNumber) {
+		this.fuyo15MyNumber = fuyo15MyNumber;
+	}
+
+	public String getFuyo16MyNumber() {
+		return fuyo16MyNumber;
+	}
+
+	public void setFuyo16MyNumber(String fuyo16MyNumber) {
+		this.fuyo16MyNumber = fuyo16MyNumber;
+	}
+
+	public String getFuyo17MyNumber() {
+		return fuyo17MyNumber;
+	}
+
+	public void setFuyo17MyNumber(String fuyo17MyNumber) {
+		this.fuyo17MyNumber = fuyo17MyNumber;
+	}
+
+	public String getFuyo18MyNumber() {
+		return fuyo18MyNumber;
+	}
+
+	public void setFuyo18MyNumber(String fuyo18MyNumber) {
+		this.fuyo18MyNumber = fuyo18MyNumber;
+	}
+
+	public String getFuyo19MyNumber() {
+		return fuyo19MyNumber;
+	}
+
+	public void setFuyo19MyNumber(String fuyo19MyNumber) {
+		this.fuyo19MyNumber = fuyo19MyNumber;
+	}
+
+	public String getFuyo20MyNumber() {
+		return fuyo20MyNumber;
+	}
+
+	public void setFuyo20MyNumber(String fuyo20MyNumber) {
+		this.fuyo20MyNumber = fuyo20MyNumber;
 	}
 
 	public String getMyNumberKakuninshorui() {
@@ -312,6 +433,14 @@ public class MyNumber implements Serializable {
 		this.sonota = sonota;
 	}
 
+	public byte[] getHonninSyomei() {
+		return honninSyomei;
+	}
+
+	public void setHonninSyomei(byte[] honninSyomei) {
+		this.honninSyomei = honninSyomei;
+	}
+
 	public String getKakuninsha() {
 		return kakuninsha;
 	}
@@ -326,6 +455,14 @@ public class MyNumber implements Serializable {
 
 	public void setTorokuUser(String torokuUser) {
 		this.torokuUser = torokuUser;
+	}
+
+	public Timestamp getTorokuTimestamp() {
+		return torokuTimestamp;
+	}
+
+	public void setTorokuTimestamp(Timestamp torokuTimestamp) {
+		this.torokuTimestamp = torokuTimestamp;
 	}
 
 	public String getLastUpdateUser() {
@@ -368,19 +505,4 @@ public class MyNumber implements Serializable {
 		this.deleteTimeStamp = deleteTimeStamp;
 	}
 
-	public byte[] getHonninSyomei() {
-		return honninSyomei;
-	}
-
-	public void setHonninSyomei(byte[] honninSyomei) {
-		this.honninSyomei = honninSyomei;
-	}
-
-	public Timestamp getTorokuTimestamp() {
-		return torokuTimestamp;
-	}
-
-	public void setTorokuTimestamp(Timestamp torokuTimestamp) {
-		this.torokuTimestamp = torokuTimestamp;
-	}
 }

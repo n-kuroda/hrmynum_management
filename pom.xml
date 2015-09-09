@@ -38,6 +38,12 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+
 		<!-- Validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

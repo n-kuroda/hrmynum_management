@@ -22,13 +22,13 @@ public class ValidateUtil {
 			bindingResult.rejectValue(item, "V00001",
 					new Object[] { itemName }, null);
 		} else {
-			/* check is number */
-			if (!itemValue.matches("^[-+]?\\d+(\\.\\d+)?$")) {
+			/* check is number 1byte*/
+			if (!is1ByteCharacters(itemValue)) {
 				bindingResult.rejectValue(item, "V00003",
 						new Object[] { itemName }, null);
 			}
 			/* check length */
-			if (itemValue.length() != digit) {
+			if (itemValue.length() != digit || !isNumeric(itemValue) ) {
 				bindingResult.rejectValue(item, "V00002", new Object[] {
 						itemName, digit }, null);
 			}
@@ -112,22 +112,22 @@ public class ValidateUtil {
 			}
 
 			// check DependentsRelationshipOther
-			if ("07".equals(dependents.getDependentsRelationship()) &&
-					"".equals(dependents.getDependentsRelationshipOther())) {
+			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
+					ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00014", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
 			// check DependentsRelationshipOther
-			if (!"07".equals(dependents.getDependentsRelationship()) &&
-					!"".equals(dependents.getDependentsRelationshipOther())) {
+			if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
+					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00015", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
 			// check DependentsRelationshipOther format
-			if ("07".equals(dependents.getDependentsRelationship()) &&
-					!"".equals(dependents.getDependentsRelationshipOther()) &&
+			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
+					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther()) &&
 					!is2ByteCharacters(dependents.getDependentsRelationshipOther())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00011", new Object[] {"扶養者" + (index + 1), "続柄（その他）"}, null );
@@ -214,7 +214,10 @@ public class ValidateUtil {
 	 */
 	public static boolean checkRelationshipInvalid(String relation) {
 
-		String[] stringRelation = {"01","02","03","04","05","06","07"};
+		String[] stringRelation = {ConstValues.DEPENDENTS_RELATIONSHIP_01,ConstValues.DEPENDENTS_RELATIONSHIP_02,
+				ConstValues.DEPENDENTS_RELATIONSHIP_03,ConstValues.DEPENDENTS_RELATIONSHIP_04,
+				ConstValues.DEPENDENTS_RELATIONSHIP_05,ConstValues.DEPENDENTS_RELATIONSHIP_06,
+				ConstValues.DEPENDENTS_RELATIONSHIP_07};
 		for (int i = 0; i < stringRelation.length; i++) {
 			if (stringRelation[i].equals(relation)) {
 				return false;
@@ -286,37 +289,41 @@ public class ValidateUtil {
 	 */
 	public static boolean checkPartnerFormHasEdit(Dependents dependents){
 
-		if (!"".equals(dependents.getDependentsNameMei())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
 			return true;
 		}
 
-		if (!"".equals(dependents.getDependentsBirthdayYear())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
 			return true;
 		}
 
-		if (!"".equals(dependents.getDependentsBirthdayMonth())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
 			return true;
 		}
 
-		if (!"".equals(dependents.getDependentsBirthdayDay())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
 			return true;
 		}
 
-		if (!"".equals(dependents.getDependentsRelationship())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
 			return true;
 		}
 
-		if ("07".equals(dependents.getDependentsRelationship()) &&
-				"".equals(dependents.getDependentsRelationshipOther())) {
+		if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
+				ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 			return true;
 		}
 
-		if (!"07".equals(dependents.getDependentsRelationship()) &&
-				!"".equals(dependents.getDependentsRelationshipOther())) {
+		if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
+				!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 			return true;
 		}
 
-		if (!"".equals(dependents.getDependentsMyNumber())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
+			return true;
+		}
+
+		if (ConstValues.CHECKBOX_SELECT.equals(dependents.getNo3Insured())) {
 			return true;
 		}
 
@@ -342,5 +349,38 @@ public class ValidateUtil {
 		}
 
 		return isValid;
+	}
+	
+	/** check string is 1 byte character
+	 *
+	 * @param value
+	 * @return boolean
+	 */
+	public static boolean is1ByteCharacters(String value) {
+		int MAX_LENGTH_CHAR = 255;
+		boolean isValid = false;
+		char[] arrayValue = value.toCharArray();
+		for (int i = 0; i < arrayValue.length; i++) {
+			if (arrayValue[i] < MAX_LENGTH_CHAR) {
+				isValid = true;
+			} else {
+				return false;
+			}
+		}
+		return isValid;
+	}
+	
+	/** check string is number
+	 *
+	 * @param value
+	 * @return boolean
+	 */
+	public static boolean isNumeric(String str) {
+	    for (char c : str.toCharArray()) {
+	        if (!Character.isDigit(c)) {
+	        	return false;
+	        }
+	    }
+	    return true;
 	}
 }

@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.athuman.mynumber.web.dto.StaffSigningDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
@@ -18,18 +17,16 @@ public class StaffSigningController {
 	// show staffSigning page
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.GET)
 	public String show(Model model) {
-		model.addAttribute("staffSignningDto", new StaffSigningDto());
 		return MyNumberJsp.STAFF_SIGNNING;
 	}
 
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.POST)
-	public String next(StaffSigningDto staffSigningDto, Model model) {
+	public String next(Model model) {
 		return MyNumberJsp.REDIRECT_REGIST_COMFIRM;
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_PREVIOUS_SCREEN, method = RequestMethod.POST)
-	public String back(StaffSigningDto staffSigningDto, Model model, HttpSession sesion) {
-		
+	public String back(Model model, HttpSession sesion) {
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		if ("0".equals(staffInfoModelSession.getConsent())) {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;

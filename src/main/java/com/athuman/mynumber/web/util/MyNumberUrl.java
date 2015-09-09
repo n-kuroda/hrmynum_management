@@ -18,6 +18,7 @@ public class MyNumberUrl {
 
 	// S4
 	public static final String MYNUMBER_REGIST = "/myNumberRegist";
+	public static final String BACK_TO_PURPOSE_CONSENT = "/backToPurposeConsent";
 	
 	// S5
 	public static final String PARTNER_REGIST = "/partnerRegist";

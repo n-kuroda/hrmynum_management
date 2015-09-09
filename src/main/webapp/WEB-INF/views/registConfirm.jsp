@@ -127,9 +127,23 @@
 			                    </div>
 	                    	</c:if>
 	                    </c:forEach>
-	                    <c:if test="${empty lstDependentsSesion.dependents[0].dependentsNameMei }">
+	                    <c:if test="${empty dependentsInfoListModel.dependents[0].dependentsNameMei }">
 	                    	<div><spring:message text="なし" /></div>
 	                    </c:if>
+						<div class="mt10">
+		                    <c:choose>
+			                    <c:when test="${staffInfoModel.consent == '0' }">
+									<div>
+				                		<spring:message text="非承諾" />
+				                	</div>
+		                  		</c:when>
+								<c:otherwise>
+									<div>
+				                		<spring:message text="承諾" />
+				                	</div>
+								</c:otherwise>
+		                    </c:choose>
+	                    </div>
 
                     </div>
                 	<div class="confirmtext mt20">

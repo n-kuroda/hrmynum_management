@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
-import com.athuman.mynumber.web.service.MyNumberService;
+import com.athuman.mynumber.web.service.StaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
@@ -23,8 +23,8 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class StaffExistCheckController {
 
 	@Autowired(required=true)
-	@Qualifier(value="myNumberService")
-	private MyNumberService myNumberService;
+	@Qualifier(value="staffAPIService")
+	private StaffAPIService staffAPIService;
 
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model) {
@@ -46,7 +46,7 @@ public class StaffExistCheckController {
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		StaffInfoResponseDto staffInfoResponseDto = myNumberService.readStaff(staffInfoModelForm.getStaffNo());
+		StaffInfoResponseDto staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelForm.getStaffNo());
 
 		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
 
@@ -109,7 +109,7 @@ public class StaffExistCheckController {
 		return staffInfo;
 	}
 
-	public void setMyNumberService(MyNumberService myNumberService) {
-		this.myNumberService = myNumberService;
+	public void setStaffAPIService(StaffAPIService staffAPIService) {
+		this.staffAPIService = staffAPIService;
 	}
 }

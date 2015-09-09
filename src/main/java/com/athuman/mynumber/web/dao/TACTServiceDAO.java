@@ -6,6 +6,9 @@ import com.athuman.mynumber.web.model.MyNumber;
 
 public interface TACTServiceDAO {
 
-	/** Query [MyNumber] table by himodukeNo*/
+	/** Query [MyNumber] table by himodukeNo */
 	public List<MyNumber> queryMyNumberByHimodukeNo(String himodukeNo);
+
+	public String addMyNumber(MyNumber myNumber);
+
 }
