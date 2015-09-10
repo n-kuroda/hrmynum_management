@@ -2,18 +2,18 @@ function initScreen(){
 	// get url
 	var url = localStorage.getObject("signature");
 	document.getElementById("signature").src = url;
-	$("#staffSignning").val(url);
+	document.getElementById("staffSign").value = url;
 }
 
 Storage.prototype.getObject = function(key) {
     return JSON.parse(this.getItem(key));
-}
+};
 
 function backScreen() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var form = document.forms["registConfirmDto"].action = "registConfirmBack";
+		var form = document.forms["registConfirmForm"].action = "registConfirmBack";
 		form.submit();
 	}
 };

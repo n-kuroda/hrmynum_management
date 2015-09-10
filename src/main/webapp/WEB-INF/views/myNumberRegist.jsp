@@ -27,7 +27,7 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-                <form:form action="myNumberRegist" id="myNumberRegistForm" commandName="myNumberRegistDto" methodParam="POST" class="mt30">
+                <form:form action="myNumberRegist" id="myNumberRegistForm" modelAttribute="staffInfoModel" methodParam="POST" class="mt30">
                 	<form:errors path="*" cssClass="errorMyNumberRegist" />
                 	<div id ="checkMyNumberNetworkOffLine">
 						<fmt:message key="I00002"/>
@@ -119,9 +119,9 @@
 							</div>
 						</div>
 					</div>
-					<form:button name="action" value="back" class="btn-next mt40" onclick="if(backScreen()){return false;}">
+					<form:button type="button" class="btn-next mt40" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" /></form:button>
-                    <form:button name="action" value="next" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
+                    <form:button type="submit" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="次へ" /></form:button>
                 </form:form>
             </div>

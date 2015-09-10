@@ -44,6 +44,8 @@ public class StaffInfoModel implements Serializable {
 
 	private String consent;
 
+	private byte[] staffSign;
+
 	public String getStaffNo() {
 		return staffNo;
 	}
@@ -194,6 +196,14 @@ public class StaffInfoModel implements Serializable {
 
 	public void setConsent(String consent) {
 		this.consent = consent;
+	}
+
+	public byte[] getStaffSign() {
+		return staffSign;
+	}
+
+	public void setStaffSign(byte[] staffSign) {
+		this.staffSign = staffSign;
 	}
 
 }

@@ -28,49 +28,39 @@
             </div>
             <div id="content">
             	${tactMyNumber.httpStatus}
-                <form:form action="registConfirm" method="post" commandName="registConfirmDto">
+                <form:form id= "registConfirmForm" action="registConfirm" method="post" modelAttribute="staffInfoModel">
                 	<form:errors path="*" cssClass="error" />
                 	<div class="pesonal_information mt10">
 	                	<div><spring:message text="【本人情報】" /></div>
 	                	<div>
-	                		<form:label path="staffName">
-	                			<spring:message text="お名前：" />
-	                			<spring:message text="${registConfirmDto.staffName }" />
-	                		</form:label>
+                			<spring:message text="お名前：" />
+                			<spring:message text="${staffName }" />
 	                	</div>
 	                	<div>
-	                		<form:label path="myNumber">
-	                			<spring:message text="マイナンバー：" />
-	                			<spring:message text="${registConfirmDto.myNumber }" />
-	                		</form:label>
+                			<spring:message text="マイナンバー：" />
+                			<spring:message text="${myNumber }" />
 	                	</div>
 	                	<div>
-	                		<form:label path="myNumberConfirm">
-	                			<spring:message text="マイナンバー確認書類：" />
-	                			<spring:message text="${registConfirmDto.myNumberConfirm }" />
-	                		</form:label>
+                			<spring:message text="マイナンバー確認書類：" />
+                			<spring:message text="${myNumberConfirm }" />
 	                	</div>
 	                	<div>
-
-	                		<c:if test="${myNumerRegistModel.myNumberConfirm != '01' }">
-	                			<form:label path="identification">
+	                		<c:if test="${staffInfoModel.myNumberConfirm != '01' && staffInfoModel.myNumberConfirm != '' }">
 		                			<spring:message text="本人確認書類：" />
-		                			<spring:message text="${registConfirmDto.identification }" />
-		                		</form:label>
+		                			<spring:message text="${identification }" />
 	                		</c:if>
-
 	                	</div>
                 	</div>
                     <div class="personsigning">
                     	<img id="signature">
-                    	<form:hidden path="staffSignning"/>
+                    	<form:hidden path="staffSign"/>
                     </div>
                     <script>
                     	initScreen();
                     </script>
                     <div class="dependents_information mt30">
 	                    <div><spring:message text="【扶養者情報】" /></div>
-	                    <c:forEach items="${registConfirmDto.lstDependents}" var="dependent" varStatus="status">
+	                    <c:forEach items="${lstDependents}" var="dependent" varStatus="status">
 	                    	<c:if test="${! empty dependent.dependentsNameMei }">
 			                    <div><spring:message text="扶養者${status.index + 1}" /></div>
 			                    <div class="dependent1">

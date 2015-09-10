@@ -8,7 +8,7 @@ public interface MyNumberAPIService {
 
 	public TACTMyNumberResponseDto myNumber(String himodukeNo);
 	
-	public String registMyNumber (MyNumber myNumber);
+	public String registMyNumber(MyNumber myNumber);
 	
 	public TACTMyNumberResponseDto collectionInfo(TACTRegistConfirmDto tACTRegistConfirmDto);
 }

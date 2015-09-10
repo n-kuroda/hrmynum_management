@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,7 @@ public class StaffExistCheckController {
 
 	// submit staffExistCheck page
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String search(StaffInfoModel staffInfoModelForm, BindingResult bindingResult,
+	public String search(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm, BindingResult bindingResult,
 			Model model, HttpSession session) {
 
 		// check input value is valid or not
@@ -82,8 +83,8 @@ public class StaffExistCheckController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
-	public String next(StaffInfoModel staffInfoModelForm, BindingResult bindingResult, 
-			Model model, HttpSession session) {
+	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
+			BindingResult bindingResult, Model model, HttpSession session) {
 
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 

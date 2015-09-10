@@ -32,7 +32,7 @@ public class PurposeConsentController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String back(Model model, HttpSession sesion) {
+	public String back(Model model) {
 		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
 

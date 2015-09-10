@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,7 +37,7 @@ public class ShainExistCheckController {
 
 	// submit shainExistCheck page
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
-	public String search(ShainInfoModel shainInfoModelForm, BindingResult bindingResult,
+	public String search(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, BindingResult bindingResult,
 			Model model, HttpSession session) {
 		
 		// check input value is valid or not
@@ -83,7 +84,8 @@ public class ShainExistCheckController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String next(ShainInfoModel shainInfoModelForm, BindingResult bindingResult, Model model, HttpSession session) {
+	public String next(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, 
+			BindingResult bindingResult, Model model, HttpSession session) {
 
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 		

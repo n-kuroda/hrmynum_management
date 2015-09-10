@@ -1,16 +1,14 @@
 package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.athuman.mynumber.web.dto.MyNumberRegistDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
@@ -19,36 +17,37 @@ import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
-@SessionAttributes("myNumerRegistModel")
 public class MyNumberRegistController {
 
+	private StaffInfoModel staffInfoModel;
 	// show myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
-		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("myNumerRegistModel");
+		staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {
 			staffInfoModel = new StaffInfoModel();
 		}
 
-		model.addAttribute("myNumberRegistDto", staffInfoModel);
+		model.addAttribute("staffInfoModel", staffInfoModel);
 		return MyNumberJsp.MYNUMBER_REGIST;
 	}
 
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.POST)
-	public String next(@Valid MyNumberRegistDto myNumber, BindingResult binding, Model model) {
+	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel myNumberForm,
+			BindingResult binding, Model model, HttpSession session) {
 
-		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumber.getMyNumber(), binding, 12).hasErrors()) { // when form has error
+		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumberForm.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-		if (!StringUtil.isNotEmpty(myNumber.getMyNumberConfirm())) {
+		if (!StringUtil.isNotEmpty(myNumberForm.getMyNumberConfirm())) {
 			binding.rejectValue("myNumberConfirm", "V00001", new Object [] {"マイナンバー確認書類"}, null);
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 		// store data to session
-		StaffInfoModel staffInfoModel = processData(myNumber);
-		model.addAttribute("myNumerRegistModel", staffInfoModel);
+		staffInfoModel = processData(myNumberForm, staffInfoModel);
+		session.setAttribute("staffInfoModel", staffInfoModel);
 
 		// check at last one check box selected
 		if (checkSelect(staffInfoModel)) {
@@ -59,10 +58,10 @@ public class MyNumberRegistController {
 		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
 
 	}
-	
+
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.BACK_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
-	public String back(Model model, HttpSession sesion) {
+	public String back(Model model) {
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
@@ -71,110 +70,109 @@ public class MyNumberRegistController {
 	 * @param myNumber
 	 * @return MyNumberRegistDto
 	 */
-	private StaffInfoModel processData(MyNumberRegistDto myNumber) {
-		StaffInfoModel mnRegist = new StaffInfoModel();
-		if (myNumber != null) {
+	private StaffInfoModel processData(StaffInfoModel myNumberForm, StaffInfoModel staffInfoModel) {
+		if (myNumberForm != null) {
 
 			// store my number
-			if (StringUtil.isNotEmpty(myNumber.getMyNumber())) {
-				mnRegist.setMyNumber(myNumber.getMyNumber());
+			if (StringUtil.isNotEmpty(myNumberForm.getMyNumber())) {
+				staffInfoModel.setMyNumber(myNumberForm.getMyNumber());
 			}
 
 			// store MyNumber confirm
-			if (StringUtil.isNotEmpty(myNumber.getMyNumberConfirm())) {
-				mnRegist.setMyNumberConfirm(myNumber.getMyNumberConfirm());
+			if (StringUtil.isNotEmpty(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setMyNumberConfirm(myNumberForm.getMyNumberConfirm());
 			}
 
 			// store driver license
-			if (StringUtil.isNotEmpty(myNumber.getDriversLicense()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setDriversLicense(myNumber.getDriversLicense());
+			if (StringUtil.isNotEmpty(myNumberForm.getDriversLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setDriversLicense(myNumberForm.getDriversLicense());
 			} else {
-				mnRegist.setDriversLicense(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setDriversLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store drive history license
-			if (StringUtil.isNotEmpty(myNumber.getDriveHistoryLicense()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setDriveHistoryLicense(myNumber.getDriveHistoryLicense());
+			if (StringUtil.isNotEmpty(myNumberForm.getDriveHistoryLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setDriveHistoryLicense(myNumberForm.getDriveHistoryLicense());
 			} else {
-				mnRegist.setDriveHistoryLicense(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setDriveHistoryLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store passport
-			if (StringUtil.isNotEmpty(myNumber.getPassPort()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setPassPort(myNumber.getPassPort());
+			if (StringUtil.isNotEmpty(myNumberForm.getPassPort()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setPassPort(myNumberForm.getPassPort());
 			} else {
-				mnRegist.setPassPort(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setPassPort(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store body disabilities notebook
-			if (StringUtil.isNotEmpty(myNumber.getBodyDisabilitiesNotebook()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setBodyDisabilitiesNotebook(myNumber.getBodyDisabilitiesNotebook());
+			if (StringUtil.isNotEmpty(myNumberForm.getBodyDisabilitiesNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setBodyDisabilitiesNotebook(myNumberForm.getBodyDisabilitiesNotebook());
 			} else {
-				mnRegist.setBodyDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setBodyDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store mental disabilities notebook
-			if (StringUtil.isNotEmpty(myNumber.getMentalDisabilitiesNotebook()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setMentalDisabilitiesNotebook(myNumber.getMentalDisabilitiesNotebook());
+			if (StringUtil.isNotEmpty(myNumberForm.getMentalDisabilitiesNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setMentalDisabilitiesNotebook(myNumberForm.getMentalDisabilitiesNotebook());
 			} else {
-				mnRegist.setMentalDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setMentalDisabilitiesNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store rehabilitation notebook
-			if (StringUtil.isNotEmpty(myNumber.getRehabilitationNotebook()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setRehabilitationNotebook(myNumber.getRehabilitationNotebook());
+			if (StringUtil.isNotEmpty(myNumberForm.getRehabilitationNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setRehabilitationNotebook(myNumberForm.getRehabilitationNotebook());
 			} else {
-				mnRegist.setRehabilitationNotebook(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setRehabilitationNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store stay card
-			if (StringUtil.isNotEmpty(myNumber.getStayCard()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setStayCard(myNumber.getStayCard());
+			if (StringUtil.isNotEmpty(myNumberForm.getStayCard()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setStayCard(myNumberForm.getStayCard());
 			} else {
-				mnRegist.setStayCard(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setStayCard(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store clear Person
-			if (StringUtil.isNotEmpty(myNumber.getClearPerson()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setClearPerson(myNumber.getClearPerson());
+			if (StringUtil.isNotEmpty(myNumberForm.getClearPerson()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setClearPerson(myNumberForm.getClearPerson());
 			} else {
-				mnRegist.setClearPerson(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setClearPerson(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store insurance card license
-			if (StringUtil.isNotEmpty(myNumber.getHealthInsuranceLicense()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setHealthInsuranceLicense(myNumber.getHealthInsuranceLicense());
+			if (StringUtil.isNotEmpty(myNumberForm.getHealthInsuranceLicense()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setHealthInsuranceLicense(myNumberForm.getHealthInsuranceLicense());
 			} else {
-				mnRegist.setHealthInsuranceLicense(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setHealthInsuranceLicense(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store pension book
-			if (StringUtil.isNotEmpty(myNumber.getPensionNotebook()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setPensionNotebook(myNumber.getPensionNotebook());
+			if (StringUtil.isNotEmpty(myNumberForm.getPensionNotebook()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setPensionNotebook(myNumberForm.getPensionNotebook());
 			} else {
-				mnRegist.setPensionNotebook(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setPensionNotebook(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
 			// store other
-			if (StringUtil.isNotEmpty(myNumber.getOther()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumber.getMyNumberConfirm())) {
-				mnRegist.setOther(myNumber.getOther());
+			if (StringUtil.isNotEmpty(myNumberForm.getOther()) &&
+					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
+				staffInfoModel.setOther(myNumberForm.getOther());
 			} else {
-				mnRegist.setOther(ConstValues.CHECKBOX_NOT_SELECT);
+				staffInfoModel.setOther(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 		}
 
-		return mnRegist;
+		return staffInfoModel;
 	}
 
 	/** Check which radio is checked

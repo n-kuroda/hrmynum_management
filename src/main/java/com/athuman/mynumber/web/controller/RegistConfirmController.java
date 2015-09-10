@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.dto.Dependents;
-import com.athuman.mynumber.web.dto.RegistConfirmDto;
 import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
 import com.athuman.mynumber.web.dto.TACTRegistConfirmDto;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
@@ -48,16 +47,15 @@ public class RegistConfirmController {
 
 		// get data form session.
 		StaffInfoModel staffInfo = (StaffInfoModel)session.getAttribute("staffInfoModel");
-		StaffInfoModel myNumberRegist = (StaffInfoModel)session.getAttribute("myNumerRegistModel");
 		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 
 		// init data for show jsp
-		initData(model, staffInfo, myNumberRegist, dependentInfo);
+		initData(model, staffInfo, dependentInfo);
 		return MyNumberJsp.REGIST_CONFIRM;
 	}
 
 	@RequestMapping(value = MyNumberUrl.REGISTCONFIRM, method = RequestMethod.POST)
-	public String next(@ModelAttribute("registConfirmDto")RegistConfirmDto registConfirmDto,
+	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel registConfirmForm,
 			Model model, HttpSession session, BindingResult binding) {
 
 		// Generator random UUID
@@ -65,7 +63,6 @@ public class RegistConfirmController {
 
 		// get data form session
 		StaffInfoModel staffInfo = (StaffInfoModel)session.getAttribute("staffInfoModel");
-		StaffInfoModel myNumberRegist = (StaffInfoModel)session.getAttribute("myNumerRegistModel");
 		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 
@@ -79,17 +76,18 @@ public class RegistConfirmController {
 		TACTMyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(tactRegistConfirmDto);
 		// when status code != 200
 		if (responseDto.getHttpStatus() != 200) {
-			binding.rejectValue("staffName", "S00001", new Object[] {"登録"}, null);
+			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
 		}
 
 		// regist to DB
-		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel, myNumberRegist, dependentInfo, registConfirmDto);
+		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel,
+				dependentInfo, registConfirmForm.getStaffSign());
 
 		// store data directly to DB
 		String result = myNumberAPIService.registMyNumber(myNumber);
 		if ("0".equals(result)) {
-			binding.rejectValue("staffName", "S00001", new Object[] {"登録"}, null);
-			initData(model, staffInfo, myNumberRegist, dependentInfo);
+			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
+			initData(model, staffInfo, dependentInfo);
 			return MyNumberJsp.REGIST_CONFIRM;
 		}
 		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
@@ -107,19 +105,18 @@ public class RegistConfirmController {
 	 * @param myNumberRegist
 	 * @param dependentInfo
 	 */
-	private void initData(Model model, StaffInfoModel staffInfo, StaffInfoModel myNumberRegist,
+	private void initData(Model model, StaffInfoModel staffInfo,
 			DependentsInfoListModel dependentInfo){
-		RegistConfirmDto registConfirmDto = new RegistConfirmDto();
-		registConfirmDto.setStaffName(getStaffName(staffInfo));
+		model.addAttribute("staffName", getStaffName(staffInfo));
 
-		if (myNumberRegist != null) {
-			registConfirmDto.setMyNumberConfirm(getMyNumberConfirm(myNumberRegist));
-			registConfirmDto.setIdentification(getIdentification(myNumberRegist));
-			registConfirmDto.setMyNumber(myNumberRegist.getMyNumber());
+		if (staffInfo != null) {
+			model.addAttribute("myNumberConfirm", getMyNumberConfirm(staffInfo));
+			model.addAttribute("identification", getIdentification(staffInfo));
+			model.addAttribute("myNumber", staffInfo.getMyNumber());
 		}
 
-		registConfirmDto.setLstDependents(dependentInfo.getDependents());
-		model.addAttribute("registConfirmDto", registConfirmDto );
+		model.addAttribute("lstDependents", dependentInfo.getDependents());
+		model.addAttribute("staffInfoModel", staffInfo);
 	}
 
 	/** get Identification from session
@@ -212,7 +209,7 @@ public class RegistConfirmController {
 	 * @return MyNumber
 	 */
 	private MyNumber setData4MyNumber(StaffInfoModel staffInfo, String uuid, ShainInfoModel shainInfoModel,
-			StaffInfoModel myNumberRegist, DependentsInfoListModel dependentInfo, RegistConfirmDto registConfirmDto){
+			DependentsInfoListModel dependentInfo, byte[] staffSign){
 		MyNumber myNumber = new MyNumber();
 		Date today = new Date();
 		try {
@@ -232,23 +229,23 @@ public class RegistConfirmController {
 				myNumber.setFuyo10MyNumber(AESUtil.encrypt(dependents.get(9).getDependentsMyNumber()));
 			}
 
-			if (myNumberRegist != null) {
-				myNumber.setStaffMyNumber(AESUtil.encrypt(myNumberRegist.getMyNumber()));
-				myNumber.setMyNumberKakuninshorui(myNumberRegist.getMyNumberConfirm());
-				myNumber.setUntenKeirekiShoumeisho(myNumberRegist.getDriveHistoryLicense());
-				myNumber.setUntenMenkyyosho(myNumberRegist.getDriversLicense());
-				myNumber.setPassport(myNumberRegist.getPassPort());
-				myNumber.setShintaiShogaishaTecho(myNumberRegist.getBodyDisabilitiesNotebook());
-				myNumber.setSeishinShogaishaTecho(myNumberRegist.getMentalDisabilitiesNotebook());
-				myNumber.setRyoikuTecho(myNumberRegist.getRehabilitationNotebook());
-				myNumber.setZairyuCard(myNumberRegist.getStayCard());
-				myNumber.setHonninAkiraka(myNumberRegist.getClearPerson());
-				myNumber.setKenkoHokenshasho(myNumberRegist.getHealthInsuranceLicense());
-				myNumber.setNenkonTecho(myNumberRegist.getPensionNotebook());
-				myNumber.setSonota(myNumberRegist.getOther());
+			if (staffInfo != null) {
+				myNumber.setStaffMyNumber(AESUtil.encrypt(staffInfo.getMyNumber()));
+				myNumber.setMyNumberKakuninshorui(staffInfo.getMyNumberConfirm());
+				myNumber.setUntenKeirekiShoumeisho(staffInfo.getDriveHistoryLicense());
+				myNumber.setUntenMenkyyosho(staffInfo.getDriversLicense());
+				myNumber.setPassport(staffInfo.getPassPort());
+				myNumber.setShintaiShogaishaTecho(staffInfo.getBodyDisabilitiesNotebook());
+				myNumber.setSeishinShogaishaTecho(staffInfo.getMentalDisabilitiesNotebook());
+				myNumber.setRyoikuTecho(staffInfo.getRehabilitationNotebook());
+				myNumber.setZairyuCard(staffInfo.getStayCard());
+				myNumber.setHonninAkiraka(staffInfo.getClearPerson());
+				myNumber.setKenkoHokenshasho(staffInfo.getHealthInsuranceLicense());
+				myNumber.setNenkonTecho(staffInfo.getPensionNotebook());
+				myNumber.setSonota(staffInfo.getOther());
 			}
 
-			myNumber.setHonninSyomei(registConfirmDto.getStaffSignning());
+			myNumber.setHonninSyomei(staffSign);
 			myNumber.setKakuninsha(shainInfoModel.getShainNo());
 			myNumber.setTorokuUser(shainInfoModel.getShainNo());
 			myNumber.setTorokuTimestamp(new Timestamp(today.getTime()));

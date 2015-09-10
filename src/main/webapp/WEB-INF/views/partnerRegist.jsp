@@ -27,13 +27,13 @@
             </div>
             <div id="content">
             <div class="title_r">扶養者情報を入力してください。</div>
-                <form:form id="partnerRegistForm" action="partnerRegist" method="post" commandName="lstDependentsInfo" cssClass="mt10">
+                <form:form id="partnerRegistForm" action="partnerRegist" method="post" modelAttribute="dependentsInfoListModel" cssClass="mt10">
                 <form:errors path="*" cssClass="errorPartnerRegist" />
                 <div id ="checkPartnerNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
 				<input type="hidden" id="staffName" value="${staffInfoModel.staffNameSei}">
-                <c:forEach items="${lstDependentsInfo.dependents}" var="dependent" varStatus="status">
+                <c:forEach items="${dependentsInfoListModel.dependents}" var="dependent" varStatus="status">
                 	<div class="box">
 		                <div class="titlebox">扶養者${status.index + 1}</div>
                         <p class="font14 name">
