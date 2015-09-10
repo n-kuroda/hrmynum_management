@@ -301,7 +301,14 @@ public class ValidateUtil {
 	    return true;
 	}
 	
-		public static BindingResult checkRequire(Dependents dependents, BindingResult bindingResult, int index){
+	public static BindingResult checkRequire(Dependents dependents, BindingResult bindingResult, int index) {
+		
+		if (ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
+					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
+			return bindingResult;
+		}
+		
 		if (ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
@@ -417,7 +424,7 @@ public class ValidateUtil {
 	
 		public static BindingResult checkRelationship(Dependents dependents,
 			BindingResult bindingResult, int index) {
-		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())){
+		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
 			
 			// check code DependentsRelationship invalid
 			if (checkRelationshipInvalid(dependents.getDependentsRelationship())) {
