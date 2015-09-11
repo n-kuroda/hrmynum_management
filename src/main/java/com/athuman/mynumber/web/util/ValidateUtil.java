@@ -352,8 +352,8 @@ public class ValidateUtil {
 	public static BindingResult checkNameSei(Dependents dependents, BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
 			
-			// check DependentsNameSei >= 26 characters
-			if (dependents.getDependentsNameSei().length() >= 25) {
+			// check DependentsNameSei > 25 characters
+			if (dependents.getDependentsNameSei().length() > 25) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（姓）", "25"}, null );
 			}
@@ -368,8 +368,8 @@ public class ValidateUtil {
 	
 	public static BindingResult checkNameMei(Dependents dependents, BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
-			// check DependentsNameMei >= 26 characters
-			if (dependents.getDependentsNameMei().length() >= 25) {
+			// check DependentsNameMei > 25 characters
+			if (dependents.getDependentsNameMei().length() > 25) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（名）", "25"}, null );
 			}

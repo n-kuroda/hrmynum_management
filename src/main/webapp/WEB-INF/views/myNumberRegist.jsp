@@ -119,9 +119,9 @@
 							</div>
 						</div>
 					</div>
-					<form:button type="button" class="btn-next mt40" onclick="if(backScreen()){return false;}">
+					<form:button class="btn-next mt40" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" /></form:button>
-                    <form:button type="submit" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
+                    <form:button class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="次へ" /></form:button>
                 </form:form>
             </div>

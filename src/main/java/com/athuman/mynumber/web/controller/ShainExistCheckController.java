@@ -18,7 +18,6 @@ import com.athuman.mynumber.web.service.ShainAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
-import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class ShainExistCheckController {
@@ -26,11 +25,11 @@ public class ShainExistCheckController {
 	@Autowired(required=true)
 	@Qualifier(value="shainAPIService")
 	private ShainAPIService shainAPIService;
-	
+
 	// display shainExistCheck page
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model) {
-		
+
 		model.addAttribute("shainInfoModel", new ShainInfoModel());
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 	}
@@ -39,17 +38,11 @@ public class ShainExistCheckController {
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String search(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, BindingResult bindingResult,
 			Model model, HttpSession session) {
-		
-		// check input value is valid or not
-		if (ValidateUtil.checkInputValid("shainNo", "社員番号", shainInfoModelForm.getShainNo(), bindingResult, 6).hasErrors()) {
-			session.setAttribute("shainInfoModel", null);
-			return MyNumberJsp.SHAIN_EXIST_CHECK;
-		}
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
 		ShainInfoResponseDto shainInfoResponseDto = shainAPIService.readShain(shainInfoModelForm.getShainNo());
-			
+
 		if (shainInfoResponseDto.getHttpStatus() == 200) { // OK
 			ShainInfoDto shainInfoDto = shainInfoResponseDto.getShainInfoDto();
 
@@ -84,14 +77,14 @@ public class ShainExistCheckController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String next(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, 
+	public String next(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm,
 			BindingResult bindingResult, Model model, HttpSession session) {
 
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
-		
-		if (shainInfoModel != null && 
+
+		if (shainInfoModel != null &&
 				StringUtil.isNotEmpty(shainInfoModel.getShainNo())) {
-			
+
 			return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 		} else {
 			bindingResult.rejectValue("shainNo", "V00001", new Object [] {"社員番号"}, null);
@@ -99,12 +92,12 @@ public class ShainExistCheckController {
 			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 	}
-	
+
 	/** get Shain info*/
 	private String getShainInfo(ShainInfoDto shainInfoDto) {
-		String shainInfo = shainInfoDto.getShainNameSei() + " " + shainInfoDto.getShainNameMei() + 
+		String shainInfo = shainInfoDto.getShainNameSei() + " " + shainInfoDto.getShainNameMei() +
 				"(" + shainInfoDto.getShainNameSeiKana() + " " + shainInfoDto.getShainNameMeiKana() + ")";
-		
+
 		return shainInfo;
 	}
 
