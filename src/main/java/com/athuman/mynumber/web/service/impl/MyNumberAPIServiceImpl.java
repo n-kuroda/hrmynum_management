@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.athuman.mynumber.web.dao.TACTServiceDAO;
-import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
-import com.athuman.mynumber.web.dto.TACTRegistConfirmDto;
+import com.athuman.mynumber.web.dto.MyNumberResponseDto;
+import com.athuman.mynumber.web.dto.RegistConfirmDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
 import com.athuman.mynumber.web.util.AESUtil;
@@ -21,9 +21,9 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 	
 	@Override
 	@Transactional
-	public TACTMyNumberResponseDto myNumber(String himodukeNo) {
+	public MyNumberResponseDto myNumber(String himodukeNo) {
 
-		TACTMyNumberResponseDto dto = new TACTMyNumberResponseDto();
+		MyNumberResponseDto dto = new MyNumberResponseDto();
 
 		// check [himodukeNo] is valid or not
 		if (StringUtil.isNotEmpty(himodukeNo) && himodukeNo.length() == 36 &&
@@ -83,9 +83,9 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 	}
 	
 	@Override
-	public TACTMyNumberResponseDto collectionInfo(TACTRegistConfirmDto tACTRegistConfirmDto) {
+	public MyNumberResponseDto collectionInfo(RegistConfirmDto registConfirmDto) {
 		
-		TACTMyNumberResponseDto responseDto = new TACTMyNumberResponseDto();
+		MyNumberResponseDto responseDto = new MyNumberResponseDto();
 		responseDto.setHttpStatus(204);
 		responseDto.setMyNumber("");
 		responseDto.setResultMessage("");

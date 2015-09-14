@@ -18,7 +18,6 @@ import com.athuman.mynumber.web.service.StaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
-import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class StaffExistCheckController {
@@ -38,12 +37,6 @@ public class StaffExistCheckController {
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String search(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm, BindingResult bindingResult,
 			Model model, HttpSession session) {
-
-		// check input value is valid or not
-		if (ValidateUtil.checkInputValid("staffNo", "スタッフNo", staffInfoModelForm.getStaffNo(), bindingResult, 9).hasErrors()) {
-			session.setAttribute("staffInfoModel", null);
-			return MyNumberJsp.STAFF_EXIST_CHECK;
-		}
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
@@ -105,7 +98,7 @@ public class StaffExistCheckController {
 
 	/** get staff info*/
 	private String getStaffInfo(StaffInfoDto staffInfoDto) {
-		String staffInfo = staffInfoDto.getNameSei() + " " + staffInfoDto.getNameMei() + 
+		String staffInfo = staffInfoDto.getNameSei() + " " + staffInfoDto.getNameMei() +
 				"(" + staffInfoDto.getNameKanaSei() + " " + staffInfoDto.getNameKanaMei() + ")";
 		return staffInfo;
 	}

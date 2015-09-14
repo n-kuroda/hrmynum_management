@@ -3,7 +3,7 @@ package com.athuman.mynumber.web.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class TACTRegistConfirmDto implements Serializable {
+public class RegistConfirmDto implements Serializable {
 
 	private static final long serialVersionUID = -5845862294885188427L;
 	private String no;

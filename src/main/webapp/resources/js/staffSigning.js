@@ -18,7 +18,7 @@ function signatureCapture() {
 	}
 
 	canvas.width = 600;
-	canvas.height = 280;
+	canvas.height = 140;
 
 	context.fillStyle = "#fff";
 	context.strokeStyle = "#444";
@@ -162,19 +162,27 @@ function signatureSave() {
 			var canvas = document.getElementById("newSignature");	
 			// save canvas image as data url (png format by default)
 			var dataURL = canvas.toDataURL("image/png");
-			localStorage.setObject("signature", dataURL);
+			sessionStorage.setObject("signature", dataURL);
 			console.log(dataURL);
 			
-			var form = document.forms["staffSignningForm"].action = "staffSignning"; // TODO: change to partnerRegistBack
+			var form = document.forms["staffSigningForm"].action = "staffSigning";
 			form.submit();
 		}
 	}
 };
 
+function signatureClear() {
+	var parent = document.getElementById("signingImage");
+	var child = document.getElementById("newSignature");
+	parent.removeChild(child);
+	isDrawn = false;
+	signatureCapture();
+}
+
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireSigning = document.getElementById('checkSignningNetworkOffLine');
-		requireSigning.style.display = 'block';
+		var requireNetwork = document.getElementById('checkSignningNetworkOffLine');
+		requireNetwork.style.display = 'block';
 		var errorOther = document.getElementById('checkrequireSigning');
 		if(errorOther != null) {
 			errorOther.style.display = 'none';
@@ -189,7 +197,7 @@ function backScreen() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var form = document.forms["staffSignningForm"].action = "backToPreviousScreen";
+		var form = document.forms["staffSigningForm"].action = "backToPreviousScreen";
 		form.submit();
 	}
 }

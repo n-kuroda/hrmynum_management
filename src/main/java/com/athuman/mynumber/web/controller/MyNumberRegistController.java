@@ -42,7 +42,7 @@ public class MyNumberRegistController {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 		if (!StringUtil.isNotEmpty(myNumberForm.getMyNumberConfirm())) {
-			binding.rejectValue("myNumberConfirm", "V00001", new Object [] {"マイナンバー確認書類"}, null);
+			binding.rejectValue("myNumberConfirm", "V00001", new Object [] {"マイナンバー確認提示書類"}, null);
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 		// store data to session
@@ -196,42 +196,14 @@ public class MyNumberRegistController {
 
 		int checkTime = 0;
 		// check driver license
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriversLicense())) {
-			return false;
-		}
-
-		// check driving history license
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriveHistoryLicense())) {
-			return false;
-		}
-
-		// check passport
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPassPort())) {
-			return false;
-		}
-
-		// check body disabilities notebook
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook())) {
-			return false;
-		}
-
-		// check mental disabilities notebook
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook())) {
-			return false;
-		}
-
-		// check rehabilitation notebook
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook())) {
-			return false;
-		}
-
-		// check stay card
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard())) {
-			return false;
-		}
-
-		// check clear person
-		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getClearPerson())) {
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriversLicense()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriveHistoryLicense()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPassPort()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard()) ||
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getClearPerson())) {
 			return false;
 		}
 

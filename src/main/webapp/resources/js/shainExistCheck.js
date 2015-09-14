@@ -119,7 +119,7 @@ function checkInput() {
 			return true;
 		}
 		if (isNaN(shainNo)) {
-			checkByteId.style.display = 'block';
+			checkLengthId.style.display = 'block';
 			if (messageInfo != null) {
 				messageInfo.style.display = 'none';
 			}

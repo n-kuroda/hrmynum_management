@@ -68,7 +68,7 @@ public class PartnerRegistController {
 
 		// when form don't has error store session
 		storeSession(model, lstDependentsInfo, staffInfoModel, session);
-		return MyNumberJsp.REDIRECT_STAFF_SIGNNING;
+		return MyNumberJsp.REDIRECT_STAFF_SIGNING;
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_MYNUMBER_REGIST, method = RequestMethod.POST)

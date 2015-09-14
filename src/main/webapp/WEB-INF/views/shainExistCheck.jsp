@@ -31,7 +31,7 @@
 			<div id="content">
 				<form:form methodParam="POST" modelAttribute="shainInfoModel" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
 					<div class="subtitle"><spring:message text="社員番号を入力して検索ボタンを押してください。" /></div>
-					<form:label path="shainNo" cssClass="shainNoLable">
+					<form:label path="shainNo" cssClass="color">
 						<spring:message text="社員番号"/>
 					</form:label>
 					<form:input path="shainNo" cssErrorClass="error"/>
@@ -43,17 +43,20 @@
 							<table>
 								<c:if test="${!empty shainNo}">
 								<tr>
-									<td class="shainNoResultLabel"><spring:message text="社員番号 " /></td>
-									<td class="shainNoResult"><spring:message text="${shainNo}" /></td>
+									<td class="leftLabel"><spring:message text="社員番号 " /></td>
+									<td class="rightLabel"><spring:message text="${shainNo}" /></td>
 								</tr>
 								</c:if>
 								<c:if test="${!empty shainInfo}">
 								<tr>
-									<td class="shainNoResultLabel"><spring:message text="お名前" /></td>
-									<td class="shainNoResult"><spring:message text="${shainInfo}" /></td>
+									<td class="leftLabel"><spring:message text="お名前" /></td>
+									<td class="rightLabel"><spring:message text="${shainInfo}" /></td>
 								</tr>
 								</c:if>
 							</table>
+							<c:if test="${!empty shainInfo}">
+								<div class="mt20 ml20">よろしければ「次へ」ボタンを押してください。</div>
+							</c:if>
 						</div>
 					</div>
 					<form:errors path="*" cssClass="errorShainExistCheck" />

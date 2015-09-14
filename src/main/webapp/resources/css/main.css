@@ -57,18 +57,12 @@ body {
     text-align: center;
     margin-top: 0px;
 }
-#content {
-}
-#content form {
-}
 #content form label.color {
-    display: inline-block;
-	text-align: center;
-	background-color: #93CDDD;
-	color: #FFF;
-	padding: 10px 0px 7px 0px !important;
-	margin-right: -4px;
-	width: 130px;
+    background-color: #93cddd;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 15px;
 }
 p.font12 label {
     font-size: 15px !important;
@@ -78,7 +72,7 @@ p.font12 label {
 }
 #content form input {
     display: inline-block;
-    padding: 5px;
+    padding: 4px;
     width: 120px;
     margin-left: 5px;
 }
@@ -115,15 +109,24 @@ p.font12 label {
 	cursor: pointer;
 }
 #content form .btn-back {
-    background-color: #93CDDD;
-    color: #FFF;
-    text-align: center;
-    border: 0px;
-    padding: 5px 26px;
-    font-size: 14px;
-    height: 34px;
-    margin-left: 220px;
-    cursor: pointer;
+    background-color: #FFF;
+	color: #666699;
+	border: solid 1px #666699;
+	font-size: 12px;
+	height: 30px;
+	padding: 3px 20px;
+	cursor: pointer;
+    float:  left;
+}
+#content form .btn-skip {
+    background-color: #FFF;
+	color: #666699;
+	border: solid 1px #666699;
+	font-size: 12px;
+	height: 30px;
+	padding: 3px 20px;
+	cursor: pointer;
+    float: right;
 }
 #content form .btn-clear {
     background-color: #93CDDD;
@@ -133,7 +136,7 @@ p.font12 label {
     font-size: 12px;
     height: 23px;
     width: 200px;
-    right: 65px;
+    right: 2px;
     position: absolute;
     cursor: pointer;
 }
@@ -202,6 +205,9 @@ div#purponeConsent {
 .mb30 {
     margin-bottom: 30px;
 }
+.ml2 {
+	margin-left: 2px;
+}
 .ml20 {
 	margin-left: 20px;
 }
@@ -244,7 +250,7 @@ div#purponeConsent {
 }
 
 .chkbox-group .col {
-    height: 85px;
+    height: 70px;
     float: left;
     margin: 0px 2% 0px 2%;
     text-align: left;
@@ -293,10 +299,9 @@ div#purponeConsent {
 }
 #content #partnerRegistForm input.relationshipOther {
 	width: 120px;
-    margin-left: -41px;
-    margin-right: 25px;
-   	height: 17px;
-   	line-height: 12px;
+	margin-left: -66px;
+	height: 17px;
+	line-height: 12px;
 }
 #content #partnerRegistForm input.furigananame {
 	width: 100px;
@@ -306,9 +311,9 @@ div#purponeConsent {
 }
 #content #partnerRegistForm input.mynumber {
 	width: 200px;
-    margin-left: 38px;
-   	height: 17px;
-   	line-height: 12px;
+	margin-left: 0px;
+	height: 17px;
+	line-height: 12px;
 }
 #content #partnerRegistForm span.lastname {
     margin-left: 80px;
@@ -322,7 +327,6 @@ div#purponeConsent {
     margin-left: 10px;
 }
 #content #partnerRegistForm select.year {
-    margin-left: 30px;
     width: 116px;
     height: 30px;
 }
@@ -333,7 +337,6 @@ div#purponeConsent {
     height: 30px;
 }
 #content #partnerRegistForm select.relationship {
-    margin-left: 95px;
     width: 95px;
     height: 30px;
 }
@@ -394,11 +397,11 @@ h1, p {
     margin-left: 110px;
     width: 100px;
 }
-#main-content-staffsignning {
-width: 600px;
-margin: 0 auto;
-border: 1px solid #CCC;
-padding: 30px 50px 15px 50px;
+#main-content-staffsigning {
+	width: 600px;
+	margin: 0 auto;
+	border: 1px solid #CCC;
+	padding: 30px 50px 15px 50px;
 }
 
 #header .logo_l {
@@ -442,7 +445,8 @@ padding: 30px 50px 15px 50px;
     font-size: 12px;
     color: red;
     display: inline-block;
-    margin-left: 165px;
+    margin-left: 203px;
+    width: 393px;
 }
 .messagecomplete {
 	margin-top: 50px;
@@ -509,7 +513,22 @@ padding: 30px 50px 15px 50px;
 #content #partnerRegistForm input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    margin-left: 30px;
+    margin-left: 0px;
+}
+.leftLabel {
+	background-color: #93cddd;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 15px;
+	width: 53px;
+	float: left;
+}
+.rightLabel {
+	background-color: #ccffff;
+	font-size: 12px;
+	padding: 7px 15px;
+	margin-left: 86px;
 }
 .shainNoLable {
 	background-color: #93cddd;
@@ -532,4 +551,75 @@ padding: 30px 50px 15px 50px;
 	font-size: 12px;
 	padding: 7px 15px;
 	margin-left: 86px;
+}
+
+.staffNoLable {
+	background-color: #FF9900;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 15px;
+}
+
+.staffNoResultLabel {
+	background-color: #93cddd;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 15px;
+	width: 66px;
+	float: left;
+}
+.staffNoResult {
+	background-color: #ccffff;
+	font-size: 12px;
+	padding: 7px 15px;
+	margin-left: 86px;
+}
+.btn-back-position {
+	position: absolute;
+	left: 30px;
+}
+#partnerRegistForm .titlebox {
+	float: left;
+	position: relative;
+}
+.btn-top {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.btn-bottom {
+    display: inline-block;
+    width: 100%;
+}
+
+#content-table table {
+    margin-bottom: 10px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    width: 100%;
+}
+#content-table table td:nth-child(1) {
+	background-color: #93cddd;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 7px 15px;
+}
+
+#content-table table td:nth-child(2) {
+	background-color: #ccffff;
+	font-size: 12px;
+	padding: 7px 15px;
+	text-align: left;
+}
+#content-table table td.td-last {
+    display: inline-block;
+    background: none;
+    height: 16px;
+}
+.wrap-content {
+    overflow: hidden;
 }

@@ -17,17 +17,22 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/signature.js"></script>
+<script src="resources/js/staffSigning.js"></script>
 
 </head>
 <body>
 	<div id="wrapper">
-        <div id="main-content-staffsignning">
+        <div id="main-content-staffsigning">
             <div id="header" class="h40">
                 <div class="logo_l"></div>
             </div>
             <div id="content">
-               	<div class="txtLeft mt10 mb10"><spring:message text="以下に署名してください。" /></div>
+               	<div class="txtLeft mt10"><spring:message text="以下に署名してください。" /></div>
+               	<div class="txtLeft mt10 mb10">
+	               	<c:if test="${staffInfoModel.consent == '0' }">
+	            		<spring:message text="マイナンバーを提供できません。" />
+	            	</c:if>
+               	</div>
                	<div id="signingImage">
 				</div>
 	
@@ -44,9 +49,10 @@
 						<fmt:message key="I00002"/>
 					</div>
 			    </div>
-                <form id= "staffSignningForm" action="staffSignning" method="post" class="txtCenterC">
-                    <button value="back" class="btn-next mt40" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
-					<button class="btn-next mt40" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
+                <form id= "staffSigningForm" action="staffSigning" method="post" class="txtCenterC">
+                    <button value="back" class="btn-back mt20" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
+					<button class="btn-next mt20" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
+					<button value="clear" class="btn-skip mt20" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
                 </form>
             </div>
         </div>

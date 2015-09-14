@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.dto.Dependents;
-import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
-import com.athuman.mynumber.web.dto.TACTRegistConfirmDto;
+import com.athuman.mynumber.web.dto.MyNumberResponseDto;
+import com.athuman.mynumber.web.dto.RegistConfirmDto;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.model.ShainInfoModel;
@@ -67,13 +67,13 @@ public class RegistConfirmController {
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 
 		// set data for TACT API
-		TACTRegistConfirmDto tactRegistConfirmDto = new TACTRegistConfirmDto();
-		tactRegistConfirmDto.setNo(uuid);
-		tactRegistConfirmDto.setStaffNo(staffInfo.getStaffNo());
-		tactRegistConfirmDto.setListDependent(dependentInfo.getDependents());
+		RegistConfirmDto registConfirmDto = new RegistConfirmDto();
+		registConfirmDto.setNo(uuid);
+		registConfirmDto.setStaffNo(staffInfo.getStaffNo());
+		registConfirmDto.setListDependent(dependentInfo.getDependents());
 
 		// FIXME: Suppose we already had a service named [collectionInfo]
-		TACTMyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(tactRegistConfirmDto);
+		MyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(registConfirmDto);
 		// when status code != 200
 		if (responseDto.getHttpStatus() != 200) {
 			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
@@ -95,7 +95,7 @@ public class RegistConfirmController {
 
 	@RequestMapping(value = MyNumberUrl.REGISTCONFIRM_BACK, method = RequestMethod.POST)
 	public String back(Model model) {
-		return MyNumberJsp.REDIRECT_STAFF_SIGNNING;
+		return MyNumberJsp.REDIRECT_STAFF_SIGNING;
 	}
 
 	/** init data

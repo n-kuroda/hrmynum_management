@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
 import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
-import com.athuman.mynumber.web.util.JsonUtil;
 
 @Controller
 public class RegisteredStaffController {
@@ -24,18 +23,12 @@ public class RegisteredStaffController {
 	public void setRegisteredStaffAPIService(RegisteredStaffAPIService registeredStaffAPIService) {
 		this.registeredStaffAPIService = registeredStaffAPIService;
 	}
-
-	@RequestMapping(value = "/registeredStaffAPI", method = RequestMethod.GET)
-	public String welcome() {
-		return "registeredStaffAPI";
-	}
 	
 	@RequestMapping(value = "/registeredStaffAPI", method = RequestMethod.POST)
 	@ResponseBody
-	public String callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
+	public TACTRegisteredStaffResponseDto callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
 
-		TACTRegisteredStaffResponseDto dto = registeredStaffAPIService.registeredStaff(himodukeNo);
+		return registeredStaffAPIService.registeredStaff(himodukeNo);
 		
-		return JsonUtil.toJson(dto);
 	}
 }

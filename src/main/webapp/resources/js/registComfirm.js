@@ -1,6 +1,6 @@
 function initScreen(){
 	// get url
-	var url = localStorage.getObject("signature");
+	var url = sessionStorage.getObject("signature");
 	document.getElementById("signature").src = url;
 	document.getElementById("staffSign").value = url;
 }
@@ -19,8 +19,8 @@ function backScreen() {
 };
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireSigning = document.getElementById('checkRegistNetworkOffLine');
-		requireSigning.style.display = 'block';
+		var requireNetwork = document.getElementById('checkRegistNetworkOffLine');
+		requireNetwork.style.display = 'block';
 		return true;
 	} else {
 		return false;

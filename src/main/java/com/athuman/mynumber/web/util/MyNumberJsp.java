@@ -24,12 +24,12 @@ public class MyNumberJsp {
 
 	// S6
 	public static final String REDIRECT_REGIST_COMFIRM = "redirect:/registConfirm";
-	public static final String STAFF_SIGNNING = "staffSignning";
+	public static final String STAFF_SIGNING = "staffSigning";
 
 	// S7
 	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";
 	public static final String REGIST_CONFIRM = "registConfirm";
-	public static final String REDIRECT_STAFF_SIGNNING = "redirect:/staffSignning";
+	public static final String REDIRECT_STAFF_SIGNING = "redirect:/staffSigning";
 
 	// S8
 	public static final String REGIST_COMPLETE = "registComplete";

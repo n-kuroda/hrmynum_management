@@ -11,15 +11,15 @@ function skipToSignning() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var form = document.forms["perposeConsentForm"].action = "skipToSignningScreen";
+		var form = document.forms["perposeConsentForm"].action = "skipToSigningScreen";
 		form.submit();
 	}
 }
 
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireSigning = document.getElementById('checkPurposeNetworkOffLine');
-		requireSigning.style.display = 'block';
+		var requireNetwork = document.getElementById('checkPurposeNetworkOffLine');
+		requireNetwork.style.display = 'block';
 		return true;
 	} else {
 		return false;

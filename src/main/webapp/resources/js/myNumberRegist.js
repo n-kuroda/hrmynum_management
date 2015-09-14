@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 function clearCheckBox(){
 	var dtoErrors = document.getElementById('staffInfoModel.errors');
-	if (dtoErrors.innerText != "") {
+	if (dtoErrors != null) {
 		$('input[type="checkbox"]').removeAttr('checked');
 	}
 }
@@ -29,8 +29,8 @@ function backScreen() {
 
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireSigning = document.getElementById('checkMyNumberNetworkOffLine');
-		requireSigning.style.display = 'block';
+		var requireNetwork = document.getElementById('checkMyNumberNetworkOffLine');
+		requireNetwork.style.display = 'block';
 		var errorOther = document.getElementById('staffInfoModel.errors');
 		if(errorOther != null) {
 			errorOther.style.display = 'none';

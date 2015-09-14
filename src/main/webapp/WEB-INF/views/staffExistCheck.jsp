@@ -32,36 +32,62 @@
 			<div id="content">
 				<form:form id="staffExistCheckForm" methodParam="POST" modelAttribute="staffInfoModel" action="staffExistCheck" class="mt40">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
-					<form:label path="staffNo">
+					<form:label path="staffNo" cssClass="staffNoLable">
 						<spring:message text="スタッフNo"/>
 					</form:label>
 					<form:input path="staffNo" cssErrorClass="error"/>
-					<form:button name="action" value="search" class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
+					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div class="name">
 
 						<div id="messageInfoStaffExistCheck">
-							<c:if test="${!empty staffNo}">
-								<spring:message text="スタッフNo: ${staffNo}"/>
-								<br />
-							</c:if>
+							<table>
+								<c:if test="${!empty staffNo}">
+								<tr>
+									<td class="staffNoResultLabel"><spring:message text="スタッフNo" /></td>
+									<td class="staffNoResult"><spring:message text="${staffNo}" /></td>
+								</tr>
+								</c:if>
+								<c:if test="${!empty staffInfo}">
+								<tr>
+									<td class="staffNoResultLabel"><spring:message text="お名前" /></td>
+									<td class="staffNoResult"><spring:message text="${staffInfo}" /></td>
+								</tr>
+								</c:if>
+							</table>
 							<c:if test="${!empty staffInfo}">
-								<spring:message text="お名前: ${staffInfo}"/>
-								<br />
-								<spring:message text="よろしければ「次へ」ボタンを押してください。"/>
+								<div class="mt20 ml20">よろしければ「次へ」ボタンを押してください。</div>
 							</c:if>
 						</div>
 
 					</div>
-
 					<form:errors path="*" cssClass="errorStaffExistCheck" />
-					<div id ="checkStaffNetworkOffLine">
-						<fmt:message key="I00002"/>
+
+					<div id="errorInfo" class="mt10">
+						<div id ="checkStaffNetworkOffLine" class="errorShainExistCheck" style="display: none;">
+							<fmt:message key="I00002"/>
+						</div>
+						<div id="checkrequireId" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="V00001">
+								<fmt:param value="スタッフNo"/>
+							</fmt:message>
+						</div>
+						<div id="checkLengthId" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="V00002">
+								<fmt:param value="スタッフNo"/>
+								<fmt:param value="9"/>
+							</fmt:message>
+						</div>
+						<div id="checkByteId" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="V00003">
+								<fmt:param value="スタッフNo"/>
+							</fmt:message>
+						</div>
 					</div>
-					<form:button name="action" value="back" class="btn-next mt40" onclick="if(backScreen()){return false;}">
+					<form:button name="action" value="back" class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
-					<form:button name="action" value="next" class="btn-next mt40" onclick="if(checkDataValid()){return false;}">
+					<form:button name="action" value="next" class="btn-next mt20" onclick="if(checkDataValid()){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
 				</form:form>

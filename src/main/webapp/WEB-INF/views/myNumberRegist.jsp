@@ -27,16 +27,19 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-                <form:form action="myNumberRegist" id="myNumberRegistForm" modelAttribute="staffInfoModel" methodParam="POST" class="mt30">
+                <form:form action="myNumberRegist" id="myNumberRegistForm" modelAttribute="staffInfoModel" methodParam="POST">
                 	<form:errors path="*" cssClass="errorMyNumberRegist" />
                 	<div id ="checkMyNumberNetworkOffLine">
 						<fmt:message key="I00002"/>
+					</div>
+					<div class="font12 mb10">
+						<spring:message text="マイナンバーを入力してください。"/>
 					</div>
                 	<form:label path="myNumber" cssClass="color mt10">
 						<spring:message text="マイナンバー"/>
 					</form:label>
 					<form:input path="myNumber" cssErrorClass="error"/>
-					<p class="mt30 font12"><spring:message text="◆マイナンバー確認書類"/></p>
+					<p class="mt30 font12"><spring:message text="◆マイナンバー確認提示書類"/></p>
                     <p class="font12">
 	                    <form:radiobutton path="myNumberConfirm" value="01"/>
 						<label><spring:message text="個人番号カード（本人の写真が貼付され、市区町村で発行されたもの）"/></label>
@@ -52,9 +55,9 @@
                     </p>
 					<div id="options">
 						<p class="mt30 font12">
-							<spring:message text="◆本人確認書類" />
+							<spring:message text="◆本人確認提示書類" />
 							<br />
-							<spring:message text="①~⑧の場合はいずれか一つ、⑨~⑪の場合はいずれか2つを選択してください。" />
+							<spring:message text="①~⑦の場合はいずれか一つ、⑧~⑩の場合はいずれか2つを選択してください。" />
 						</p>
 						<div class="chkbox-group">
 							<div class="col">
@@ -95,31 +98,27 @@
 									<spring:message text="⑦在留カード" />
 								</form:label>
 								<br/>
-								<form:checkbox path="clearPerson" value="1" />
-								<form:label path="clearPerson">
-									<spring:message text="⑧本人であることが明らか" />
-								</form:label>
 							</div>
 							<hr />
 							<div class="col">
 								<form:checkbox path="healthInsuranceLicense" value="1" />
 								<form:label path="healthInsuranceLicense">
-									<spring:message text="⑨健康保険被保険者証" />
+									<spring:message text="⑧健康保険被保険者証" />
 								</form:label>
 								<br />
 								<form:checkbox path="pensionNotebook" value="1" />
 								<form:label path="pensionNotebook">
-									<spring:message text="⑩年金手帳" />
+									<spring:message text="⑨年金手帳" />
 								</form:label>
 								<br />
 								<form:checkbox path="other" value="1" />
 								<form:label path="other">
-									<spring:message text="⑪その他" />
+									<spring:message text="⑩その他" />
 								</form:label>
 							</div>
 						</div>
 					</div>
-					<form:button class="btn-next mt40" onclick="if(backScreen()){return false;}">
+					<form:button class="btn-back mt40" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" /></form:button>
                     <form:button class="btn-next mt40" onclick="if(checkNetworkOffLine()){return false;}">
 						<spring:message text="次へ" /></form:button>

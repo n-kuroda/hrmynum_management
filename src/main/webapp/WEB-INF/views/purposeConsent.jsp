@@ -46,13 +46,13 @@
 					<p>
 						<spring:message text="1.給与所得・退職所得の源泉徴収票作成事務" />
 						<br />
-						<spring:message text="2.雇用保険届出・申請事務" />
+						<spring:message text="2.雇用保険届出・申請事務 （該当する方のみ）" />
 						<br />
-						<spring:message text="3.健康保険・厚生年金保険届出・申請事務" />
+						<spring:message text="3.健康保険・厚生年金保険届出・申請事務 （該当する方のみ）" />
 						<br />
-						<spring:message text="4.国民年金の第3号被保険者の届出に関する事務" />
+						<spring:message text="4.国民年金の第3号被保険者の届出に関する事務 （該当する方のみ）" />
 						<br />
-						<spring:message text="5.労働者災害補償保険法に基づく請求に関する事務" />
+						<spring:message text="5.労働者災害補償保険法に基づく請求に関する事務 （該当する方のみ）" />
 					</p>
 
 					<p>
@@ -62,9 +62,9 @@
 						<br />
 						<spring:message text="問題の解決を図るように努めます。" />
 						<br />
-						<spring:message text="担当部署　：　コンプライアンス相談室" />
+						<spring:message text="担当部署　：　お客様相談窓口" />
 						<br />
-						<spring:message text="ＴＥＬ　　：　0120-96-5288" />
+						<spring:message text="ＴＥＬ　　：　0120-03-7837" />
 					</p>
 
 					<p class="txtCenter">
@@ -75,9 +75,9 @@
 					<div id ="checkPurposeNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
-					<button class="btn-next"  onclick="if(backScreen()){return false;}">戻る</button>
-					<button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">承諾</button>
-					<button class="btn-next" onclick="if(skipToSignning()){return false;}">非承諾</button>
+					<button class="btn-back"  onclick="if(backScreen()){return false;}">戻る</button>
+					<button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">承諾する</button>
+					<button class="btn-skip" onclick="if(skipToSignning()){return false;}">その他</button>
 				</form>
 			</div>
 		</div>

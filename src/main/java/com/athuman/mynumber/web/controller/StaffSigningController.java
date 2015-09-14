@@ -15,12 +15,12 @@ import com.athuman.mynumber.web.util.MyNumberUrl;
 public class StaffSigningController {
 
 	// show staffSigning page
-	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.GET)
+	@RequestMapping(value = MyNumberUrl.STAFF_SIGNING, method = RequestMethod.GET)
 	public String show(Model model) {
-		return MyNumberJsp.STAFF_SIGNNING;
+		return MyNumberJsp.STAFF_SIGNING;
 	}
 
-	@RequestMapping(value = MyNumberUrl.STAFF_SIGNNING, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.STAFF_SIGNING, method = RequestMethod.POST)
 	public String next(Model model) {
 		return MyNumberJsp.REDIRECT_REGIST_COMFIRM;
 	}

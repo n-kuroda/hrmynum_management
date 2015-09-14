@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athuman.mynumber.web.dto.TACTMyNumberResponseDto;
+import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
 import com.athuman.mynumber.web.util.JsonUtil;
 
@@ -34,7 +34,7 @@ public class MyNumberController {
 	@ResponseBody
 	public String callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
 
-		TACTMyNumberResponseDto dto = myNumberAPIService.myNumber(himodukeNo);
+		MyNumberResponseDto dto = myNumberAPIService.myNumber(himodukeNo);
 		
 		return JsonUtil.toJson(dto);
 	}
