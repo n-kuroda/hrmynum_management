@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
 import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
+import com.athuman.mynumber.web.util.MyNumberUrl;
 
 @Controller
 public class RegisteredStaffController {
@@ -24,7 +25,7 @@ public class RegisteredStaffController {
 		this.registeredStaffAPIService = registeredStaffAPIService;
 	}
 	
-	@RequestMapping(value = "/registeredStaffAPI", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.REGISTERED_STAFF_API, method = RequestMethod.POST)
 	@ResponseBody
 	public TACTRegisteredStaffResponseDto callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
-import com.athuman.mynumber.web.util.JsonUtil;
+import com.athuman.mynumber.web.util.MyNumberUrl;
 
 @Controller
 public class MyNumberController {
@@ -24,18 +24,12 @@ public class MyNumberController {
 	public void setMyNumberAPIService(MyNumberAPIService myNumberAPIService) {
 		this.myNumberAPIService = myNumberAPIService;
 	}
-
-	@RequestMapping(value = "/myNumberAPI", method = RequestMethod.GET)
-	public String welcome() {
-		return "myNumberAPI";
-	}
 	
-	@RequestMapping(value = "/myNumberAPI", method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.MY_NUMBER_API, method = RequestMethod.POST)
 	@ResponseBody
-	public String callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
+	public MyNumberResponseDto callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
 
-		MyNumberResponseDto dto = myNumberAPIService.myNumber(himodukeNo);
+		return myNumberAPIService.myNumber(himodukeNo);
 		
-		return JsonUtil.toJson(dto);
 	}
 }

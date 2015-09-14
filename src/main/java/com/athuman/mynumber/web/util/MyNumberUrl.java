@@ -35,4 +35,8 @@ public class MyNumberUrl {
 
 	// S8
 	public static final String REGIST_COMPLETE = "/registComplete";
+	
+	// API
+	public static final String MY_NUMBER_API = "/myNumberAPI";
+	public static final String REGISTERED_STAFF_API = "/registeredStaffAPI";
 }
