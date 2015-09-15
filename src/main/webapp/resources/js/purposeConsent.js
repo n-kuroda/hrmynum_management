@@ -11,7 +11,7 @@ function skipToSigning() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var form = document.forms["perposeConsentForm"].action = "skipToSigningScreen";
+		var form = document.forms["perposeConsentForm"].action = "skipToStaffRegistConfirm";
 		form.submit();
 	}
 }

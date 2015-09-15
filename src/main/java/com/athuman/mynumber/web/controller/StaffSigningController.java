@@ -32,6 +32,6 @@ public class StaffSigningController {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
 		
-		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
+		return MyNumberJsp.REDIRECT_STAFF_REGIST_CONFIRM;
 	}
 }

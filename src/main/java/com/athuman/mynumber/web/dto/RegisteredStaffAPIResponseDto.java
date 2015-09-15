@@ -2,7 +2,7 @@ package com.athuman.mynumber.web.dto;
 
 import java.io.Serializable;
 
-public class TACTRegisteredStaffResponseDto implements Serializable {
+public class RegisteredStaffAPIResponseDto implements Serializable {
 
 	private static final long serialVersionUID = 3609852402007880073L;
 	

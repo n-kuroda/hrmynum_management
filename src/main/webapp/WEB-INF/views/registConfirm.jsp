@@ -27,7 +27,7 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-            	${tactMyNumber.httpStatus}
+            	
                 <form:form id= "registConfirmForm" action="registConfirm" method="post" modelAttribute="staffInfoModel">
                 	<form:errors path="*" cssClass="error" />
                 	<div class="pesonal_information mt10">

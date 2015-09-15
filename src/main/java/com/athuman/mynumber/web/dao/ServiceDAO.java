@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.athuman.mynumber.web.model.MyNumber;
 
-public interface TACTServiceDAO {
+public interface ServiceDAO {
 
 	/** Query [MyNumber] table by himodukeNo */
 	public List<MyNumber> queryMyNumberByHimodukeNo(String himodukeNo);

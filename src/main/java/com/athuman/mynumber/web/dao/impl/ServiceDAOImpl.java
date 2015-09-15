@@ -6,11 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.athuman.mynumber.web.dao.TACTServiceDAO;
+import com.athuman.mynumber.web.dao.ServiceDAO;
 import com.athuman.mynumber.web.model.MyNumber;
 
 @Repository
-public class TACTServiceDAOImpl implements TACTServiceDAO {
+public class ServiceDAOImpl implements ServiceDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -26,7 +26,6 @@ public class TACTServiceDAOImpl implements TACTServiceDAO {
 
 	@Override
 	public String addMyNumber(MyNumber myNumber) {
-		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			session.persist(myNumber);

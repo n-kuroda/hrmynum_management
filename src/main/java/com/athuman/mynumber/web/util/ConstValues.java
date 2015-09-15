@@ -1,6 +1,7 @@
 package com.athuman.mynumber.web.util;
 
 public class ConstValues {
+
 	public static final String CHECKBOX_SELECT = "1";
 	public static final String CHECKBOX_NOT_SELECT = "0";
 	public static final String RADIO_SELECT = "01";
@@ -30,4 +31,19 @@ public class ConstValues {
 	public static final String DEPENDENTS_RELATIONSHIP_05 = "05";
 	public static final String DEPENDENTS_RELATIONSHIP_06 = "06";
 	public static final String DEPENDENTS_RELATIONSHIP_07 = "07";
+	public static final String CONSENT_VALUE_0 = "0";
+	public static final String API_MSG_INVALID = "リクエストが不正です。";
+	public static final String API_MSG_OK = "正常に処理は行われました。";
+	public static final String API_MSG_NOITEM_RETURNED = "検索結果が0件です。";
+	public static final String API_MSG_UNEXPECTED_ERROR = "予期せぬエラーが発生しました。";
+	public static final String API_OTHER_ERROR = "複数件取得されました。";
+	public static final int API_RETURNED_LIST_LENGTH_0 = 0;
+	public static final int API_RETURNED_LIST_LENGTH_1 = 1;
+	public static final int HIMODUKENO_LENGTH = 36;
+	public static final int API_STATUS_500 = 500;
+	public static final int API_STATUS_200 = 200;
+	public static final int API_STATUS_400 = 400;
+	public static final int API_STATUS_204 = 204;
+	public static final String API_RESULT_0 = "0";
+	public static final String API_RESULT_1 = "1";
 }

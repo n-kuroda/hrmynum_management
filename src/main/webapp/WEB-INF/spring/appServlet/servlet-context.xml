@@ -69,16 +69,16 @@
 	</beans:bean>
 
 	<!--  Bean configuration -->
-	<beans:bean id="tACTServiceDAO" class="com.athuman.mynumber.web.dao.impl.TACTServiceDAOImpl">
+	<beans:bean id="serviceDAO" class="com.athuman.mynumber.web.dao.impl.ServiceDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 
 	<beans:bean id="myNumberAPIService" class="com.athuman.mynumber.web.service.impl.MyNumberAPIServiceImpl" >
-		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
+		<beans:property name="serviceDAO" ref="serviceDAO"></beans:property>
 	</beans:bean>
 	
 	<beans:bean id="registeredStaffAPIService" class="com.athuman.mynumber.web.service.impl.RegisteredStaffAPIServiceImpl" >
-		<beans:property name="tACTServiceDAO" ref="tACTServiceDAO"></beans:property>
+		<beans:property name="serviceDAO" ref="serviceDAO"></beans:property>
 	</beans:bean>
 
 	<beans:bean id="shainAPIService" class="com.athuman.mynumber.web.service.impl.ShainAPIServiceImpl" >

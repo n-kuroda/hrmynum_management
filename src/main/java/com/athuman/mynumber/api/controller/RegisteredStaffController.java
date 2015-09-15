@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
+import com.athuman.mynumber.web.dto.RegisteredStaffAPIResponseDto;
 import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
@@ -28,7 +28,7 @@ public class RegisteredStaffController {
 	
 	@RequestMapping(value = MyNumberUrl.HIMODUKE_NO, method = RequestMethod.GET)
 	@ResponseBody
-	public TACTRegisteredStaffResponseDto search(@PathVariable String himodukeNo) throws IOException {
+	public RegisteredStaffAPIResponseDto search(@PathVariable String himodukeNo) throws IOException {
 
 		return registeredStaffAPIService.registeredStaff(himodukeNo);
 		

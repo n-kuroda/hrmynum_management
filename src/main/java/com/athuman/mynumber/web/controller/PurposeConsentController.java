@@ -36,8 +36,8 @@ public class PurposeConsentController {
 		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
 
-	@RequestMapping(value = MyNumberUrl.SKIP_TO_SIGNING_SCREEN, method = RequestMethod.POST)
-	public String skipToSigningScreen(Model model, HttpSession sesion) {
+	@RequestMapping(value = MyNumberUrl.SKIP_TO_STAFF_REGIST_CONFIRM_SCREEN, method = RequestMethod.POST)
+	public String skipToStaffRegistConfirm(Model model, HttpSession sesion) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.
@@ -62,6 +62,6 @@ public class PurposeConsentController {
 		sesion.setAttribute("staffInfoModel", staffInfoModelSession);
 		sesion.setAttribute("dependentsInfoListModel", dependentsSession);
 
-		return MyNumberJsp.REDIRECT_STAFF_SIGNING;
+		return MyNumberJsp.STAFF_REGIST_CONFIRM;
 	}
 }

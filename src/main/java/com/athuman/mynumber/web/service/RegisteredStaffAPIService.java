@@ -1,8 +1,8 @@
 package com.athuman.mynumber.web.service;
 
-import com.athuman.mynumber.web.dto.TACTRegisteredStaffResponseDto;
+import com.athuman.mynumber.web.dto.RegisteredStaffAPIResponseDto;
 
 public interface RegisteredStaffAPIService {
 
-	public TACTRegisteredStaffResponseDto registeredStaff(String himodukeNo);
+	public RegisteredStaffAPIResponseDto registeredStaff(String himodukeNo);
 }

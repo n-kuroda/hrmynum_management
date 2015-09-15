@@ -18,7 +18,7 @@ public class MyNumberJsp {
 	// S4
 	public static final String MYNUMBER_REGIST = "myNumberRegist";
 	public static final String REDIRECT_PARTNER_REGIST = "redirect:/partnerRegist";
-	
+
 	// S5
 	public static final String PARTNER_REGIST = "partnerRegist";
 
@@ -26,12 +26,19 @@ public class MyNumberJsp {
 	public static final String REDIRECT_REGIST_COMFIRM = "redirect:/registConfirm";
 	public static final String STAFF_SIGNING = "staffSigning";
 
+	public static final String REDIRECT_STAFF_REGIST_CONFIRM = "redirect:/staffRegistConfirm";
+
+	public static final String STAFF_REGIST_CONFIRM = "staffRegistConfirm";
+
 	// S7
-	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";
 	public static final String REGIST_CONFIRM = "registConfirm";
 	public static final String REDIRECT_STAFF_SIGNING = "redirect:/staffSigning";
 
 	// S8
 	public static final String REGIST_COMPLETE = "registComplete";
-
+	
+	// S10
+	public static final String REDIRECT_COLECTION_INFO_REGIST = "redirect:/colectionInfoRegist";
+	public static final String COLECTION_INFO_REGIST = "colectionInfoRegist";
+	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";
 }

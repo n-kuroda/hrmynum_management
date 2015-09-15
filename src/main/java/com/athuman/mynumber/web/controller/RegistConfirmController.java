@@ -66,7 +66,7 @@ public class RegistConfirmController {
 		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 
-		// set data for TACT API
+		// set data for API
 		RegistConfirmDto registConfirmDto = new RegistConfirmDto();
 		registConfirmDto.setNo(uuid);
 		registConfirmDto.setStaffNo(staffInfo.getStaffNo());
@@ -90,7 +90,7 @@ public class RegistConfirmController {
 			initData(model, staffInfo, dependentInfo);
 			return MyNumberJsp.REGIST_CONFIRM;
 		}
-		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
+		return MyNumberJsp.REDIRECT_COLECTION_INFO_REGIST;
 	}
 
 	@RequestMapping(value = MyNumberUrl.REGISTCONFIRM_BACK, method = RequestMethod.POST)
