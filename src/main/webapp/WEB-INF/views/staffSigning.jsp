@@ -45,14 +45,14 @@
 			       			 <fmt:param value="署名"/>
 			       		</fmt:message>
 			      	</div>
-			      	<div id ="checkSignningNetworkOffLine">
+			      	<div id ="checkSigningNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
 			    </div>
-                <form id= "staffSigningForm" action="staffSigning" method="post" class="txtCenterC">
-                    <button value="back" class="btn-back mt20" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
-					<button class="btn-next mt20" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
-					<button value="clear" class="btn-skip mt20" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
+                <form id= "staffSigningForm" action="staffSigning" method="post" class="txtCenterC mt40 mb40">
+                    <button value="back" class="btn-back" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
+					<button class="btn-next" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
+					<button value="clear" class="btn-skip" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
                 </form>
             </div>
         </div>

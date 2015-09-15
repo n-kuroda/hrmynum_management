@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	sessionStorage.removeItem('signature');
+});
+
 var isDrawn = false;
 
 function signatureCapture() {
@@ -153,7 +157,7 @@ function signatureSave() {
 		if (isDrawn == false) {
 			var requireSigning = document.getElementById('checkrequireSigning');
 			requireSigning.style.display = 'block';
-			var errorOther = document.getElementById('checkSignningNetworkOffLine');
+			var errorOther = document.getElementById('checkSigningNetworkOffLine');
 			if(errorOther != null) {
 				errorOther.style.display = 'none';
 			}
@@ -181,7 +185,7 @@ function signatureClear() {
 
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkSignningNetworkOffLine');
+		var requireNetwork = document.getElementById('checkSigningNetworkOffLine');
 		requireNetwork.style.display = 'block';
 		var errorOther = document.getElementById('checkrequireSigning');
 		if(errorOther != null) {

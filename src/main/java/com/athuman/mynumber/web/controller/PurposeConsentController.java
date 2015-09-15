@@ -37,7 +37,7 @@ public class PurposeConsentController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.SKIP_TO_SIGNING_SCREEN, method = RequestMethod.POST)
-	public String skipToSignningScreen(Model model, HttpSession sesion) {
+	public String skipToSigningScreen(Model model, HttpSession sesion) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.

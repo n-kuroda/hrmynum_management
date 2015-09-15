@@ -7,7 +7,7 @@ function backScreen() {
 	}
 }
 
-function skipToSignning() {
+function skipToSigning() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {

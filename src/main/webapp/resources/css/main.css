@@ -205,6 +205,9 @@ div#purponeConsent {
 .mb30 {
     margin-bottom: 30px;
 }
+.mb40 {
+	margin-bottom: 40px;
+}
 .ml2 {
 	margin-left: 2px;
 }
@@ -502,7 +505,7 @@ h1, p {
 	margin-bottom: 10px;
 	display: none;
 }
-#checkSignningNetworkOffLine, #checkrequireSigning {
+#checkSigningNetworkOffLine, #checkrequireSigning {
 	text-align: center;
     width: 100%;
     margin-top: 15px;

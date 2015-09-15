@@ -77,7 +77,7 @@
 					</div>
 					<button class="btn-back"  onclick="if(backScreen()){return false;}">戻る</button>
 					<button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">承諾する</button>
-					<button class="btn-skip" onclick="if(skipToSignning()){return false;}">その他</button>
+					<button class="btn-skip" onclick="if(skipToSigning()){return false;}">その他</button>
 				</form>
 			</div>
 		</div>

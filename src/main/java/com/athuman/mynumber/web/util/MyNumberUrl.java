@@ -37,6 +37,7 @@ public class MyNumberUrl {
 	public static final String REGIST_COMPLETE = "/registComplete";
 	
 	// API
-	public static final String MY_NUMBER_API = "/myNumberAPI";
-	public static final String REGISTERED_STAFF_API = "/registeredStaffAPI";
+	public static final String MY_NUMBER_API = "/myNumber";
+	public static final String REGISTERED_STAFF_API = "/registeredStaff";
+	public static final String HIMODUKE_NO = "/{himodukeNo}";
 }

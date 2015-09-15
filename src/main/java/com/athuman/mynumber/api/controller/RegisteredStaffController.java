@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +15,7 @@ import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
 @Controller
+@RequestMapping(value = MyNumberUrl.REGISTERED_STAFF_API)
 public class RegisteredStaffController {
 
 	@Autowired(required=true)
@@ -25,9 +26,9 @@ public class RegisteredStaffController {
 		this.registeredStaffAPIService = registeredStaffAPIService;
 	}
 	
-	@RequestMapping(value = MyNumberUrl.REGISTERED_STAFF_API, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.HIMODUKE_NO, method = RequestMethod.GET)
 	@ResponseBody
-	public TACTRegisteredStaffResponseDto callMyNumberAPI(@RequestBody String himodukeNo) throws IOException {
+	public TACTRegisteredStaffResponseDto search(@PathVariable String himodukeNo) throws IOException {
 
 		return registeredStaffAPIService.registeredStaff(himodukeNo);
 		
