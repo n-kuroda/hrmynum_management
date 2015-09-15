@@ -44,12 +44,12 @@ public class StaffRegistConfirmController {
 		if (ConstValues.CONSENT_VALUE_0.equals(staffInfoModelSession.getConsent())) {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
-		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
+		return MyNumberJsp.REDIRECT_DEPENDENTS_REGIST;
 	}
 
 	/**
 	 * init data
-	 * 
+	 *
 	 * @param model
 	 * @param staffInfo
 	 * @param myNumberRegist
@@ -72,7 +72,7 @@ public class StaffRegistConfirmController {
 
 	/**
 	 * get Identification from session
-	 * 
+	 *
 	 * @param myNumberRegist
 	 * @return String
 	 */
@@ -136,7 +136,7 @@ public class StaffRegistConfirmController {
 
 	/**
 	 * Add data if check box has checked
-	 * 
+	 *
 	 * @param item
 	 * @param lts
 	 * @param itemName
@@ -155,7 +155,7 @@ public class StaffRegistConfirmController {
 
 	/**
 	 * get my number confirm from session
-	 * 
+	 *
 	 * @param myNumberRegist
 	 * @return String
 	 */
@@ -173,7 +173,7 @@ public class StaffRegistConfirmController {
 
 	/**
 	 * get staff name from session
-	 * 
+	 *
 	 * @param staffInfo
 	 * @return String
 	 */

@@ -55,7 +55,7 @@ public class MyNumberRegistController {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
 
-		return MyNumberJsp.REDIRECT_PARTNER_REGIST;
+		return MyNumberJsp.REDIRECT_DEPENDENTS_REGIST;
 
 	}
 

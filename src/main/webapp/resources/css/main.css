@@ -14,7 +14,6 @@ body {
 #main-content {
     width: 600px;
     margin: 0 auto;
-    border: 1px solid #CCC;
     padding: 30px 50px 15px 50px;
     position: relative;
 }
@@ -286,66 +285,66 @@ div#purponeConsent {
 	border-bottom: 1px solid #000;
     margin-left: -35px;
 }
-#content #partnerRegistForm p {
+#content #dependentsRegistForm p {
     font-size: 12px;
     text-align: left;
     height: 45px;
     margin-top: 10px;
 }
-#content #partnerRegistForm input.lastname {
+#content #dependentsRegistForm input.lastname {
 	width: 100px;
     margin-left: 5px;
     margin-right: 25px;
    	height: 17px;
    	line-height: 12px;
 }
-#content #partnerRegistForm input.firstname {
+#content #dependentsRegistForm input.firstname {
 	width: 100px;
     margin-left: 5px;
     margin-right: 25px;
    	height: 17px;
    	line-height: 12px;
 }
-#content #partnerRegistForm input.relationshipOther {
+#content #dependentsRegistForm input.relationshipOther {
 	width: 120px;
 	margin-left: -66px;
 	height: 17px;
 	line-height: 12px;
 }
-#content #partnerRegistForm input.furigananame {
+#content #dependentsRegistForm input.furigananame {
 	width: 100px;
     margin-left: 5px;
     margin-right: 25px;
    	height: 17px;
 }
-#content #partnerRegistForm input.mynumber {
+#content #dependentsRegistForm input.mynumber {
 	width: 200px;
 	margin-left: 0px;
 	height: 17px;
 	line-height: 12px;
 }
-#content #partnerRegistForm span.lastname {
+#content #dependentsRegistForm span.lastname {
     margin-left: 80px;
 }
-#content #partnerRegistForm span.relationshipOther {
+#content #dependentsRegistForm span.relationshipOther {
     margin-left: 66px;
 }
-#content #partnerRegistForm span.year,
-#content #partnerRegistForm span.month,
-#content #partnerRegistForm span.day {
+#content #dependentsRegistForm span.year,
+#content #dependentsRegistForm span.month,
+#content #dependentsRegistForm span.day {
     margin-left: 10px;
 }
-#content #partnerRegistForm select.year {
+#content #dependentsRegistForm select.year {
     width: 116px;
     height: 30px;
 }
-#content #partnerRegistForm select.month,
-#content #partnerRegistForm select.day {
+#content #dependentsRegistForm select.month,
+#content #dependentsRegistForm select.day {
     margin-left: 10px;
     width: 80px;
     height: 30px;
 }
-#content #partnerRegistForm select.relationship {
+#content #dependentsRegistForm select.relationship {
     width: 95px;
     height: 30px;
 }
@@ -469,7 +468,7 @@ h1, p {
 .error {
     border: 1px solid #ff0000;
 }
-.errorPartnerRegist {
+.errorDependentsRegist {
 	text-align: left;
 	width: 100%;
     margin-top: 15px;
@@ -503,7 +502,7 @@ h1, p {
     margin-left: 165px;
 	display: none;
 }
-#checkPartnerNetworkOffLine {
+#checkDependentsNetworkOffLine {
 	text-align: left;
     width: 100%;
     font-size: 12px;
@@ -519,7 +518,7 @@ h1, p {
     color: red;
 	display: none;
 }
-#content #partnerRegistForm input[type="checkbox"] {
+#content #dependentsRegistForm input[type="checkbox"] {
     width: 20px;
     height: 20px;
     margin-left: 0px;
@@ -589,7 +588,7 @@ h1, p {
 	position: absolute;
 	left: 30px;
 }
-#partnerRegistForm .titlebox {
+#dependentsRegistForm .titlebox {
 	float: left;
 	position: relative;
 }
@@ -657,7 +656,7 @@ h1, p {
     font-size: 12px;
     font-weight: bold;
     padding: 7px 15px;
-    width: 130px;
+    width: 150px;
     text-align: center;
 }
 
@@ -699,7 +698,7 @@ h1, p {
     font-size: 12px;
     font-weight: bold;
     padding: 7px 15px;
-    width: 130px;
+    width: 150px;
     text-align: center;
 }
 

@@ -21,8 +21,8 @@ public class MyNumberUrl {
 	public static final String BACK_TO_PURPOSE_CONSENT = "/backToPurposeConsent";
 
 	// S5
-	public static final String PARTNER_REGIST = "/partnerRegist";
-	public static final String BACK_TO_MYNUMBER_REGIST = "/partnerRegistBack";
+	public static final String DEPENDENTS_REGIST = "/dependentsRegist";
+	public static final String BACK_TO_MYNUMBER_REGIST = "/dependentsRegistBack";
 
 	// S6
 	public static final String STAFF_SIGNING = "/staffSigning";
@@ -41,7 +41,7 @@ public class MyNumberUrl {
 
 	// S10
 	public static final String COLECTION_INFO_REGIST = "/colectionInfoRegist";
-	
+
 	// API
 	public static final String MY_NUMBER_API = "/myNumber";
 	public static final String REGISTERED_STAFF_API = "/registeredStaff";

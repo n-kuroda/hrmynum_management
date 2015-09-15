@@ -2,7 +2,7 @@ function backScreen() {
 	if (checkNetworkOffLine()) {
 		return true;
 	} else {
-		var form = document.forms["partnerRegistForm"].action = "partnerRegistBack";
+		var form = document.forms["dependentsRegistForm"].action = "dependentsRegistBack";
 		form.submit();
 	}
 };
@@ -15,15 +15,20 @@ $(document).ready(function() {
 			$(this).parents("table").find('input, select').val("");
 			$(this).parents("table").find('input[type="checkbox"]').prop("checked",false);
 			$(this).parents("table").find('.lastname').val(stafName);
+			$(this).parents("table").find('input, select').removeClass("error");
+			var errorOther = document.getElementById('dependentsInfoListModel.errors');
+			if(errorOther != null) {
+				errorOther.style.display = 'none';
+			}
 		}
 	});
 });
 
 function checkNetworkOffLine() {
 	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkPartnerNetworkOffLine');
+		var requireNetwork = document.getElementById('checkDependentsNetworkOffLine');
 		requireNetwork.style.display = 'block';
-		var errorOther = document.getElementById('lstDependentsInfo.errors');
+		var errorOther = document.getElementById('dependentsInfoListModel.errors');
 		if(errorOther != null) {
 			errorOther.style.display = 'none';
 		}

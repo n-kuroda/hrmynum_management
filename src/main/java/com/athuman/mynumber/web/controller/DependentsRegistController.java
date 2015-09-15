@@ -24,10 +24,10 @@ import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
-public class PartnerRegistController {
+public class DependentsRegistController {
 
-	// show partnerRegist page
-	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.GET)
+	// show dependentsRegist page
+	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
@@ -39,11 +39,11 @@ public class PartnerRegistController {
 		}
 		initModelList(model);
 		model.addAttribute("dependentsInfoListModel", lstDependents);
-		return MyNumberJsp.PARTNER_REGIST;
+		return MyNumberJsp.DEPENDENTS_REGIST;
 	}
 
-	// submit partnerRegist page
-	@RequestMapping(value = MyNumberUrl.PARTNER_REGIST, method = RequestMethod.POST)
+	// submit dependentsRegist page
+	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.POST)
 	public String next(
 			@ModelAttribute("dependentsInfoListModel")DependentsInfoListModel lstDependentsInfo,
 			BindingResult binding, Model model, HttpSession session) {
@@ -51,19 +51,19 @@ public class PartnerRegistController {
 		// get staff name for validate
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 
-		// begin valid each form partner
+		// begin valid each form Dependents
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
 		for (int i = 0; i < listdDependents.size(); i++) {
 			if (listdDependents.get(i).getNo3Insured() == null) {
 				listdDependents.get(i).setNo3Insured("0");
 			}
-			binding = ValidateUtil.validFormPartner(binding, listdDependents.get(i), staffInfoModel, i);
+			binding = ValidateUtil.validFormDependents(binding, listdDependents.get(i), staffInfoModel, i);
 		}
 
 		// when form has error
 		if (binding.hasErrors()) {
 			initModelList(model);
-			return MyNumberJsp.PARTNER_REGIST;
+			return MyNumberJsp.DEPENDENTS_REGIST;
 		}
 
 		// when form don't has error store session
@@ -99,8 +99,8 @@ public class PartnerRegistController {
 		DependentsInfoListModel dependentsInfoListModel = new DependentsInfoListModel();
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
 		for (int i = 0; i < listdDependents.size(); i++) {
-			if (ValidateUtil.checkPartnerHasChange(listdDependents.get(i), staffSession) ||
-					ValidateUtil.checkPartnerFormHasEdit(listdDependents.get(i))) {
+			if (ValidateUtil.checkDependentsHasChange(listdDependents.get(i), staffSession) ||
+					ValidateUtil.checkDependentsFormHasEdit(listdDependents.get(i))) {
 				Collections.swap(listdDependents, i, swapIndex);
 				swapIndex++;
 			}
@@ -110,7 +110,7 @@ public class PartnerRegistController {
 		session.setAttribute("dependentsInfoListModel", dependentsInfoListModel);
 	}
 
-	/** Load default value for 10 form partnerRegist
+	/** Load default value for 10 form dependentsRegist
 	 *
 	 * @param staffInfoModel
 	 * @return DependentsInfoListModel

@@ -35,7 +35,7 @@ public class ValidateUtil {
 		}
 		return bindingResult;
 	}
-	/** validate for form partner
+	/** validate for form Dependents
 	 *
 	 * @param bindingResult
 	 * @param dependents
@@ -43,22 +43,22 @@ public class ValidateUtil {
 	 * @param index
 	 * @return BindingResult
 	 */
-	public static BindingResult validFormPartner(BindingResult bindingResult,
+	public static BindingResult validFormDependents(BindingResult bindingResult,
 			Dependents dependents, StaffInfoModel staffInfoModel, int index) {
 
-		// check form partner has change or form has edit
-		if (checkPartnerHasChange(dependents, staffInfoModel) ||checkPartnerFormHasEdit(dependents)) {
+		// check form Dependents has change or form has edit
+		if (checkDependentsHasChange(dependents, staffInfoModel) ||checkDependentsFormHasEdit(dependents)) {
 
 			checkRequire(dependents, bindingResult, index);
-			
+
 			checkNameSei(dependents, bindingResult, index);
-			
+
 			checkNameMei(dependents, bindingResult, index);
 
 			checkDate(dependents, bindingResult, index);
 
 			checkRelationship(dependents, bindingResult, index);
-			
+
 			checkMyNumber(dependents, bindingResult, index);
 		}
 
@@ -130,10 +130,16 @@ public class ValidateUtil {
 	 */
 	public static boolean checkRelationshipInvalid(String relation) {
 
-		String[] stringRelation = {ConstValues.DEPENDENTS_RELATIONSHIP_01,ConstValues.DEPENDENTS_RELATIONSHIP_02,
-				ConstValues.DEPENDENTS_RELATIONSHIP_03,ConstValues.DEPENDENTS_RELATIONSHIP_04,
-				ConstValues.DEPENDENTS_RELATIONSHIP_05,ConstValues.DEPENDENTS_RELATIONSHIP_06,
-				ConstValues.DEPENDENTS_RELATIONSHIP_07};
+		String[] stringRelation = 
+			{
+				ConstValues.DEPENDENTS_RELATIONSHIP_01,
+				ConstValues.DEPENDENTS_RELATIONSHIP_02,
+				ConstValues.DEPENDENTS_RELATIONSHIP_03,
+				ConstValues.DEPENDENTS_RELATIONSHIP_04,
+				ConstValues.DEPENDENTS_RELATIONSHIP_05,
+				ConstValues.DEPENDENTS_RELATIONSHIP_06,
+				ConstValues.DEPENDENTS_RELATIONSHIP_07
+			};
 		for (int i = 0; i < stringRelation.length; i++) {
 			if (stringRelation[i].equals(relation)) {
 				return false;
@@ -191,7 +197,7 @@ public class ValidateUtil {
 	 * @param staffInfoModel
 	 * @return boolean
 	 */
-	public static boolean checkPartnerHasChange(Dependents dependents, StaffInfoModel staffInfoModel){
+	public static boolean checkDependentsHasChange(Dependents dependents, StaffInfoModel staffInfoModel){
 		if (!dependents.getDependentsNameSei().equals(staffInfoModel.getStaffNameSei())
 				&& !ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
 			return true;
@@ -204,25 +210,15 @@ public class ValidateUtil {
 	 * @param dependents
 	 * @return boolean
 	 */
-	public static boolean checkPartnerFormHasEdit(Dependents dependents){
+	public static boolean checkDependentsFormHasEdit(Dependents dependents){
 
-		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
-			return true;
-		}
-
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
-			return true;
-		}
-
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
-			return true;
-		}
-
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
-			return true;
-		}
-
-		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
+		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei()) ||
+			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear()) ||
+			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth()) ||
+			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay()) ||
+			!ConstValues.BLANK.equals(dependents.getDependentsRelationship()) ||
+			!ConstValues.BLANK.equals(dependents.getDependentsMyNumber()) ||
+			ConstValues.CHECKBOX_SELECT.equals(dependents.getNo3Insured())) {
 			return true;
 		}
 
@@ -233,14 +229,6 @@ public class ValidateUtil {
 
 		if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
 				!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
-			return true;
-		}
-
-		if (!ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
-			return true;
-		}
-
-		if (ConstValues.CHECKBOX_SELECT.equals(dependents.getNo3Insured())) {
 			return true;
 		}
 
@@ -267,7 +255,7 @@ public class ValidateUtil {
 
 		return isValid;
 	}
-	
+
 	/** check string is 1 byte character
 	 *
 	 * @param value
@@ -286,7 +274,7 @@ public class ValidateUtil {
 		}
 		return isValid;
 	}
-	
+
 	/** check string is number
 	 *
 	 * @param value
@@ -300,15 +288,15 @@ public class ValidateUtil {
 	    }
 	    return true;
 	}
-	
+
 	public static BindingResult checkRequire(Dependents dependents, BindingResult bindingResult, int index) {
-		
+
 		if (ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
 			return bindingResult;
 		}
-		
+
 		if (ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
@@ -344,14 +332,14 @@ public class ValidateUtil {
 					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
 			return bindingResult;
 		}
-		
+
 		return bindingResult;
 
 	}
-	
+
 	public static BindingResult checkNameSei(Dependents dependents, BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
-			
+
 			// check DependentsNameSei > 25 characters
 			if (dependents.getDependentsNameSei().length() > 25) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
@@ -365,7 +353,7 @@ public class ValidateUtil {
 		}
 		return bindingResult;
 	}
-	
+
 	public static BindingResult checkNameMei(Dependents dependents, BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
 			// check DependentsNameMei > 25 characters
@@ -373,7 +361,7 @@ public class ValidateUtil {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（名）", "25"}, null );
 			}
-			
+
 			// check format nameMei
 			if (!is2ByteCharacters(dependents.getDependentsNameMei())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
@@ -382,34 +370,34 @@ public class ValidateUtil {
 		}
 		return bindingResult;
 	}
-	
+
 		public static BindingResult checkDate(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		// check year invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear()) 
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
 				&& checkYearInvalidRange(dependents.getDependentsBirthdayYear())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（年）"}, null );
 		}
-		
+
 		// check month invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth()) 
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())
 				&& checkMonthInvalidRange(dependents.getDependentsBirthdayMonth())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（月）"}, null );
 		}
-		
+
 		// check day invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay()) 
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())
 				&& checkDayInvalidRange(dependents.getDependentsBirthdayDay())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（日）"}, null );
 		}
-		
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear()) 
+
+		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
 				&& !ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())
 				&& !ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
-			
+
 			// check day not exist in future
 			if (!isThisDateValid(dependents.getDependentsBirthdayYear(),
 					dependents.getDependentsBirthdayMonth(),
@@ -419,33 +407,33 @@ public class ValidateUtil {
 			}
 		}
 		return bindingResult;
-		
+
 	}
-	
+
 		public static BindingResult checkRelationship(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
-			
+
 			// check code DependentsRelationship invalid
 			if (checkRelationshipInvalid(dependents.getDependentsRelationship())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
 						"V00013", new Object[] {"扶養者" + (index + 1), "続柄"}, null );
 			}
-			
+
 			// check DependentsRelationshipOther
 			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
 					ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00014", new Object[] {"扶養者" + (index + 1)}, null );
 			}
-			
+
 			// check DependentsRelationshipOther
 			if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
 					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00015", new Object[] {"扶養者" + (index + 1)}, null );
 			}
-			
+
 			// check DependentsRelationshipOther format
 			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
 					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther()) &&
@@ -456,17 +444,17 @@ public class ValidateUtil {
 		}
 		return bindingResult;
 	}
-	
+
 	public static BindingResult checkMyNumber(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
 			// check DependentsMyNumber must be 12 characters
-			if (dependents.getDependentsMyNumber().length() != 12 
+			if (dependents.getDependentsMyNumber().length() != 12
 					|| !isNumeric(dependents.getDependentsMyNumber())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
 						"V00010", new Object[] {"扶養者" + (index + 1), "マイナンバー", "12"}, null );
 			}
-			
+
 			// check format My number
 			if (checkFormatField("^[0-9]*$",dependents.getDependentsMyNumber())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
@@ -474,6 +462,6 @@ public class ValidateUtil {
 			}
 		}
 		return bindingResult;
-		
+
 	}
 }

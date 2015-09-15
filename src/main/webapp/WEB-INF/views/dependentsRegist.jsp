@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
-<script src="resources/js/partnerRegist.js"></script>
+<script src="resources/js/dependentsRegist.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -26,9 +26,9 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-                <form:form id="partnerRegistForm" action="partnerRegist" method="post" modelAttribute="dependentsInfoListModel" cssClass="mt10">
-                <form:errors path="*" cssClass="errorPartnerRegist" />
-                <div id ="checkPartnerNetworkOffLine">
+                <form:form id="dependentsRegistForm" action="dependentsRegist" method="post" modelAttribute="dependentsInfoListModel" cssClass="mt10">
+                <form:errors path="*" cssClass="errorDependentsRegist" />
+                <div id ="checkDependentsNetworkOffLine">
 					<fmt:message key="I00002"/>
 				</div>
 				<div class="title_r"><spring:message text="扶養者情報を入力してください。" /></div>

@@ -27,7 +27,7 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-            	
+
                 <form:form id= "registConfirmForm" action="staffRegistConfirm" method="post">
                 	<div id ="checkRegistNetworkOffLine">
 						<fmt:message key="I00002"/>
@@ -62,12 +62,12 @@
 	                				<td><spring:message text="${myNumber }" /></td>
 	                			</tr>
 	                			<tr>
-	                				<td><spring:message text="マイナンバー確認書類" /></td>
+	                				<td><spring:message text="マイナンバー確認提示書類" /></td>
 	                				<td><spring:message text="${myNumberConfirm }" /></td>
 	                			</tr>
 	                			<c:if test="${identification.size() != 0}">
 		                			<tr>
-		                				<td rowspan="${identification.size()}"><spring:message text="本人確認書類" /></td>
+		                				<td rowspan="${identification.size()}"><spring:message text="本人確認提示書類" /></td>
 		                				<c:forEach items="${identification}" var="iden" varStatus="i">
 		                					<c:if test="${i.index == 0 }">
 		                						<td><spring:message text="${iden}" /></td>
