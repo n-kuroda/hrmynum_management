@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/registComfirm.js"></script>
 
 </head>
@@ -146,7 +147,7 @@
 	                   <button class="btn-goback mt20" onclick="if(backScreen()){return false;}">
 	                    	<spring:message text="戻る" />
 	                    </button>
-	                    <button class="btn-registration mt20" onclick="if(checkNetworkOffLine()){return false;}">
+	                    <button class="btn-registration mt20" onclick="if(checkNetworkOffLine('checkRegistNetworkOffLine', null)){return false;}">
 	                    	<spring:message text="登録" />
 	                    </button>
                     </p>

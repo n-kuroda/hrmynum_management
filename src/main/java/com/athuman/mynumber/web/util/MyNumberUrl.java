@@ -38,6 +38,11 @@ public class MyNumberUrl {
 
 	// S8
 	public static final String REGIST_COMPLETE = "/registComplete";
+	public static final String STAFF_INPUT_COMPLETE ="/staffInputComplete";
+
+	//S9
+	public static final String SHAIN_REGIST_CONFIRM = "/shainRegistConfirm";
+	public static final String SHAIN_REGIST_CONFIRM_MODIFY = "/shainRegistConfirmModify";
 
 	// S10
 	public static final String COLECTION_INFO_REGIST = "/colectionInfoRegist";

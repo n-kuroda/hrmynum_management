@@ -151,7 +151,7 @@ function signatureCapture() {
 }
 
 function signatureSave() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkSigningNetworkOffLine', 'checkrequireSigning')) {
 		return true;
 	} else {
 		if (isDrawn == false) {
@@ -183,22 +183,8 @@ function signatureClear() {
 	signatureCapture();
 }
 
-function checkNetworkOffLine() {
-	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkSigningNetworkOffLine');
-		requireNetwork.style.display = 'block';
-		var errorOther = document.getElementById('checkrequireSigning');
-		if(errorOther != null) {
-			errorOther.style.display = 'none';
-		}
-		return true;
-	} else {
-		return false;
-	}
-}
-
 function backScreen() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkSigningNetworkOffLine', 'checkrequireSigning')) {
 		return true;
 	} else {
 		var form = document.forms["staffSigningForm"].action = "backToPreviousScreen";

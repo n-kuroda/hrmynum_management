@@ -3,6 +3,9 @@ package com.athuman.mynumber.web.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +25,11 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 
 	@Override
 	@Transactional
-	public MyNumberResponseDto myNumber(String himodukeNo) {
+	public ResponseEntity<MyNumberResponseDto> myNumber(String himodukeNo) {
 
 		MyNumberResponseDto dto = new MyNumberResponseDto();
+		HttpStatus status = HttpStatus.OK;
+		HttpHeaders headers = new HttpHeaders();
 
 		// check [himodukeNo] is valid or not
 		if (StringUtil.isNotEmpty(himodukeNo) && 
@@ -38,21 +43,22 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens
-				dto.setHttpStatus(ConstValues.API_STATUS_500);
 				dto.setResultMessage(ConstValues.API_MSG_UNEXPECTED_ERROR);
 				dto.setMyNumber("");
-				return dto;
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+				
+				return new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
 			}
 
 			// in case DB returned no item found
 			if (ConstValues.API_RETURNED_LIST_LENGTH_0 == list.size()) {
-				dto.setHttpStatus(ConstValues.API_STATUS_204);
+				status = HttpStatus.NO_CONTENT;
 				dto.setResultMessage(ConstValues.API_MSG_NOITEM_RETURNED);
 				dto.setMyNumber("");
 
 			// in case DB returned item found
 			} else if (ConstValues.API_RETURNED_LIST_LENGTH_1 == list.size()) {
-				dto.setHttpStatus(ConstValues.API_STATUS_200);
+				status = HttpStatus.OK;
 				dto.setResultMessage(ConstValues.API_MSG_OK);
 				try {
 					dto.setMyNumber(AESUtil.decrypt(list.get(0).getStaffMyNumber()));
@@ -62,20 +68,20 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 
 			// other errors
 			} else {
-				dto.setHttpStatus(ConstValues.API_STATUS_500);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
 				dto.setResultMessage(ConstValues.API_OTHER_ERROR);
 				dto.setMyNumber("");
 			}
 
-			return dto;
 		} else { // invalid parameter
 
-			dto.setHttpStatus(ConstValues.API_STATUS_400);
+			status = HttpStatus.BAD_REQUEST;
 			dto.setResultMessage(ConstValues.API_MSG_INVALID);
 			dto.setMyNumber("");
 
-			return dto;
 		}
+		
+		return new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
 	}
 
 	@Override
@@ -88,7 +94,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 	public MyNumberResponseDto collectionInfo(RegistConfirmDto registConfirmDto) {
 
 		MyNumberResponseDto responseDto = new MyNumberResponseDto();
-		responseDto.setHttpStatus(ConstValues.API_STATUS_204);
+//		responseDto.setHttpStatus(ConstValues.API_STATUS_204);
 		responseDto.setMyNumber("");
 		responseDto.setResultMessage("");
 

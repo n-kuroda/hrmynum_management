@@ -34,8 +34,6 @@ public class StaffInfoModel implements Serializable {
 
 	private String stayCard;
 
-	private String clearPerson;
-
 	private String healthInsuranceLicense;
 
 	private String pensionNotebook;
@@ -156,14 +154,6 @@ public class StaffInfoModel implements Serializable {
 
 	public void setStayCard(String stayCard) {
 		this.stayCard = stayCard;
-	}
-
-	public String getClearPerson() {
-		return clearPerson;
-	}
-
-	public void setClearPerson(String clearPerson) {
-		this.clearPerson = clearPerson;
 	}
 
 	public String getHealthInsuranceLicense() {

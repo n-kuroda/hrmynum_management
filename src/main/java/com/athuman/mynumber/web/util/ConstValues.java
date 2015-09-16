@@ -31,7 +31,15 @@ public class ConstValues {
 	public static final String DEPENDENTS_RELATIONSHIP_05 = "05";
 	public static final String DEPENDENTS_RELATIONSHIP_06 = "06";
 	public static final String DEPENDENTS_RELATIONSHIP_07 = "07";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_01 = "妻";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_02 = "夫";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_03 = "子供";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_04 = "父";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_05 = "母";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_06 = "兄弟・姉妹";
+	public static final String DEPENDENTS_RELATIONSHIP_VALUE_07 = "その他";
 	public static final String CONSENT_VALUE_0 = "0";
+	public static final String CONSENT_VALUE_1 = "1";
 	public static final String API_MSG_INVALID = "リクエストが不正です。";
 	public static final String API_MSG_OK = "正常に処理は行われました。";
 	public static final String API_MSG_NOITEM_RETURNED = "検索結果が0件です。";
@@ -40,10 +48,10 @@ public class ConstValues {
 	public static final int API_RETURNED_LIST_LENGTH_0 = 0;
 	public static final int API_RETURNED_LIST_LENGTH_1 = 1;
 	public static final int HIMODUKENO_LENGTH = 36;
-	public static final int API_STATUS_500 = 500;
-	public static final int API_STATUS_200 = 200;
-	public static final int API_STATUS_400 = 400;
-	public static final int API_STATUS_204 = 204;
+	public static final int MYNUMBER_REGIST_MAX_CHECKBOX_CHECKED = 2;
 	public static final String API_RESULT_0 = "0";
 	public static final String API_RESULT_1 = "1";
+	public static final String NO3INSURED = "0";
+	public static final String SAVE_DB_OK = "1";
+	public static final String SAVE_DB_FAIL = "0";
 }

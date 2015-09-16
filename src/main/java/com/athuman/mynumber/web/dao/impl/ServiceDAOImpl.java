@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.athuman.mynumber.web.dao.ServiceDAO;
 import com.athuman.mynumber.web.model.MyNumber;
+import com.athuman.mynumber.web.util.ConstValues;
 
 @Repository
 public class ServiceDAOImpl implements ServiceDAO {
@@ -31,9 +32,9 @@ public class ServiceDAOImpl implements ServiceDAO {
 			session.persist(myNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "0";
+			return ConstValues.SAVE_DB_FAIL;
 		}
-		return "1";
+		return ConstValues.SAVE_DB_OK;
 	}
 
 	public void setSessionFactory(SessionFactory sf) {

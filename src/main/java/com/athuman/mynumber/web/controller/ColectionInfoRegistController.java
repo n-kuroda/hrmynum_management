@@ -14,12 +14,11 @@ import com.athuman.mynumber.web.util.MyNumberUrl;
 @Controller
 public class ColectionInfoRegistController {
 	
-	private StaffInfoModel staffInfoModel;
 	// show colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
-		staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
+		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {
 			staffInfoModel = new StaffInfoModel();
 		}
@@ -29,7 +28,7 @@ public class ColectionInfoRegistController {
 	
 	// submit colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
-	public String next(Model model, HttpSession session) {
+	public String regist(Model model, HttpSession session) {
 		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
 	}
 }

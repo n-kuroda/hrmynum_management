@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/staffRegistConfirm.js"></script>
 
 </head>
@@ -102,7 +103,7 @@
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="お名前" /></td>
-		                				<td><spring:message text="${dependent.dependentsNameSei } ${dependent.dependentsNameMei } 様" /></td>
+		                				<td><spring:message text="${dependent.dependentsNameSei } ${dependent.dependentsNameMei }" /></td>
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="生年月日" /></td>
@@ -130,7 +131,7 @@
 					                			<spring:message text="兄弟・姉妹" />
 					                		</c:if>
 					                		<c:if test="${dependent.dependentsRelationship == '07'}">
-					                			<spring:message text="その他(${dependent.dependentsRelationshipOther })" />
+					                			<spring:message text="その他 (${dependent.dependentsRelationshipOther })" />
 					                		</c:if>
 		                				</td>
 		                			</tr>
@@ -155,7 +156,7 @@
                    <button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
                     	<spring:message text="戻る" />
                     </button>
-                   <button class="btn-next mt20" onclick="if(checkNetworkOffLine()){return false;}">
+                   <button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkRegistNetworkOffLine', null)){return false;}">
                     	<spring:message text="確認" />
                     </button>
                 </form:form>

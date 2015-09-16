@@ -13,7 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="MYNUMBER")
+@Table(name = "MYNUMBER")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class MyNumber implements Serializable {
 
@@ -25,6 +25,18 @@ public class MyNumber implements Serializable {
 
 	@Column(name = "SHODAKU_FLAG", length = 1, nullable = false)
 	private String shodakuFlag;
+
+	@Column(name = "MITEIKYO_RIYU1", length = 1, nullable = false)
+	private String miteikyoRiyu1;
+
+	@Column(name = "MITEIKYO_RIYU2", length = 1, nullable = false)
+	private String miteikyoRiyu2;
+
+	@Column(name = "MITEIKYO_RIYU3", length = 1, nullable = false)
+	private String miteikyoRiyu3;
+
+	@Column(name = "MITEIKYO_RIYU4", length = 1, nullable = false)
+	private String miteikyoRiyu4;
 
 	@Column(name = "STAFF_MYNUMBER", length = 100)
 	private String staffMyNumber;
@@ -89,8 +101,8 @@ public class MyNumber implements Serializable {
 	@Column(name = "FUYO20_MYNUMBER", length = 100)
 	private String fuyo20MyNumber;
 
-	@Column(name = "MYNUMBER_KAKUNINSHORUI", nullable = false, length = 2)
-	private String myNumberKakuninshorui;
+	@Column(name = "MYNUMBER_KAKUNIN_TEIJI_SHORUI", nullable = false, length = 2)
+	private String myNumberKakuninTeijiShorui;
 
 	@Column(name = "UNTEN_MENKYOSHO", nullable = false, length = 1)
 	private String untenMenkyyosho;
@@ -113,9 +125,6 @@ public class MyNumber implements Serializable {
 	@Column(name = "ZAIRYU_CARD", nullable = false, length = 1)
 	private String zairyuCard;
 
-	@Column(name = "HONNIN_AKIRAKA", nullable = false, length = 1)
-	private String honninAkiraka;
-
 	@Column(name = "KENKO_HOKENSHASHO", nullable = false, length = 1)
 	private String kenkoHokenshasho;
 
@@ -125,9 +134,13 @@ public class MyNumber implements Serializable {
 	@Column(name = "SONOTA", nullable = false, length = 1)
 	private String sonota;
 
-	@Column(name = "HONNIN_SYOMEI", nullable = false)//   BLOB
+	@Column(name = "HONNIN_SYOMEI", nullable = false)
+	// BLOB
 	@Lob
 	private byte[] honninSyomei;
+
+	@Column(name = "BUSINESS_UPDATE_TIMESTAMP", nullable = false)
+	private Timestamp businessUpdateTimeStamp;
 
 	@Column(name = "KAKUNINSHA", nullable = false, length = 6)
 	private String kakuninsha;
@@ -337,14 +350,6 @@ public class MyNumber implements Serializable {
 		this.fuyo20MyNumber = fuyo20MyNumber;
 	}
 
-	public String getMyNumberKakuninshorui() {
-		return myNumberKakuninshorui;
-	}
-
-	public void setMyNumberKakuninshorui(String myNumberKakuninshorui) {
-		this.myNumberKakuninshorui = myNumberKakuninshorui;
-	}
-
 	public String getUntenMenkyyosho() {
 		return untenMenkyyosho;
 	}
@@ -399,14 +404,6 @@ public class MyNumber implements Serializable {
 
 	public void setZairyuCard(String zairyuCard) {
 		this.zairyuCard = zairyuCard;
-	}
-
-	public String getHonninAkiraka() {
-		return honninAkiraka;
-	}
-
-	public void setHonninAkiraka(String honninAkiraka) {
-		this.honninAkiraka = honninAkiraka;
 	}
 
 	public String getKenkoHokenshasho() {
@@ -503,6 +500,54 @@ public class MyNumber implements Serializable {
 
 	public void setDeleteTimeStamp(Date deleteTimeStamp) {
 		this.deleteTimeStamp = deleteTimeStamp;
+	}
+
+	public String getMiteikyoRiyu1() {
+		return miteikyoRiyu1;
+	}
+
+	public void setMiteikyoRiyu1(String miteikyoRiyu1) {
+		this.miteikyoRiyu1 = miteikyoRiyu1;
+	}
+
+	public String getMiteikyoRiyu2() {
+		return miteikyoRiyu2;
+	}
+
+	public void setMiteikyoRiyu2(String miteikyoRiyu2) {
+		this.miteikyoRiyu2 = miteikyoRiyu2;
+	}
+
+	public String getMiteikyoRiyu3() {
+		return miteikyoRiyu3;
+	}
+
+	public void setMiteikyoRiyu3(String miteikyoRiyu3) {
+		this.miteikyoRiyu3 = miteikyoRiyu3;
+	}
+
+	public String getMiteikyoRiyu4() {
+		return miteikyoRiyu4;
+	}
+
+	public void setMiteikyoRiyu4(String miteikyoRiyu4) {
+		this.miteikyoRiyu4 = miteikyoRiyu4;
+	}
+
+	public String getMyNumberKakuninTeijiShorui() {
+		return myNumberKakuninTeijiShorui;
+	}
+
+	public void setMyNumberKakuninTeijiShorui(String myNumberKakuninTeijiShorui) {
+		this.myNumberKakuninTeijiShorui = myNumberKakuninTeijiShorui;
+	}
+
+	public Timestamp getBusinessUpdateTimeStamp() {
+		return businessUpdateTimeStamp;
+	}
+
+	public void setBusinessUpdateTimeStamp(Timestamp businessUpdateTimeStamp) {
+		this.businessUpdateTimeStamp = businessUpdateTimeStamp;
 	}
 
 }

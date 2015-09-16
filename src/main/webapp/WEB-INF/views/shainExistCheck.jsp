@@ -16,6 +16,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/shainExistCheck.js"></script>
 
 </head>
@@ -40,23 +41,6 @@
 					<div class="name">
 
 						<div id="messageInfoShainExistCheck">
-							<table>
-								<c:if test="${!empty shainNo}">
-								<tr>
-									<td class="leftLabel"><spring:message text="社員番号 " /></td>
-									<td class="rightLabel"><spring:message text="${shainNo}" /></td>
-								</tr>
-								</c:if>
-								<c:if test="${!empty shainInfo}">
-								<tr>
-									<td class="leftLabel"><spring:message text="お名前" /></td>
-									<td class="rightLabel"><spring:message text="${shainInfo}" /></td>
-								</tr>
-								</c:if>
-							</table>
-							<c:if test="${!empty shainInfo}">
-								<div class="mt20 ml20">よろしければ「次へ」ボタンを押してください。</div>
-							</c:if>
 						</div>
 					</div>
 					<form:errors path="*" cssClass="errorShainExistCheck" />
@@ -78,6 +62,15 @@
 						</div>
 						<div id="checkByteId" class="errorShainExistCheck" style="color: red; display: none;">
 							<fmt:message key="V00003">
+								<fmt:param value="社員番号"/>
+							</fmt:message>
+						</div>
+						<div id="checkShainExist" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="I00001">
+							</fmt:message>
+						</div>
+						<div id="serverError" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="S00001">
 								<fmt:param value="社員番号"/>
 							</fmt:message>
 						</div>

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class MyNumberController {
 	
 	@RequestMapping(value = MyNumberUrl.HIMODUKE_NO, method = RequestMethod.GET)
 	@ResponseBody
-	public MyNumberResponseDto search(@PathVariable String himodukeNo) throws IOException {
+	public ResponseEntity<MyNumberResponseDto> search(@PathVariable String himodukeNo) throws IOException {
 
 		return myNumberAPIService.myNumber(himodukeNo);
 		

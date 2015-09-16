@@ -6,19 +6,9 @@ public class MyNumberResponseDto implements Serializable {
 
 	private static final long serialVersionUID = 3609852402007880073L;
 	
-	private int httpStatus;
-	
 	private String resultMessage;
 	
 	private String myNumber;
-
-	public int getHttpStatus() {
-		return httpStatus;
-	}
-
-	public void setHttpStatus(int httpStatus) {
-		this.httpStatus = httpStatus;
-	}
 
 	public String getResultMessage() {
 		return resultMessage;

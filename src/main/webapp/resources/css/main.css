@@ -367,10 +367,10 @@ h1, p {
 }
 #content form div.personsigning {
 	border: 1px solid #000;
-	width: 200px;
-	height: 94px;
+	width: 400px;
+	height: 93px;
 	margin-top: 10px;
-	margin-left: 10px;
+	margin-left: 0px;
 }
 #content form div.personsigning img{
 	width: 100%
@@ -422,21 +422,19 @@ h1, p {
 	margin-left: -52px;
 }
 .errorShainExistCheck {
-    text-align: left;
+    text-align: center;
     width: 100%;
     font-size: 12px;
     color: red;
     display: inline-block;
-    margin-left: 225px;
 }
 #content form span.errorStaffExistCheck {
-    text-align: left;
+    text-align: center;
     width: 100%;
     margin-top: 15px;
     font-size: 12px;
     color: red;
     display: inline-block;
-    margin-left: 230px;
 }
 #messageInfoShainExistCheck {
 	 text-align: left;
@@ -447,14 +445,12 @@ h1, p {
 	 margin-left: 200px;
 }
 #content form span.errorMyNumberRegist {
-    text-align: left;
+    text-align: center;
     width: 100%;
     margin-top: 15px;
     font-size: 12px;
     color: red;
     display: inline-block;
-    margin-left: 203px;
-    width: 393px;
 }
 .messagecomplete {
 	margin-top: 50px;
@@ -477,11 +473,10 @@ h1, p {
     display: inline-block;
 }
 #checkStaffNetworkOffLine {
-    text-align: left;
+    text-align: center;
     width: 100%;
     font-size: 12px;
     color: red;
-    margin-left: 225px;
 	display: none;
 }
 #checkPurposeNetworkOffLine, #checkRegistNetworkOffLine {
@@ -494,12 +489,11 @@ h1, p {
 	display: none;
 }
 #checkMyNumberNetworkOffLine {
-	text-align: left;
+	text-align: center;
     width: 100%;
     margin-top: 15px;
     font-size: 12px;
     color: red;
-    margin-left: 165px;
 	display: none;
 }
 #checkDependentsNetworkOffLine {
@@ -529,7 +523,7 @@ h1, p {
 	font-size: 12px;
 	font-weight: bold;
 	padding: 7px 15px;
-	width: 53px;
+	width: 66px;
 	float: left;
 }
 .rightLabel {
@@ -708,7 +702,9 @@ h1, p {
     padding: 7px 15px;
     text-align: left;
 }
-#checkColectionNetworkOffLine, #checkRequiedCheckBox {
+#checkColectionNetworkOffLine,
+#checkRequiedCheckBox,
+#checkstaffInputNetworkOffLine{
 	text-align: center;
     width: 100%;
     margin-top: 15px;
@@ -724,4 +720,9 @@ h1, p {
 	text-align: left;
 	margin-left: 100px;
 	margin-top: 20px;
+}
+.personsigning-title {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 14px;
 }

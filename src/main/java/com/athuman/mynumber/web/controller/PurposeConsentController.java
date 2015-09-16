@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
@@ -22,10 +23,10 @@ public class PurposeConsentController {
 
 	// submit purposeConsent page
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.POST)
-	public String next(Model model, HttpSession sesion) {
+	public String consent(Model model, HttpSession sesion) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
-		staffInfoModelSession.setConsent("1");
+		staffInfoModelSession.setConsent(ConstValues.CONSENT_VALUE_1);
 		sesion.setAttribute("staffInfoModel", staffInfoModelSession);
 
 		return MyNumberJsp.REDIRECT_MYNUMBER_REGIST;
@@ -37,24 +38,24 @@ public class PurposeConsentController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.SKIP_TO_STAFF_REGIST_CONFIRM_SCREEN, method = RequestMethod.POST)
-	public String skipToStaffRegistConfirm(Model model, HttpSession sesion) {
+	public String other(Model model, HttpSession sesion) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.
-		staffInfoModelSession.setMyNumber("");
-		staffInfoModelSession.setMyNumberConfirm("");
-		staffInfoModelSession.setDriversLicense("");
-		staffInfoModelSession.setDriveHistoryLicense("");
-		staffInfoModelSession.setPassPort("");
-		staffInfoModelSession.setBodyDisabilitiesNotebook("");
-		staffInfoModelSession.setMentalDisabilitiesNotebook("");
-		staffInfoModelSession.setRehabilitationNotebook("");
-		staffInfoModelSession.setStayCard("");
-		staffInfoModelSession.setClearPerson("");
-		staffInfoModelSession.setHealthInsuranceLicense("");
-		staffInfoModelSession.setPensionNotebook("");
-		staffInfoModelSession.setOther("");
-		staffInfoModelSession.setConsent("0");
+		staffInfoModelSession.setMyNumber(ConstValues.BLANK);
+		staffInfoModelSession.setMyNumberConfirm(ConstValues.BLANK);
+		staffInfoModelSession.setDriversLicense(ConstValues.BLANK);
+		staffInfoModelSession.setDriveHistoryLicense(ConstValues.BLANK);
+		staffInfoModelSession.setPassPort(ConstValues.BLANK);
+		staffInfoModelSession.setBodyDisabilitiesNotebook(ConstValues.BLANK);
+		staffInfoModelSession.setMentalDisabilitiesNotebook(ConstValues.BLANK);
+		staffInfoModelSession.setRehabilitationNotebook(ConstValues.BLANK);
+		staffInfoModelSession.setStayCard(ConstValues.BLANK);
+		staffInfoModelSession.setHealthInsuranceLicense(ConstValues.BLANK);
+		staffInfoModelSession.setPensionNotebook(ConstValues.BLANK);
+		staffInfoModelSession.setOther(ConstValues.BLANK);
+
+		staffInfoModelSession.setConsent(ConstValues.CONSENT_VALUE_0);
 
 		DependentsInfoListModel dependentsSession = (DependentsInfoListModel)sesion.getAttribute("dependentsInfoListModel");
 		dependentsSession = new DependentsInfoListModel();
@@ -62,6 +63,6 @@ public class PurposeConsentController {
 		sesion.setAttribute("staffInfoModel", staffInfoModelSession);
 		sesion.setAttribute("dependentsInfoListModel", dependentsSession);
 
-		return MyNumberJsp.STAFF_REGIST_CONFIRM;
+		return MyNumberJsp.REDIRECT_STAFF_REGIST_CONFIRM;
 	}
 }

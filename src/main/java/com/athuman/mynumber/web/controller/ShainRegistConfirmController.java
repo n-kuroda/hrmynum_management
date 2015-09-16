@@ -17,10 +17,10 @@ import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
 @Controller
-public class StaffRegistConfirmController {
+public class ShainRegistConfirmController {
 
-	// show registConfirm page
-	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM, method = RequestMethod.GET)
+	// show shainRegistConfirm page
+	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
 		// get data form session.
@@ -29,22 +29,17 @@ public class StaffRegistConfirmController {
 
 		// init data for show jsp
 		initData(model, staffInfo, dependentInfo);
-		return MyNumberJsp.STAFF_REGIST_CONFIRM;
+		return MyNumberJsp.SHAIN_REGIST_CONFIRM;
 	}
 
-	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM, method = RequestMethod.POST)
 	public String confirm(Model model) {
-		return MyNumberJsp.REDIRECT_STAFF_SIGNING;
+		return MyNumberJsp.REDIRECT_COLECTION_INFO_REGIST;
 	}
 
-	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM_BACK, method = RequestMethod.POST)
-	public String back(Model model, HttpSession sesion) {
-
-		StaffInfoModel staffInfoModelSession = (StaffInfoModel) sesion.getAttribute("staffInfoModel");
-		if (ConstValues.CONSENT_VALUE_0.equals(staffInfoModelSession.getConsent())) {
-			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
-		}
-		return MyNumberJsp.REDIRECT_DEPENDENTS_REGIST;
+	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM_MODIFY, method = RequestMethod.POST)
+	public String modify(Model model) {
+		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
 	/**
@@ -155,11 +150,14 @@ public class StaffRegistConfirmController {
 	 * @return String
 	 */
 	private String getMyNumberConfirm(StaffInfoModel myNumberRegist) {
-		if (ConstValues.MY_NUMBER_CONFIRM_01.equals(myNumberRegist.getMyNumberConfirm())) {
+		if (ConstValues.MY_NUMBER_CONFIRM_01.equals(myNumberRegist
+				.getMyNumberConfirm())) {
 			return ConstValues.MY_NUMBER_CONFIRM_VALUE_01;
-		} else if (ConstValues.MY_NUMBER_CONFIRM_02.equals(myNumberRegist.getMyNumberConfirm())) {
+		} else if (ConstValues.MY_NUMBER_CONFIRM_02.equals(myNumberRegist
+				.getMyNumberConfirm())) {
 			return ConstValues.MY_NUMBER_CONFIRM_VALUE_02;
-		} else if (ConstValues.MY_NUMBER_CONFIRM_03.equals(myNumberRegist.getMyNumberConfirm())) {
+		} else if (ConstValues.MY_NUMBER_CONFIRM_03.equals(myNumberRegist
+				.getMyNumberConfirm())) {
 			return ConstValues.MY_NUMBER_CONFIRM_VALUE_03;
 		} else {
 			return ConstValues.MY_NUMBER_CONFIRM_VALUE_04;

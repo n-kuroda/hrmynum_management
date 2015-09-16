@@ -1,5 +1,5 @@
 function checkRequiedCheckBox() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkColectionNetworkOffLine', 'checkRequiedCheckBox')) {
 		return true;
 	} else {
 		var reasonForChoosing = document.getElementById('reasonForChoosing');
@@ -23,19 +23,5 @@ function checkRequiedCheckBox() {
 			}
 			return true;
 		}
-	}
-}
-
-function checkNetworkOffLine() {
-	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkColectionNetworkOffLine');
-		requireNetwork.style.display = 'block';
-		var errorOther = document.getElementById('checkRequiedCheckBox');
-		if (errorOther != null) {
-			errorOther.style.display = 'none';
-		}
-		return true;
-	} else {
-		return false;
 	}
 }

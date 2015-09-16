@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.ValidateUtil;
@@ -55,7 +56,7 @@ public class DependentsRegistController {
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
 		for (int i = 0; i < listdDependents.size(); i++) {
 			if (listdDependents.get(i).getNo3Insured() == null) {
-				listdDependents.get(i).setNo3Insured("0");
+				listdDependents.get(i).setNo3Insured(ConstValues.NO3INSURED);
 			}
 			binding = ValidateUtil.validFormDependents(binding, listdDependents.get(i), staffInfoModel, i);
 		}
@@ -155,13 +156,14 @@ public class DependentsRegistController {
 		model.addAttribute("listDay", lstDay);
 
 		Map<String,String> relationship = new LinkedHashMap<String,String>();
-		relationship.put("01", "妻");
-		relationship.put("02", "夫");
-		relationship.put("03", "子供");
-		relationship.put("04", "父");
-		relationship.put("05", "母");
-		relationship.put("06", "兄弟・姉妹");
-		relationship.put("07", "その他");
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_01, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_01);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_02, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_02);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_03, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_03);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_04, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_04);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_05, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_05);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_06, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_06);
+		relationship.put(ConstValues.DEPENDENTS_RELATIONSHIP_07, ConstValues.DEPENDENTS_RELATIONSHIP_VALUE_07);
+
 		model.addAttribute("listRelationship", relationship);
 
 	}

@@ -68,7 +68,7 @@ public class MyNumberRegistController {
 	/** process data for store session
 	 *
 	 * @param myNumber
-	 * @return MyNumberRegistDto
+	 * @return StaffInfoModel
 	 */
 	private StaffInfoModel processData(StaffInfoModel myNumberForm, StaffInfoModel staffInfoModel) {
 		if (myNumberForm != null) {
@@ -139,14 +139,6 @@ public class MyNumberRegistController {
 				staffInfoModel.setStayCard(ConstValues.CHECKBOX_NOT_SELECT);
 			}
 
-			// store clear Person
-			if (StringUtil.isNotEmpty(myNumberForm.getClearPerson()) &&
-					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
-				staffInfoModel.setClearPerson(myNumberForm.getClearPerson());
-			} else {
-				staffInfoModel.setClearPerson(ConstValues.CHECKBOX_NOT_SELECT);
-			}
-
 			// store insurance card license
 			if (StringUtil.isNotEmpty(myNumberForm.getHealthInsuranceLicense()) &&
 					!ConstValues.RADIO_SELECT.equals(myNumberForm.getMyNumberConfirm())) {
@@ -202,8 +194,7 @@ public class MyNumberRegistController {
 			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook()) ||
 			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook()) ||
 			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook()) ||
-			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard()) ||
-			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getClearPerson())) {
+			ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard())) {
 			return false;
 		}
 
@@ -222,9 +213,12 @@ public class MyNumberRegistController {
 			checkTime ++;
 		}
 
-		if (checkTime <= 1) {
+		// show error in case there are less than 2 check-boxes checked.
+		if (checkTime < ConstValues.MYNUMBER_REGIST_MAX_CHECKBOX_CHECKED) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
+		
 	}
 }

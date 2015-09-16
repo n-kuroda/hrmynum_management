@@ -1,19 +1,15 @@
 function checkDataValid() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
-		if (!checkInput()) {
-			var form = document.forms["staffExistCheckForm"];
-			form.action = "nextToPurposeConsent";
-			form.submit();
-		} else {
-			return true;
-		}
+		var form = document.forms["staffExistCheckForm"];
+		form.action = "nextToPurposeConsent";
+		form.submit();
 	}
 }
 
 function backScreen() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
 		var form = document.forms["staffExistCheckForm"].action = "backToShainExistCheck";
@@ -22,26 +18,61 @@ function backScreen() {
 }
 
 function checkDataValidWhenSearch() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
 		if (checkInput()) {
 			return true;
+		} else {
+			var staffNoValue = $('#staffNo').val();
+			var staffNo = {"staffNo" : staffNoValue};
+			$.ajax({
+		        url: "staffExistCheck",
+		        type: 'POST',
+		        data: JSON.stringify(staffNo),
+		        cache:false,
+		        beforeSend: function(xhr) {
+		            xhr.setRequestHeader("Accept", "application/json");
+		            xhr.setRequestHeader("Content-Type", "application/json");
+		        },
+		        success:function(staffInfoResponseDto){
+		        	var staffInfo = document.getElementById("messageInfoStaffExistCheck");
+		        	if (staffInfoResponseDto.httpStatus == 200) {
+		        		clearMessage();
+		        		var staffInfoDto = staffInfoResponseDto.staffInfoDto;
+		        		var staffResponse = "<table>";
+		        		staffResponse += "<tr>";
+		        		staffResponse += "<td class='leftLabel'>スタッフNo</td>";
+		        		staffResponse += "<td class='rightLabel'>" + staffNoValue + "</td>";
+		        		staffResponse += "</tr>";
+		        		staffResponse += "<tr>";
+		        		staffResponse += "<td class='leftLabel'>お名前</td>";
+		        		staffResponse += "<td class='rightLabel'>" +
+		        			staffInfoDto.nameSei + " " + staffInfoDto.nameMei +
+		        			"(" +staffInfoDto.nameKanaSei + " " + staffInfoDto.nameKanaMei +")</td>";
+		        		staffResponse += "</tr>";
+		        		staffResponse += "</table>";
+		        		staffResponse += "<div class='mt20 ml20'>よろしければ「次へ」ボタンを押してください。</div>";
+		        		staffInfo.innerHTML = staffResponse;
+		        		staffInfo.style.display = 'block';
+		        	} else if(staffInfoResponseDto.httpStatus == 204) {
+		        		clearMessage();
+		        		$('#checkStaffExist').show();
+		        		document.getElementById('staffNo').className = 'error';
+		        		staffInfo.style.display = 'none';
+		        	} else {
+		        		clearMessage();
+		        		$('#serverError').show();
+		        		document.getElementById('staffNo').className = 'error';
+		        		staffInfo.style.display = 'none';
+		        	}
+		        },
+		        error:function(jqXhr, textStatus, errorThrown){
+		        	alert("fail");
+		        }
+		    });
+			return true;
 		}
-	}
-}
-
-function checkNetworkOffLine() {
-	if (!navigator.onLine) {
-		var requireSigning = document.getElementById('checkStaffNetworkOffLine');
-		requireSigning.style.display = 'block';
-		var errorOther = document.getElementById('staffInfoModel.errors');
-		if(errorOther != null) {
-			errorOther.style.display = 'none';
-		}
-		return true;
-	} else {
-		return false;
 	}
 }
 
@@ -54,6 +85,12 @@ function clearMessage() {
 	checkByteId.style.display = 'none';
 	var networkOffLine = document.getElementById('checkStaffNetworkOffLine');
 	networkOffLine.style.display = 'none';
+	var messageInfo = document.getElementById('staffInfoModel.errors');
+	if (messageInfo != null) {
+		messageInfo.style.display = 'none';
+	}
+	$('#checkStaffExist').hide();
+	$('#serverError').hide();
 };
 
 function checkInput() {
@@ -62,13 +99,10 @@ function checkInput() {
 	var requireId = document.getElementById('checkrequireId');
 	var checkLengthId = document.getElementById('checkLengthId');
 	var checkByteId = document.getElementById('checkByteId');
-	var messageInfo = document.getElementById('shainInfoModel.errors');
+	var messageInfo = document.getElementById('staffModel.errors');
 	var staffInfo = document.getElementById('messageInfoStaffExistCheck');
 	clearMessage();
 
-	var isCheck = false;
-	var regex = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g;
-	// check required field
 	if (staffNo.length == 0) {
 		requireId.style.display = 'block';
 		if (messageInfo != null) {
@@ -78,62 +112,31 @@ function checkInput() {
 		document.getElementById('staffNo').className = 'error';
 		return true;
 	} else {
-		document.getElementById('staffNo').className = '';
-		requireId.style.display = 'none';
-	}
-
-	// check max length
-	if (staffNo.length != 9) {
-		checkLengthId.style.display = 'block';
+		var flagCheck = 0;
+		var regex = /[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g;
 		if (regex.test(staffNo)) {
-			checkByteId.style.display = 'block';
-		}
-		if (messageInfo != null) {
-			messageInfo.style.display = 'none';
-		}
-		staffInfo.style.display = 'none';
-		document.getElementById('staffNo').className = 'error';
-		return true;
-	} else {
-		document.getElementById('staffNo').className = '';
-		checkLengthId.style.display = 'none';
-	}
-
-	// check format
-	if (regex.test(staffNo)) {
-		checkByteId.style.display = 'block';
-		if (messageInfo != null) {
-			messageInfo.style.display = 'none';
-		}
-		staffInfo.style.display = 'none';
-		document.getElementById('staffNo').className = 'error';
-		return true;
-	} else {
-		document.getElementById('staffNo').className = '';
-		checkByteId.style.display = 'none';
-	}
-
-	if (staffNo.length == 9) {
-		if (/^[a-zA-Z0-9- ]*$/.test(staffNo) == false) {
 			checkByteId.style.display = 'block';
 			if (messageInfo != null) {
 				messageInfo.style.display = 'none';
 			}
 			staffInfo.style.display = 'none';
 			document.getElementById('staffNo').className = 'error';
-			return true;
+			flagCheck++ ;
 		}
-		if (isNaN(staffNo)) {
+		if (isNaN(staffNo) || staffNo.length != 9) {
 			checkLengthId.style.display = 'block';
 			if (messageInfo != null) {
 				messageInfo.style.display = 'none';
 			}
 			staffInfo.style.display = 'none';
 			document.getElementById('staffNo').className = 'error';
+			flagCheck++;
+		}
+		if (flagCheck > 0) {
 			return true;
+		} else {
+			document.getElementById('staffNo').className = '';
+			return false;
 		}
 	}
-
-	document.getElementById('staffNo').className = '';
-	return isCheck;
 }

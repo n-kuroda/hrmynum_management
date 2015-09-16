@@ -3,6 +3,9 @@ package com.athuman.mynumber.web.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +24,13 @@ public class RegisteredStaffAPIServiceImpl implements RegisteredStaffAPIService 
 
 	@Override
 	@Transactional
-	public RegisteredStaffAPIResponseDto registeredStaff(String himodukeNo) {
+	public ResponseEntity<RegisteredStaffAPIResponseDto> registeredStaff(String himodukeNo) {
+
 		RegisteredStaffAPIResponseDto dto = new RegisteredStaffAPIResponseDto();
 
+		HttpStatus status = HttpStatus.OK;
+		HttpHeaders headers = new HttpHeaders();
+		
 		// check [himodukeNo] is valid or not
 		if (StringUtil.isNotEmpty(himodukeNo) &&
 				himodukeNo.length() == ConstValues.HIMODUKENO_LENGTH &&
@@ -36,40 +43,40 @@ public class RegisteredStaffAPIServiceImpl implements RegisteredStaffAPIService 
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens
-				dto.setHttpStatus(ConstValues.API_STATUS_500);
 				dto.setResultMessage(ConstValues.API_MSG_UNEXPECTED_ERROR);
-				dto.setResult(ConstValues.API_RESULT_0);
-				return dto;
+				dto.setResult(ConstValues.API_RESULT_0);				
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
 
+				return new ResponseEntity<RegisteredStaffAPIResponseDto>(dto, headers , status);
 			}
 
 			// in case DB returned no item found
 			if (ConstValues.API_RETURNED_LIST_LENGTH_0 == list.size()) {
-				dto.setHttpStatus(ConstValues.API_STATUS_204);
+				status = HttpStatus.NO_CONTENT;
 				dto.setResultMessage(ConstValues.API_MSG_NOITEM_RETURNED);
 				dto.setResult(ConstValues.API_RESULT_0);
 				
 			// in case DB returned item found
 			} else if (ConstValues.API_RETURNED_LIST_LENGTH_1 == list.size()) {
-				dto.setHttpStatus(ConstValues.API_STATUS_200);
+				status = HttpStatus.OK;
 				dto.setResultMessage(ConstValues.API_MSG_OK);
 				dto.setResult(ConstValues.API_RESULT_1);
 				
 			// other errors
 			} else {
-				dto.setHttpStatus(ConstValues.API_STATUS_500);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
 				dto.setResultMessage(ConstValues.API_OTHER_ERROR);
 				dto.setResult(ConstValues.API_RESULT_0);
 			}
-			return dto;
 		} else { // invalid parameter
 
-			dto.setHttpStatus(ConstValues.API_STATUS_400);
+			status = HttpStatus.BAD_REQUEST;
 			dto.setResultMessage(ConstValues.API_MSG_INVALID);
 			dto.setResult(ConstValues.API_RESULT_0);
 
-			return dto;
 		}
+		
+		return new ResponseEntity<RegisteredStaffAPIResponseDto>(dto, headers, status);
 	}
 
 	public void setServiceDAO(ServiceDAO serviceDAO) {

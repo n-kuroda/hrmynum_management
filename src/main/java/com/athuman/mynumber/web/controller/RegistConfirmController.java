@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.dto.Dependents;
-import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.dto.RegistConfirmDto;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.MyNumber;
@@ -73,11 +72,11 @@ public class RegistConfirmController {
 		registConfirmDto.setListDependent(dependentInfo.getDependents());
 
 		// FIXME: Suppose we already had a service named [collectionInfo]
-		MyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(registConfirmDto);
+//		MyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(registConfirmDto);
 		// when status code != 200
-		if (responseDto.getHttpStatus() != 200) {
-			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
-		}
+//		if (responseDto.getHttpStatus() != 200) {
+//			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
+//		}
 
 		// regist to DB
 		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel,
@@ -154,10 +153,6 @@ public class RegistConfirmController {
 			lstIdentification.add(ConstValues.STAY_CARD);
 		}
 
-		if (ConstValues.CHECKBOX_SELECT.equals(myNumberRegist.getClearPerson())) {
-			lstIdentification.add(ConstValues.CLEAR_PERSON);
-		}
-
 		if (ConstValues.CHECKBOX_SELECT.equals(myNumberRegist.getHealthInsuranceLicense())) {
 			lstIdentification.add(ConstValues.HEATH_INSURANCE_LICENSE);
 		}
@@ -231,7 +226,7 @@ public class RegistConfirmController {
 
 			if (staffInfo != null) {
 				myNumber.setStaffMyNumber(AESUtil.encrypt(staffInfo.getMyNumber()));
-				myNumber.setMyNumberKakuninshorui(staffInfo.getMyNumberConfirm());
+//				myNumber.setMyNumberKakuninshorui(staffInfo.getMyNumberConfirm());
 				myNumber.setUntenKeirekiShoumeisho(staffInfo.getDriveHistoryLicense());
 				myNumber.setUntenMenkyyosho(staffInfo.getDriversLicense());
 				myNumber.setPassport(staffInfo.getPassPort());
@@ -239,7 +234,7 @@ public class RegistConfirmController {
 				myNumber.setSeishinShogaishaTecho(staffInfo.getMentalDisabilitiesNotebook());
 				myNumber.setRyoikuTecho(staffInfo.getRehabilitationNotebook());
 				myNumber.setZairyuCard(staffInfo.getStayCard());
-				myNumber.setHonninAkiraka(staffInfo.getClearPerson());
+				/*myNumber.setHonninAkiraka(staffInfo.getClearPerson());*/
 				myNumber.setKenkoHokenshasho(staffInfo.getHealthInsuranceLicense());
 				myNumber.setNenkonTecho(staffInfo.getPensionNotebook());
 				myNumber.setSonota(staffInfo.getOther());

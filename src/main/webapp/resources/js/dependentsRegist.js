@@ -1,5 +1,5 @@
 function backScreen() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkDependentsNetworkOffLine','dependentsInfoListModel.errors')) {
 		return true;
 	} else {
 		var form = document.forms["dependentsRegistForm"].action = "dependentsRegistBack";
@@ -23,17 +23,3 @@ $(document).ready(function() {
 		}
 	});
 });
-
-function checkNetworkOffLine() {
-	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkDependentsNetworkOffLine');
-		requireNetwork.style.display = 'block';
-		var errorOther = document.getElementById('dependentsInfoListModel.errors');
-		if(errorOther != null) {
-			errorOther.style.display = 'none';
-		}
-		return true;
-	} else {
-		return false;
-	}
-}

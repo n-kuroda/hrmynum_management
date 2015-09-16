@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/staffSigning.js"></script>
 
 </head>

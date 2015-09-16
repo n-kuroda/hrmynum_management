@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/purposeConsent.js"></script>
 
 </head>
@@ -76,7 +77,7 @@
 						<fmt:message key="I00002"/>
 					</div>
 					<button class="btn-back"  onclick="if(backScreen()){return false;}">戻る</button>
-					<button class="btn-next" onclick="if(checkNetworkOffLine()){return false;}">承諾する</button>
+					<button class="btn-next" onclick="if(checkNetworkOffLine('checkPurposeNetworkOffLine', null)){return false;}">承諾する</button>
 					<button class="btn-skip" onclick="if(skipToSigning()){return false;}">その他</button>
 				</form>
 			</div>

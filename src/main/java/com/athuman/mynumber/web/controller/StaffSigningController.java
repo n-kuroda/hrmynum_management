@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
@@ -22,13 +23,14 @@ public class StaffSigningController {
 
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNING, method = RequestMethod.POST)
 	public String next(Model model) {
-		return MyNumberJsp.REDIRECT_REGIST_COMFIRM;
+		return MyNumberJsp.REDIRECT_STAFF_INPUT_COMPLETE;
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_PREVIOUS_SCREEN, method = RequestMethod.POST)
 	public String back(Model model, HttpSession sesion) {
+
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
-		if ("0".equals(staffInfoModelSession.getConsent())) {
+		if (ConstValues.CONSENT_VALUE_0.equals(staffInfoModelSession.getConsent())) {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
 		

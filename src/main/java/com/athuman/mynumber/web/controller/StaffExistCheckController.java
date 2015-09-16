@@ -2,14 +2,17 @@ package com.athuman.mynumber.web.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
@@ -35,9 +38,14 @@ public class StaffExistCheckController {
 
 	// submit staffExistCheck page
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String search(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm, BindingResult bindingResult,
-			Model model, HttpSession session) {
+	@ResponseBody
+	public StaffInfoResponseDto search(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
+			BindingResult bindingResult, Model model, 
+			@RequestBody String staffNo, HttpSession session) throws Exception {
 
+		ObjectMapper mapper = new ObjectMapper();
+		staffInfoModelForm = mapper.readValue(staffNo, StaffInfoModel.class);
+		
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
 		StaffInfoResponseDto staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelForm.getStaffNo());
@@ -45,9 +53,6 @@ public class StaffExistCheckController {
 		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
 
 			StaffInfoDto staffInfoDto = staffInfoResponseDto.getStaffInfoDto();
-
-			model.addAttribute("staffNo", staffInfoModelForm.getStaffNo());
-			model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));
 
 			// convert data from StaffInfoDto to StaffInfoModel
 			StaffInfoModel staffInfoModel = new StaffInfoModel();
@@ -61,18 +66,11 @@ public class StaffExistCheckController {
 			// store to session
 			session.setAttribute("staffInfoModel", staffInfoModel);
 
-		} else if (staffInfoResponseDto.getHttpStatus() == 204) { // error 204
-
-			session.setAttribute("staffInfoModel", null);
-			bindingResult.rejectValue("staffNo", "I00001",
-					new Object[] {}, null);
 		} else { // other error
 			session.setAttribute("staffInfoModel", null);
-			bindingResult.rejectValue("staffNo", "S00001",
-					new Object[] {"スタッフNo"}, null);
 		}
 
-		return MyNumberJsp.STAFF_EXIST_CHECK;
+		return staffInfoResponseDto;
 	}
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
@@ -94,13 +92,6 @@ public class StaffExistCheckController {
 	@RequestMapping(value = MyNumberUrl.BACK_TO_SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String back(Model model) {
 		return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
-	}
-
-	/** get staff info*/
-	private String getStaffInfo(StaffInfoDto staffInfoDto) {
-		String staffInfo = staffInfoDto.getNameSei() + " " + staffInfoDto.getNameMei() +
-				"(" + staffInfoDto.getNameKanaSei() + " " + staffInfoDto.getNameKanaMei() + ")";
-		return staffInfo;
 	}
 
 	public void setStaffAPIService(StaffAPIService staffAPIService) {

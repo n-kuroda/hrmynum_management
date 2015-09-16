@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/colectionInfoRegist.js"></script>
 
 </head>
@@ -35,7 +36,7 @@
 				</div>
 				<c:choose>
                 	<c:when test="${staffInfoModel.consent == '0' }">
-                		<div id="reasonForChoosing">
+                		<div id="reasonForChoosing" class="font14">
 							<div><spring:message text="未提供理由を選択の上、登録ボタンをタップしてください。" /></div>
 							<div class="ml10 mt20">
 								<div class="mt10">
@@ -61,7 +62,7 @@
                 		</div>
                 	</c:when>
 					<c:otherwise>
-						<div class="confirmText mt20">
+						<div class="confirmText mt20 font14">
 			               	<div><spring:message text="情報を登録します。" /></div>
 			               	<div><spring:message text="登録ボタンをタップしてください。" /></div>
 						</div>

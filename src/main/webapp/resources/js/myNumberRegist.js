@@ -19,25 +19,10 @@ function clearCheckBox(){
 }
 
 function backScreen() {
-	if (checkNetworkOffLine()) {
+	if (checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
 		var form = document.forms["myNumberRegistForm"].action = "backToPurposeConsent";
 		form.submit();
-	}
-}
-
-function checkNetworkOffLine() {
-	if (!navigator.onLine) {
-		var requireNetwork = document.getElementById('checkMyNumberNetworkOffLine');
-		requireNetwork.style.display = 'block';
-		var errorOther = document.getElementById('staffInfoModel.errors');
-		if(errorOther != null) {
-			errorOther.style.display = 'none';
-		}
-
-		return true;
-	} else {
-		return false;
 	}
 }

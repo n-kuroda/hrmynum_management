@@ -17,6 +17,7 @@
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
+<script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/dependentsRegist.js"></script>
 </head>
 <body>
@@ -36,7 +37,7 @@
 					<form:button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
-					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine()){return false;}">
+					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkDependentsNetworkOffLine','dependentsInfoListModel.errors')){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
 				</div>
@@ -109,7 +110,7 @@
                     <form:button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
-					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine()){return false;}">
+					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkDependentsNetworkOffLine','dependentsInfoListModel.errors')){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
 				</div>
