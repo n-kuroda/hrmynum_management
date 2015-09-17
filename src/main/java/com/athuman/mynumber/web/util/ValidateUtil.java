@@ -79,7 +79,7 @@ public class ValidateUtil {
 		} catch (NumberFormatException e) {
 			return true;
 		}
-		if (yearToCheck >= 1990 && yearToCheck<= curYear) {
+		if (yearToCheck >= ConstValues.DEPENDENTS_MIN_YEAR && yearToCheck <= curYear) {
 			return false;
 		}
 		return true;
@@ -98,7 +98,8 @@ public class ValidateUtil {
 		} catch (NumberFormatException e) {
 			return true;
 		}
-		if (monthToCheck > 0 && monthToCheck<= 12) {
+		if (monthToCheck > ConstValues.DEPENDENTS_MIN_MONTH_CHECK &&
+				monthToCheck <= ConstValues.DEPENDENTS_MAX_MONTH) {
 			return false;
 		}
 		return true;
@@ -117,7 +118,8 @@ public class ValidateUtil {
 		} catch (NumberFormatException e) {
 			return true;
 		}
-		if (dayToCheck > 0 && dayToCheck <= 31) {
+		if (dayToCheck > ConstValues.DEPENDENTS_MIN_DAY_CHECK &&
+				dayToCheck <= ConstValues.DEPENDENTS_MAX_DAY) {
 			return false;
 		}
 		return true;
@@ -130,7 +132,7 @@ public class ValidateUtil {
 	 */
 	public static boolean checkRelationshipInvalid(String relation) {
 
-		String[] stringRelation = 
+		String[] stringRelation =
 			{
 				ConstValues.DEPENDENTS_RELATIONSHIP_01,
 				ConstValues.DEPENDENTS_RELATIONSHIP_02,

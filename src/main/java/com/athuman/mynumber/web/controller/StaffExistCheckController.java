@@ -94,6 +94,13 @@ public class StaffExistCheckController {
 		return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = MyNumberUrl.REMOVE_SESSION_STAFF, method = RequestMethod.POST)
+	public String removeSession(HttpSession session) {
+		session.setAttribute("staffInfoModel", null);
+		return MyNumberJsp.STAFF_EXIST_CHECK;
+	}
+	
 	public void setStaffAPIService(StaffAPIService staffAPIService) {
 		this.staffAPIService = staffAPIService;
 	}

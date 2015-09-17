@@ -23,7 +23,6 @@ public class MyNumberJsp {
 	public static final String DEPENDENTS_REGIST = "dependentsRegist";
 
 	// S6
-	public static final String REDIRECT_REGIST_COMFIRM = "redirect:/registConfirm";
 	public static final String STAFF_SIGNING = "staffSigning";
 
 	public static final String REDIRECT_STAFF_REGIST_CONFIRM = "redirect:/staffRegistConfirm";
@@ -31,7 +30,6 @@ public class MyNumberJsp {
 	public static final String STAFF_REGIST_CONFIRM = "staffRegistConfirm";
 
 	// S7
-	public static final String REGIST_CONFIRM = "registConfirm";
 	public static final String REDIRECT_STAFF_SIGNING = "redirect:/staffSigning";
 
 	// S8

@@ -173,7 +173,7 @@ public class StaffRegistConfirmController {
 	 * @return String
 	 */
 	private String getStaffName(StaffInfoModel staffInfo) {
-		return staffInfo.getStaffNameSei() + staffInfo.getStaffNameMei() +
-				"("+ staffInfo.getStaffNameSeiKana() + staffInfo.getStaffNameMeiKana() + ")";
+		return staffInfo.getStaffNameSei() + " " + staffInfo.getStaffNameMei() +
+				"("+ staffInfo.getStaffNameSeiKana() + " " + staffInfo.getStaffNameMeiKana() + ")";
 	}
 }

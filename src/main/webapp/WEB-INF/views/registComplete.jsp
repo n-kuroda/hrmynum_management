@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message text="マイナンバー収集システム" /></title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=600,initial-scale=1.45">
 <meta name="format-detection" content="telephone=no" />
 <meta name="keywords" content="マイナンバー収集システム">
 <meta name="description" content="マイナンバー収集システム">
@@ -26,11 +26,11 @@
                 <div class="logo_s"></div>
             </div>
             <div id="content">
-                <form:form action="registComplete" methodParam="POST" class="mt30" id= "registCompleteDtoForm">
-                	<div class="messagecomplete">
+                <form:form action="registComplete" methodParam="POST" class="mt30" id= "registCompleteForm">
+                	<div class="messagecomplete font14">
 						<spring:message text="登録が完了しました。"/>
 					</div>
-					<button value="back" class="btn-next mt40">
+					<button value="end" class="btn-next">
 						<spring:message text="終了" />
 					</button>
                  </form:form>

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.athuman.mynumber.web.dao.ServiceDAO;
 import com.athuman.mynumber.web.dto.MyNumberResponseDto;
-import com.athuman.mynumber.web.dto.RegistConfirmDto;
+import com.athuman.mynumber.web.dto.ColectionInfoDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
 import com.athuman.mynumber.web.util.AESUtil;
@@ -32,7 +32,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 		HttpHeaders headers = new HttpHeaders();
 
 		// check [himodukeNo] is valid or not
-		if (StringUtil.isNotEmpty(himodukeNo) && 
+		if (StringUtil.isNotEmpty(himodukeNo) &&
 				himodukeNo.length() == ConstValues.HIMODUKENO_LENGTH &&
 				StringUtil.isValid(himodukeNo)) {
 
@@ -46,7 +46,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 				dto.setResultMessage(ConstValues.API_MSG_UNEXPECTED_ERROR);
 				dto.setMyNumber("");
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
-				
+
 				return new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
 			}
 
@@ -80,7 +80,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 			dto.setMyNumber("");
 
 		}
-		
+
 		return new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
 	}
 
@@ -89,9 +89,9 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 	public String registMyNumber(MyNumber myNumber) {
 		return serviceDAO.addMyNumber(myNumber);
 	}
-	
+
 	@Override
-	public MyNumberResponseDto collectionInfo(RegistConfirmDto registConfirmDto) {
+	public MyNumberResponseDto collectionInfo(ColectionInfoDto colectionInfoDto) {
 
 		MyNumberResponseDto responseDto = new MyNumberResponseDto();
 //		responseDto.setHttpStatus(ConstValues.API_STATUS_204);
@@ -100,7 +100,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 
 		return responseDto;
 	}
-	
+
 	public void setServiceDAO(ServiceDAO serviceDAO) {
 		this.serviceDAO = serviceDAO;
 	}

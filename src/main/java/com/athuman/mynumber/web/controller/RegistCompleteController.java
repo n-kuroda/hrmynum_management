@@ -17,7 +17,7 @@ public class RegistCompleteController {
 		return MyNumberJsp.REGIST_COMPLETE;
 	}
 
-	// submit purposeConsent page
+	// submit registComplete page
 	@RequestMapping(value = MyNumberUrl.REGIST_COMPLETE, method = RequestMethod.POST)
 	public String end(Model model) {
 		return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;

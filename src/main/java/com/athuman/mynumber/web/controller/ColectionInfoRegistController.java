@@ -1,34 +1,200 @@
 package com.athuman.mynumber.web.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.athuman.mynumber.web.dto.ColectionInfoDto;
+import com.athuman.mynumber.web.dto.ColectionInfoRegistDto;
+import com.athuman.mynumber.web.dto.Dependents;
+import com.athuman.mynumber.web.model.DependentsInfoListModel;
+import com.athuman.mynumber.web.model.MyNumber;
+import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
+import com.athuman.mynumber.web.service.MyNumberAPIService;
+import com.athuman.mynumber.web.util.AESUtil;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.StringUtil;
 
 @Controller
 public class ColectionInfoRegistController {
-	
+
+	@Autowired(required=true)
+	@Qualifier(value="myNumberAPIService")
+	private MyNumberAPIService myNumberAPIService;
+
+	public void setMyNumberAPIService(MyNumberAPIService myNumberAPIService) {
+		this.myNumberAPIService = myNumberAPIService;
+	}
+
 	// show colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
+		initData(model, session);
+		model.addAttribute("colectionInfoRegistDto", new ColectionInfoRegistDto());
+		return MyNumberJsp.COLECTION_INFO_REGIST;
+	}
+
+	// submit colectionInfoRegist page
+	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
+	public String regist(@ModelAttribute("colectionInfoRegistDto") ColectionInfoRegistDto colectionInfoRegistForm,
+			Model model, HttpSession session, BindingResult binding) {
+
+		// set default value for miteikyoRiyu
+		colectionInfoRegistForm = setValueMiteikyoRiyu(colectionInfoRegistForm);
+
+		// Generator random UUID
+ 		String uuid = UUID.randomUUID().toString();
+
+		// get data form session
+		StaffInfoModel staffInfo = (StaffInfoModel)session.getAttribute("staffInfoModel");
+		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
+		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
+
+		// set data for API
+		ColectionInfoDto colectionInfo = new ColectionInfoDto();
+		colectionInfo.setHimodukeNo(uuid);
+		colectionInfo.setStaffNo(staffInfo.getStaffNo());
+		colectionInfo.setShodakuFlag(staffInfo.getConsent());
+		colectionInfo.setFuyoInfoList(dependentInfo.getDependents());
+
+		// FIXME: Suppose we already had a service named [collectionInfo]
+//		MyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(colectionInfoRegistForm);
+		// when status code != 200
+//		if (responseDto.getHttpStatus() != 200) {
+//			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
+//		}
+
+		// regist to DB
+		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel,
+				dependentInfo, colectionInfoRegistForm);
+		// store data directly to DB
+		String result = myNumberAPIService.registMyNumber(myNumber);
+		if (ConstValues.SAVE_DB_FAIL.equals(result)) {
+			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
+			initData(model, session);
+			return MyNumberJsp.COLECTION_INFO_REGIST;
+		} else {
+			session.invalidate();
+		}
+		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
+	}
+
+	/** set value for MiteikyoRiyu
+	 *
+	 * @param colectionInfoRegistDto
+	 * @return ColectionInfoRegistDto
+	 */
+	private ColectionInfoRegistDto setValueMiteikyoRiyu (ColectionInfoRegistDto colectionInfoRegistDto){
+		colectionInfoRegistDto.setMiteikyoRiyu1(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu1()));
+		colectionInfoRegistDto.setMiteikyoRiyu2(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu2()));
+		colectionInfoRegistDto.setMiteikyoRiyu3(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu3()));
+		colectionInfoRegistDto.setMiteikyoRiyu4(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu4()));
+		return colectionInfoRegistDto;
+	}
+
+	/** set value for check box
+	 *
+	 * @param value
+	 * @return String
+	 */
+	private String getValueOfCheckBox(String value) {
+		if (!StringUtil.isNotEmpty(value)) {
+			return ConstValues.CHECKBOX_NOT_SELECT;
+		} else {
+			return ConstValues.CHECKBOX_SELECT;
+		}
+	}
+
+	/** Init data for jsp
+	 *
+	 * @param model
+	 * @param session
+	 */
+	private void initData(Model model, HttpSession session) {
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {
 			staffInfoModel = new StaffInfoModel();
 		}
 		model.addAttribute("staffInfoModel", staffInfoModel);
-		return MyNumberJsp.COLECTION_INFO_REGIST;
 	}
-	
-	// submit colectionInfoRegist page
-	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
-	public String regist(Model model, HttpSession session) {
-		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
+
+	/** set data for my number
+	 *
+	 * @param staffInfo
+	 * @param uuid
+	 * @param shainInfoModel
+	 * @param myNumberRegist
+	 * @param dependentInfo
+	 * @return MyNumber
+	 */
+	private MyNumber setData4MyNumber(StaffInfoModel staffInfo, String uuid, ShainInfoModel shainInfoModel,
+			DependentsInfoListModel dependentInfo, ColectionInfoRegistDto colectionInfoRegistForm){
+		MyNumber myNumber = new MyNumber();
+		Date today = new Date();
+		try {
+			myNumber.setHimodukeNo(AESUtil.encrypt(uuid));
+			myNumber.setMiteikyoRiyu1(colectionInfoRegistForm.getMiteikyoRiyu1());
+			myNumber.setMiteikyoRiyu2(colectionInfoRegistForm.getMiteikyoRiyu2());
+			myNumber.setMiteikyoRiyu3(colectionInfoRegistForm.getMiteikyoRiyu3());
+			myNumber.setMiteikyoRiyu4(colectionInfoRegistForm.getMiteikyoRiyu4());
+
+			List<Dependents> dependents = dependentInfo.getDependents();
+			if (dependents != null) {
+				myNumber.setFuyo1MyNumber(AESUtil.encrypt(dependents.get(0).getDependentsMyNumber()));
+				myNumber.setFuyo2MyNumber(AESUtil.encrypt(dependents.get(1).getDependentsMyNumber()));
+				myNumber.setFuyo3MyNumber(AESUtil.encrypt(dependents.get(2).getDependentsMyNumber()));
+				myNumber.setFuyo4MyNumber(AESUtil.encrypt(dependents.get(3).getDependentsMyNumber()));
+				myNumber.setFuyo5MyNumber(AESUtil.encrypt(dependents.get(4).getDependentsMyNumber()));
+				myNumber.setFuyo6MyNumber(AESUtil.encrypt(dependents.get(5).getDependentsMyNumber()));
+				myNumber.setFuyo7MyNumber(AESUtil.encrypt(dependents.get(6).getDependentsMyNumber()));
+				myNumber.setFuyo8MyNumber(AESUtil.encrypt(dependents.get(7).getDependentsMyNumber()));
+				myNumber.setFuyo9MyNumber(AESUtil.encrypt(dependents.get(8).getDependentsMyNumber()));
+				myNumber.setFuyo10MyNumber(AESUtil.encrypt(dependents.get(9).getDependentsMyNumber()));
+			}
+
+			if (staffInfo != null) {
+				myNumber.setStaffMyNumber(AESUtil.encrypt(staffInfo.getMyNumber()));
+				myNumber.setMyNumberKakuninTeijiShorui(staffInfo.getMyNumberConfirm());
+				myNumber.setUntenKeirekiShoumeisho(staffInfo.getDriveHistoryLicense());
+				myNumber.setUntenMenkyyosho(staffInfo.getDriversLicense());
+				myNumber.setPassport(staffInfo.getPassPort());
+				myNumber.setShintaiShogaishaTecho(staffInfo.getBodyDisabilitiesNotebook());
+				myNumber.setSeishinShogaishaTecho(staffInfo.getMentalDisabilitiesNotebook());
+				myNumber.setRyoikuTecho(staffInfo.getRehabilitationNotebook());
+				myNumber.setZairyuCard(staffInfo.getStayCard());
+				myNumber.setKenkoHokenshasho(staffInfo.getHealthInsuranceLicense());
+				myNumber.setNenkonTecho(staffInfo.getPensionNotebook());
+				myNumber.setSonota(staffInfo.getOther());
+			}
+
+			myNumber.setHonninSyomei(colectionInfoRegistForm.getStaffSign());
+			myNumber.setKakuninsha(shainInfoModel.getShainNo());
+			myNumber.setTorokuUser(shainInfoModel.getShainNo());
+			myNumber.setTorokuTimestamp(new Timestamp(today.getTime()));
+			myNumber.setLastUpdateUser(shainInfoModel.getShainNo());
+			myNumber.setLastUpdateTimeStamp(new Timestamp(today.getTime()));
+			myNumber.setDeleteFlag(ConstValues.DELETE_FLAG_VALUES_0);
+			myNumber.setShodakuFlag(staffInfo.getConsent());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return myNumber;
 	}
 }

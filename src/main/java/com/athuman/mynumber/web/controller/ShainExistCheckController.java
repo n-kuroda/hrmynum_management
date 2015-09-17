@@ -90,6 +90,13 @@ public class ShainExistCheckController {
 			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = MyNumberUrl.REMOVE_SESSION_SHAIN, method = RequestMethod.POST)
+	public String removeSession(HttpSession session) {
+		session.setAttribute("shainInfoModel", null);
+		return MyNumberJsp.SHAIN_EXIST_CHECK;
+	}
 
 	public void setShainAPIService(ShainAPIService shainAPIService) {
 		this.shainAPIService = shainAPIService;

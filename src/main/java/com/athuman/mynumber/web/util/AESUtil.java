@@ -66,5 +66,4 @@ public class AESUtil {
 		}
 		return props;
 	}
-
 }

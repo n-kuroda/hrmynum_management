@@ -54,4 +54,12 @@ public class ConstValues {
 	public static final String NO3INSURED = "0";
 	public static final String SAVE_DB_OK = "1";
 	public static final String SAVE_DB_FAIL = "0";
+	public static final int DEPENDENTS_MIN_YEAR = 1900;
+	public static final int DEPENDENTS_MIN_MONTH_CHECK = 0;
+	public static final int DEPENDENTS_MIN_MONTH = 1;
+	public static final int DEPENDENTS_MAX_MONTH = 12;
+	public static final int DEPENDENTS_MIN_DAY_CHECK = 0;
+	public static final int DEPENDENTS_MIN_DAY = 1;
+	public static final int DEPENDENTS_MAX_DAY = 31;
+	public static final String DELETE_FLAG_VALUES_0 = "0";
 }

@@ -22,7 +22,18 @@ function checkDataValidWhenSearch() {
 		return true;
 	} else {
 		if (checkInput()) {
+			$.ajax({
+		        url: "removeSessionStaff", // remove session
+		        type: 'POST',
+		        cache:false,
+		        beforeSend: function(xhr) {
+		            xhr.setRequestHeader("Accept", "application/json");
+		            xhr.setRequestHeader("Content-Type", "application/json");
+		        }
+		    });
+
 			return true;
+
 		} else {
 			var staffNoValue = $('#staffNo').val();
 			var staffNo = {"staffNo" : staffNoValue};

@@ -138,19 +138,19 @@ public class DependentsRegistController {
 		// init list year
 		int curYear = Calendar.getInstance().get(Calendar.YEAR);
 		List<String> lstYear = new ArrayList<String>();
-		for (int i = 1990; i <= curYear; i++) {
+		for (int i = ConstValues.DEPENDENTS_MIN_YEAR; i <= curYear; i++) {
 			lstYear.add("" + i);
 		}
 		model.addAttribute("listYear", lstYear);
 
 		List<String> lstMonth = new ArrayList<String>();
-		for (int i = 1; i <= 12; i++) {
+		for (int i = ConstValues.DEPENDENTS_MIN_MONTH; i <= ConstValues.DEPENDENTS_MAX_MONTH; i++) {
 			lstMonth.add("" + i);
 		}
 		model.addAttribute("listMonth", lstMonth);
 
 		List<String> lstDay = new ArrayList<String>();
-		for (int i = 1; i <= 31; i++) {
+		for (int i = ConstValues.DEPENDENTS_MIN_DAY; i <= ConstValues.DEPENDENTS_MAX_DAY; i++) {
 			lstDay.add("" + i);
 		}
 		model.addAttribute("listDay", lstDay);

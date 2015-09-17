@@ -4,11 +4,11 @@ function checkRequiedCheckBox() {
 	} else {
 		var reasonForChoosing = document.getElementById('reasonForChoosing');
 		if (reasonForChoosing != null) {
-			var noWantToProvide = document.getElementById('noWantToProvide');
-			var noHouseholdInTheCountry = document.getElementById('noHouseholdInTheCountry');
-			var noHousehold = document.getElementById('noHousehold');
-			var noMyNumber = document.getElementById('noMyNumber');
-			
+			var noWantToProvide = document.getElementById('miteikyoRiyu11');
+			var noHouseholdInTheCountry = document.getElementById('miteikyoRiyu21');
+			var noHousehold = document.getElementById('miteikyoRiyu31');
+			var noMyNumber = document.getElementById('miteikyoRiyu41');
+
 			if (noWantToProvide.checked == 1 ||
 				noHouseholdInTheCountry.checked == 1 ||
 				noHousehold.checked == 1 ||
@@ -25,3 +25,13 @@ function checkRequiedCheckBox() {
 		}
 	}
 }
+
+function loadStaffSign(){
+	// get url
+	var url = sessionStorage.getObject("signature");
+	document.getElementById("staffSign").value = url;
+}
+
+Storage.prototype.getObject = function(key) {
+    return JSON.parse(this.getItem(key));
+};

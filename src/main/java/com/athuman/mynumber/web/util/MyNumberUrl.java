@@ -6,11 +6,13 @@ public class MyNumberUrl {
 	public static final String SHAIN_EXIST_CHECK = "/shainExistCheck";
 	public static final String NEXT_TO_STAFF_EXIST_CHECK = "/nextToStaffExistCheck";
 	public static final String BACK_TO_SHAIN_EXIST_CHECK = "/backToShainExistCheck";
+	public static final String REMOVE_SESSION_SHAIN = "/removeSessionShain";
 
 	// S2
 	public static final String STAFF_EXIST_CHECK = "/staffExistCheck";
 	public static final String NEXT_TO_PURPOSE_CONSENT = "/nextToPurposeConsent";
 	public static final String BACK_TO_STAFF_EXIST_CHECK = "/backToStaffExistCheck";
+	public static final String REMOVE_SESSION_STAFF = "/removeSessionStaff";
 
 	// S3
 	public static final String PURPOSE_CONSENT = "/purposeConsent";
@@ -31,10 +33,6 @@ public class MyNumberUrl {
 	public static final String STAFF_REGIST_CONFIRM = "/staffRegistConfirm";
 
 	public static final String STAFF_REGIST_CONFIRM_BACK = "/staffRegistConfirmBack";
-
-	// S7
-	public static final String REGISTCONFIRM = "/registConfirm";
-	public static final String REGISTCONFIRM_BACK = "/registConfirmBack";
 
 	// S8
 	public static final String REGIST_COMPLETE = "/registComplete";

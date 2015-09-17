@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message text="マイナンバー収集システム" /></title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=600,initial-scale=1.45">
 <meta name="format-detection" content="telephone=no" />
 <meta name="keywords" content="マイナンバー収集システム">
 <meta name="description" content="マイナンバー収集システム">
@@ -117,10 +117,12 @@
 							</div>
 						</div>
 					</div>
-					<form:button class="btn-back mt40" onclick="if(backScreen()){return false;}">
-						<spring:message text="戻る" /></form:button>
-                    <form:button class="btn-next mt40" onclick="if(checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')){return false;}">
-						<spring:message text="次へ" /></form:button>
+					<div>
+	                    <form:button class="btn-next mt40" onclick="if(checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')){return false;}">
+							<spring:message text="次へ" /></form:button>
+						<form:button class="btn-back mt40" onclick="if(backScreen()){return false;}">
+							<spring:message text="戻る" /></form:button>
+					</div>
                 </form:form>
             </div>
         </div>
