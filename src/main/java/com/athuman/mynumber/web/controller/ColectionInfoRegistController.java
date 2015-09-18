@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.athuman.mynumber.web.dto.ColectionInfoDto;
 import com.athuman.mynumber.web.dto.ColectionInfoRegistDto;
 import com.athuman.mynumber.web.dto.Dependents;
+import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.model.ShainInfoModel;
@@ -51,7 +54,7 @@ public class ColectionInfoRegistController {
 
 	// submit colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
-	public String regist(@RequestBody String dataInfo, Model model, HttpSession session) throws Exception {
+	public String regist(@RequestBody String dataInfo, HttpSession session) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(dataInfo, ColectionInfoRegistDto.class);
@@ -71,22 +74,20 @@ public class ColectionInfoRegistController {
 		colectionInfo.setShodakuFlag(staffInfo.getConsent());
 		colectionInfo.setFuyoInfoList(dependentInfo.getDependents());
 
-		// FIXME: Suppose we already had a service named [collectionInfo]
-//		MyNumberResponseDto responseDto = myNumberAPIService.collectionInfo(colectionInfoRegistForm);
+		// TODO call [collectionInfo] API
+		ResponseEntity<MyNumberResponseDto> responseDto = myNumberAPIService.collectionInfo(colectionInfo);
+				
 		// when status code != 200
-//		if (responseDto.getHttpStatus() != 200) {
-//			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
-//		}
-
+		if (HttpStatus.OK != responseDto.getStatusCode()) {
+			return ConstValues.COLLECT_INFO_REGIST_FAIL;
+		}
 		// regist to DB
 		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel,
 				dependentInfo, colectionInfoRegistForm);
 		// store data directly to DB
 		String result = myNumberAPIService.registMyNumber(myNumber);
 		if (ConstValues.SAVE_DB_FAIL.equals(result)) {
-//			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
-			initData(model, session);
-			return MyNumberJsp.COLECTION_INFO_REGIST;
+			return ConstValues.COLLECT_INFO_REGIST_FAIL;
 		} else {
 			session.invalidate();
 		}

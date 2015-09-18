@@ -12,5 +12,5 @@ public interface MyNumberAPIService {
 
 	public String registMyNumber(MyNumber myNumber);
 
-	public MyNumberResponseDto collectionInfo(ColectionInfoDto colectionInfoDto);
+	public ResponseEntity<MyNumberResponseDto> collectionInfo(ColectionInfoDto colectionInfoDto);
 }
