@@ -1,22 +1,22 @@
 $(document).ready(function() {
-	$("#options").hide();
+	var hasStop = true;
+	var prevIndex = null;
 	$('input[name="myNumberConfirm"]').click(function() {
 		if ($(this).index() === 0) {
 			$("#options").stop().slideUp();
+			prevIndex = $(this).index();
 		} else {
-			$("#options").stop().slideDown();
+			var dtoErrors = document.getElementById('staffInfoModel.errors');
+			if (dtoErrors != null && hasStop && prevIndex == null) {
+				$("#options").show();
+				hasStop = false;
+			} else {
+				$("#options").stop().slideDown();
+			}
 		}
 	})
 	.filter(":checked").trigger("click");
-	clearCheckBox();
 });
-
-function clearCheckBox(){
-	var dtoErrors = document.getElementById('staffInfoModel.errors');
-	if (dtoErrors != null) {
-		$('input[type="checkbox"]').removeAttr('checked');
-	}
-}
 
 function backScreen() {
 	if (checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')) {

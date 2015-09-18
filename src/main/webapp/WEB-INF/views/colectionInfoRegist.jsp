@@ -28,12 +28,17 @@
                 <div class="logo_l"></div>
             </div>
             <div id="content">
-                <form:form id="colectionInfoRegistForm" action="colectionInfoRegist" method="post" modelAttribute="colectionInfoRegistDto" cssClass="txtCenterC">
+                <form:form id="colectionInfoRegistForm" modelAttribute="colectionInfoRegistDto" cssClass="txtCenterC">
 	               	<div id ="checkColectionNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
 					<div id ="checkRequiedCheckBox">
 						<fmt:message key="V00016"/>
+					</div>
+					<div id="checkRegistMyNumber">
+						<fmt:message key="S00001">
+							<fmt:param value="登録"/>
+						</fmt:message>
 					</div>
 					<form:errors path="*" cssClass="errorColectionInfoRegist" />
 					<c:choose>
@@ -74,7 +79,7 @@
                    	<script>
                    		loadStaffSign();
                    	</script>
-                   	<button class="btn-next mt20 mb80" onclick="if(checkRequiedCheckBox()){return false;}"><spring:message text="登録" /></button>
+                   	<button class="btn-next mt20 mb80" type= "button" onclick="if(checkRequiedCheckBox()){return false;}"><spring:message text="登録" /></button>
                 </form:form>
             </div>
         </div>

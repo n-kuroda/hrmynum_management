@@ -7,12 +7,12 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,7 +28,6 @@ import com.athuman.mynumber.web.util.AESUtil;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
-import com.athuman.mynumber.web.util.StringUtil;
 
 @Controller
 public class ColectionInfoRegistController {
@@ -52,11 +51,10 @@ public class ColectionInfoRegistController {
 
 	// submit colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
-	public String regist(@ModelAttribute("colectionInfoRegistDto") ColectionInfoRegistDto colectionInfoRegistForm,
-			Model model, HttpSession session, BindingResult binding) {
+	public String regist(@RequestBody String dataInfo, Model model, HttpSession session) throws Exception {
 
-		// set default value for miteikyoRiyu
-		colectionInfoRegistForm = setValueMiteikyoRiyu(colectionInfoRegistForm);
+		ObjectMapper mapper = new ObjectMapper();
+		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(dataInfo, ColectionInfoRegistDto.class);
 
 		// Generator random UUID
  		String uuid = UUID.randomUUID().toString();
@@ -86,39 +84,13 @@ public class ColectionInfoRegistController {
 		// store data directly to DB
 		String result = myNumberAPIService.registMyNumber(myNumber);
 		if (ConstValues.SAVE_DB_FAIL.equals(result)) {
-			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
+//			binding.rejectValue("staffSign", "S00001", new Object[] {"登録"}, null);
 			initData(model, session);
 			return MyNumberJsp.COLECTION_INFO_REGIST;
 		} else {
 			session.invalidate();
 		}
 		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
-	}
-
-	/** set value for MiteikyoRiyu
-	 *
-	 * @param colectionInfoRegistDto
-	 * @return ColectionInfoRegistDto
-	 */
-	private ColectionInfoRegistDto setValueMiteikyoRiyu (ColectionInfoRegistDto colectionInfoRegistDto){
-		colectionInfoRegistDto.setMiteikyoRiyu1(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu1()));
-		colectionInfoRegistDto.setMiteikyoRiyu2(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu2()));
-		colectionInfoRegistDto.setMiteikyoRiyu3(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu3()));
-		colectionInfoRegistDto.setMiteikyoRiyu4(getValueOfCheckBox(colectionInfoRegistDto.getMiteikyoRiyu4()));
-		return colectionInfoRegistDto;
-	}
-
-	/** set value for check box
-	 *
-	 * @param value
-	 * @return String
-	 */
-	private String getValueOfCheckBox(String value) {
-		if (!StringUtil.isNotEmpty(value)) {
-			return ConstValues.CHECKBOX_NOT_SELECT;
-		} else {
-			return ConstValues.CHECKBOX_SELECT;
-		}
 	}
 
 	/** Init data for jsp

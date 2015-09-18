@@ -54,7 +54,7 @@
                     	<form:radiobutton path="myNumberConfirm" value="04"/>
 						<spring:message text="番号が記載された住民票記載事項証明書"/>
                     </p>
-					<div id="options">
+					<div id="options" style="display: none;">
 						<p class="mt30 font14">
 							<spring:message text="本人確認提示書類" />
 							<br />

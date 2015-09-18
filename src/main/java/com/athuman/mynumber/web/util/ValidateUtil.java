@@ -3,8 +3,6 @@ package com.athuman.mynumber.web.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.validation.BindingResult;
 
@@ -177,22 +175,6 @@ public class ValidateUtil {
 		return true;
 	}
 
-	/** check field with pattern
-	 *
-	 * @param patternString
-	 * @param checkString
-	 * @return boolean
-	 */
-	public static boolean checkFormatField(String patternString, String checkString){
-		Pattern pattern = Pattern.compile(patternString);
-		Matcher matcher = pattern.matcher(checkString);
-		if (matcher.find()) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	/** check staff name has change
 	 *
 	 * @param dependents
@@ -295,44 +277,37 @@ public class ValidateUtil {
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（姓）"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（名）"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（年）"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（月）"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（日）"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]続柄"}, null );
 		}
 
 		if (ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
-					"V00009", new Object[] {"扶養者" + (index + 1)}, null );
-			return bindingResult;
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]マイナンバー"}, null );
 		}
 
 		return bindingResult;
@@ -458,7 +433,7 @@ public class ValidateUtil {
 			}
 
 			// check format My number
-			if (checkFormatField("^[0-9]*$",dependents.getDependentsMyNumber())) {
+			if (!is1ByteCharacters(dependents.getDependentsMyNumber())) {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
 						"V00012", new Object[] {"扶養者" + (index + 1), "マイナンバー"}, null );
 			}
