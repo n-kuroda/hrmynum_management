@@ -40,16 +40,14 @@ public class ShainExistCheckController {
 	// submit shainExistCheck page
 	@ResponseBody
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
-	public ShainInfoResponseDto search(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm,
-			BindingResult bindingResult, Model model,
-			@RequestBody String shainNo, HttpSession session) throws Exception {
+	public ShainInfoResponseDto search(@RequestBody String shainNo, HttpSession session) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		shainInfoModelForm = mapper.readValue(shainNo, ShainInfoModel.class);
+		ShainInfoModel shainInfoModelJson = mapper.readValue(shainNo, ShainInfoModel.class);
 
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		ShainInfoResponseDto shainInfoResponseDto = shainAPIService.readShain(shainInfoModelForm.getShainNo());
+		ShainInfoResponseDto shainInfoResponseDto = shainAPIService.readShain(shainInfoModelJson.getShainNo());
 
 		if (shainInfoResponseDto.getHttpStatus() == 200) { // OK
 			ShainInfoDto shainInfoDto = shainInfoResponseDto.getShainInfoDto();

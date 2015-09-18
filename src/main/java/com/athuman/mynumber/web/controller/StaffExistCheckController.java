@@ -39,16 +39,14 @@ public class StaffExistCheckController {
 	// submit staffExistCheck page
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	@ResponseBody
-	public StaffInfoResponseDto search(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
-			BindingResult bindingResult, Model model, 
-			@RequestBody String staffNo, HttpSession session) throws Exception {
+	public StaffInfoResponseDto search(@RequestBody String staffNo, HttpSession session) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		staffInfoModelForm = mapper.readValue(staffNo, StaffInfoModel.class);
+		StaffInfoModel staffInfoModelJson = mapper.readValue(staffNo, StaffInfoModel.class);
 		
 		// call API to get data
 		// FIXME: created dump data for displaying data on GUI
-		StaffInfoResponseDto staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelForm.getStaffNo());
+		StaffInfoResponseDto staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelJson.getStaffNo());
 
 		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
 
@@ -61,7 +59,7 @@ public class StaffExistCheckController {
 			staffInfoModel.setStaffNameMei(staffInfoDto.getNameMei());
 			staffInfoModel.setStaffNameSeiKana(staffInfoDto.getNameKanaSei());
 			staffInfoModel.setStaffNameMeiKana(staffInfoDto.getNameKanaMei());
-			staffInfoModel.setStaffNo(staffInfoModelForm.getStaffNo());
+			staffInfoModel.setStaffNo(staffInfoModelJson.getStaffNo());
 
 			// store to session
 			session.setAttribute("staffInfoModel", staffInfoModel);
