@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,18 +41,18 @@ public class StaffExistCheckController {
 	// submit staffExistCheck page
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	@ResponseBody
-	public StaffInfoResponseDto search(@RequestBody String staffNo, HttpSession session) throws Exception {
+	public ResponseEntity<StaffInfoResponseDto> search(@RequestBody String staffNo, HttpSession session) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
 		StaffInfoModel staffInfoModelJson = mapper.readValue(staffNo, StaffInfoModel.class);
 		
 		// call API to get data
-		// FIXME: created dump data for displaying data on GUI
-		StaffInfoResponseDto staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelJson.getStaffNo());
+		// TODO: replace hard-code in returned value in case [readStaff API] is created.
+		ResponseEntity<StaffInfoResponseDto> staffInfoResponseDto = staffAPIService.readStaff(staffInfoModelJson.getStaffNo());
 
-		if (staffInfoResponseDto.getHttpStatus() == 200) { // OK
+		if (HttpStatus.OK == staffInfoResponseDto.getStatusCode()) { // OK
 
-			StaffInfoDto staffInfoDto = staffInfoResponseDto.getStaffInfoDto();
+			StaffInfoDto staffInfoDto = staffInfoResponseDto.getBody().getStaffInfoDto();
 
 			// convert data from StaffInfoDto to StaffInfoModel
 			StaffInfoModel staffInfoModel = new StaffInfoModel();

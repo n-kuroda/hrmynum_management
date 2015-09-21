@@ -1,13 +1,21 @@
 package com.athuman.mynumber.web.service.impl;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
 import com.athuman.mynumber.web.service.StaffAPIService;
 
 public class StaffAPIServiceImpl implements StaffAPIService {
 
+	// TODO: replace hard-code in returned value below in case [readStaff API] is created.
 	@Override
-	public StaffInfoResponseDto readStaff(String staffNo) {
+	public ResponseEntity<StaffInfoResponseDto> readStaff(String staffNo) {
+		
+		HttpStatus status = HttpStatus.OK;
+		HttpHeaders headers = new HttpHeaders();
 		StaffInfoResponseDto dto = new StaffInfoResponseDto();
 
 		if (staffNo.equals("154123456")) {
@@ -18,23 +26,24 @@ public class StaffAPIServiceImpl implements StaffAPIService {
 			staffInfoDto.setNameMei("Ly");
 			staffInfoDto.setNameKanaMei("LY");
 
-			dto.setHttpStatus(200);
+			status = HttpStatus.OK;			
 			dto.setResultMessage("OK");
 			dto.setStaffInfoDto(staffInfoDto);
 
 		} else if ("154123457".equals(staffNo)) { // 204
 
-			dto.setHttpStatus(204);
+			status = HttpStatus.NO_CONTENT;			
 			dto.setResultMessage("Error 204");
 			dto.setStaffInfoDto(new StaffInfoDto());
 
 		} else {
-			dto.setHttpStatus(400);
+			
+			status = HttpStatus.BAD_REQUEST;			
 			dto.setResultMessage("Error 400");
 			dto.setStaffInfoDto(new StaffInfoDto());
 		}
 
-		return dto;
+		return new ResponseEntity<StaffInfoResponseDto>(dto, headers , status);
 	}
 
 }

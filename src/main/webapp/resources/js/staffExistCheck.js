@@ -1,4 +1,6 @@
 function checkDataValid() {
+	clearMessage();
+	
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -9,6 +11,8 @@ function checkDataValid() {
 }
 
 function backScreen() {
+	clearMessage();
+	
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -18,6 +22,8 @@ function backScreen() {
 }
 
 function checkDataValidWhenSearch() {
+	clearMessage();
+	
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -37,6 +43,8 @@ function checkDataValidWhenSearch() {
 		} else {
 			var staffNoValue = $('#staffNo').val();
 			var staffNo = {"staffNo" : staffNoValue};
+			var staffInfo = document.getElementById("messageInfoStaffExistCheck");
+			
 			$.ajax({
 		        url: "staffExistCheck",
 		        type: 'POST',
@@ -47,8 +55,8 @@ function checkDataValidWhenSearch() {
 		            xhr.setRequestHeader("Content-Type", "application/json");
 		        },
 		        success:function(staffInfoResponseDto){
-		        	var staffInfo = document.getElementById("messageInfoStaffExistCheck");
-		        	if (staffInfoResponseDto.httpStatus == 200) {
+		        	
+		        	if (staffInfoResponseDto !== undefined) { // JSON returned OK
 		        		clearMessage();
 		        		var staffInfoDto = staffInfoResponseDto.staffInfoDto;
 		        		var staffResponse = "<table>";
@@ -66,20 +74,18 @@ function checkDataValidWhenSearch() {
 		        		staffResponse += "<div class='mt20 ml20'>よろしければ「次へ」ボタンを押してください。</div>";
 		        		staffInfo.innerHTML = staffResponse;
 		        		staffInfo.style.display = 'block';
-		        	} else if(staffInfoResponseDto.httpStatus == 204) {
-		        		clearMessage();
-		        		$('#checkStaffExist').show();
-		        		document.getElementById('staffNo').className = 'error';
-		        		staffInfo.style.display = 'none';
 		        	} else {
 		        		clearMessage();
-		        		$('#serverError').show();
+		        		$('#checkStaffExist').show();
 		        		document.getElementById('staffNo').className = 'error';
 		        		staffInfo.style.display = 'none';
 		        	}
 		        },
 		        error:function(jqXhr, textStatus, errorThrown){
-		        	alert("fail");
+		        	clearMessage();
+	        		$('#checkStaffExist').show();
+	        		document.getElementById('staffNo').className = 'error';
+	        		staffInfo.style.display = 'none';
 		        }
 		    });
 			return true;

@@ -37,7 +37,7 @@ public class AESUtil {
 			return (new String(Hex.encodeHex(encryptCipher.doFinal(value.getBytes("UTF-8")))));
 		}
 
-		return "";
+		return null;
 	}
 
 	public static String decrypt(String value) throws Exception {
@@ -47,7 +47,7 @@ public class AESUtil {
 			return (new String(decryptCipher.doFinal(Hex.decodeHex(value.toCharArray()))));
 		}
 
-		return "";
+		return null;
 	}
 
 	/**

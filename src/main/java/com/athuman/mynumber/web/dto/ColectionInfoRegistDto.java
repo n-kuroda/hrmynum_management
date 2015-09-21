@@ -14,13 +14,13 @@ public class ColectionInfoRegistDto implements Serializable {
 
 	private String miteikyoRiyu4;
 
-	private byte[] staffSign;
+	private String staffSign;
 
-	public byte[] getStaffSign() {
+	public String getStaffSign() {
 		return staffSign;
 	}
 
-	public void setStaffSign(byte[] staffSign) {
+	public void setStaffSign(String staffSign) {
 		this.staffSign = staffSign;
 	}
 

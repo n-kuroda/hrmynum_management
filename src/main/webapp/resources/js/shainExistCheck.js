@@ -33,6 +33,8 @@ function checkDataValidWhenSearch() {
 		} else {
 			 var shainNoValue = $('#shainNo').val();
 			 var shainNo = {"shainNo" : shainNoValue};
+			 var shainInfo = document.getElementById("messageInfoShainExistCheck");	
+			 
 			$.ajax({
 		        url: "shainExistCheck",
 		        type: 'POST',
@@ -43,8 +45,8 @@ function checkDataValidWhenSearch() {
 		            xhr.setRequestHeader("Content-Type", "application/json");
 		        },
 		        success:function(shainInfoResponseDto){
-		        	var shainInfo = document.getElementById("messageInfoShainExistCheck");
-		        	if (shainInfoResponseDto.httpStatus == 200) {
+		        	
+		        	if (shainInfoResponseDto !== undefined) { // JSON returned OK
 		        		clearMessage();
 		        		var shainInfoDto = shainInfoResponseDto.shainInfoDto;
 		        		var shainResponse = "<table>";
@@ -62,20 +64,18 @@ function checkDataValidWhenSearch() {
 						shainResponse += "<div class='mt20 ml20'>よろしければ「次へ」ボタンを押してください。</div>";
 						shainInfo.innerHTML = shainResponse;
 						shainInfo.style.display = 'block';
-		        	} else if(shainInfoResponseDto.httpStatus == 204) {
-		        		clearMessage();
-		        		$('#checkShainExist').show();
-		        		document.getElementById('shainNo').className = 'error';
-		        		shainInfo.style.display = 'none';
 		        	} else {
 		        		clearMessage();
-		        		$('#serverError').show();
+		        		$('#checkShainExist').show();
 		        		document.getElementById('shainNo').className = 'error';
 		        		shainInfo.style.display = 'none';
 		        	}
 		        },
 		        error:function(jqXhr, textStatus, errorThrown){
-		        	alert(textStatus);
+		        	clearMessage();
+	        		$('#checkShainExist').show();
+	        		document.getElementById('shainNo').className = 'error';
+	        		shainInfo.style.display = 'none';
 		        }
 		    });
 			return true;

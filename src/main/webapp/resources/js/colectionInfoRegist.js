@@ -47,7 +47,8 @@ function getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, no
 	var miteikyoRiyu2Value = null;
 	var miteikyoRiyu3Value = null;
 	var miteikyoRiyu4Value = null;
-//	var staffSignValue = $('#staffSign').val();
+	var staffSignValue = $('#staffSign').val();
+	
 	if (reasonForChoosing != null) {
 		miteikyoRiyu1Value = noWantToProvide.checked ? "1" : "0";
 		miteikyoRiyu2Value = noHouseholdInTheCountry.checked ? "1" : "0";
@@ -64,7 +65,7 @@ function getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, no
 			"miteikyoRiyu2" : miteikyoRiyu2Value,
 			"miteikyoRiyu3" : miteikyoRiyu3Value,
 			"miteikyoRiyu4" : miteikyoRiyu4Value,
-			"staffSign" : "Signning"
+			"staffSign" : staffSignValue
 		};
 	return dataInfo;
 }

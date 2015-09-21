@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,17 +42,17 @@ public class ShainExistCheckController {
 	// submit shainExistCheck page
 	@ResponseBody
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
-	public ShainInfoResponseDto search(@RequestBody String shainNo, HttpSession session) throws Exception {
+	public ResponseEntity<ShainInfoResponseDto> search(@RequestBody String shainNo, HttpSession session) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ShainInfoModel shainInfoModelJson = mapper.readValue(shainNo, ShainInfoModel.class);
 
 		// call API to get data
-		// FIXME: created dump data for displaying data on GUI
-		ShainInfoResponseDto shainInfoResponseDto = shainAPIService.readShain(shainInfoModelJson.getShainNo());
+		// TODO: replace hard-code in returned value in case [readShain API] is created.
+		ResponseEntity<ShainInfoResponseDto> shainInfoResponseDto = shainAPIService.readShain(shainInfoModelJson.getShainNo());
 
-		if (shainInfoResponseDto.getHttpStatus() == 200) { // OK
-			ShainInfoDto shainInfoDto = shainInfoResponseDto.getShainInfoDto();
+		if (HttpStatus.OK == shainInfoResponseDto.getStatusCode()) { // OK
+			ShainInfoDto shainInfoDto = shainInfoResponseDto.getBody().getShainInfoDto();
 
 			// convert data from dto to model and store to session
 			ShainInfoModel shainInfoModel = new ShainInfoModel();
