@@ -14,8 +14,6 @@ function checkDataValid() {
 function checkDataValidWhenSearch() {
 	clearMessage();
 	if (checkNetworkOffLine('checkShainNetworkOffLine', 'shainInfoModel.errors')) {
-		var shainInfo = document.getElementById('messageInfoShainExistCheck');
-		shainInfo.style.display = 'none';
 		return true;
 	} else {
 		if (checkInput()) {
@@ -28,59 +26,36 @@ function checkDataValidWhenSearch() {
 		            xhr.setRequestHeader("Content-Type", "application/json");
 		        }
 		    });
-
 			return true;
 		} else {
+			
 			 var shainNoValue = $('#shainNo').val();
-			 var shainNo = {"shainNo" : shainNoValue};
-			 var shainInfo = document.getElementById("messageInfoShainExistCheck");	
+			 var tokenValue = $('#token').val();
+			 var shainInfo = {"shainNo" : shainNoValue, "token" : tokenValue};
 			 
-			$.ajax({
-		        url: "shainExistCheck",
-		        type: 'POST',
-		        data: JSON.stringify(shainNo),
-		        cache:false,
-		        beforeSend: function(xhr) {
-		            xhr.setRequestHeader("Accept", "application/json");
-		            xhr.setRequestHeader("Content-Type", "application/json");
-		        },
-		        success:function(shainInfoResponseDto){
-		        	
-		        	if (shainInfoResponseDto !== undefined) { // JSON returned OK
-		        		clearMessage();
-		        		var shainInfoDto = shainInfoResponseDto.shainInfoDto;
-		        		var shainResponse = "<table>";
-		        		shainResponse += "<tr>";
-		        		shainResponse += "<td class='leftLabel'>社員番号 </td>";
-		        		shainResponse += "<td class='rightLabel'>" + shainInfoDto.shainNo + "</td>";
-						shainResponse += "</tr>";
-						shainResponse += "<tr>";
-		        		shainResponse += "<td class='leftLabel'>お名前</td>";
-		        		shainResponse += "<td class='rightLabel'>" +
-		        			shainInfoDto.shainNameSei + " " + shainInfoDto.shainNameMei +
-		        			"(" +shainInfoDto.shainNameSeiKana + " " + shainInfoDto.shainNameMeiKana +")</td>";
-						shainResponse += "</tr>";
-						shainResponse += "</table>";
-						shainResponse += "<div class='mt20 ml20'>よろしければ「次へ」ボタンを押してください。</div>";
-						shainInfo.innerHTML = shainResponse;
-						shainInfo.style.display = 'block';
-		        	} else {
-		        		clearMessage();
-		        		$('#checkShainExist').show();
-		        		document.getElementById('shainNo').className = 'error';
-		        		shainInfo.style.display = 'none';
-		        	}
-		        },
-		        error:function(jqXhr, textStatus, errorThrown){
-		        	clearMessage();
-	        		$('#checkShainExist').show();
-	        		document.getElementById('shainNo').className = 'error';
-	        		shainInfo.style.display = 'none';
-		        }
-		    });
-			return true;
+			 $.ajax({
+		            type: "POST",
+		            url: "shainExistCheck",
+		            data: JSON.stringify(shainInfo),
+			        cache:false,
+			        beforeSend: function(xhr) {
+			            xhr.setRequestHeader("Accept", "application/json");
+			            xhr.setRequestHeader("Content-Type", "application/json");
+			        },
+		            success: function(response) {
+		            	 $("#wrapper").html( response );
+		            	 var shainInfoDiv = document.getElementById('shainInfo');
+		            	 shainInfoDiv.style.display = 'block';
+		            	 
+		            	 var shainNo = document.getElementById('shainNo');
+		            	 shainNo.value = shainNoValue;
+		            }
+		        });
+			 
+			 return true;
 		}
 	}
+	return false;
 }
 
 function clearMessage() {
@@ -96,8 +71,6 @@ function clearMessage() {
 	if (messageInfo != null) {
 		messageInfo.style.display = 'none';
 	}
-	$('#checkShainExist').hide();
-	$('#serverError').hide();
 };
 
 function checkInput() {

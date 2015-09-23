@@ -4,26 +4,41 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.TokenProcessor;
 
 @Controller
 public class PurposeConsentController {
 
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.GET)
-	public String show(Model model) {
+	public String show(Model model, @RequestParam("token") String requestToken) {
+
+		model.addAttribute("token", requestToken);
 		return MyNumberJsp.PURPOSE_CONSENT;
 	}
 
 	// submit purposeConsent page
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.POST)
-	public String consent(Model model, HttpSession sesion) {
+	public String consent(Model model, HttpSession sesion, @ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
+			BindingResult bindingResult, WebRequest request, @RequestParam("token") String requestToken) {
+		
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			bindingResult.rejectValue("", "S00002", new Object [] {}, null);
+			return MyNumberJsp.PURPOSE_CONSENT;
+		}
+		TokenProcessor.saveToken(request, model);
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		staffInfoModelSession.setConsent(ConstValues.CONSENT_VALUE_1);
@@ -33,13 +48,30 @@ public class PurposeConsentController {
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
-	public String back(Model model) {
+	public String back(Model model, @ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
+			BindingResult bindingResult, WebRequest request, @RequestParam("token") String requestToken) {
+
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			bindingResult.rejectValue("", "S00002", new Object [] {}, null);
+			return MyNumberJsp.PURPOSE_CONSENT;
+		}
+		TokenProcessor.saveToken(request, model);
+		
 		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
 
 	@RequestMapping(value = MyNumberUrl.SKIP_TO_STAFF_REGIST_CONFIRM_SCREEN, method = RequestMethod.POST)
-	public String other(Model model, HttpSession sesion) {
+	public String other(Model model, @ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel, HttpSession sesion,
+			BindingResult bindingResult, WebRequest request, @RequestParam("token") String requestToken) {
 
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			bindingResult.rejectValue("", "S00002", new Object [] {}, null);
+			return MyNumberJsp.PURPOSE_CONSENT;
+		}
+		TokenProcessor.saveToken(request, model);
+		
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.
 		staffInfoModelSession.setMyNumber(ConstValues.BLANK);

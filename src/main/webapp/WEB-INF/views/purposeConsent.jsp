@@ -72,14 +72,16 @@
 						<spring:message text="マイナンバーの利用目的を確認し、番号収集に承諾いたします。" />
 					</p>
 				</div>
-				<form id="perposeConsentForm" action="purposeConsent" method="post">
+				<form:form id="perposeConsentForm" action="purposeConsent" modelAttribute="staffInfoModel" method="post">
+					<input type="hidden" name="token" value="${token}">
+					<form:errors path="*" cssClass="errorPerposeConsent mb10"/>
 					<div id ="checkPurposeNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
 					<button class="btn-back"  onclick="if(backScreen()){return false;}">戻る</button>
 					<button class="btn-next" onclick="if(checkNetworkOffLine('checkPurposeNetworkOffLine', null)){return false;}">承諾する</button>
 					<button class="btn-skip" onclick="if(skipToSigning()){return false;}">その他</button>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

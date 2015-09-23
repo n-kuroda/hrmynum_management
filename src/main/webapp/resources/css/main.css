@@ -418,7 +418,13 @@ h1, p {
 	top: 0px;
 	margin-left: -52px;
 }
-.errorShainExistCheck {
+.errorShainExistCheck,
+.errorRegistComplete,
+.errorRegistConfirm,
+.errorStaffInputComplete,
+.errorStaffRegistConfirm,
+.errorStaffSigning,
+.errorPerposeConsent {
     text-align: center;
     width: 100%;
     font-size: 12px;

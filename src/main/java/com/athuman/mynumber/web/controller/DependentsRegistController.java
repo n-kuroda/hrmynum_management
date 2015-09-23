@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
@@ -22,6 +24,7 @@ import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.TokenProcessor;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
@@ -29,12 +32,13 @@ public class DependentsRegistController {
 
 	// show dependentsRegist page
 	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
+	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
 
+		model.addAttribute("token", requestToken);
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 		if (lstDependents == null ||
 				lstDependents.getDependents() == null) {
-
+			
 			StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 			lstDependents = initDataForm(staffSession);
 		}
@@ -47,8 +51,16 @@ public class DependentsRegistController {
 	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.POST)
 	public String next(
 			@ModelAttribute("dependentsInfoListModel")DependentsInfoListModel lstDependentsInfo,
-			BindingResult binding, Model model, HttpSession session) {
+			BindingResult binding, Model model, HttpSession session,
+			WebRequest request, @RequestParam("token") String requestToken) {
 
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			binding.rejectValue("", "S00002", new Object [] {}, null);
+			return MyNumberJsp.DEPENDENTS_REGIST;
+		}
+		TokenProcessor.saveToken(request, model);
+				
 		// get staff name for validate
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 
@@ -75,8 +87,16 @@ public class DependentsRegistController {
 	@RequestMapping(value = MyNumberUrl.BACK_TO_MYNUMBER_REGIST, method = RequestMethod.POST)
 	public String back(Model model,
 			@ModelAttribute("dependentsInfoListModel")DependentsInfoListModel lstDependentsInfo,
-			HttpSession session) {
+			BindingResult binding, HttpSession session,
+			WebRequest request, @RequestParam("token") String requestToken) {
 
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			binding.rejectValue("", "S00002", new Object [] {}, null);
+			return MyNumberJsp.DEPENDENTS_REGIST;
+		}
+		TokenProcessor.saveToken(request, model);
+				
 		// get staff info form session
 		StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		// store session

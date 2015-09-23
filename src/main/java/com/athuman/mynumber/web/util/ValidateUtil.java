@@ -47,8 +47,6 @@ public class ValidateUtil {
 		// check form Dependents has change or form has edit
 		if (checkDependentsHasChange(dependents, staffInfoModel) ||checkDependentsFormHasEdit(dependents)) {
 
-			checkRequire(dependents, bindingResult, index);
-
 			checkNameSei(dependents, bindingResult, index);
 
 			checkNameMei(dependents, bindingResult, index);
@@ -58,6 +56,7 @@ public class ValidateUtil {
 			checkRelationship(dependents, bindingResult, index);
 
 			checkMyNumber(dependents, bindingResult, index);
+			
 		}
 
 		return bindingResult;
@@ -273,47 +272,6 @@ public class ValidateUtil {
 	    return true;
 	}
 
-	public static BindingResult checkRequire(Dependents dependents, BindingResult bindingResult, int index) {
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（姓）"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（名）"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（年）"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（月）"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（日）"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]続柄"}, null );
-		}
-
-		if (ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
-					"V00001", new Object[] {"[扶養者" + (index + 1) + "]マイナンバー"}, null );
-		}
-
-		return bindingResult;
-
-	}
-
 	public static BindingResult checkNameSei(Dependents dependents, BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
 
@@ -327,6 +285,9 @@ public class ValidateUtil {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（姓）"}, null );
 			}
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（姓）"}, null );
 		}
 		return bindingResult;
 	}
@@ -344,17 +305,23 @@ public class ValidateUtil {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（名）"}, null );
 			}
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（名）"}, null );
 		}
 		return bindingResult;
 	}
 
-		public static BindingResult checkDate(Dependents dependents,
+	public static BindingResult checkDate(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		// check year invalid
 		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
 				&& checkYearInvalidRange(dependents.getDependentsBirthdayYear())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（年）"}, null );
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（年）"}, null );
 		}
 
 		// check month invalid
@@ -362,6 +329,9 @@ public class ValidateUtil {
 				&& checkMonthInvalidRange(dependents.getDependentsBirthdayMonth())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（月）"}, null );
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（月）"}, null );
 		}
 
 		// check day invalid
@@ -369,6 +339,9 @@ public class ValidateUtil {
 				&& checkDayInvalidRange(dependents.getDependentsBirthdayDay())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（日）"}, null );
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（日）"}, null );
 		}
 
 		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
@@ -387,7 +360,7 @@ public class ValidateUtil {
 
 	}
 
-		public static BindingResult checkRelationship(Dependents dependents,
+	public static BindingResult checkRelationship(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
 
@@ -418,6 +391,9 @@ public class ValidateUtil {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
 						"V00011", new Object[] {"扶養者" + (index + 1), "続柄（その他）"}, null );
 			}
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]続柄"}, null );
 		}
 		return bindingResult;
 	}
@@ -437,6 +413,9 @@ public class ValidateUtil {
 				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
 						"V00012", new Object[] {"扶養者" + (index + 1), "マイナンバー"}, null );
 			}
+		} else {
+			bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
+					"V00001", new Object[] {"[扶養者" + (index + 1) + "]マイナンバー"}, null );
 		}
 		return bindingResult;
 

@@ -1,6 +1,6 @@
 function checkDataValid() {
 	clearMessage();
-	
+
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -12,7 +12,7 @@ function checkDataValid() {
 
 function backScreen() {
 	clearMessage();
-	
+
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -23,7 +23,6 @@ function backScreen() {
 
 function checkDataValidWhenSearch() {
 	clearMessage();
-	
 	if (checkNetworkOffLine('checkStaffNetworkOffLine', 'staffInfoModel.errors')) {
 		return true;
 	} else {
@@ -37,60 +36,36 @@ function checkDataValidWhenSearch() {
 		            xhr.setRequestHeader("Content-Type", "application/json");
 		        }
 		    });
-
 			return true;
-
 		} else {
-			var staffNoValue = $('#staffNo').val();
-			var staffNo = {"staffNo" : staffNoValue};
-			var staffInfo = document.getElementById("messageInfoStaffExistCheck");
 			
-			$.ajax({
-		        url: "staffExistCheck",
-		        type: 'POST',
-		        data: JSON.stringify(staffNo),
-		        cache:false,
-		        beforeSend: function(xhr) {
-		            xhr.setRequestHeader("Accept", "application/json");
-		            xhr.setRequestHeader("Content-Type", "application/json");
-		        },
-		        success:function(staffInfoResponseDto){
-		        	
-		        	if (staffInfoResponseDto !== undefined) { // JSON returned OK
-		        		clearMessage();
-		        		var staffInfoDto = staffInfoResponseDto.staffInfoDto;
-		        		var staffResponse = "<table>";
-		        		staffResponse += "<tr>";
-		        		staffResponse += "<td class='leftLabel'>スタッフNo</td>";
-		        		staffResponse += "<td class='rightLabel'>" + staffNoValue + "</td>";
-		        		staffResponse += "</tr>";
-		        		staffResponse += "<tr>";
-		        		staffResponse += "<td class='leftLabel'>お名前</td>";
-		        		staffResponse += "<td class='rightLabel'>" +
-		        			staffInfoDto.nameSei + " " + staffInfoDto.nameMei +
-		        			"(" +staffInfoDto.nameKanaSei + " " + staffInfoDto.nameKanaMei +")</td>";
-		        		staffResponse += "</tr>";
-		        		staffResponse += "</table>";
-		        		staffResponse += "<div class='mt20 ml20'>よろしければ「次へ」ボタンを押してください。</div>";
-		        		staffInfo.innerHTML = staffResponse;
-		        		staffInfo.style.display = 'block';
-		        	} else {
-		        		clearMessage();
-		        		$('#checkStaffExist').show();
-		        		document.getElementById('staffNo').className = 'error';
-		        		staffInfo.style.display = 'none';
-		        	}
-		        },
-		        error:function(jqXhr, textStatus, errorThrown){
-		        	clearMessage();
-	        		$('#checkStaffExist').show();
-	        		document.getElementById('staffNo').className = 'error';
-	        		staffInfo.style.display = 'none';
-		        }
-		    });
-			return true;
+			var staffNoValue = $('#staffNo').val();
+			var tokenValue = $('#token').val();
+			var staffInfo = {"staffNo" : staffNoValue, "token" : tokenValue};
+			 
+			 $.ajax({
+		            type: "POST",
+		            url: "staffExistCheck",
+		            data: JSON.stringify(staffInfo),
+			        cache:false,
+			        beforeSend: function(xhr) {
+			            xhr.setRequestHeader("Accept", "application/json");
+			            xhr.setRequestHeader("Content-Type", "application/json");
+			        },
+		            success: function(response) {
+		            	 $("#wrapper").html( response );
+		            	 var staffInfoDiv = document.getElementById('staffInfo');
+		            	 staffInfoDiv.style.display = 'block';
+		            	 
+		            	 var staffNo = document.getElementById('staffNo');
+		            	 staffNo.value = staffNoValue;
+		            }
+		        });
+			 
+			 return true;
 		}
 	}
+	return false;
 }
 
 function clearMessage() {
@@ -106,8 +81,6 @@ function clearMessage() {
 	if (messageInfo != null) {
 		messageInfo.style.display = 'none';
 	}
-	$('#checkStaffExist').hide();
-	$('#serverError').hide();
 };
 
 function checkInput() {

@@ -28,7 +28,8 @@
             </div>
             <div id="content">
                 <form:form id="dependentsRegistForm" action="dependentsRegist" method="post" modelAttribute="dependentsInfoListModel" cssClass="mt10">
-                <form:errors path="*" cssClass="errorDependentsRegist" />
+                <input type="hidden" name="token" value="${token}">
+				<form:errors path="*" cssClass="errorDependentsRegist" />
                 <div id ="checkDependentsNetworkOffLine">
 					<fmt:message key="I00002"/>
 				</div>

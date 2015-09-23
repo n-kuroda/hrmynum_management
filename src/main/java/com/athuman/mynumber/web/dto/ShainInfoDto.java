@@ -15,6 +15,8 @@ public class ShainInfoDto implements Serializable {
 	private String shainNameSeiKana;
 	
 	private String shainNameMeiKana;
+	
+	private String token;
 
 	public String getShainNo() {
 		return shainNo;
@@ -54,6 +56,14 @@ public class ShainInfoDto implements Serializable {
 
 	public void setShainNameMeiKana(String shainNameMeiKana) {
 		this.shainNameMeiKana = shainNameMeiKana;
+	}
+	
+	public String getToken() {
+		return token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 }

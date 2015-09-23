@@ -32,6 +32,7 @@
 			</div>
 			<div id="content">
 				<form:form id="staffExistCheckForm" methodParam="POST" modelAttribute="staffInfoModel" action="staffExistCheck" class="mt40">
+					<input type="hidden" name="token" id="token" value="${token}">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
 					<form:label path="staffNo" cssClass="staffNoLable">
 						<spring:message text="スタッフNo"/>
@@ -39,11 +40,26 @@
 					<form:input path="staffNo" cssErrorClass="error"/>
 					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
-					<div class="name">
-
+					<div id="staffInfo" class="name">
 						<div id="messageInfoStaffExistCheck">
+							<table>
+								<c:if test="${!empty staffNo}">
+								<tr>
+									<td class="staffNoResultLabel"><spring:message text="スタッフNo" /></td>
+									<td class="staffNoResult"><spring:message text="${staffNo}" /></td>
+								</tr>
+								</c:if>
+								<c:if test="${!empty staffInfo}">
+								<tr>
+									<td class="staffNoResultLabel"><spring:message text="お名前" /></td>
+									<td class="staffNoResult"><spring:message text="${staffInfo}" /></td>
+								</tr>
+								</c:if>
+							</table>
+							<c:if test="${!empty staffInfo}">
+								<div class="mt20 ml20"><spring:message text="よろしければ「次へ」ボタンを押してください。" /></div>
+							</c:if>
 						</div>
-
 					</div>
 					<form:errors path="*" cssClass="errorStaffExistCheck" />
 
@@ -64,15 +80,6 @@
 						</div>
 						<div id="checkByteId" class="errorShainExistCheck" style="color: red; display: none;">
 							<fmt:message key="V00003">
-								<fmt:param value="スタッフNo"/>
-							</fmt:message>
-						</div>
-						<div id="checkStaffExist" class="errorShainExistCheck" style="color: red; display: none;">
-							<fmt:message key="I00001">
-							</fmt:message>
-						</div>
-						<div id="serverError" class="errorShainExistCheck" style="color: red; display: none;">
-							<fmt:message key="S00001">
 								<fmt:param value="スタッフNo"/>
 							</fmt:message>
 						</div>

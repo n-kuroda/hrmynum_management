@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.ShainInfoDto;
 import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
@@ -23,6 +25,7 @@ import com.athuman.mynumber.web.service.ShainAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
+import com.athuman.mynumber.web.util.TokenProcessor;
 
 @Controller
 public class ShainExistCheckController {
@@ -33,26 +36,42 @@ public class ShainExistCheckController {
 
 	// display shainExistCheck page
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
-	public String show(Model model) {
+	public String show(WebRequest request, Model model, HttpSession session) {
 
+		session.setAttribute("shainInfoModel", null);
+		TokenProcessor.saveToken(request, model);
 		model.addAttribute("shainInfoModel", new ShainInfoModel());
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 	}
 
 	// submit shainExistCheck page
-	@ResponseBody
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
-	public ResponseEntity<ShainInfoResponseDto> search(@RequestBody String shainNo, HttpSession session) throws Exception {
+	public String search(@RequestBody String shainInfo, 
+			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, 
+			BindingResult bindingResult,
+			Model model, 
+			HttpSession session,
+			WebRequest request) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		ShainInfoModel shainInfoModelJson = mapper.readValue(shainNo, ShainInfoModel.class);
+		ShainInfoDto shainInfoDtoJson = mapper.readValue(shainInfo, ShainInfoDto.class);
+
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, shainInfoDtoJson.getToken())) {
+			bindingResult.rejectValue("shainNo", "S00002", new Object [] {}, null);
+			return MyNumberJsp.SHAIN_EXIST_CHECK;
+		}
+		TokenProcessor.saveToken(request, model);
 
 		// call API to get data
 		// TODO: replace hard-code in returned value in case [readShain API] is created.
-		ResponseEntity<ShainInfoResponseDto> shainInfoResponseDto = shainAPIService.readShain(shainInfoModelJson.getShainNo());
+		ResponseEntity<ShainInfoResponseDto> shainInfoResponseDto = shainAPIService.readShain(shainInfoDtoJson.getShainNo());
 
 		if (HttpStatus.OK == shainInfoResponseDto.getStatusCode()) { // OK
 			ShainInfoDto shainInfoDto = shainInfoResponseDto.getBody().getShainInfoDto();
+
+			model.addAttribute("shainNo", shainInfoDtoJson.getShainNo());
+			model.addAttribute("shainInfo", getShainInfo(shainInfoDto));
 
 			// convert data from dto to model and store to session
 			ShainInfoModel shainInfoModel = new ShainInfoModel();
@@ -66,17 +85,34 @@ public class ShainExistCheckController {
 			// store to session
 			session.setAttribute("shainInfoModel", shainInfoModel);
 
+		} else if (HttpStatus.NO_CONTENT == shainInfoResponseDto.getStatusCode()) { // error 204
+			session.setAttribute("shainInfoModel", null);
+			bindingResult.rejectValue("shainNo", "I00001",
+					new Object[] {}, null);
 		} else { // other error
 			session.setAttribute("shainInfoModel", null);
+			bindingResult.rejectValue("shainNo", "S00001",
+					new Object[] {"社員番号"}, null);
 		}
 
-		return shainInfoResponseDto;
+		return MyNumberJsp.SHAIN_EXIST_CHECK;
 
 	}
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String next(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm,
-			BindingResult bindingResult, Model model, HttpSession session) {
+			BindingResult bindingResult,
+			Model model,
+			HttpSession session, 
+			WebRequest request, 
+			@RequestParam("token") String requestToken) {
+
+		// Check token
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			bindingResult.rejectValue("shainNo", "S00002", new Object [] {}, null);
+			return MyNumberJsp.SHAIN_EXIST_CHECK;
+		}
+		TokenProcessor.saveToken(request, model);
 
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 
@@ -90,7 +126,15 @@ public class ShainExistCheckController {
 			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 	}
-	
+
+	/** get Shain info*/
+	private String getShainInfo(ShainInfoDto shainInfoDto) {
+		String shainInfo = shainInfoDto.getShainNameSei() + " " + shainInfoDto.getShainNameMei() +
+				"(" + shainInfoDto.getShainNameSeiKana() + " " + shainInfoDto.getShainNameMeiKana() + ")";
+
+		return shainInfo;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = MyNumberUrl.REMOVE_SESSION_SHAIN, method = RequestMethod.POST)
 	public String removeSession(HttpSession session) {

@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class StaffInfoDto implements Serializable {
 
 	private static final long serialVersionUID = -1854357305260610275L;
+	
+	private String staffNo;
 
 	private String nameSei;
 
@@ -13,6 +15,8 @@ public class StaffInfoDto implements Serializable {
 	private String nameKanaSei;
 
 	private String nameKanaMei;
+	
+	private String token;
 
 	public String getNameSei() {
 		return nameSei;
@@ -46,4 +50,20 @@ public class StaffInfoDto implements Serializable {
 		this.nameKanaMei = nameKanaMei;
 	}
 
+	public String getToken() {
+		return token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public String getStaffNo() {
+		return staffNo;
+	}
+	
+	public void setStaffNo(String staffNo) {
+		this.staffNo = staffNo;
+	}
+	
 }
