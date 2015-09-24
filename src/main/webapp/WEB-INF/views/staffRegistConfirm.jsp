@@ -29,7 +29,9 @@
             </div>
             <div id="content">
 
-                <form:form id= "registConfirmForm" action="staffRegistConfirm" method="post">
+                <form:form id= "registConfirmForm" action="staffRegistConfirm" modelAttribute="staffInfoModel" method="post">
+                	<input type="hidden" name="token" value="${token}">
+                	<form:errors path="*" cssClass="errorStaffRegistConfirm" />
                 	<div id ="checkRegistNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
@@ -45,7 +47,7 @@
                 			<tr>
                 				<td><spring:message text="マイナンバー提供" /></td>
                 				<c:choose>
-				                    <c:when test="${staffInfoModel.consent == '0' }">
+				                    <c:when test="${staffInfo.consent == '0' }">
 										<td>
 					                		<spring:message text="非承諾" />
 					                	</td>
@@ -57,7 +59,7 @@
 									</c:otherwise>
 			                    </c:choose>
                 			</tr>
-                			<c:if test="${staffInfoModel.consent == '1' }">
+                			<c:if test="${staffInfo.consent == '1' }">
 	                			<tr>
 	                				<td><spring:message text="マイナンバー" /></td>
 	                				<td><spring:message text="${myNumber }" /></td>
@@ -86,7 +88,7 @@
 
                 	</div>
                     <div class="dependents_information mt30">
-                    	<c:if test="${staffInfoModel.consent == '1' }">
+                    	<c:if test="${staffInfo.consent == '1' }">
                     		<table>
                     			<tr>
 	                				<td colspan="2" class="bg-none"><spring:message text="扶養者情報" /></td>

@@ -36,6 +36,8 @@ import com.athuman.mynumber.web.util.StringUtil;
 @Controller
 public class ColectionInfoRegistController {
 
+	private static final int PREFIX_BASE64_TEXT_LENGTH = 22;
+
 	@Autowired(required=true)
 	@Qualifier(value="myNumberAPIService")
 	private MyNumberAPIService myNumberAPIService;
@@ -203,7 +205,7 @@ public class ColectionInfoRegistController {
 			}
 
 			String staffSign = colectionInfoRegistForm.getStaffSign();
-			staffSign = staffSign.substring(22);
+			staffSign = staffSign.substring(PREFIX_BASE64_TEXT_LENGTH);
 
 			myNumber.setHonninSyomei(staffSign.getBytes());
 			myNumber.setKakuninsha(shainInfoModel.getShainNo());

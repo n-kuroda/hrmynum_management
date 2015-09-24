@@ -36,11 +36,13 @@
 	               	<div class="font14"><spring:message text="タブレットをお戻しください。" /></div>
 				</div>
 				<div class="confirmText font14 mt20"><spring:message text="以降は当社担当が操作いたします。" /></div>
-                <form id= "staffInputCompleteForm" action="staffInputComplete" method="post" class="txtCenterC">
+                <form:form id= "staffInputCompleteForm" action="staffInputComplete" modelAttribute="staffInfoModel" method="post" class="txtCenterC">
+                	<input type="hidden" name="token" value="${token}">
+                	<form:errors path="*" cssClass="errorStaffInputComplete mt10" />
                    	<button class="btn-next mt40 mb80" onclick="if(checkStaffInputComplete()){return false;}">
                    		<spring:message text="完了" />
                    	</button>
-                </form>
+                </form:form>
             </div>
         </div>
     </div>

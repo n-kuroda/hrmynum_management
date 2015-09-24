@@ -25,7 +25,7 @@ import com.athuman.mynumber.web.service.StaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
-import com.athuman.mynumber.web.util.TokenProcessor;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class StaffExistCheckController {
@@ -46,7 +46,7 @@ public class StaffExistCheckController {
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String search(@RequestBody String staffInfo, 
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm, 
-			BindingResult bindingResult,
+			BindingResult binding,
 			Model model, 
 			HttpSession session, 
 			WebRequest request) throws Exception {
@@ -55,11 +55,9 @@ public class StaffExistCheckController {
 		StaffInfoDto staffInfoDtoJson = mapper.readValue(staffInfo, StaffInfoDto.class);
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, staffInfoDtoJson.getToken())) {
-			bindingResult.rejectValue("staffNo", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("staffNo", request, staffInfoDtoJson.getToken(), binding, model)) {
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
-		TokenProcessor.saveToken(request, model);
 
 		// call API to get data
 		// TODO: replace hard-code in returned value in case [readStaff API] is created.
@@ -85,11 +83,11 @@ public class StaffExistCheckController {
 
 		} else if (HttpStatus.NO_CONTENT == staffInfoResponseDto.getStatusCode()) { // error 204
 			session.setAttribute("staffInfoModel", null);
-			bindingResult.rejectValue("staffNo", "I00001",
+			binding.rejectValue("staffNo", "I00001",
 					new Object[] {}, null);
 		} else { // other error
 			session.setAttribute("staffInfoModel", null);
-			bindingResult.rejectValue("staffNo", "S00001",
+			binding.rejectValue("staffNo", "S00001",
 					new Object[] {"スタッフNo"}, null);
 		}
 
@@ -98,18 +96,16 @@ public class StaffExistCheckController {
 
 	@RequestMapping(value = MyNumberUrl.NEXT_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
 	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
-			BindingResult bindingResult, 
+			BindingResult binding, 
 			Model model, 
 			HttpSession session, 
 			WebRequest request, 
 			@RequestParam("token") String requestToken) {
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			bindingResult.rejectValue("staffNo", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("staffNo", request, requestToken, binding, model)) {
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
-		TokenProcessor.saveToken(request, model);
 
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 
@@ -118,20 +114,20 @@ public class StaffExistCheckController {
 
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		} else {
-			bindingResult.rejectValue("staffNo", "V00001", new Object [] {"スタッフNo"}, null);
+			binding.rejectValue("staffNo", "V00001", new Object [] {"スタッフNo"}, null);
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
 	}
 
 	@RequestMapping(value = MyNumberUrl.BACK_TO_SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String back(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
-			BindingResult bindingResult, Model model, WebRequest request, @RequestParam("token") String requestToken) {
+			BindingResult binding, Model model, WebRequest request, @RequestParam("token") String requestToken) {
+		
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			bindingResult.rejectValue("staffNo", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("staffNo", request, requestToken, binding, model)) {
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
-		TokenProcessor.saveToken(request, model);
+		
 		return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 	}
 

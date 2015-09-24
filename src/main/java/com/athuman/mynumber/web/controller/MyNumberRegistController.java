@@ -16,7 +16,6 @@ import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
-import com.athuman.mynumber.web.util.TokenProcessor;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
@@ -43,11 +42,9 @@ public class MyNumberRegistController {
 			BindingResult binding, Model model, HttpSession session, WebRequest request, @RequestParam("token") String requestToken) {
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			binding.rejectValue("myNumber", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-		TokenProcessor.saveToken(request, model);
 		
 		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumberForm.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;
@@ -76,11 +73,9 @@ public class MyNumberRegistController {
 			BindingResult binding, Model model, WebRequest request, @RequestParam("token") String requestToken) {
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			binding.rejectValue("myNumber", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-		TokenProcessor.saveToken(request, model);
 		
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}

@@ -24,11 +24,12 @@ import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
-import com.athuman.mynumber.web.util.TokenProcessor;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class DependentsRegistController {
+
+	private static final int NUMBER_OF_DEPENDENT = 10;
 
 	// show dependentsRegist page
 	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.GET)
@@ -55,11 +56,10 @@ public class DependentsRegistController {
 			WebRequest request, @RequestParam("token") String requestToken) {
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			binding.rejectValue("", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
+			initModelList(model);
 			return MyNumberJsp.DEPENDENTS_REGIST;
 		}
-		TokenProcessor.saveToken(request, model);
 				
 		// get staff name for validate
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
@@ -91,11 +91,9 @@ public class DependentsRegistController {
 			WebRequest request, @RequestParam("token") String requestToken) {
 
 		// Check token
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			binding.rejectValue("", "S00002", new Object [] {}, null);
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
 			return MyNumberJsp.DEPENDENTS_REGIST;
 		}
-		TokenProcessor.saveToken(request, model);
 				
 		// get staff info form session
 		StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
@@ -142,7 +140,7 @@ public class DependentsRegistController {
 		List<Dependents> lstDependents = new ArrayList<Dependents>();
 		Dependents dependents = new Dependents();
 		dependents.setDependentsNameSei(staffInfoModel.getStaffNameSei());
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < NUMBER_OF_DEPENDENT; i++) {
 			lstDependents.add(dependents);
 		}
 		dependentsInfoListModel.setDependents(lstDependents);

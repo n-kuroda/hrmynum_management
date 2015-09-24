@@ -28,33 +28,37 @@
                 <div class="logo_l"></div>
             </div>
             <div id="content">
-               	<div class="txtLeft mt10"><spring:message text="以下に署名してください。" /></div>
-               	<div class="txtLeft mt10 mb10">
-	               	<c:if test="${staffInfoModel.consent == '0' }">
-	            		<spring:message text="マイナンバーを提供できません。" />
-	            	</c:if>
-               	</div>
-               	<div id="signingImage">
-				</div>
-	
-				<script>
-						signatureCapture();
-				</script>
-				<div id="errorInfo">
-					<div id ="checkrequireSigning">
-			       		<fmt:message key="V00001">
-			       			 <fmt:param value="署名"/>
-			       		</fmt:message>
-			      	</div>
-			      	<div id ="checkSigningNetworkOffLine">
-						<fmt:message key="I00002"/>
+                <form:form id= "staffSigningForm" action="staffSigning" modelAttribute="staffInfoModel" method="post">
+	               	<div class="txtLeft mt10"><spring:message text="以下に署名してください。" /></div>
+	               	<div class="txtLeft mt10 mb10">
+		               	<c:if test="${staffInfoModel.consent == '0' }">
+		            		<spring:message text="マイナンバーを提供できません。" />
+		            	</c:if>
+	               	</div>
+	               	<div id="signingImage">
 					</div>
-			    </div>
-                <form id= "staffSigningForm" action="staffSigning" method="post" class="txtCenterC mt40 mb40">
-                    <button value="back" class="btn-back" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
-					<button class="btn-next" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
-					<button value="clear" class="btn-skip" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
-                </form>
+		
+					<script>
+							signatureCapture();
+					</script>
+					<div id="errorInfo">
+						<div id ="checkrequireSigning">
+				       		<fmt:message key="V00001">
+				       			 <fmt:param value="署名"/>
+				       		</fmt:message>
+				      	</div>
+				      	<div id ="checkSigningNetworkOffLine">
+							<fmt:message key="I00002"/>
+						</div>
+	                	<input type="hidden" name="token" value="${token}">
+	                	<form:errors path="*" cssClass="errorStaffSigning mt10" />
+				    </div>
+	                <div class="txtCenterC mt40 mb40">
+	                    <button value="back" class="btn-back" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
+						<button class="btn-next" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
+						<button value="clear" class="btn-skip" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
+	                </div>
+                </form:form>
             </div>
         </div>
     </div>

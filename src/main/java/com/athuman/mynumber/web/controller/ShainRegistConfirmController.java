@@ -7,38 +7,61 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
+import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class ShainRegistConfirmController {
 
 	// show shainRegistConfirm page
 	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
+	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
 
-		// get data form session.
-		StaffInfoModel staffInfo = (StaffInfoModel) session.getAttribute("staffInfoModel");
-		DependentsInfoListModel dependentInfo = (DependentsInfoListModel) session.getAttribute("dependentsInfoListModel");
-
-		// init data for show jsp
-		initData(model, staffInfo, dependentInfo);
-		return MyNumberJsp.SHAIN_REGIST_CONFIRM;
+		model.addAttribute("token", requestToken);
+		return resetData(model, session);
 	}
 
 	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM, method = RequestMethod.POST)
-	public String confirm(Model model) {
+	public String confirm(Model model,
+			HttpSession session,
+			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModel,
+			BindingResult binding, 
+			WebRequest request, 
+			@RequestParam("token") String requestToken) {
+		
+		// Check token
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
+			return resetData(model, session);
+		}
+		
 		return MyNumberJsp.REDIRECT_COLECTION_INFO_REGIST;
 	}
 
 	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM_MODIFY, method = RequestMethod.POST)
-	public String modify(Model model) {
+	public String modify(Model model,
+			HttpSession session,
+			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModel,
+			BindingResult binding, 
+			WebRequest request, 
+			@RequestParam("token") String requestToken) {
+		
+		// Check token
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
+			return resetData(model, session);
+		}
+		
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
@@ -62,7 +85,7 @@ public class ShainRegistConfirmController {
 		}
 
 		model.addAttribute("lstDependents", dependentInfo.getDependents());
-		model.addAttribute("staffInfoModel", staffInfo);
+		model.addAttribute("staffInfo", staffInfo);
 	}
 
 	/**
@@ -171,7 +194,25 @@ public class ShainRegistConfirmController {
 	 * @return String
 	 */
 	private String getStaffName(StaffInfoModel staffInfo) {
-		return staffInfo.getStaffNameSei() + staffInfo.getStaffNameMei() +
-				"("+ staffInfo.getStaffNameSeiKana() + staffInfo.getStaffNameMeiKana() + ")";
+		return staffInfo.getStaffNameSei() + " " + staffInfo.getStaffNameMei() +
+				"("+ staffInfo.getStaffNameSeiKana() + " " + staffInfo.getStaffNameMeiKana() + ")";
 	}
+	
+	/**
+	 * reset data when load page
+	 *
+	 * @param model
+	 * @param session
+	 * @return String
+	 */
+	private String resetData(Model model, HttpSession session){
+		// get data form session.
+		StaffInfoModel staffInfo = (StaffInfoModel) session.getAttribute("staffInfoModel");
+		DependentsInfoListModel dependentInfo = (DependentsInfoListModel) session.getAttribute("dependentsInfoListModel");
+
+		// init data for show jsp
+		initData(model, staffInfo, dependentInfo);
+		return MyNumberJsp.SHAIN_REGIST_CONFIRM;
+	}
+	
 }

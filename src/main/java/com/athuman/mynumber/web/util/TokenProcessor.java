@@ -15,7 +15,8 @@ public class TokenProcessor {
 		if(!StringUtil.isNotEmpty(requestToken)){
 			return false;
 		}
-		final String sessionToken = getCurrentToken(request);
+
+		String sessionToken = getCurrentToken(request);
 		if (!StringUtil.isNotEmpty(sessionToken)) {
 			return false;
 		}

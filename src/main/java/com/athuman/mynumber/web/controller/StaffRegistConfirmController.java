@@ -7,40 +7,61 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class StaffRegistConfirmController {
 
 	// show registConfirm page
 	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
+	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
 
-		// get data form session.
-		StaffInfoModel staffInfo = (StaffInfoModel) session.getAttribute("staffInfoModel");
-		DependentsInfoListModel dependentInfo = (DependentsInfoListModel) session.getAttribute("dependentsInfoListModel");
-
-		// init data for show jsp
-		initData(model, staffInfo, dependentInfo);
-		return MyNumberJsp.STAFF_REGIST_CONFIRM;
+		model.addAttribute("token", requestToken);
+		return resetData(model, session);
 	}
 
 	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM, method = RequestMethod.POST)
-	public String confirm(Model model) {
+	public String confirm(Model model,
+			HttpSession session,
+			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
+			BindingResult binding, 
+			WebRequest request, 
+			@RequestParam("token") String requestToken) {
+		
+		// Check token
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
+			return resetData(model, session);
+		}
+				
 		return MyNumberJsp.REDIRECT_STAFF_SIGNING;
 	}
 
 	@RequestMapping(value = MyNumberUrl.STAFF_REGIST_CONFIRM_BACK, method = RequestMethod.POST)
-	public String back(Model model, HttpSession sesion) {
+	public String back(Model model, 
+			HttpSession session,
+			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
+			BindingResult binding, 
+			WebRequest request, 
+			@RequestParam("token") String requestToken) {
+		
+		// Check token
+		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
+			return resetData(model, session);
+		}
 
-		StaffInfoModel staffInfoModelSession = (StaffInfoModel) sesion.getAttribute("staffInfoModel");
+		StaffInfoModel staffInfoModelSession = (StaffInfoModel) session.getAttribute("staffInfoModel");
 		if (ConstValues.CONSENT_VALUE_0.equals(staffInfoModelSession.getConsent())) {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
@@ -67,7 +88,7 @@ public class StaffRegistConfirmController {
 		}
 
 		model.addAttribute("lstDependents", dependentInfo.getDependents());
-		model.addAttribute("staffInfoModel", staffInfo);
+		model.addAttribute("staffInfo", staffInfo);
 	}
 
 	/**
@@ -176,4 +197,22 @@ public class StaffRegistConfirmController {
 		return staffInfo.getStaffNameSei() + " " + staffInfo.getStaffNameMei() +
 				"("+ staffInfo.getStaffNameSeiKana() + " " + staffInfo.getStaffNameMeiKana() + ")";
 	}
+	
+	/**
+	 * reset data when load page
+	 *
+	 * @param model
+	 * @param session
+	 * @return String
+	 */
+	private String resetData(Model model, HttpSession session){
+		// get data form session.
+		StaffInfoModel staffInfo = (StaffInfoModel) session.getAttribute("staffInfoModel");
+		DependentsInfoListModel dependentInfo = (DependentsInfoListModel) session.getAttribute("dependentsInfoListModel");
+
+		// init data for show jsp
+		initData(model, staffInfo, dependentInfo);
+		return MyNumberJsp.STAFF_REGIST_CONFIRM;
+	}
+	
 }

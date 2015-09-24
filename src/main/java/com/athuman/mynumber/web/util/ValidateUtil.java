@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.StaffInfoModel;
@@ -319,7 +321,7 @@ public class ValidateUtil {
 				&& checkYearInvalidRange(dependents.getDependentsBirthdayYear())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（年）"}, null );
-		} else {
+		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（年）"}, null );
 		}
@@ -329,7 +331,7 @@ public class ValidateUtil {
 				&& checkMonthInvalidRange(dependents.getDependentsBirthdayMonth())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（月）"}, null );
-		} else {
+		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（月）"}, null );
 		}
@@ -339,7 +341,7 @@ public class ValidateUtil {
 				&& checkDayInvalidRange(dependents.getDependentsBirthdayDay())) {
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（日）"}, null );
-		} else {
+		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())){
 			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（日）"}, null );
 		}
@@ -420,4 +422,17 @@ public class ValidateUtil {
 		return bindingResult;
 
 	}
+	
+	public static boolean isValidToken(String string, WebRequest request,
+			String requestToken, BindingResult binding, Model model) {
+		
+		if (!TokenProcessor.isTokenValid(request, requestToken)) {
+			binding.rejectValue(string, "S00002", new Object [] {}, null);
+			return false;
+		}
+		TokenProcessor.saveToken(request, model);
+		return true;
+	}
+	
+	
 }
