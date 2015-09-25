@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.StaffInfoModel;
-import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.ValidateUtil;
@@ -54,11 +53,6 @@ public class StaffSigningController {
 		// Check token
 		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
 			return MyNumberJsp.STAFF_SIGNING;
-		}
-		
-		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
-		if (ConstValues.CONSENT_VALUE_0.equals(staffInfoModelSession.getConsent())) {
-			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		}
 		
 		return MyNumberJsp.REDIRECT_STAFF_REGIST_CONFIRM;

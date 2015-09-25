@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
+import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 
 @Controller
@@ -31,7 +34,23 @@ public class MyNumberController {
 	@ResponseBody
 	public ResponseEntity<MyNumberResponseDto> search(@PathVariable String himodukeNo) throws IOException {
 
-		return myNumberAPIService.myNumber(himodukeNo);
+		ResponseEntity<MyNumberResponseDto> result = null;
+		
+		try {
+			result = myNumberAPIService.myNumber(himodukeNo);
+		} catch (Exception ex) { 
+			
+			MyNumberResponseDto dto = new MyNumberResponseDto();
+
+			HttpHeaders headers = new HttpHeaders();
+			HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+			dto.setResultMessage(ConstValues.API_OTHER_ERROR);
+			dto.setMyNumber("");
+
+			result = new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
+
+		}
+		return result;
 		
 	}
 }

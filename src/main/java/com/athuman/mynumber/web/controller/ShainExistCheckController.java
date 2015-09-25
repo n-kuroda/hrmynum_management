@@ -91,7 +91,7 @@ public class ShainExistCheckController {
 		} else { // other error
 			session.setAttribute("shainInfoModel", null);
 			binding.rejectValue("shainNo", "S00001",
-					new Object[] {"社員番号"}, null);
+					new Object[] {"社員番号の検索"}, null);
 		}
 
 		return MyNumberJsp.SHAIN_EXIST_CHECK;

@@ -88,7 +88,7 @@ public class StaffExistCheckController {
 		} else { // other error
 			session.setAttribute("staffInfoModel", null);
 			binding.rejectValue("staffNo", "S00001",
-					new Object[] {"スタッフNo"}, null);
+					new Object[] {"スタッフNoの検索"}, null);
 		}
 
 		return MyNumberJsp.STAFF_EXIST_CHECK;
