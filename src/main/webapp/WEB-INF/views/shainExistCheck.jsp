@@ -18,7 +18,6 @@
 <script src="resources/js/jquery-1.11.1.min.js"></script>
 <script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/shainExistCheck.js"></script>
-
 </head>
 <body>
 	<div id="wrapper">
@@ -63,6 +62,9 @@
 					<form:errors path="*" cssClass="errorShainExistCheck" />
 
 					<div id="errorInfo" class="mt10">
+						<div id="checkShainSession" style="display: none;">
+							<spring:message text="不正遷移です。お手数ですがもう一度最初からやり直してください。" />
+						</div>
 						<div id ="checkShainNetworkOffLine" class="errorShainExistCheck" style="display: none;">
 							<fmt:message key="I00002"/>
 						</div>

@@ -65,4 +65,5 @@ public class ConstValues {
 	public static final String DELETE_FLAG_VALUES_0 = "0";
 	public static final String COLLECT_INFO_REGIST_FAIL = "FAIL";
 	public static final String COLLECT_INFO_REGIST_OK = "OK";
+	public static final String SESSION_CHECK_VALUE_TRUE = "true";
 }

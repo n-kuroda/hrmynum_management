@@ -24,6 +24,11 @@ public class PurposeConsentController {
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.GET)
 	public String show(Model model, @RequestParam("token") String requestToken, HttpSession sesion) {
 
+		// check session has exist
+		if (!ValidateUtil.isNotNullSession(sesion, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
+	 	
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		model.addAttribute("staffInfo", staffInfoModelSession);
 		model.addAttribute("token", requestToken);

@@ -21,8 +21,15 @@ public class StaffSigningController {
 
 	// show staffSigning page
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNING, method = RequestMethod.GET)
-	public String show(Model model, @RequestParam("token") String requestToken) {
+	public String show(Model model, 
+			@RequestParam("token") String requestToken,
+			HttpSession session) {
 		
+		// check session has exist
+		if (!ValidateUtil.isNotNullSession(session, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
+				
 		model.addAttribute("token", requestToken);
 		return MyNumberJsp.STAFF_SIGNING;
 	}

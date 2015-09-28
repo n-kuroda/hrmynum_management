@@ -32,6 +32,7 @@ import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
+import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class ColectionInfoRegistController {
@@ -50,8 +51,14 @@ public class ColectionInfoRegistController {
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) {
 
+		// check session has exist
+		if (!ValidateUtil.isNotNullSession(session, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
+
 		initData(model, session);
-		model.addAttribute("colectionInfoRegistDto", new ColectionInfoRegistDto());
+		model.addAttribute("colectionInfoRegistDto",
+				new ColectionInfoRegistDto());
 		return MyNumberJsp.COLECTION_INFO_REGIST;
 	}
 

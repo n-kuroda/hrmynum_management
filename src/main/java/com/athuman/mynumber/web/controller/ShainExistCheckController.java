@@ -39,7 +39,9 @@ public class ShainExistCheckController {
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(WebRequest request, Model model, HttpSession session) {
 
-		session.setAttribute("shainInfoModel", null);
+		// clear all session
+		session.invalidate();
+
 		TokenProcessor.saveToken(request, model);
 		model.addAttribute("shainInfoModel", new ShainInfoModel());
 		return MyNumberJsp.SHAIN_EXIST_CHECK;

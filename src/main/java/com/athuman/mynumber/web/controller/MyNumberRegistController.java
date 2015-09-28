@@ -26,6 +26,11 @@ public class MyNumberRegistController {
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
 
+		// check session has exist
+		if (!ValidateUtil.isNotNullSession(session, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
+	 	
 		model.addAttribute("token", requestToken);
 		staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {

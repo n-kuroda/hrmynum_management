@@ -4,11 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.Dependents;
+import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 
 public class ValidateUtil {
@@ -434,5 +437,22 @@ public class ValidateUtil {
 		return true;
 	}
 	
-	
+	/** check session is not null
+	 *
+	 * @param session
+	 * @param model
+	 * @return boolean
+	 */
+	public static boolean isNotNullSession(HttpSession session, Model model) {
+
+		// get data form session
+		StaffInfoModel staffInfo = (StaffInfoModel)session.getAttribute("staffInfoModel");
+		ShainInfoModel shainInfo = (ShainInfoModel)session.getAttribute("shainInfoModel");
+
+		if (staffInfo == null || shainInfo == null) {
+			model.addAttribute("errorSession", ConstValues.SESSION_CHECK_VALUE_TRUE);
+			return false;
+		}
+		return true;
+	}
 }

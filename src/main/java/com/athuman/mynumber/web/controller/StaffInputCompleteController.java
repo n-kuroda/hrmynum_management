@@ -1,5 +1,7 @@
 package com.athuman.mynumber.web.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +21,15 @@ public class StaffInputCompleteController {
 	
 	// show staffInputComplete page
 	@RequestMapping(value = MyNumberUrl.STAFF_INPUT_COMPLETE, method = RequestMethod.GET)
-	public String show(Model model, @RequestParam("token") String requestToken) {
+	public String show(Model model,
+			HttpSession session,
+			@RequestParam("token") String requestToken) {
 		
+		// check session has exist
+		if (!ValidateUtil.isNotNullSession(session, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
+				
 		model.addAttribute("token", requestToken);
 		return MyNumberJsp.STAFF_INPUT_COMPLETE;
 	}
