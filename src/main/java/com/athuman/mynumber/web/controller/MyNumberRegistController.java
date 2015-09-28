@@ -45,7 +45,7 @@ public class MyNumberRegistController {
 		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-		
+
 		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumberForm.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
@@ -76,7 +76,7 @@ public class MyNumberRegistController {
 		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
 			return MyNumberJsp.MYNUMBER_REGIST;
 		}
-		
+
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
@@ -202,33 +202,28 @@ public class MyNumberRegistController {
 	private boolean checkVerification(StaffInfoModel staffInfoModel){
 
 		int checkTime = 0;
-		
-		// in case no item is selected in checkbox 8-10 --> check at least 1 checkbox is selected from 1-7 
-		if (ConstValues.CHECKBOX_NOT_SELECT.equals(staffInfoModel.getHealthInsuranceLicense()) &&
-				ConstValues.CHECKBOX_NOT_SELECT.equals(staffInfoModel.getPensionNotebook()) && 
-				ConstValues.CHECKBOX_NOT_SELECT.equals(staffInfoModel.getOther())) {
-			
-			if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriversLicense()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriveHistoryLicense()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPassPort()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook()) ||
-					ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard())) {
-				return false;
-			}
+
+		// check at least 1 checkbox is selected from 1-7
+		if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriversLicense()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getDriveHistoryLicense()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPassPort()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getBodyDisabilitiesNotebook()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getMentalDisabilitiesNotebook()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getRehabilitationNotebook()) ||
+				ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getStayCard())) {
+			return false;
 		} else { // in case checkbox from 8-10 is selected
-			
+
 			// check health insurance license
 			if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getHealthInsuranceLicense())) {
 				checkTime ++;
 			}
-			
+
 			// check pension book
 			if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getPensionNotebook())) {
 				checkTime ++;
 			}
-			
+
 			// check other
 			if (ConstValues.CHECKBOX_SELECT.equals(staffInfoModel.getOther())) {
 				checkTime ++;
