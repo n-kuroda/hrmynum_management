@@ -5,6 +5,7 @@ public class ConstValues {
 	public static final String CHECKBOX_SELECT = "1";
 	public static final String CHECKBOX_NOT_SELECT = "0";
 	public static final String RADIO_SELECT = "01";
+	public static final String MY_NUMBER_CONFIRM_00 = "00";
 	public static final String MY_NUMBER_CONFIRM_01 = "01";
 	public static final String MY_NUMBER_CONFIRM_02 = "02";
 	public static final String MY_NUMBER_CONFIRM_03 = "03";

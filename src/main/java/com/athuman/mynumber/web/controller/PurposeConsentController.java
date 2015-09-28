@@ -83,7 +83,7 @@ public class PurposeConsentController {
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.
 		staffInfoModelSession.setMyNumber(ConstValues.BLANK);
-		staffInfoModelSession.setMyNumberConfirm(ConstValues.BLANK);
+		staffInfoModelSession.setMyNumberConfirm(ConstValues.MY_NUMBER_CONFIRM_00);
 		staffInfoModelSession.setDriversLicense(ConstValues.BLANK);
 		staffInfoModelSession.setDriveHistoryLicense(ConstValues.BLANK);
 		staffInfoModelSession.setPassPort(ConstValues.BLANK);
