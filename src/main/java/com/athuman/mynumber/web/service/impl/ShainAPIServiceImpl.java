@@ -23,10 +23,10 @@ public class ShainAPIServiceImpl implements ShainAPIService {
 
 			ShainInfoDto shainInfoDto = new ShainInfoDto();
 			shainInfoDto.setShainNo(shainNo);
-			shainInfoDto.setShainNameSei("Phu");
-			shainInfoDto.setShainNameSeiKana("PHU");
-			shainInfoDto.setShainNameMei("Truong");
-			shainInfoDto.setShainNameMeiKana("TRUONG");
+			shainInfoDto.setShainNameSei("鈴木");
+			shainInfoDto.setShainNameSeiKana("スズキ");
+			shainInfoDto.setShainNameMei("一郎");
+			shainInfoDto.setShainNameMeiKana("イチロウ");
 
 			status = HttpStatus.OK;
 			

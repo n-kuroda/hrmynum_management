@@ -18,13 +18,13 @@ public class StaffAPIServiceImpl implements StaffAPIService {
 		HttpHeaders headers = new HttpHeaders();
 		StaffInfoResponseDto dto = new StaffInfoResponseDto();
 
-		if (staffNo.equals("154123456")) {
+		if (staffNo.equals("123456789")) {
 
 			StaffInfoDto staffInfoDto = new StaffInfoDto();
-			staffInfoDto.setNameSei("Ngan");
-			staffInfoDto.setNameKanaSei("NGAN");
-			staffInfoDto.setNameMei("Ly");
-			staffInfoDto.setNameKanaMei("LY");
+			staffInfoDto.setNameSei("田中");
+			staffInfoDto.setNameKanaSei("タナカ");
+			staffInfoDto.setNameMei("太郎");
+			staffInfoDto.setNameKanaMei("タロウ");
 
 			status = HttpStatus.OK;			
 			dto.setResultMessage("OK");
