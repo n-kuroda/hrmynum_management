@@ -59,7 +59,7 @@
 						<p class="mt30 font14">
 							<spring:message text="本人確認提示書類" />
 							<br />
-							<spring:message text="①~⑦の場合はいずれか一つ、⑧~⑩の場合はいずれか2つを選択してください。" />
+							<spring:message text="①~⑦の場合はいずれか1つ、⑧~⑩の場合はいずれか2つを選択してください。" />
 						</p>
 						<div class="chkbox-group">
 							<div class="col font12">
