@@ -64,7 +64,7 @@ function checkDataValidWhenSearch() {
 		            		var staffInfoDtoResponse = data.staffInfoDto; // get staffInfoDto from response
 		            		var staffInfoDto =
 		            			{
-		            				"staffNo"     : staffInfoDtoResponse.staffNo,
+		            				"staffNo"     : staffNoValue,
 		            				"nameSei"     : staffInfoDtoResponse.nameSei,
 		            				"nameMei"     : staffInfoDtoResponse.nameMei,
 		            				"nameKanaSei" : staffInfoDtoResponse.nameKanaSei,
