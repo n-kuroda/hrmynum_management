@@ -3,10 +3,6 @@ package com.athuman.mynumber.web.controller;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.StaffInfoDto;
-import com.athuman.mynumber.web.dto.StaffInfoResponseDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
-import com.athuman.mynumber.web.service.StaffAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
@@ -29,10 +23,6 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class StaffExistCheckController {
-
-	@Autowired(required=true)
-	@Qualifier(value="staffAPIService")
-	private StaffAPIService staffAPIService;
 
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.GET)
 	public String show(Model model, @RequestParam("token") String requestToken) {
@@ -52,44 +42,31 @@ public class StaffExistCheckController {
 			WebRequest request) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		StaffInfoDto staffInfoDtoJson = mapper.readValue(staffInfo, StaffInfoDto.class);
+		StaffInfoDto staffInfoDto = mapper.readValue(staffInfo, StaffInfoDto.class);
 
 		// Check token
-		if (!ValidateUtil.isValidToken("staffNo", request, staffInfoDtoJson.getToken(), binding, model)) {
+		if (!ValidateUtil.isValidToken("staffNo",
+										request,
+										staffInfoDto.getToken(), 
+										binding, model)) {
+
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
 
-		// call API to get data
-		// TODO: replace hard-code in returned value in case [readStaff API] is created.
-		ResponseEntity<StaffInfoResponseDto> staffInfoResponseDto = staffAPIService.readStaff(staffInfoDtoJson.getStaffNo());
+		model.addAttribute("staffNo", staffInfoDto.getStaffNo());
+		model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));
 
-		if (HttpStatus.OK == staffInfoResponseDto.getStatusCode()) { // OK
-			StaffInfoDto staffInfoDto = staffInfoResponseDto.getBody().getStaffInfoDto();
+		// convert data from StaffInfoDto to StaffInfoModel
+		StaffInfoModel staffInfoModel = new StaffInfoModel();
 
-			model.addAttribute("staffNo", staffInfoDtoJson.getStaffNo());
-			model.addAttribute("staffInfo", getStaffInfo(staffInfoDto));
+		staffInfoModel.setStaffNameSei(staffInfoDto.getNameSei());
+		staffInfoModel.setStaffNameMei(staffInfoDto.getNameMei());
+		staffInfoModel.setStaffNameSeiKana(staffInfoDto.getNameKanaSei());
+		staffInfoModel.setStaffNameMeiKana(staffInfoDto.getNameKanaMei());
+		staffInfoModel.setStaffNo(staffInfoDto.getStaffNo());
 
-			// convert data from StaffInfoDto to StaffInfoModel
-			StaffInfoModel staffInfoModel = new StaffInfoModel();
-
-			staffInfoModel.setStaffNameSei(staffInfoDto.getNameSei());
-			staffInfoModel.setStaffNameMei(staffInfoDto.getNameMei());
-			staffInfoModel.setStaffNameSeiKana(staffInfoDto.getNameKanaSei());
-			staffInfoModel.setStaffNameMeiKana(staffInfoDto.getNameKanaMei());
-			staffInfoModel.setStaffNo(staffInfoDtoJson.getStaffNo());
-
-			// store to session
-			session.setAttribute("staffInfoModel", staffInfoModel);
-
-		} else if (HttpStatus.NO_CONTENT == staffInfoResponseDto.getStatusCode()) { // error 204
-			session.setAttribute("staffInfoModel", null);
-			binding.rejectValue("staffNo", "I00001",
-					new Object[] {}, null);
-		} else { // other error
-			session.setAttribute("staffInfoModel", null);
-			binding.rejectValue("staffNo", "S00001",
-					new Object[] {"スタッフNoの検索"}, null);
-		}
+		// store to session
+		session.setAttribute("staffInfoModel", staffInfoModel);
 
 		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
@@ -143,9 +120,5 @@ public class StaffExistCheckController {
 		String staffInfo = staffInfoDto.getNameSei() + " " + staffInfoDto.getNameMei() +
 				"(" + staffInfoDto.getNameKanaSei() + " " + staffInfoDto.getNameKanaMei() + ")";
 		return staffInfo;
-	}
-
-	public void setStaffAPIService(StaffAPIService staffAPIService) {
-		this.staffAPIService = staffAPIService;
 	}
 }

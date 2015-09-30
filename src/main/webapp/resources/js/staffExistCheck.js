@@ -38,30 +38,77 @@ function checkDataValidWhenSearch() {
 		    });
 			return true;
 		} else {
-			
+
 			var staffNoValue = $('#staffNo').val();
 			var tokenValue = $('#token').val();
-			var staffInfo = {"staffNo" : staffNoValue, "token" : tokenValue};
-			 
+			var staffInfoMsg = document.getElementById("messageInfoStaffExistCheck");
 			 $.ajax({
-		            type: "POST",
-		            url: "staffExistCheck",
-		            data: JSON.stringify(staffInfo),
-			        cache:false,
-			        beforeSend: function(xhr) {
-			            xhr.setRequestHeader("Accept", "application/json");
-			            xhr.setRequestHeader("Content-Type", "application/json");
-			        },
-		            success: function(response) {
-		            	 $("#wrapper").html( response );
-		            	 var staffInfoDiv = document.getElementById('staffInfo');
-		            	 staffInfoDiv.style.display = 'block';
-		            	 
-		            	 var staffNo = document.getElementById('staffNo');
-		            	 staffNo.value = staffNoValue;
+				 type: "GET",
+		            url: "http://10.170.122.93/tact-hr/api/staff/" + staffNoValue,
+		            dataType: "jsonp",
+		            success: function(data) {
+
+		            	// API returned status code 204: No Content
+		            	if (data == undefined) {
+		            		// display error 204 on GUI
+		            		$('#checkStaffExist').show();
+			        		document.getElementById('staffNo').className = 'error';
+			        		staffInfoMsg.style.display = 'none';
+		            		return;
+		            	}
+
+		            	// API returned status code 200: OK
+		            	if (data.statusCode == 200) {
+
+		            		// call StaffExistCheckController to set data to model/ session and display data to GUI
+		            		var staffInfoDtoResponse = data.staffInfoDto; // get staffInfoDto from response
+		            		var staffInfoDto =
+		            			{
+		            				"staffNo"     : staffInfoDtoResponse.staffNo,
+		            				"nameSei"     : staffInfoDtoResponse.nameSei,
+		            				"nameMei"     : staffInfoDtoResponse.nameMei,
+		            				"nameKanaSei" : staffInfoDtoResponse.nameKanaSei,
+		            				"nameKanaMei" : staffInfoDtoResponse.nameKanaMei,
+		            				"token"       : tokenValue
+		            			};
+
+		            		$.ajax({
+		        		        url: "staffExistCheck",
+		        		        type: 'POST',
+		        		        data: JSON.stringify(staffInfoDto),
+		    			        cache:false,
+		    			        beforeSend: function(xhr) {
+		    			            xhr.setRequestHeader("Accept", "application/json");
+		    			            xhr.setRequestHeader("Content-Type", "application/json");
+		    			        },
+		    			        success: function(response) {
+		    			        	 $("#wrapper").html( response );
+			   		            	 var staffInfoDiv = document.getElementById('staffInfo');
+			   		            	 staffInfoDiv.style.display = 'block';
+
+			   		            	 var staffNo = document.getElementById('staffNo');
+			   		            	 staffNo.value = staffNoValue;
+		    			        }
+		        		    });
+		            	}
+		            },
+		            error: function(dataError) {
+		            	// display error on the GUI
+		            	if (dataError.statusCode == 204) {
+		            		$('#checkStaffExist').show();
+			        		document.getElementById('staffNo').className = 'error';
+			        		staffInfoMsg.style.display = 'none';
+		            		return;
+		            	} else {
+		            		// display other error on GUI
+		            		$('#serverError').show();
+			        		document.getElementById('staffNo').className = 'error';
+			        		staffInfoMsg.style.display = 'none';
+			        		return;
+		            	}
 		            }
 		        });
-			 
+
 			 return true;
 		}
 	}

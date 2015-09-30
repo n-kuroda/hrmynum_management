@@ -62,24 +62,71 @@ function checkDataValidWhenSearch() {
 
 			 var shainNoValue = $('#shainNo').val();
 			 var tokenValue = $('#token').val();
-			 var shainInfo = {"shainNo" : shainNoValue, "token" : tokenValue};
 
 			 $.ajax({
-		            type: "POST",
-		            url: "shainExistCheck",
-		            data: JSON.stringify(shainInfo),
-			        cache:false,
-			        beforeSend: function(xhr) {
-			            xhr.setRequestHeader("Accept", "application/json");
-			            xhr.setRequestHeader("Content-Type", "application/json");
-			        },
-		            success: function(response) {
-		            	 $("#wrapper").html( response );
-		            	 var shainInfoDiv = document.getElementById('shainInfo');
-		            	 shainInfoDiv.style.display = 'block';
+		            type: "GET",
+		            url: "http://10.170.122.93/tact-hr/api/shain/" + shainNoValue,
+		            dataType: "jsonp",
+		            success: function(data) {
+		            	var shainInfoMsg = document.getElementById("messageInfoShainExistCheck");
+		            	// API returned status code 204: No Content
+		            	if (data == undefined) {
+		            		// display error 204 on GUI
+		            		$('#checkShainExist').show();
+			        		document.getElementById('shainNo').className = 'error';
+			        		shainInfoMsg.style.display = 'none';
+		            		return;
+		            	}
 
-		            	 var shainNo = document.getElementById('shainNo');
-		            	 shainNo.value = shainNoValue;
+		            	// API returned status code 200: OK
+		            	if (data.statusCode == 200) {
+
+		            		// call ShainExistCheckController to set data to model/ session and display data to GUI
+		            		var shainInfoResponse = data.shainInfo; // get shainInfo from response and add token to json object
+		            		var shainInfo =
+		            			{
+		            				"shainNo"          : shainInfoResponse.shainNo,
+		            				"shainNameSei"     : shainInfoResponse.shainNameSei,
+		            				"shainNameMei"     : shainInfoResponse.shainNameMei,
+		            				"shainNameSeiKana" : shainInfoResponse.shainNameSeiKana,
+		            				"shainNameMeiKana" : shainInfoResponse.shainNameMeiKana,
+		            				"token"            : tokenValue
+		            			};
+
+		            		$.ajax({
+		        		        url: "shainExistCheck",
+		        		        type: 'POST',
+		        		        data: JSON.stringify(shainInfo),
+		    			        cache:false,
+		    			        beforeSend: function(xhr) {
+		    			            xhr.setRequestHeader("Accept", "application/json");
+		    			            xhr.setRequestHeader("Content-Type", "application/json");
+		    			        },
+		    			        success: function(response) {
+		    			        	 $("#wrapper").html( response );
+		    		            	 var shainInfoDiv = document.getElementById('shainInfo');
+		    		            	 shainInfoDiv.style.display = 'block';
+
+		    		            	 var shainNo = document.getElementById('shainNo');
+		    		            	 shainNo.value = shainNoValue;
+		    			        }
+		        		    });
+		            	}
+		            },
+		            error: function(dataError) {
+		            	// display error on the GUI
+		            	if (dataError.statusCode == 204) {
+		            		$('#checkShainExist').show();
+			        		document.getElementById('shainNo').className = 'error';
+			        		shainInfoMsg.style.display = 'none';
+		            		return;
+		            	} else {
+		            		// display other error on GUI
+		            		$('#serverError').show();
+			        		document.getElementById('shainNo').className = 'error';
+			        		shainInfoMsg.style.display = 'none';
+			        		return;
+		            	}
 		            }
 		        });
 

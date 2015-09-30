@@ -83,6 +83,15 @@
 								<fmt:param value="スタッフNo"/>
 							</fmt:message>
 						</div>
+						<div id="checkStaffExist" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="I00001">
+							</fmt:message>
+						</div>
+						<div id="serverError" class="errorShainExistCheck" style="color: red; display: none;">
+							<fmt:message key="S00001">
+								<fmt:param value="スタッフNoの検索"/>
+							</fmt:message>
+						</div>
 					</div>
 					<form:button name="action" value="back" class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />

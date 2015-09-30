@@ -3,10 +3,6 @@ package com.athuman.mynumber.web.controller;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.ShainInfoDto;
-import com.athuman.mynumber.web.dto.ShainInfoResponseDto;
 import com.athuman.mynumber.web.model.ShainInfoModel;
-import com.athuman.mynumber.web.service.ShainAPIService;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
@@ -30,10 +24,6 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class ShainExistCheckController {
-
-	@Autowired(required=true)
-	@Qualifier(value="shainAPIService")
-	private ShainAPIService shainAPIService;
 
 	// display shainExistCheck page
 	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.GET)
@@ -57,44 +47,31 @@ public class ShainExistCheckController {
 			WebRequest request) throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		ShainInfoDto shainInfoDtoJson = mapper.readValue(shainInfo, ShainInfoDto.class);
+		ShainInfoDto shainInfoDto = mapper.readValue(shainInfo, ShainInfoDto.class);
 
 		// Check token
-		if (!ValidateUtil.isValidToken("shainNo", request, shainInfoDtoJson.getToken(), binding, model)) {
+		if (!ValidateUtil.isValidToken("shainNo",
+										request, 
+										shainInfoDto.getToken(), 
+										binding, model)) {
+
 			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 
-		// call API to get data
-		// TODO: replace hard-code in returned value in case [readShain API] is created.
-		ResponseEntity<ShainInfoResponseDto> shainInfoResponseDto = shainAPIService.readShain(shainInfoDtoJson.getShainNo());
+		model.addAttribute("shainNo", shainInfoDto.getShainNo());
+		model.addAttribute("shainInfo", getShainInfo(shainInfoDto));
 
-		if (HttpStatus.OK == shainInfoResponseDto.getStatusCode()) { // OK
-			ShainInfoDto shainInfoDto = shainInfoResponseDto.getBody().getShainInfoDto();
+		// convert data from dto to model and store to session
+		ShainInfoModel shainInfoModel = new ShainInfoModel();
 
-			model.addAttribute("shainNo", shainInfoDtoJson.getShainNo());
-			model.addAttribute("shainInfo", getShainInfo(shainInfoDto));
+		shainInfoModel.setShainNameMei(shainInfoDto.getShainNameMei());
+		shainInfoModel.setShainNameMeiKana(shainInfoDto.getShainNameMeiKana());
+		shainInfoModel.setShainNameSei(shainInfoDto.getShainNameSei());
+		shainInfoModel.setShainNameSeiKana(shainInfoDto.getShainNameSeiKana());
+		shainInfoModel.setShainNo(shainInfoDto.getShainNo());
 
-			// convert data from dto to model and store to session
-			ShainInfoModel shainInfoModel = new ShainInfoModel();
-
-			shainInfoModel.setShainNameMei(shainInfoDto.getShainNameMei());
-			shainInfoModel.setShainNameMeiKana(shainInfoDto.getShainNameMeiKana());
-			shainInfoModel.setShainNameSei(shainInfoDto.getShainNameSei());
-			shainInfoModel.setShainNameSeiKana(shainInfoDto.getShainNameSeiKana());
-			shainInfoModel.setShainNo(shainInfoDto.getShainNo());
-
-			// store to session
-			session.setAttribute("shainInfoModel", shainInfoModel);
-
-		} else if (HttpStatus.NO_CONTENT == shainInfoResponseDto.getStatusCode()) { // error 204
-			session.setAttribute("shainInfoModel", null);
-			binding.rejectValue("shainNo", "I00001",
-					new Object[] {}, null);
-		} else { // other error
-			session.setAttribute("shainInfoModel", null);
-			binding.rejectValue("shainNo", "S00001",
-					new Object[] {"社員番号の検索"}, null);
-		}
+		// store to session
+		session.setAttribute("shainInfoModel", shainInfoModel);
 
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 
@@ -140,9 +117,4 @@ public class ShainExistCheckController {
 		session.setAttribute("shainInfoModel", null);
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 	}
-
-	public void setShainAPIService(ShainAPIService shainAPIService) {
-		this.shainAPIService = shainAPIService;
-	}
-
 }
