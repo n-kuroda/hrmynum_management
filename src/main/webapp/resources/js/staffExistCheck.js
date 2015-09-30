@@ -58,10 +58,22 @@ function checkDataValidWhenSearch() {
 		            	}
 
 		            	// API returned status code 200: OK
-		            	if (status == 200) {
+		            	if (status.status == 200) {
 
 		            		// call StaffExistCheckController to set data to model/ session and display data to GUI
-		            		var staffInfoDtoResponse = data.staffInfoDto; // get staffInfoDto from response
+		            		var staffInfoDtoResponse = data.staffInfo; // get staffInfoDto from response
+		            		
+		            		// result 0
+		            		if(staffInfoDtoResponse.nameSei == null ||
+		            				staffInfoDtoResponse.nameMei == null ||
+		            				staffInfoDtoResponse.nameKanaSei == null ||
+		            				staffInfoDtoResponse.nameKanaMei == null ){
+			            		$('#checkStaffExist').show();
+				        		document.getElementById('staffNo').className = 'error';
+				        		staffInfo.style.display = 'none';
+			            		return;
+		            		}
+		            		
 		            		var staffInfoDto =
 		            			{
 		            				"staffNo"     : staffNoValue,
@@ -92,9 +104,9 @@ function checkDataValidWhenSearch() {
 		        		    });
 		            	}
 		            },
-		            error: function(data, xhr, statusCode) {
+		            error: function(data, xhr, status) {
 		            	// display error on the GUI
-		            	if (statusCode == 204) {
+		            	if (status.status == 204) {
 		            		$('#checkStaffExist').show();
 			        		document.getElementById('staffNo').className = 'error';
 			        		staffInfo.style.display = 'none';
@@ -128,6 +140,8 @@ function clearMessage() {
 	if (messageInfo != null) {
 		messageInfo.style.display = 'none';
 	}
+	var checkStaffExist = document.getElementById('checkStaffExist');
+	checkStaffExist.style.display = 'none';
 };
 
 function checkInput() {

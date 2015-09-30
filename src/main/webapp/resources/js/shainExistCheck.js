@@ -79,10 +79,22 @@ function checkDataValidWhenSearch() {
 		            	}
 
 		            	// API returned status code 200: OK
-		            	if (status == 200) {
-
+		            	if (status.status == 200) {
+		            		
 		            		// call ShainExistCheckController to set data to model/ session and display data to GUI
 		            		var shainInfoResponse = data.shainInfo; // get shainInfo from response and add token to json object
+		            		
+		            		// result 0
+		            		if(shainInfoResponse.nameSei == null ||
+                               shainInfoResponse.nameMei == null ||
+                               shainInfoResponse.nameKanaSei == null ||
+                               shainInfoResponse.nameKanaMei == null){
+			                		$('#checkShainExist').show();
+					        		document.getElementById('shainNo').className = 'error';
+					        		shainInfoMsg.style.display = 'none';
+				            		return;
+		            		}
+
 		            		var shainInfo =
 		            			{
 		            				"shainNo"          : shainNoValue,
@@ -113,9 +125,9 @@ function checkDataValidWhenSearch() {
 		        		    });
 		            	}
 		            },
-		            error: function(dataError, xhr, statusCode) {
+		            error: function(data, xhr, status) {
 		            	// display error on the GUI
-		            	if (statusCode == 204) {
+		            	if (status.status == 204) {
 		            		$('#checkShainExist').show();
 			        		document.getElementById('shainNo').className = 'error';
 			        		shainInfoMsg.style.display = 'none';
@@ -149,6 +161,8 @@ function clearMessage() {
 	if (messageInfo != null) {
 		messageInfo.style.display = 'none';
 	}
+	var checkShainExist = document.getElementById('checkShainExist');
+	checkShainExist.style.display = 'none';
 	var errorSession = document.getElementById('checkShainSession');
 	errorSession.style.display = 'none';
 };

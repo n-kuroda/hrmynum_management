@@ -35,7 +35,7 @@
 					<form:label path="shainNo" cssClass="color">
 						<spring:message text="社員番号"/>
 					</form:label>
-					<form:input path="shainNo" cssErrorClass="error"/>
+					<form:input path="shainNo" cssErrorClass="error" maxlength="6"/>
 					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div id="shainInfo" class="name">
