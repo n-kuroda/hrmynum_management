@@ -62,13 +62,13 @@ function checkDataValidWhenSearch() {
 
 			 var shainNoValue = $('#shainNo').val();
 			 var tokenValue = $('#token').val();
+			 var shainInfoMsg = document.getElementById("messageInfoShainExistCheck");
 
 			 $.ajax({
 		            type: "GET",
 		            url: "http://10.170.122.93/tact-hr/api/shain/" + shainNoValue,
 		            dataType: "jsonp",
-		            success: function(data) {
-		            	var shainInfoMsg = document.getElementById("messageInfoShainExistCheck");
+		            success: function(data, xhr, status) {
 		            	// API returned status code 204: No Content
 		            	if (data == undefined) {
 		            		// display error 204 on GUI
@@ -79,17 +79,17 @@ function checkDataValidWhenSearch() {
 		            	}
 
 		            	// API returned status code 200: OK
-		            	if (data.statusCode == 200) {
+		            	if (status == 200) {
 
 		            		// call ShainExistCheckController to set data to model/ session and display data to GUI
 		            		var shainInfoResponse = data.shainInfo; // get shainInfo from response and add token to json object
 		            		var shainInfo =
 		            			{
 		            				"shainNo"          : shainInfoResponse.shainNo,
-		            				"shainNameSei"     : shainInfoResponse.shainNameSei,
-		            				"shainNameMei"     : shainInfoResponse.shainNameMei,
-		            				"shainNameSeiKana" : shainInfoResponse.shainNameSeiKana,
-		            				"shainNameMeiKana" : shainInfoResponse.shainNameMeiKana,
+		            				"shainNameSei"     : shainInfoResponse.nameSei,
+		            				"shainNameMei"     : shainInfoResponse.nameMei,
+		            				"shainNameSeiKana" : shainInfoResponse.nameKanaSei,
+		            				"shainNameMeiKana" : shainInfoResponse.nameKanaMei,
 		            				"token"            : tokenValue
 		            			};
 
@@ -113,9 +113,9 @@ function checkDataValidWhenSearch() {
 		        		    });
 		            	}
 		            },
-		            error: function(dataError) {
+		            error: function(dataError, xhr, statusCode) {
 		            	// display error on the GUI
-		            	if (dataError.statusCode == 204) {
+		            	if (statusCode == 204) {
 		            		$('#checkShainExist').show();
 			        		document.getElementById('shainNo').className = 'error';
 			        		shainInfoMsg.style.display = 'none';

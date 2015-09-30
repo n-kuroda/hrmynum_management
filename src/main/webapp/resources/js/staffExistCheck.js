@@ -41,24 +41,24 @@ function checkDataValidWhenSearch() {
 
 			var staffNoValue = $('#staffNo').val();
 			var tokenValue = $('#token').val();
-			var staffInfoMsg = document.getElementById("messageInfoStaffExistCheck");
+			var staffInfo = document.getElementById("messageInfoStaffExistCheck");
 			 $.ajax({
 				 type: "GET",
 		            url: "http://10.170.122.93/tact-hr/api/staff/" + staffNoValue,
 		            dataType: "jsonp",
-		            success: function(data) {
+		            success: function(data, xhr, status) {
 
 		            	// API returned status code 204: No Content
 		            	if (data == undefined) {
 		            		// display error 204 on GUI
 		            		$('#checkStaffExist').show();
 			        		document.getElementById('staffNo').className = 'error';
-			        		staffInfoMsg.style.display = 'none';
+			        		staffInfo.style.display = 'none';
 		            		return;
 		            	}
 
 		            	// API returned status code 200: OK
-		            	if (data.statusCode == 200) {
+		            	if (status == 200) {
 
 		            		// call StaffExistCheckController to set data to model/ session and display data to GUI
 		            		var staffInfoDtoResponse = data.staffInfoDto; // get staffInfoDto from response
@@ -92,18 +92,18 @@ function checkDataValidWhenSearch() {
 		        		    });
 		            	}
 		            },
-		            error: function(dataError) {
+		            error: function(data, xhr, statusCode) {
 		            	// display error on the GUI
-		            	if (dataError.statusCode == 204) {
+		            	if (statusCode == 204) {
 		            		$('#checkStaffExist').show();
 			        		document.getElementById('staffNo').className = 'error';
-			        		staffInfoMsg.style.display = 'none';
+			        		staffInfo.style.display = 'none';
 		            		return;
 		            	} else {
 		            		// display other error on GUI
 		            		$('#serverError').show();
 			        		document.getElementById('staffNo').className = 'error';
-			        		staffInfoMsg.style.display = 'none';
+			        		staffInfo.style.display = 'none';
 			        		return;
 		            	}
 		            }
