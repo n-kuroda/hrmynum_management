@@ -85,7 +85,7 @@ function checkDataValidWhenSearch() {
 		            		var shainInfoResponse = data.shainInfo; // get shainInfo from response and add token to json object
 		            		var shainInfo =
 		            			{
-		            				"shainNo"          : shainInfoResponse.shainNo,
+		            				"shainNo"          : shainNoValue,
 		            				"shainNameSei"     : shainInfoResponse.nameSei,
 		            				"shainNameMei"     : shainInfoResponse.nameMei,
 		            				"shainNameSeiKana" : shainInfoResponse.nameKanaSei,
