@@ -4,13 +4,13 @@ public class MyNumberUrl {
 
 	// S1
 	public static final String SHAIN_EXIST_CHECK = "/shainExistCheck";
-	public static final String NEXT_TO_STAFF_EXIST_CHECK = "/nextToStaffExistCheck";
+	public static final String SEARCH_SHAIN = "/searchShain";
 	public static final String BACK_TO_SHAIN_EXIST_CHECK = "/backToShainExistCheck";
 	public static final String REMOVE_SESSION_SHAIN = "/removeSessionShain";
 
 	// S2
 	public static final String STAFF_EXIST_CHECK = "/staffExistCheck";
-	public static final String NEXT_TO_PURPOSE_CONSENT = "/nextToPurposeConsent";
+	public static final String SEARCH_STAFF = "/searchStaff";
 	public static final String BACK_TO_STAFF_EXIST_CHECK = "/backToStaffExistCheck";
 	public static final String REMOVE_SESSION_STAFF = "/removeSessionStaff";
 

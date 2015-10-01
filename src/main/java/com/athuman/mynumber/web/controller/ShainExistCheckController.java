@@ -38,7 +38,7 @@ public class ShainExistCheckController {
 	}
 
 	// submit shainExistCheck page
-	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.SEARCH_SHAIN, method = RequestMethod.POST)
 	public String search(@RequestBody String shainInfo, 
 			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm, 
 			BindingResult binding,
@@ -77,7 +77,7 @@ public class ShainExistCheckController {
 
 	}
 
-	@RequestMapping(value = MyNumberUrl.NEXT_TO_STAFF_EXIST_CHECK, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.SHAIN_EXIST_CHECK, method = RequestMethod.POST)
 	public String next(@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModelForm,
 			BindingResult binding,
 			Model model,

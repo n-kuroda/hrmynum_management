@@ -5,7 +5,7 @@ function checkDataValid() {
 		return true;
 	} else {
 		var form = document.forms["staffExistCheckForm"];
-		form.action = "nextToPurposeConsent";
+		form.action = "staffExistCheck";
 		form.submit();
 	}
 }
@@ -85,7 +85,7 @@ function checkDataValidWhenSearch() {
 		            			};
 
 		            		$.ajax({
-		        		        url: "staffExistCheck",
+		        		        url: "searchStaff",
 		        		        type: 'POST',
 		        		        data: JSON.stringify(staffInfoDto),
 		    			        cache:false,
