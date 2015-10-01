@@ -1,5 +1,6 @@
 package com.athuman.mynumber.web.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -7,11 +8,11 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.athuman.mynumber.web.dto.ColectionInfoDto;
 import com.athuman.mynumber.web.dto.ColectionInfoRegistDto;
 import com.athuman.mynumber.web.dto.Dependents;
-import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.model.ShainInfoModel;
@@ -38,6 +38,7 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class ColectionInfoRegistController {
 
 	private static final int PREFIX_BASE64_TEXT_LENGTH = 22;
+	private String autoUUID = "";
 
 	@Autowired(required=true)
 	@Qualifier(value="myNumberAPIService")
@@ -49,7 +50,7 @@ public class ColectionInfoRegistController {
 
 	// show colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session) {
+	public String show(Model model, HttpSession session) throws Exception {
 
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(session, model)) {
@@ -69,30 +70,13 @@ public class ColectionInfoRegistController {
 		ObjectMapper mapper = new ObjectMapper();
 		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(dataInfo, ColectionInfoRegistDto.class);
 
-		// Generator random UUID
- 		String uuid = UUID.randomUUID().toString();
-
 		// get data form session
 		StaffInfoModel staffInfo = getStaffInfo((StaffInfoModel)session.getAttribute("staffInfoModel"));
 		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 
-		// set data for API
-		ColectionInfoDto colectionInfo = new ColectionInfoDto();
-		colectionInfo.setHimodukeNo(uuid);
-		colectionInfo.setStaffNo(staffInfo.getStaffNo());
-		colectionInfo.setShodakuFlag(staffInfo.getConsent());
-		colectionInfo.setFuyoInfoList(dependentInfo.getDependents());
-
-		// TODO call [collectionInfo] API
-		ResponseEntity<MyNumberResponseDto> responseDto = myNumberAPIService.collectionInfo(colectionInfo);
-
-		// when status code != 200
-		if (HttpStatus.OK != responseDto.getStatusCode()) {
-			return ConstValues.COLLECT_INFO_REGIST_FAIL;
-		}
 		// regist to DB
-		MyNumber myNumber = setData4MyNumber(staffInfo, uuid, shainInfoModel,
+		MyNumber myNumber = setData4MyNumber(staffInfo, autoUUID, shainInfoModel,
 				dependentInfo, colectionInfoRegistForm);
 
 		// store data directly to DB
@@ -139,18 +123,48 @@ public class ColectionInfoRegistController {
 		return string;
 	}
 
+	// Generator random UUID
+	private String generateUUID() {
+		return UUID.randomUUID().toString();
+	}
+
+	// convert to json object
+	private String toJsonString(String str) {
+		return str.replaceAll("\"", "'");
+	}
+	
 	/** Init data for jsp
 	 *
 	 * @param model
 	 * @param session
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonGenerationException 
 	 */
-	private void initData(Model model, HttpSession session) {
+	private void initData(Model model, HttpSession session) throws Exception {
 
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {
 			staffInfoModel = new StaffInfoModel();
 		}
+		
+		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
+		
+		autoUUID = generateUUID();
+
+		// set data for API
+		ColectionInfoDto colectionInfo = new ColectionInfoDto();
+		colectionInfo.setHimodukeNo(autoUUID);
+		colectionInfo.setStaffNo(staffInfoModel.getStaffNo());
+		colectionInfo.setShodakuFlag(staffInfoModel.getConsent());
+		colectionInfo.setFuyoInfoList(dependentInfo.getDependents());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String colectionInfoJson = toJsonString(mapper.writeValueAsString(colectionInfo));
+		  
 		model.addAttribute("staffInfoModel", staffInfoModel);
+		//store data to hidden field for passing data to API check
+		model.addAttribute("colectionInfo", colectionInfoJson);
 	}
 
 	/** set data for my number

@@ -29,6 +29,9 @@
             </div>
             <div id="content">
                 <form:form id="colectionInfoRegistForm" modelAttribute="colectionInfoRegistDto" cssClass="txtCenterC">
+                
+                	<input type="hidden" name="colectionInfo" id="colectionInfo" value="${colectionInfo}">
+
 	               	<div id ="checkColectionNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>

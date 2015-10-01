@@ -70,24 +70,59 @@ function getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, no
 	return dataInfo;
 }
 
+function replaceForJson(string) {
+	return string.replace(/'/g, '"');
+}
+
 function callTACTApi(dataInfo) {
+
 	var registFail = document.getElementById('checkRegistMyNumber');
-	$.ajax({
-		url : "colectionInfoRegist",
-		type : 'POST',
-		data : JSON.stringify(dataInfo),
-		cache : false,
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("Accept", "application/json");
-			xhr.setRequestHeader("Content-Type", "application/json");
-		},
-		success : function(redirect_page) {
-			window.location.href = "registComplete";
-		},
-		error : function(jqXhr, textStatus, errorThrown) {
-			registFail.style.display = 'block';
-		}
-	});
+
+	// get value are set from hidden field
+	var colectionInfo = jQuery.parseJSON(replaceForJson($('#colectionInfo').val()));
+
+	var himodukeNo   = colectionInfo.himodukeNo;
+	var staffNo      = colectionInfo.staffNo;
+	var shodakuFlag  = colectionInfo.shodakuFlag;
+	var fuyoInfoList = colectionInfo.fuyoInfoList;
+	
+	 $.ajax({
+		 type: "GET",
+            url: "http://10.170.122.93/tact-hr/api/colectionInfoRegist/" + himodukeNo + "/" + staffNo + "/" + shodakuFlag + "/" + fuyoInfoList,
+            dataType: "jsonp",
+            success: function(data, xhr, status) {
+
+            	// show error if data returned is invalid or not OK
+            	if (data == undefined || status.status != 200) {
+            		// display error on GUI
+            		registFail.style.display = 'block';            		
+            		return;
+            	} else {
+            		
+            		$.ajax({
+            			url : "colectionInfoRegist",
+            			type : 'POST',
+            			data : JSON.stringify(dataInfo),
+            			cache : false,
+            			beforeSend : function(xhr) {
+            				xhr.setRequestHeader("Accept", "application/json");
+            				xhr.setRequestHeader("Content-Type", "application/json");
+            			},
+            			success : function(redirect_page) {
+            				window.location.href = "registComplete";
+            			},
+            			error : function(jqXhr, textStatus, errorThrown) {
+            				registFail.style.display = 'block';
+            			}
+            		});
+            	}
+            },
+            error: function(data, xhr, status) {
+            	// display error on the GUI
+            	registFail.style.display = 'block';            	
+            	return;
+            }
+	 });
 }
 
 function loadStaffSign(){

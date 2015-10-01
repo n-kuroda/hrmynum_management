@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.athuman.mynumber.web.dao.ServiceDAO;
-import com.athuman.mynumber.web.dto.ColectionInfoDto;
 import com.athuman.mynumber.web.dto.MyNumberResponseDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.MyNumberAPIService;
@@ -88,21 +87,6 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 	@Transactional
 	public String registMyNumber(MyNumber myNumber) {
 		return serviceDAO.addMyNumber(myNumber);
-	}
-
-	/** create [collectionInfo] API*/
-	// TODO: replace real [collectionInfo] API here
-	@Override
-	public ResponseEntity<MyNumberResponseDto> collectionInfo(ColectionInfoDto colectionInfoDto) {
-
-		HttpStatus status = HttpStatus.OK; // 200
-		HttpHeaders headers = new HttpHeaders();
-		
-		MyNumberResponseDto responseDto = new MyNumberResponseDto();
-		responseDto.setMyNumber("");
-		responseDto.setResultMessage("");
-
-		return new ResponseEntity<MyNumberResponseDto>(responseDto, headers, status);
 	}
 
 	public void setServiceDAO(ServiceDAO serviceDAO) {
