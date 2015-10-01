@@ -86,10 +86,21 @@ function callTACTApi(dataInfo) {
 	var shodakuFlag  = colectionInfo.shodakuFlag;
 	var fuyoInfoList = colectionInfo.fuyoInfoList;
 	
+	var dataInfo = {
+			"himodukeNo":himodukeNo,
+			"staffNo":staffNo,
+			"shodakuFlag":shodakuFlag
+	};
+	
+	if (fuyoInfoList != undefined) {
+		dataInfo.fuyoInfoList = fuyoInfoList;
+	}
+	
 	 $.ajax({
-		 type: "GET",
-            url: "http://10.170.122.93/tact-hr/api/colectionInfoRegist/" + himodukeNo + "/" + staffNo + "/" + shodakuFlag + "/" + fuyoInfoList,
+		 type: "POST",
+            url:  "http://10.170.122.93/tact-hr/api/himoduke/",
             dataType: "jsonp",
+            data: dataInfo,
             success: function(data, xhr, status) {
 
             	// show error if data returned is invalid or not OK

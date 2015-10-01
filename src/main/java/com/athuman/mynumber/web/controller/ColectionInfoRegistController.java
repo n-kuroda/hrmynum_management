@@ -2,6 +2,7 @@ package com.athuman.mynumber.web.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -133,6 +134,21 @@ public class ColectionInfoRegistController {
 		return str.replaceAll("\"", "'");
 	}
 	
+	// get valid dependents list 
+	private List<Dependents> getValidDependentsList(List<Dependents> dependents) {
+		
+		List<Dependents> retList = new ArrayList<Dependents>();
+		if (dependents != null && dependents.size() > 0) {
+			for (Dependents item: dependents) {
+				if (StringUtil.isNotEmpty(item.getDependentsMyNumber())) {
+					retList.add(item);
+				}
+			}
+		}
+		
+		return retList;
+	}
+	
 	/** Init data for jsp
 	 *
 	 * @param model
@@ -157,7 +173,11 @@ public class ColectionInfoRegistController {
 		colectionInfo.setHimodukeNo(autoUUID);
 		colectionInfo.setStaffNo(staffInfoModel.getStaffNo());
 		colectionInfo.setShodakuFlag(staffInfoModel.getConsent());
-		colectionInfo.setFuyoInfoList(dependentInfo.getDependents());
+		
+		List<Dependents> dependents = getValidDependentsList(dependentInfo.getDependents());
+		if (dependents != null && dependents.size() > 0) {
+			colectionInfo.setFuyoInfoList(dependents);
+		}
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String colectionInfoJson = toJsonString(mapper.writeValueAsString(colectionInfo));
