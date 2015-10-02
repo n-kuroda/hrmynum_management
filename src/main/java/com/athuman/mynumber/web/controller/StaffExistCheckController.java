@@ -43,7 +43,7 @@ public class StaffExistCheckController {
 	}
 
 	// submit staffExistCheck page
-	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.SEARCH_STAFF, method = RequestMethod.POST)
 	public String search(@RequestBody String staffInfo, 
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm, 
 			BindingResult binding,
@@ -94,7 +94,7 @@ public class StaffExistCheckController {
 		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
 
-	@RequestMapping(value = MyNumberUrl.NEXT_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
+	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.POST)
 	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModelForm,
 			BindingResult binding, 
 			Model model, 

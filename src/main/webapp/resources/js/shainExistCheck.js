@@ -6,7 +6,7 @@ function checkDataValid() {
 		return true;
 	} else {
 		var form = document.forms["shainExistCheckForm"];
-		form.action = "nextToStaffExistCheck";
+		form.action = "shainExistCheck";
 		form.submit();
 	}
 }
@@ -66,7 +66,7 @@ function checkDataValidWhenSearch() {
 
 			 $.ajax({
 		            type: "POST",
-		            url: "shainExistCheck",
+		            url: "searchShain",
 		            data: JSON.stringify(shainInfo),
 			        cache:false,
 			        beforeSend: function(xhr) {
