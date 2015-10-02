@@ -22,6 +22,12 @@
 
 </head>
 <body>
+<script type="text/javascript">
+    history.pushState(null, null, null);
+    window.addEventListener("popstate", function() {
+        history.pushState(null, null, null);
+    });
+</script>
 	<div id="wrapper">
         <div id="main-content">
             <div id="header" class="h40">
