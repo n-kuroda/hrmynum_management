@@ -1,6 +1,16 @@
 package com.athuman.mynumber.web.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,10 +44,11 @@ import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Controller
 public class ColectionInfoRegistController {
-
+	
 	private static final int PREFIX_BASE64_TEXT_LENGTH = 22;
 	private String autoUUID = "";
 
@@ -63,13 +74,19 @@ public class ColectionInfoRegistController {
 				new ColectionInfoRegistDto());
 		return MyNumberJsp.COLECTION_INFO_REGIST;
 	}
-
+	
 	// submit colectionInfoRegist page
 	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
-	public String regist(@RequestBody String dataInfo, HttpSession session) throws Exception {
+	public String regist(@RequestBody String miteikyoRiyu, HttpSession session, Model model) throws Exception {
+		
+		postRequest(session, model);
 
 		ObjectMapper mapper = new ObjectMapper();
-		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(dataInfo, ColectionInfoRegistDto.class);
+		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(miteikyoRiyu, ColectionInfoRegistDto.class);
+		
+		if (!ValidateUtil.isNotNullSession(session, model)) {
+			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
+		}
 
 		// get data form session
 		StaffInfoModel staffInfo = getStaffInfo((StaffInfoModel)session.getAttribute("staffInfoModel"));
@@ -82,7 +99,6 @@ public class ColectionInfoRegistController {
 
 		// store data directly to DB
 		String result = myNumberAPIService.registMyNumber(myNumber);
-
 		if (ConstValues.SAVE_DB_FAIL.equals(result)) {
 			return ConstValues.COLLECT_INFO_REGIST_FAIL;
 		} else {
@@ -90,7 +106,7 @@ public class ColectionInfoRegistController {
 		}
 		return MyNumberJsp.REDIRECT_REGIST_COMPLETE;
 	}
-
+	
 	/** get StaffInfo when Identification has blank value
 	 *
 	 * @param staffInfo
@@ -186,6 +202,73 @@ public class ColectionInfoRegistController {
 		//store data to hidden field for passing data to API check
 		model.addAttribute("colectionInfo", colectionInfoJson);
 	}
+	
+	
+	private void postRequest(HttpSession session,  Model model) throws Exception {
+		// basicauth
+		try {
+			Authenticator.setDefault(new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("960228", "bgt54rfV"
+							.toCharArray());
+				}
+			});
+			
+			// post request
+			URL url = new URL("http://10.170.122.93/tact-hr/api/himoduke/");
+			HttpURLConnection http = (HttpURLConnection) url.openConnection();
+			http.setRequestMethod("POST");
+			http.setDoOutput(true);
+			http.setRequestProperty("Content-Type", "application/json");
+			http.setRequestProperty("Accept-Language", "ja");
+			OutputStream os = http.getOutputStream();
+			PrintStream ps = new PrintStream(os);
+			ps.print(createSendData(model, session));
+			ps.close();
+
+			// get response body
+			InputStream is = http.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					is, StandardCharsets.UTF_8));
+			StringBuilder sbBody = new StringBuilder();
+			String s;
+			while ((s = reader.readLine()) != null) {
+				sbBody.append(s);
+				sbBody.append("\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private String createSendData(Model model, HttpSession session) throws Exception{
+		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
+		if (staffInfoModel == null) {
+			staffInfoModel = new StaffInfoModel();
+		}
+		
+		DependentsInfoListModel dependentInfo = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
+		
+		autoUUID = generateUUID();
+
+		// set data for API
+		ColectionInfoDto colectionInfo = new ColectionInfoDto();
+		colectionInfo.setHimodukeNo(autoUUID);
+		colectionInfo.setStaffNo(staffInfoModel.getStaffNo());
+		colectionInfo.setShodakuFlag(staffInfoModel.getConsent());
+		
+		List<Dependents> dependents = getValidDependentsList(dependentInfo.getDependents());
+		if (dependents != null && dependents.size() > 0) {
+			colectionInfo.setFuyoInfoList(dependents);
+		}
+		
+		com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper()
+				.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+		return mapper.writeValueAsString(colectionInfo);
+		 
+	}
+
 
 	/** set data for my number
 	 *

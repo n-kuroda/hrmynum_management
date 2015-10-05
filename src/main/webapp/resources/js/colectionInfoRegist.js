@@ -60,13 +60,13 @@ function getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, no
 		miteikyoRiyu3Value = noHousehold == null ? "1" : "0";
 		miteikyoRiyu4Value = noMyNumber == null ? "1" : "0";
 	}
-	var dataInfo = {
+	var dataInfo = JSON.stringify({
 			"miteikyoRiyu1" : miteikyoRiyu1Value,
 			"miteikyoRiyu2" : miteikyoRiyu2Value,
 			"miteikyoRiyu3" : miteikyoRiyu3Value,
 			"miteikyoRiyu4" : miteikyoRiyu4Value,
 			"staffSign" : staffSignValue
-		};
+		});
 	return dataInfo;
 }
 
@@ -77,61 +77,25 @@ function replaceForJson(string) {
 function callTACTApi(dataInfo) {
 
 	var registFail = document.getElementById('checkRegistMyNumber');
-
-	// get value are set from hidden field
-	var colectionInfo = jQuery.parseJSON(replaceForJson($('#colectionInfo').val()));
-
-	var himodukeNo   = colectionInfo.himodukeNo;
-	var staffNo      = colectionInfo.staffNo;
-	var shodakuFlag  = colectionInfo.shodakuFlag;
-	var fuyoInfoList = colectionInfo.fuyoInfoList;
-	
-	var dataInfo = {
-			"himodukeNo":himodukeNo,
-			"staffNo":staffNo,
-			"shodakuFlag":shodakuFlag
-	};
-	
-	if (fuyoInfoList != undefined) {
-		dataInfo.fuyoInfoList = fuyoInfoList;
-	}
 	
 	 $.ajax({
-		 type: "POST",
-            url:  "http://10.170.122.93/tact-hr/api/himoduke/",
-            dataType: "jsonp",
+		    type: "POST",
+            url: "colectionInfoRegist",
             data: dataInfo,
+			cache : false,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("Accept", "application/json");
+				xhr.setRequestHeader("Content-Type", "application/json");
+			},
+            xhrFields: {
+                withCredentials: true
+              },
             success: function(data, xhr, status) {
-
-            	// show error if data returned is invalid or not OK
-            	if (data == undefined || status.status != 200) {
-            		// display error on GUI
-            		registFail.style.display = 'block';            		
-            		return;
-            	} else {
-            		
-            		$.ajax({
-            			url : "colectionInfoRegist",
-            			type : 'POST',
-            			data : JSON.stringify(dataInfo),
-            			cache : false,
-            			beforeSend : function(xhr) {
-            				xhr.setRequestHeader("Accept", "application/json");
-            				xhr.setRequestHeader("Content-Type", "application/json");
-            			},
-            			success : function(redirect_page) {
-            				window.location.href = "registComplete";
-            			},
-            			error : function(jqXhr, textStatus, errorThrown) {
-            				registFail.style.display = 'block';
-            			}
-            		});
-            	}
-            },
-            error: function(data, xhr, status) {
+            	window.location.href = "registComplete";            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            	console.log("NG:" + textStatus.status);
             	// display error on the GUI
             	registFail.style.display = 'block';            	
-            	return;
             }
 	 });
 }
