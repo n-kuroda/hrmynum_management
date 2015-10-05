@@ -13,6 +13,10 @@ public class ColectionInfoRegistDto implements Serializable {
 	private String miteikyoRiyu3;
 
 	private String miteikyoRiyu4;
+	
+	private String miteikyoRiyu5;
+
+	private String miteikyoRiyu6;
 
 	private String staffSign;
 
@@ -54,6 +58,22 @@ public class ColectionInfoRegistDto implements Serializable {
 
 	public void setMiteikyoRiyu4(String miteikyoRiyu4) {
 		this.miteikyoRiyu4 = miteikyoRiyu4;
+	}
+	
+	public String getMiteikyoRiyu5() {
+		return miteikyoRiyu5;
+	}
+
+	public void setMiteikyoRiyu5(String miteikyoRiyu5) {
+		this.miteikyoRiyu5 = miteikyoRiyu5;
+	}
+
+	public String getMiteikyoRiyu6() {
+		return miteikyoRiyu6;
+	}
+
+	public void setMiteikyoRiyu6(String miteikyoRiyu6) {
+		this.miteikyoRiyu6 = miteikyoRiyu6;
 	}
 
 }

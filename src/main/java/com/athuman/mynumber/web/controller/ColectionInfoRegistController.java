@@ -292,11 +292,14 @@ public class ColectionInfoRegistController {
 				myNumber.setMiteikyoRiyu2(colectionInfoRegistForm.getMiteikyoRiyu2());
 				myNumber.setMiteikyoRiyu3(colectionInfoRegistForm.getMiteikyoRiyu3());
 				myNumber.setMiteikyoRiyu4(colectionInfoRegistForm.getMiteikyoRiyu4());
+				myNumber.setMiteikyoRiyu5(colectionInfoRegistForm.getMiteikyoRiyu5());
+				myNumber.setMiteikyoRiyu6(colectionInfoRegistForm.getMiteikyoRiyu6());
 			} else {
 				myNumber.setMiteikyoRiyu1(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu2(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu3(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu4(ConstValues.CHECKBOX_NOT_SELECT);
+
 			}
 
 			List<Dependents> dependents = dependentInfo.getDependents();

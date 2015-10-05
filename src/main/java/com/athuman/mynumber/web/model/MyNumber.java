@@ -37,6 +37,12 @@ public class MyNumber implements Serializable {
 
 	@Column(name = "MITEIKYO_RIYU4", length = 1, nullable = false)
 	private String miteikyoRiyu4;
+	
+	@Column(name = "MITEIKYO_RIYU5", length = 1, nullable = false)
+	private String miteikyoRiyu5;
+	
+	@Column(name = "MITEIKYO_RIYU6", length = 50, nullable = false)
+	private String miteikyoRiyu6;
 
 	@Column(name = "STAFF_MYNUMBER", length = 100)
 	private String staffMyNumber;
@@ -532,6 +538,22 @@ public class MyNumber implements Serializable {
 
 	public void setMiteikyoRiyu4(String miteikyoRiyu4) {
 		this.miteikyoRiyu4 = miteikyoRiyu4;
+	}
+	
+	public String getMiteikyoRiyu5() {
+		return miteikyoRiyu5;
+	}
+
+	public void setMiteikyoRiyu5(String miteikyoRiyu5) {
+		this.miteikyoRiyu5 = miteikyoRiyu5;
+	}
+	
+	public String getMiteikyoRiyu6() {
+		return miteikyoRiyu6;
+	}
+
+	public void setMiteikyoRiyu6(String miteikyoRiyu6) {
+		this.miteikyoRiyu6 = miteikyoRiyu6;
 	}
 
 	public String getMyNumberKakuninTeijiShorui() {

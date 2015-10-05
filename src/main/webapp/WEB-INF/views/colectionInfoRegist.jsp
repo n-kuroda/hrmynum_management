@@ -44,6 +44,18 @@
 					<div id ="checkRequiedCheckBox">
 						<fmt:message key="V00016"/>
 					</div>
+					<div id ="checkOtherReson">
+						<fmt:message key="V00017"/>
+					</div>
+					<div id ="checkOtherCheck">
+						<fmt:message key="V00018"/>
+					</div>
+					<div id ="checkOtherResonlength">
+						<fmt:message key="V00005">
+							<fmt:param value="その他（理由）"/>
+							<fmt:param value="400"/>
+						</fmt:message>
+					</div>
 					<div id="checkRegistMyNumber">
 						<fmt:message key="S00001">
 							<fmt:param value="登録"/>
@@ -56,24 +68,32 @@
 								<div><spring:message text="未提供理由を選択の上、登録ボタンをタップしてください。" /></div>
 								<div class="ml10 mt20">
 									<div class="mt10">
-										<form:checkbox path="miteikyoRiyu1" value="1"/>
+										<form:checkbox id="miteikyoRiyu1" path="miteikyoRiyu1" value="1"/>
 										<spring:message text="提供したくない" />
 									</div>
 
 									<div class="mt10">
-										<form:checkbox path="miteikyoRiyu2" value="1"/>
+										<form:checkbox id="miteikyoRiyu2" path="miteikyoRiyu2" value="1"/>
 										<spring:message text="住民票が国内にない" />
 									</div>
 
 									<div class="mt10">
-										<form:checkbox path="miteikyoRiyu3" value="1"/>
+										<form:checkbox id="miteikyoRiyu3" path="miteikyoRiyu3" value="1"/>
 										<spring:message text="住民票を持っていない" />
 									</div>
 
 									<div class="mt10">
-										<form:checkbox path="miteikyoRiyu4" value="1"/>
+										<form:checkbox id="miteikyoRiyu4" path="miteikyoRiyu4" value="1"/>
 										<spring:message text="マイナンバーを持っていない" />
 									</div>
+																		
+									<div class="mt10">
+										<form:checkbox id="miteikyoRiyu5" path="miteikyoRiyu5" value="1"/>
+										<spring:message text="その他" />
+									</div>
+									
+									<form:textarea path="miteikyoRiyu6" cssErrorClass="error"/>
+									
 								</div>
 	                		</div>
 	                	</c:when>

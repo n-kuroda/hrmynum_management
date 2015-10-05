@@ -4,67 +4,110 @@ function checkRequiedCheckBox() {
 		return true;
 	} else {
 		var reasonForChoosing = document.getElementById('reasonForChoosing');
-		var noWantToProvide = document.getElementById('miteikyoRiyu11');
-		var noHouseholdInTheCountry = document.getElementById('miteikyoRiyu21');
-		var noHousehold = document.getElementById('miteikyoRiyu31');
-		var noMyNumber = document.getElementById('miteikyoRiyu41');
+		var miteikyoRiyu1 = document.getElementById('miteikyoRiyu1');
+		var miteikyoRiyu2 = document.getElementById('miteikyoRiyu2');
+		var miteikyoRiyu3 = document.getElementById('miteikyoRiyu3');
+		var miteikyoRiyu4 = document.getElementById('miteikyoRiyu4');
+		var miteikyoRiyu5 = document.getElementById('miteikyoRiyu5');
+		var miteikyoRiyu6 = document.getElementById('miteikyoRiyu6').value;
 		if (reasonForChoosing != null) {
+			
+			var inputError = false;
 
-			if (noWantToProvide.checked == 1 ||
-				noHouseholdInTheCountry.checked == 1 ||
-				noHousehold.checked == 1 ||
-				noMyNumber.checked == 1) {
-
-				callTACTApi(getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, noHousehold, noMyNumber));
-
-				return false;
+			// no select check
+			if (!miteikyoRiyu1.checked && !miteikyoRiyu2.checked && !miteikyoRiyu3.checked && !miteikyoRiyu4.checked && !miteikyoRiyu5.checked) {
+				var checkCheckBox = document.getElementById('checkRequiedCheckBox');
+				checkCheckBox.style.display = 'block';
+				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				if(errorOther != null) {
+					errorOther.style.display = 'none';
+				}
+				inputError = true;
 			}
-			var checkCheckBox = document.getElementById('checkRequiedCheckBox');
-			checkCheckBox.style.display = 'block';
-			var errorOther = document.getElementById('checkColectionNetworkOffLine');
-			if(errorOther != null) {
-				errorOther.style.display = 'none';
+			
+			if(400 < miteikyoRiyu6.length){
+				var checkOtherResonlength = document.getElementById('checkOtherResonlength');
+				checkOtherResonlength.style.display = 'block';
+				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				if(errorOther != null) {
+					errorOther.style.display = 'none';
+				}
+				inputError = true;			
 			}
-			return true;
+			
+			// correlation check
+			if(miteikyoRiyu5.checked && miteikyoRiyu6.length == 0){
+				var checkOtherReson = document.getElementById('checkOtherReson');
+				checkOtherReson.style.display = 'block';
+				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				if(errorOther != null) {
+					errorOther.style.display = 'none';
+				}
+				document.getElementById('miteikyoRiyu6').className = 'error';
+				inputError = true;				
+			}
+			if(!miteikyoRiyu5.checked && miteikyoRiyu6.length != 0){
+				var checkOtherReson = document.getElementById('checkOtherCheck');
+				checkOtherReson.style.display = 'block';
+				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				if(errorOther != null) {
+					errorOther.style.display = 'none';
+				}
+				inputError = true;
+			}
+			
+			if(inputError){
+				return true;
+			}
+			
+			// regist
+			callTACTApi(getData(reasonForChoosing, miteikyoRiyu1, miteikyoRiyu2, miteikyoRiyu3, miteikyoRiyu4, miteikyoRiyu5, miteikyoRiyu6));
+			return false;
+
 		} else {
 
-			callTACTApi(getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, noHousehold, noMyNumber));
+			callTACTApi(getData(reasonForChoosing, miteikyoRiyu1, miteikyoRiyu2, miteikyoRiyu3, miteikyoRiyu4, miteikyoRiyu5, miteikyoRiyu6));
 		}
 	}
 }
 
 function clearMessage() {
-	var checkCheckBox = document.getElementById('checkRequiedCheckBox');
-	var errorOther = document.getElementById('checkColectionNetworkOffLine');
-	var registFail = document.getElementById('checkRegistMyNumber');
-	registFail.style.display = 'none';
-	errorOther.style.display = 'none';
-	checkCheckBox.style.display = 'none';
+	document.getElementById('checkRegistMyNumber').style.display = 'none';
+	document.getElementById('checkColectionNetworkOffLine').style.display = 'none';
+	document.getElementById('checkRequiedCheckBox').style.display = 'none';
+	document.getElementById('checkOtherReson').style.display = 'none';
+	document.getElementById('checkOtherCheck').style.display = 'none';
+	document.getElementById('miteikyoRiyu6').className = '';
 }
 
-function getData(reasonForChoosing, noWantToProvide, noHouseholdInTheCountry, noHousehold, noMyNumber) {
+function getData(reasonForChoosing, miteikyoRiyu1, miteikyoRiyu2, miteikyoRiyu3, miteikyoRiyu4, miteikyoRiyu5, miteikyoRiyu6) {
 	var miteikyoRiyu1Value = null;
 	var miteikyoRiyu2Value = null;
 	var miteikyoRiyu3Value = null;
 	var miteikyoRiyu4Value = null;
+	var miteikyoRiyu5Value = null;
 	var staffSignValue = $('#staffSign').val();
 	
 	if (reasonForChoosing != null) {
-		miteikyoRiyu1Value = noWantToProvide.checked ? "1" : "0";
-		miteikyoRiyu2Value = noHouseholdInTheCountry.checked ? "1" : "0";
-		miteikyoRiyu3Value = noHousehold.checked ? "1" : "0";
-		miteikyoRiyu4Value = noMyNumber.checked ? "1" : "0";
+		miteikyoRiyu1Value = miteikyoRiyu1.checked ? "1" : "0";
+		miteikyoRiyu2Value = miteikyoRiyu2.checked ? "1" : "0";
+		miteikyoRiyu3Value = miteikyoRiyu3.checked ? "1" : "0";
+		miteikyoRiyu4Value = miteikyoRiyu4.checked ? "1" : "0";
+		miteikyoRiyu5Value = miteikyoRiyu5.checked ? "1" : "0";
 	} else {
-		miteikyoRiyu1Value = noWantToProvide == null ? "1" : "0";
-		miteikyoRiyu2Value = noHouseholdInTheCountry == null ? "1" : "0";
-		miteikyoRiyu3Value = noHousehold == null ? "1" : "0";
-		miteikyoRiyu4Value = noMyNumber == null ? "1" : "0";
+		miteikyoRiyu1Value = miteikyoRiyu1 == null ? "1" : "0";
+		miteikyoRiyu2Value = miteikyoRiyu2 == null ? "1" : "0";
+		miteikyoRiyu3Value = miteikyoRiyu3 == null ? "1" : "0";
+		miteikyoRiyu4Value = miteikyoRiyu4 == null ? "1" : "0";
+		miteikyoRiyu5Value = miteikyoRiyu5 == null ? "1" : "0";
 	}
 	var dataInfo = JSON.stringify({
 			"miteikyoRiyu1" : miteikyoRiyu1Value,
 			"miteikyoRiyu2" : miteikyoRiyu2Value,
 			"miteikyoRiyu3" : miteikyoRiyu3Value,
 			"miteikyoRiyu4" : miteikyoRiyu4Value,
+			"miteikyoRiyu5" : miteikyoRiyu5Value,
+			"miteikyoRiyu6" : miteikyoRiyu6,
 			"staffSign" : staffSignValue
 		});
 	return dataInfo;
