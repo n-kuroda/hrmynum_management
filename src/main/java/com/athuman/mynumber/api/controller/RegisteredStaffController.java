@@ -44,7 +44,7 @@ public class RegisteredStaffController {
 
 			HttpHeaders headers = new HttpHeaders();
 			HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-			dto.setResultMessage(ConstValues.API_OTHER_ERROR);
+			dto.setResultMessage(ConstValues.API_MSG_UNEXPECTED_ERROR);
 			dto.setResult(ConstValues.API_RESULT_0);
 
 			result = new ResponseEntity<RegisteredStaffAPIResponseDto>(dto, headers, status);

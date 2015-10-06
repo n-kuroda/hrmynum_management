@@ -13,7 +13,6 @@ import com.athuman.mynumber.web.dao.ServiceDAO;
 import com.athuman.mynumber.web.dto.RegisteredStaffAPIResponseDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
-import com.athuman.mynumber.web.util.AESUtil;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.StringUtil;
 
@@ -39,7 +38,7 @@ public class RegisteredStaffAPIServiceImpl implements RegisteredStaffAPIService 
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = new ArrayList<MyNumber>();
 			try {
-				list = serviceDAO.queryMyNumberByHimodukeNo(AESUtil.encrypt(himodukeNo));
+				list = serviceDAO.queryMyNumberByHimodukeNo(himodukeNo);
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens
@@ -52,7 +51,7 @@ public class RegisteredStaffAPIServiceImpl implements RegisteredStaffAPIService 
 
 			// in case DB returned no item found
 			if (ConstValues.API_RETURNED_LIST_LENGTH_0 == list.size()) {
-				status = HttpStatus.NO_CONTENT;
+				status = HttpStatus.OK;
 				dto.setResultMessage(ConstValues.API_MSG_NOITEM_RETURNED);
 				dto.setResult(ConstValues.API_RESULT_0);
 				

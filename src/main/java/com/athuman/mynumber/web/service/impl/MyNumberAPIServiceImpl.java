@@ -34,11 +34,12 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 		if (StringUtil.isNotEmpty(himodukeNo) &&
 				himodukeNo.length() == ConstValues.HIMODUKENO_LENGTH &&
 				StringUtil.isValid(himodukeNo)) {
+			
 
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = new ArrayList<MyNumber>();
 			try {
-				list = serviceDAO.queryMyNumberByHimodukeNo(AESUtil.encrypt(himodukeNo));
+				list = serviceDAO.queryMyNumberByHimodukeNo(himodukeNo);
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens
@@ -51,7 +52,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 
 			// in case DB returned no item found
 			if (ConstValues.API_RETURNED_LIST_LENGTH_0 == list.size()) {
-				status = HttpStatus.NO_CONTENT;
+				status = HttpStatus.OK;
 				dto.setResultMessage(ConstValues.API_MSG_NOITEM_RETURNED);
 				dto.setMyNumber("");
 
@@ -85,7 +86,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 
 	@Override
 	@Transactional
-	public String registMyNumber(MyNumber myNumber) {
+	public String registMyNumber(MyNumber myNumber) {	
 		return serviceDAO.addMyNumber(myNumber);
 	}
 

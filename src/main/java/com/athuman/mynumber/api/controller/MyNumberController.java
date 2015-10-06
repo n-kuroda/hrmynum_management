@@ -44,7 +44,7 @@ public class MyNumberController {
 
 			HttpHeaders headers = new HttpHeaders();
 			HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-			dto.setResultMessage(ConstValues.API_OTHER_ERROR);
+			dto.setResultMessage(ConstValues.API_MSG_UNEXPECTED_ERROR);
 			dto.setMyNumber("");
 
 			result = new ResponseEntity<MyNumberResponseDto>(dto, headers, status);
