@@ -142,7 +142,6 @@ function callTACTApi(dataInfo) {
             success: function(data, xhr, status) {
             	window.location.href = "registComplete";            },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-            	console.log("NG:" + textStatus.status);
             	// display error on the GUI
             	registFail.style.display = 'block';            	
             }

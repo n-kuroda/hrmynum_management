@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -158,7 +157,7 @@ public class ColectionInfoRegistController {
 		List<Dependents> retList = new ArrayList<Dependents>();
 		if (dependents != null && dependents.size() > 0) {
 			for (Dependents item: dependents) {
-				if (StringUtil.isNotEmpty(item.getDependentsMyNumber())) {
+				if (StringUtil.isNotEmpty(item.getFuyoMyNumber())) {
 					retList.add(item);
 				}
 			}
@@ -224,7 +223,7 @@ public class ColectionInfoRegistController {
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("POST");
 			http.setDoOutput(true);
-			http.setRequestProperty("Content-Type", "application/json");
+			http.setRequestProperty("Content-Type", "application/json;charset=sjis");
 			http.setRequestProperty("Accept-Language", "ja");
 			OutputStream os = http.getOutputStream();
 			PrintStream ps = new PrintStream(os);
@@ -310,16 +309,16 @@ public class ColectionInfoRegistController {
 
 			List<Dependents> dependents = dependentInfo.getDependents();
 			if (dependents != null) {
-				myNumber.setFuyo1MyNumber(AESUtil.encrypt(dependents.get(0).getDependentsMyNumber()));
-				myNumber.setFuyo2MyNumber(AESUtil.encrypt(dependents.get(1).getDependentsMyNumber()));
-				myNumber.setFuyo3MyNumber(AESUtil.encrypt(dependents.get(2).getDependentsMyNumber()));
-				myNumber.setFuyo4MyNumber(AESUtil.encrypt(dependents.get(3).getDependentsMyNumber()));
-				myNumber.setFuyo5MyNumber(AESUtil.encrypt(dependents.get(4).getDependentsMyNumber()));
-				myNumber.setFuyo6MyNumber(AESUtil.encrypt(dependents.get(5).getDependentsMyNumber()));
-				myNumber.setFuyo7MyNumber(AESUtil.encrypt(dependents.get(6).getDependentsMyNumber()));
-				myNumber.setFuyo8MyNumber(AESUtil.encrypt(dependents.get(7).getDependentsMyNumber()));
-				myNumber.setFuyo9MyNumber(AESUtil.encrypt(dependents.get(8).getDependentsMyNumber()));
-				myNumber.setFuyo10MyNumber(AESUtil.encrypt(dependents.get(9).getDependentsMyNumber()));
+				myNumber.setFuyo1MyNumber(AESUtil.encrypt(dependents.get(0).getFuyoMyNumber()));
+				myNumber.setFuyo2MyNumber(AESUtil.encrypt(dependents.get(1).getFuyoMyNumber()));
+				myNumber.setFuyo3MyNumber(AESUtil.encrypt(dependents.get(2).getFuyoMyNumber()));
+				myNumber.setFuyo4MyNumber(AESUtil.encrypt(dependents.get(3).getFuyoMyNumber()));
+				myNumber.setFuyo5MyNumber(AESUtil.encrypt(dependents.get(4).getFuyoMyNumber()));
+				myNumber.setFuyo6MyNumber(AESUtil.encrypt(dependents.get(5).getFuyoMyNumber()));
+				myNumber.setFuyo7MyNumber(AESUtil.encrypt(dependents.get(6).getFuyoMyNumber()));
+				myNumber.setFuyo8MyNumber(AESUtil.encrypt(dependents.get(7).getFuyoMyNumber()));
+				myNumber.setFuyo9MyNumber(AESUtil.encrypt(dependents.get(8).getFuyoMyNumber()));
+				myNumber.setFuyo10MyNumber(AESUtil.encrypt(dependents.get(9).getFuyoMyNumber()));
 			}
 
 			if (staffInfo != null) {

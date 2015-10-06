@@ -186,8 +186,8 @@ public class ValidateUtil {
 	 * @return boolean
 	 */
 	public static boolean checkDependentsHasChange(Dependents dependents, StaffInfoModel staffInfoModel){
-		if (!dependents.getDependentsNameSei().equals(staffInfoModel.getStaffNameSei())
-				&& !ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
+		if (!dependents.getFuyoNameSei().equals(staffInfoModel.getStaffNameSei())
+				&& !ConstValues.BLANK.equals(dependents.getFuyoNameSei())) {
 			return true;
 		}
 		return false;
@@ -200,23 +200,23 @@ public class ValidateUtil {
 	 */
 	public static boolean checkDependentsFormHasEdit(Dependents dependents){
 
-		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei()) ||
-			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear()) ||
-			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth()) ||
-			!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay()) ||
-			!ConstValues.BLANK.equals(dependents.getDependentsRelationship()) ||
-			!ConstValues.BLANK.equals(dependents.getDependentsMyNumber()) ||
-			ConstValues.CHECKBOX_SELECT.equals(dependents.getNo3Insured())) {
+		if (!ConstValues.BLANK.equals(dependents.getFuyoNameMei()) ||
+			!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiYear()) ||
+			!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiMonth()) ||
+			!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiDay()) ||
+			!ConstValues.BLANK.equals(dependents.getFuyoZokugara()) ||
+			!ConstValues.BLANK.equals(dependents.getFuyoMyNumber()) ||
+			ConstValues.CHECKBOX_SELECT.equals(dependents.getDaisangoHihokensha())) {
 			return true;
 		}
 
-		if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
-				ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
+		if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getFuyoZokugara()) &&
+				ConstValues.BLANK.equals(dependents.getFuyoZokugaraSonota())) {
 			return true;
 		}
 
-		if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
-				!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
+		if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getFuyoZokugara()) &&
+				!ConstValues.BLANK.equals(dependents.getFuyoZokugaraSonota())) {
 			return true;
 		}
 
@@ -278,40 +278,40 @@ public class ValidateUtil {
 	}
 
 	public static BindingResult checkNameSei(Dependents dependents, BindingResult bindingResult, int index) {
-		if (!ConstValues.BLANK.equals(dependents.getDependentsNameSei())) {
+		if (!ConstValues.BLANK.equals(dependents.getFuyoNameSei())) {
 
-			// check DependentsNameSei > 25 characters
-			if (dependents.getDependentsNameSei().length() > 25) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
+			// check fuyoNameSei > 25 characters
+			if (dependents.getFuyoNameSei().length() > 25) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoNameSei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（姓）", "25"}, null );
 			}
 			// check format nameSei
-			if (!is2ByteCharacters(dependents.getDependentsNameSei())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
+			if (!is2ByteCharacters(dependents.getFuyoNameSei())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoNameSei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（姓）"}, null );
 			}
 		} else {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsNameSei",
+			bindingResult.rejectValue("dependents[" + index + "].fuyoNameSei",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（姓）"}, null );
 		}
 		return bindingResult;
 	}
 
 	public static BindingResult checkNameMei(Dependents dependents, BindingResult bindingResult, int index) {
-		if (!ConstValues.BLANK.equals(dependents.getDependentsNameMei())) {
-			// check DependentsNameMei > 25 characters
-			if (dependents.getDependentsNameMei().length() > 25) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
+		if (!ConstValues.BLANK.equals(dependents.getFuyoNameMei())) {
+			// check fuyoNameMei > 25 characters
+			if (dependents.getFuyoNameMei().length() > 25) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoNameMei",
 						"V00010", new Object[] {"扶養者" + (index + 1), "お名前（名）", "25"}, null );
 			}
 
 			// check format nameMei
-			if (!is2ByteCharacters(dependents.getDependentsNameMei())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
+			if (!is2ByteCharacters(dependents.getFuyoNameMei())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoNameMei",
 						"V00011", new Object[] {"扶養者" + (index + 1), "お名前（名）"}, null );
 			}
 		} else {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsNameMei",
+			bindingResult.rejectValue("dependents[" + index + "].fuyoNameMei",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]お名前（名）"}, null );
 		}
 		return bindingResult;
@@ -320,44 +320,44 @@ public class ValidateUtil {
 	public static BindingResult checkDate(Dependents dependents,
 			BindingResult bindingResult, int index) {
 		// check year invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
-				&& checkYearInvalidRange(dependents.getDependentsBirthdayYear())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
+		if (!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiYear())
+				&& checkYearInvalidRange(dependents.getFuyoSeinengapiYear())) {
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiYear",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（年）"}, null );
-		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayYear",
+		} else if (ConstValues.BLANK.equals(dependents.getFuyoSeinengapiYear())) {
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiYear",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（年）"}, null );
 		}
 
 		// check month invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())
-				&& checkMonthInvalidRange(dependents.getDependentsBirthdayMonth())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
+		if (!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiMonth())
+				&& checkMonthInvalidRange(dependents.getFuyoSeinengapiMonth())) {
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiMonth",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（月）"}, null );
-		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayMonth",
+		} else if (ConstValues.BLANK.equals(dependents.getFuyoSeinengapiMonth())) {
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiMonth",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（月）"}, null );
 		}
 
 		// check day invalid
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())
-				&& checkDayInvalidRange(dependents.getDependentsBirthdayDay())) {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
+		if (!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiDay())
+				&& checkDayInvalidRange(dependents.getFuyoSeinengapiDay())) {
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiDay",
 					"V00013", new Object[] {"扶養者" + (index + 1), "生年月日（日）"}, null );
-		} else if (ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())){
-			bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
+		} else if (ConstValues.BLANK.equals(dependents.getFuyoSeinengapiDay())){
+			bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiDay",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]生年月日（日）"}, null );
 		}
 
-		if (!ConstValues.BLANK.equals(dependents.getDependentsBirthdayYear())
-				&& !ConstValues.BLANK.equals(dependents.getDependentsBirthdayMonth())
-				&& !ConstValues.BLANK.equals(dependents.getDependentsBirthdayDay())) {
+		if (!ConstValues.BLANK.equals(dependents.getFuyoSeinengapiYear())
+				&& !ConstValues.BLANK.equals(dependents.getFuyoSeinengapiMonth())
+				&& !ConstValues.BLANK.equals(dependents.getFuyoSeinengapiDay())) {
 
 			// check day not exist in future
-			if (!isThisDateValid(dependents.getDependentsBirthdayYear(),
-					dependents.getDependentsBirthdayMonth(),
-					dependents.getDependentsBirthdayDay())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsBirthdayDay",
+			if (!isThisDateValid(dependents.getFuyoSeinengapiYear(),
+					dependents.getFuyoSeinengapiMonth(),
+					dependents.getFuyoSeinengapiDay())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiDay",
 						"V00007", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 		}
@@ -367,37 +367,37 @@ public class ValidateUtil {
 
 	public static BindingResult checkRelationship(Dependents dependents,
 			BindingResult bindingResult, int index) {
-		if (!ConstValues.BLANK.equals(dependents.getDependentsRelationship())) {
+		if (!ConstValues.BLANK.equals(dependents.getFuyoZokugara())) {
 
-			// check code DependentsRelationship invalid
-			if (checkRelationshipInvalid(dependents.getDependentsRelationship())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
+			// check code fuyoZokugara invalid
+			if (checkRelationshipInvalid(dependents.getFuyoZokugara())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoZokugara",
 						"V00013", new Object[] {"扶養者" + (index + 1), "続柄"}, null );
 			}
 
-			// check DependentsRelationshipOther
-			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
-					ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
+			// check fuyoZokugaraSonota
+			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getFuyoZokugara()) &&
+					ConstValues.BLANK.equals(dependents.getFuyoZokugaraSonota())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoZokugaraSonota",
 						"V00014", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
-			// check DependentsRelationshipOther
-			if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
-					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
+			// check fuyoZokugaraSonota
+			if (!ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getFuyoZokugara()) &&
+					!ConstValues.BLANK.equals(dependents.getFuyoZokugaraSonota())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoZokugaraSonota",
 						"V00015", new Object[] {"扶養者" + (index + 1)}, null );
 			}
 
-			// check DependentsRelationshipOther format
-			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getDependentsRelationship()) &&
-					!ConstValues.BLANK.equals(dependents.getDependentsRelationshipOther()) &&
-					!is2ByteCharacters(dependents.getDependentsRelationshipOther())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsRelationshipOther",
+			// check fuyoZokugaraSonota format
+			if (ConstValues.DEPENDENTS_RELATIONSHIP_07.equals(dependents.getFuyoZokugara()) &&
+					!ConstValues.BLANK.equals(dependents.getFuyoZokugaraSonota()) &&
+					!is2ByteCharacters(dependents.getFuyoZokugaraSonota())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoZokugaraSonota",
 						"V00011", new Object[] {"扶養者" + (index + 1), "続柄（その他）"}, null );
 			}
 		} else {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsRelationship",
+			bindingResult.rejectValue("dependents[" + index + "].fuyoZokugara",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]続柄"}, null );
 		}
 		return bindingResult;
@@ -405,21 +405,21 @@ public class ValidateUtil {
 
 	public static BindingResult checkMyNumber(Dependents dependents,
 			BindingResult bindingResult, int index) {
-		if (!ConstValues.BLANK.equals(dependents.getDependentsMyNumber())) {
-			// check DependentsMyNumber must be 12 characters
-			if (dependents.getDependentsMyNumber().length() != 12
-					|| !isNumeric(dependents.getDependentsMyNumber())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
+		if (!ConstValues.BLANK.equals(dependents.getFuyoMyNumber())) {
+			// check fuyoMyNumber must be 12 characters
+			if (dependents.getFuyoMyNumber().length() != 12
+					|| !isNumeric(dependents.getFuyoMyNumber())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoMyNumber",
 						"V00010", new Object[] {"扶養者" + (index + 1), "マイナンバー", "12"}, null );
 			}
 
 			// check format My number
-			if (!is1ByteCharacters(dependents.getDependentsMyNumber())) {
-				bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
+			if (!is1ByteCharacters(dependents.getFuyoMyNumber())) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoMyNumber",
 						"V00012", new Object[] {"扶養者" + (index + 1), "マイナンバー"}, null );
 			}
 		} else {
-			bindingResult.rejectValue("dependents[" + index + "].dependentsMyNumber",
+			bindingResult.rejectValue("dependents[" + index + "].fuyoMyNumber",
 					"V00001", new Object[] {"[扶養者" + (index + 1) + "]マイナンバー"}, null );
 		}
 		return bindingResult;

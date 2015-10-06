@@ -2,98 +2,115 @@ package com.athuman.mynumber.web.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Dependents implements Serializable {
 
 	private static final long serialVersionUID = -470489021673919714L;
 
-	private String dependentsNameSei;
+	private String fuyoNameSei;
 
-	private String dependentsNameMei;
+	private String fuyoNameMei;
+	
+	private String fuyoSeinengapi;
 
-	private String dependentsBirthdayYear;
+	@JsonIgnore
+	private String fuyoSeinengapiYear;
 
-	private String dependentsBirthdayMonth;
+	@JsonIgnore
+	private String fuyoSeinengapiMonth;
 
-	private String dependentsBirthdayDay;
+	@JsonIgnore
+	private String fuyoSeinengapiDay;
 
-	private String dependentsRelationship;
+	private String fuyoZokugara;
 
-	private String dependentsRelationshipOther;
+	private String fuyoZokugaraSonota;
 
-	private String dependentsMyNumber;
+	@JsonIgnore
+	private String fuyoMyNumber;
 
-	private String no3Insured;
+	private String daisangoHihokensha;
 
-	public String getDependentsNameSei() {
-		return dependentsNameSei;
+	public String getFuyoNameSei() {
+		return fuyoNameSei;
 	}
 
-	public void setDependentsNameSei(String dependentsNameSei) {
-		this.dependentsNameSei = dependentsNameSei;
+	public void setFuyoNameSei(String fuyoNameSei) {
+		this.fuyoNameSei = fuyoNameSei;
 	}
 
-	public String getDependentsNameMei() {
-		return dependentsNameMei;
+	public String getFuyoNameMei() {
+		return fuyoNameMei;
 	}
 
-	public void setDependentsNameMei(String dependentsNameMei) {
-		this.dependentsNameMei = dependentsNameMei;
+	public void setFuyoNameMei(String fuyoNameMei) {
+		this.fuyoNameMei = fuyoNameMei;
+	}
+	
+	public String getFuyoSeinengapi() {
+		return fuyoSeinengapi;
 	}
 
-	public String getDependentsBirthdayYear() {
-		return dependentsBirthdayYear;
+	public void setFuyoSeinengapi(String fuyoSeinengapi) {
+		this.fuyoSeinengapi = fuyoSeinengapi;
 	}
 
-	public void setDependentsBirthdayYear(String dependentsBirthdayYear) {
-		this.dependentsBirthdayYear = dependentsBirthdayYear;
+
+	public String getFuyoSeinengapiYear() {
+		return fuyoSeinengapiYear;
 	}
 
-	public String getDependentsBirthdayMonth() {
-		return dependentsBirthdayMonth;
+	public void setFuyoSeinengapiYear(String fuyoSeinengapiYear) {
+		this.fuyoSeinengapiYear = fuyoSeinengapiYear;
 	}
 
-	public void setDependentsBirthdayMonth(String dependentsBirthdayMonth) {
-		this.dependentsBirthdayMonth = dependentsBirthdayMonth;
+	public String getFuyoSeinengapiMonth() {
+		return fuyoSeinengapiMonth;
 	}
 
-	public String getDependentsBirthdayDay() {
-		return dependentsBirthdayDay;
+	public void setFuyoSeinengapiMonth(String fuyoSeinengapiMonth) {
+		this.fuyoSeinengapiMonth = fuyoSeinengapiMonth;
 	}
 
-	public void setDependentsBirthdayDay(String dependentsBirthdayDay) {
-		this.dependentsBirthdayDay = dependentsBirthdayDay;
+	public String getFuyoSeinengapiDay() {
+		return fuyoSeinengapiDay;
 	}
 
-	public String getDependentsRelationship() {
-		return dependentsRelationship;
+	public void setFuyoSeinengapiDay(String fuyoSeinengapiDay) {
+		this.fuyoSeinengapiDay = fuyoSeinengapiDay;
 	}
 
-	public void setDependentsRelationship(String dependentsRelationship) {
-		this.dependentsRelationship = dependentsRelationship;
+	public String getFuyoZokugara() {
+		return fuyoZokugara;
 	}
 
-	public String getDependentsRelationshipOther() {
-		return dependentsRelationshipOther;
+	public void setFuyoZokugara(String fuyoZokugara) {
+		this.fuyoZokugara = fuyoZokugara;
 	}
 
-	public void setDependentsRelationshipOther(String dependentsRelationshipOther) {
-		this.dependentsRelationshipOther = dependentsRelationshipOther;
+	public String getFuyoZokugaraSonota() {
+		return fuyoZokugaraSonota;
 	}
 
-	public String getDependentsMyNumber() {
-		return dependentsMyNumber;
+	public void setFuyoZokugaraSonota(String fuyoZokugaraSonota) {
+		this.fuyoZokugaraSonota = fuyoZokugaraSonota;
 	}
 
-	public void setDependentsMyNumber(String dependentsMyNumber) {
-		this.dependentsMyNumber = dependentsMyNumber;
+	public String getFuyoMyNumber() {
+		return fuyoMyNumber;
 	}
 
-	public String getNo3Insured() {
-		return no3Insured;
+	public void setFuyoMyNumber(String fuyoMyNumber) {
+		this.fuyoMyNumber = fuyoMyNumber;
 	}
 
-	public void setNo3Insured(String no3Insured) {
-		this.no3Insured = no3Insured;
+	public String getDaisangoHihokensha() {
+		return daisangoHihokensha;
+	}
+
+	public void setDaisangoHihokensha(String daisangoHihokensha) {
+		this.daisangoHihokensha = daisangoHihokensha;
 	}
 
 }

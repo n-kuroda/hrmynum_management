@@ -100,54 +100,54 @@
 	                				<td colspan="2" class="bg-none"><spring:message text="扶養者情報" /></td>
 	                			</tr>
 	                			<tr>
-	                				<c:if test="${empty dependentsInfoListModel.dependents[0].dependentsNameMei }">
+	                				<c:if test="${empty dependentsInfoListModel.dependents[0].fuyoNameMei }">
 		                				<td colspan="2" class="bg-none"><spring:message text="なし" /></td>
 				                    </c:if>
 	                			</tr>
 	                			<c:forEach items="${lstDependents}" var="dependent" varStatus="status">
-	                				<c:if test="${! empty dependent.dependentsNameMei }">
+	                				<c:if test="${! empty dependent.fuyoNameMei }">
 	                				<tr>
 		                				<td colspan="2" class="bg-none"><spring:message text="扶養者${status.index + 1}" /></td>
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="お名前" /></td>
-		                				<td><spring:message text="${dependent.dependentsNameSei } ${dependent.dependentsNameMei }" /></td>
+		                				<td><spring:message text="${dependent.fuyoNameSei } ${dependent.fuyoNameMei }" /></td>
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="生年月日" /></td>
-		                				<td><spring:message text="${dependent.dependentsBirthdayYear }年${dependent.dependentsBirthdayMonth }月${dependent.dependentsBirthdayDay }日" /></td>
+		                				<td><spring:message text="${dependent.fuyoSeinengapiYear }年${dependent.fuyoSeinengapiMonth }月${dependent.fuyoSeinengapiDay }日" /></td>
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="続柄" /></td>
 		                				<td>
-		                					<c:if test="${dependent.dependentsRelationship == '01'}">
+		                					<c:if test="${dependent.fuyoZokugara == '01'}">
 					                			<spring:message text="妻" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '02'}">
+					                		<c:if test="${dependent.fuyoZokugara == '02'}">
 					                			<spring:message text="夫" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '03'}">
+					                		<c:if test="${dependent.fuyoZokugara == '03'}">
 					                			<spring:message text="子供" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '04'}">
+					                		<c:if test="${dependent.fuyoZokugara == '04'}">
 					                			<spring:message text="父" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '05'}">
+					                		<c:if test="${dependent.fuyoZokugara == '05'}">
 					                			<spring:message text="母" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '06'}">
+					                		<c:if test="${dependent.fuyoZokugara == '06'}">
 					                			<spring:message text="兄弟・姉妹" />
 					                		</c:if>
-					                		<c:if test="${dependent.dependentsRelationship == '07'}">
-					                			<spring:message text="その他 (${dependent.dependentsRelationshipOther })" />
+					                		<c:if test="${dependent.fuyoZokugara == '07'}">
+					                			<spring:message text="その他 (${dependent.fuyoZokugaraSonota })" />
 					                		</c:if>
 		                				</td>
 		                			</tr>
 		                			<tr>
 		                				<td><spring:message text="マイナンバー" /></td>
-			                			<td><spring:message text="${dependent.dependentsMyNumber }" /></td>
+			                			<td><spring:message text="${dependent.fuyoMyNumber }" /></td>
 		                			</tr>
-		                			<c:if test="${dependent.no3Insured == '1' }">
+		                			<c:if test="${dependent.daisangoHihokensha == '1' }">
 			                			<tr>
 			                				<td><spring:message text="第3号被保険者" /></td>
 				                			<td><spring:message text="該当" /></td>

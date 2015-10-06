@@ -56,25 +56,25 @@
                 		<tr>
                 			<td><span><spring:message text="お名前"/></span></td>
                 			<td><span>(姓) </span>
-	                            <form:input path="dependents[${status.index}].dependentsNameSei" cssClass="lastname" cssErrorClass="error lastname"/>
+	                            <form:input path="dependents[${status.index}].fuyoNameSei" cssClass="lastname" cssErrorClass="error lastname"/>
 	                            <span>(名) </span>
-	                            <form:input path="dependents[${status.index}].dependentsNameMei" cssClass="firstname" cssErrorClass="error firstname"/>
+	                            <form:input path="dependents[${status.index}].fuyoNameMei" cssClass="firstname" cssErrorClass="error firstname"/>
                             </td>
                 		</tr>
                 		<tr>
                 			<td><span><spring:message text="生年月日(西暦)"/></span></td>
                 			<td>
-                				<form:select path="dependents[${status.index}].dependentsBirthdayYear" cssClass="year" cssErrorClass="error year">
+                				<form:select path="dependents[${status.index}].fuyoSeinengapiYear" cssClass="year" cssErrorClass="error year">
 	                            	<form:option value=""></form:option>
 	                            	<form:options items="${listYear}"/>
 	                            </form:select>
 	                            <span class="year">年 </span>
-	                            <form:select path="dependents[${status.index}].dependentsBirthdayMonth" cssClass="month" cssErrorClass="error month">
+	                            <form:select path="dependents[${status.index}].fuyoSeinengapiMonth" cssClass="month" cssErrorClass="error month">
 	                            	<form:option value=""></form:option>
 	                            	<form:options items="${listMonth}"/>
 	                            </form:select>
 								<span class="month">月 </span>
-	                            <form:select path="dependents[${status.index}].dependentsBirthdayDay" cssClass="day" cssErrorClass="error day">
+	                            <form:select path="dependents[${status.index}].fuyoSeinengapiDay" cssClass="day" cssErrorClass="error day">
 	                            	<form:option value=""></form:option>
 	                            	<form:options items="${listDay}"/>
 	                            </form:select>
@@ -84,7 +84,7 @@
                 		<tr>
                 			<td><span><spring:message text="続柄"/></span></td>
                 			<td>
-                				<form:select path="dependents[${status.index}].dependentsRelationship" cssClass="relationship" cssErrorClass="error relationship">
+                				<form:select path="dependents[${status.index}].fuyoZokugara" cssClass="relationship" cssErrorClass="error relationship">
 	                            	<form:option value=""></form:option>
 	                            	<form:options items="${listRelationship}"/>
 	                            </form:select>
@@ -94,17 +94,17 @@
                 			<td><span><spring:message text="続柄（その他）"/></span></td>
                 			<td>
                 				<span class="relationshipOther"></span>
-                            	<form:input path="dependents[${status.index}].dependentsRelationshipOther" cssClass="relationshipOther" cssErrorClass="error relationshipOther"/>
+                            	<form:input path="dependents[${status.index}].fuyoZokugaraSonota" cssClass="relationshipOther" cssErrorClass="error relationshipOther"/>
                 			</td>
                 		</tr>
                 		<tr>
                 			<td><span><spring:message text="マイナンバー"/></span></td>
-                			<td><form:input path="dependents[${status.index}].dependentsMyNumber" cssClass="mynumber" cssErrorClass="error mynumber"/></td>
+                			<td><form:input path="dependents[${status.index}].fuyoMyNumber" cssClass="mynumber" cssErrorClass="error mynumber"/></td>
                 		</tr>
                 		<tr>
                 			<td><span><spring:message text="第3号被保険者"/></span></td>
                 			<td>
-                				<form:checkbox path="dependents[${status.index}].no3Insured" value="1"/>
+                				<form:checkbox path="dependents[${status.index}].daisangoHihokensha" value="1"/>
                 			</td>
                 		</tr>
                 		<tr>

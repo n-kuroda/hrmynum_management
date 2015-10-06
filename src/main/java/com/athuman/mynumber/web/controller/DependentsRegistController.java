@@ -72,8 +72,8 @@ public class DependentsRegistController {
 		// begin valid each form Dependents
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
 		for (int i = 0; i < listdDependents.size(); i++) {
-			if (listdDependents.get(i).getNo3Insured() == null) {
-				listdDependents.get(i).setNo3Insured(ConstValues.NO3INSURED);
+			if (listdDependents.get(i).getDaisangoHihokensha() == null) {
+				listdDependents.get(i).setDaisangoHihokensha(ConstValues.NO3INSURED);
 			}
 			binding = ValidateUtil.validFormDependents(binding, listdDependents.get(i), staffInfoModel, i);
 		}
@@ -116,15 +116,26 @@ public class DependentsRegistController {
 	private void storeSession(Model model, DependentsInfoListModel lstDependentsInfo,
 			StaffInfoModel staffSession, HttpSession session){
 
-		// init swap index
+		// init swap indexsyu
 		int swapIndex = 0;
 
 		// begin swap item has change to top
 		DependentsInfoListModel dependentsInfoListModel = new DependentsInfoListModel();
 		List<Dependents> listdDependents = lstDependentsInfo.getDependents();
-		for (int i = 0; i < listdDependents.size(); i++) {
-			if (ValidateUtil.checkDependentsHasChange(listdDependents.get(i), staffSession) ||
-					ValidateUtil.checkDependentsFormHasEdit(listdDependents.get(i))) {
+		for (int i = 0; i < listdDependents.size(); i++) {			
+			Dependents dependents = listdDependents.get(i);
+			if (!dependents.getFuyoSeinengapiYear().isEmpty()
+					&& !dependents.getFuyoSeinengapiMonth().isEmpty()
+					&& !dependents.getFuyoSeinengapiDay().isEmpty()) {
+			dependents.setFuyoSeinengapi(dependents
+					.getFuyoSeinengapiYear()
+					+ String.format("%02d", new Integer(dependents
+							.getFuyoSeinengapiMonth()))
+					+ String.format("%02d", new Integer(dependents
+							.getFuyoSeinengapiDay())));
+			}
+			if (ValidateUtil.checkDependentsHasChange(dependents, staffSession) ||
+					ValidateUtil.checkDependentsFormHasEdit(dependents)) {
 				Collections.swap(listdDependents, i, swapIndex);
 				swapIndex++;
 			}
@@ -144,7 +155,7 @@ public class DependentsRegistController {
 		DependentsInfoListModel dependentsInfoListModel = new DependentsInfoListModel();
 		List<Dependents> lstDependents = new ArrayList<Dependents>();
 		Dependents dependents = new Dependents();
-		dependents.setDependentsNameSei(staffInfoModel.getStaffNameSei());
+		dependents.setFuyoNameSei(staffInfoModel.getStaffNameSei());
 		for (int i = 0; i < NUMBER_OF_DEPENDENT; i++) {
 			lstDependents.add(dependents);
 		}
