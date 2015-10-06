@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,7 @@ import com.athuman.mynumber.web.util.AESUtil;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.PropertyUtil;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -207,15 +209,18 @@ public class ColectionInfoRegistController {
 	private void postRequest(HttpSession session,  Model model) throws Exception {
 		// basicauth
 		try {
+			final String userName = PropertyUtil.getProperties("application.properties","basicauth.username");
+			final String password = PropertyUtil.getProperties("application.properties","basicauth.password");
+			
 			Authenticator.setDefault(new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("960228", "bgt54rfV"
+					return new PasswordAuthentication(userName, password
 							.toCharArray());
 				}
 			});
 			
 			// post request
-			URL url = new URL("http://10.170.122.93/tact-hr/api/himoduke/");
+			URL url = new URL(PropertyUtil.getProperties("application.properties","tact.himoduke.url"));
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("POST");
 			http.setDoOutput(true);
@@ -350,4 +355,5 @@ public class ColectionInfoRegistController {
 		}
 		return myNumber;
 	}
+
 }
