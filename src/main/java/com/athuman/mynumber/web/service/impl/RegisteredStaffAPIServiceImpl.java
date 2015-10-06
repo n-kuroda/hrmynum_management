@@ -13,6 +13,7 @@ import com.athuman.mynumber.web.dao.ServiceDAO;
 import com.athuman.mynumber.web.dto.RegisteredStaffAPIResponseDto;
 import com.athuman.mynumber.web.model.MyNumber;
 import com.athuman.mynumber.web.service.RegisteredStaffAPIService;
+import com.athuman.mynumber.web.util.AESUtil;
 import com.athuman.mynumber.web.util.ConstValues;
 import com.athuman.mynumber.web.util.StringUtil;
 
@@ -38,7 +39,7 @@ public class RegisteredStaffAPIServiceImpl implements RegisteredStaffAPIService 
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = new ArrayList<MyNumber>();
 			try {
-				list = serviceDAO.queryMyNumberByHimodukeNo(himodukeNo);
+				list = serviceDAO.queryMyNumberByHimodukeNo(AESUtil.encrypt(himodukeNo));
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens

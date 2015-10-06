@@ -48,7 +48,7 @@ public class ConstValues {
 	public static final String API_OTHER_ERROR = "複数件取得されました。";
 	public static final int API_RETURNED_LIST_LENGTH_0 = 0;
 	public static final int API_RETURNED_LIST_LENGTH_1 = 1;
-	public static final int HIMODUKENO_LENGTH = 96;
+	public static final int HIMODUKENO_LENGTH = 36;
 	public static final int MYNUMBER_REGIST_MAX_CHECKBOX_CHECKED = 2;
 	public static final String API_RESULT_0 = "0";
 	public static final String API_RESULT_1 = "1";

@@ -39,7 +39,7 @@ public class MyNumberAPIServiceImpl implements MyNumberAPIService {
 			// search [himodukeNo] in [MyNumber] table
 			List<MyNumber> list = new ArrayList<MyNumber>();
 			try {
-				list = serviceDAO.queryMyNumberByHimodukeNo(himodukeNo);
+				list = serviceDAO.queryMyNumberByHimodukeNo(AESUtil.encrypt(himodukeNo));
 			} catch (Exception e) {
 
 				// return status 500 in case DB error happens
