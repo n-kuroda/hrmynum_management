@@ -20,7 +20,7 @@
 <script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/dependentsRegist.js"></script>
 </head>
-<body>
+<body style="zoom:70%">
     <div id="wrapper">
         <div id="main-content" class="wrap-content">
             <div id="header" class="h40">

@@ -19,7 +19,7 @@
 <script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/shainExistCheck.js"></script>
 </head>
-<body>
+<body style="zoom:70%">
 	<div id="wrapper">
 		<div id="main-content">
 			<div id="header">
@@ -36,7 +36,7 @@
 						<spring:message text="社員番号"/>
 					</form:label>
 					<form:input path="shainNo" cssErrorClass="error"/>
-					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
+					<form:button class="btn-search mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div id="shainInfo" class="name">
 						<div id="messageInfoShainExistCheck">

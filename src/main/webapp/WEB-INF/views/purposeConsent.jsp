@@ -32,7 +32,7 @@
 			</div>
 			<div id="content">
 				<p class="txtCenter"><spring:message text="マイナンバー（個人情報）収集のための承諾のお願い" /></p>
-				<div id="purponeConsent">
+				<div id="purponeConsent" style="zoom:40%">
 
 					<p><spring:message text="マイナンバー（個人番号）の利用目的" /></p>
 

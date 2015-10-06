@@ -21,7 +21,7 @@
 <script src="resources/js/staffExistCheck.js"></script>
 
 </head>
-<body>
+<body style="zoom:70%">
 	<div id="wrapper">
 		<div id="main-content">
 			<div id="header">
@@ -38,7 +38,7 @@
 						<spring:message text="スタッフNo"/>
 					</form:label>
 					<form:input path="staffNo" cssErrorClass="error"/>
-					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
+					<form:button class="btn-search mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
 					<div id="staffInfo" class="name">
 						<div id="messageInfoStaffExistCheck">

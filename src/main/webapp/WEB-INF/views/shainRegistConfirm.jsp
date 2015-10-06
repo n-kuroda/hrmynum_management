@@ -21,7 +21,7 @@
 <script src="resources/js/shainRegistConfirm.js"></script>
 
 </head>
-<body>
+<body style="zoom:70%">
 	<div id="wrapper">
 		<div id="main-content">
 			<div id="header" class="h40">
