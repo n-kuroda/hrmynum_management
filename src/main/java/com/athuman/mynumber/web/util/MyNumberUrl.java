@@ -43,7 +43,7 @@ public class MyNumberUrl {
 	public static final String SHAIN_REGIST_CONFIRM_MODIFY = "/shainRegistConfirmModify";
 
 	// S10
-	public static final String COLECTION_INFO_REGIST = "/colectionInfoRegist";
+	public static final String COLLECTION_INFO_REGIST = "/collectionInfoRegist";
 
 	// API
 	public static final String MY_NUMBER_API = "/myNumber";

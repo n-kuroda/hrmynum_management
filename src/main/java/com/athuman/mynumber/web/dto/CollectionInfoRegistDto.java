@@ -2,7 +2,7 @@ package com.athuman.mynumber.web.dto;
 
 import java.io.Serializable;
 
-public class ColectionInfoRegistDto implements Serializable {
+public class CollectionInfoRegistDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

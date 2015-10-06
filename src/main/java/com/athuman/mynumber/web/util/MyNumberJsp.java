@@ -42,7 +42,7 @@ public class MyNumberJsp {
 	public static final String REDIRECT_SHAIN_REGIST_CONFIRM = "redirect:/shainRegistConfirm";
 
 	// S10
-	public static final String REDIRECT_COLECTION_INFO_REGIST = "redirect:/colectionInfoRegist";
-	public static final String COLECTION_INFO_REGIST = "colectionInfoRegist";
+	public static final String REDIRECT_COLLECTION_INFO_REGIST = "redirect:/collectionInfoRegist";
+	public static final String COLLECTION_INFO_REGIST = "collectionInfoRegist";
 	public static final String REDIRECT_REGIST_COMPLETE = "redirect:/registComplete";
 }

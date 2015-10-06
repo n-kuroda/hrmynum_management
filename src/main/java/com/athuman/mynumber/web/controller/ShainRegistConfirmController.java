@@ -51,7 +51,7 @@ public class ShainRegistConfirmController {
 			return resetData(model, session);
 		}
 		
-		return MyNumberJsp.REDIRECT_COLECTION_INFO_REGIST;
+		return MyNumberJsp.REDIRECT_COLLECTION_INFO_REGIST;
 	}
 
 	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM_MODIFY, method = RequestMethod.POST)

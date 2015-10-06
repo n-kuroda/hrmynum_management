@@ -1,6 +1,6 @@
 function checkRequiedCheckBox() {
 	clearMessage();
-	if (checkNetworkOffLine('checkColectionNetworkOffLine', 'checkRequiedCheckBox')) {
+	if (checkNetworkOffLine('checkCollectionNetworkOffLine', 'checkRequiedCheckBox')) {
 		return true;
 	} else {
 		var reasonForChoosing = document.getElementById('reasonForChoosing');
@@ -21,7 +21,7 @@ function checkRequiedCheckBox() {
 			if (!miteikyoRiyu1.checked && !miteikyoRiyu2.checked && !miteikyoRiyu3.checked && !miteikyoRiyu4.checked && !miteikyoRiyu5.checked) {
 				var checkCheckBox = document.getElementById('checkRequiedCheckBox');
 				checkCheckBox.style.display = 'block';
-				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				var errorOther = document.getElementById('checkCollectionNetworkOffLine');
 				if(errorOther != null) {
 					errorOther.style.display = 'none';
 				}
@@ -31,7 +31,7 @@ function checkRequiedCheckBox() {
 			if(400 < miteikyoRiyu6.length){
 				var checkOtherResonlength = document.getElementById('checkOtherResonlength');
 				checkOtherResonlength.style.display = 'block';
-				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				var errorOther = document.getElementById('checkCollectionNetworkOffLine');
 				if(errorOther != null) {
 					errorOther.style.display = 'none';
 				}
@@ -42,7 +42,7 @@ function checkRequiedCheckBox() {
 			if(miteikyoRiyu5.checked && miteikyoRiyu6.length == 0){
 				var checkOtherReson = document.getElementById('checkOtherReson');
 				checkOtherReson.style.display = 'block';
-				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				var errorOther = document.getElementById('checkCollectionNetworkOffLine');
 				if(errorOther != null) {
 					errorOther.style.display = 'none';
 				}
@@ -52,7 +52,7 @@ function checkRequiedCheckBox() {
 			if(!miteikyoRiyu5.checked && miteikyoRiyu6.length != 0){
 				var checkOtherReson = document.getElementById('checkOtherCheck');
 				checkOtherReson.style.display = 'block';
-				var errorOther = document.getElementById('checkColectionNetworkOffLine');
+				var errorOther = document.getElementById('checkCollectionNetworkOffLine');
 				if(errorOther != null) {
 					errorOther.style.display = 'none';
 				}
@@ -76,7 +76,7 @@ function checkRequiedCheckBox() {
 
 function clearMessage() {
 	document.getElementById('checkRegistMyNumber').style.display = 'none';
-	document.getElementById('checkColectionNetworkOffLine').style.display = 'none';
+	document.getElementById('checkCollectionNetworkOffLine').style.display = 'none';
 	document.getElementById('checkRequiedCheckBox').style.display = 'none';
 	document.getElementById('checkOtherReson').style.display = 'none';
 	document.getElementById('checkOtherCheck').style.display = 'none';
@@ -129,7 +129,7 @@ function callTACTApi(dataInfo) {
 	
 	 $.ajax({
 		    type: "POST",
-            url: "colectionInfoRegist",
+            url: "collectionInfoRegist",
             data: dataInfo,
 			cache : false,
 			beforeSend : function(xhr) {

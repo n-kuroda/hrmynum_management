@@ -481,7 +481,7 @@ h1, p {
 #checkSigningNetworkOffLine,
 #checkrequireSigning,
 #checkMyNumberNetworkOffLine,
-#checkColectionNetworkOffLine,
+#checkCollectionNetworkOffLine,
 #checkRequiedCheckBox,
 #checkOtherReson,
 #checkOtherCheck,
@@ -708,7 +708,7 @@ h1, p {
     margin-top: 10px;
     font-size: 14px;
 }
-#content form span.errorColectionInfoRegist {
+#content form span.errorCollectionInfoRegist {
     text-align: center;
     width: 100%;
     margin-top: 15px;
@@ -716,7 +716,7 @@ h1, p {
     color: red;
     display: inline-block;
 }
-#colectionInfoRegistForm input[type="checkbox"] {
+#collectionInfoRegistForm input[type="checkbox"] {
     display: inline-block;
     padding: 4px;
     width: 15px;

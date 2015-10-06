@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.athuman.mynumber.web.dto.ColectionInfoDto;
-import com.athuman.mynumber.web.dto.ColectionInfoRegistDto;
+import com.athuman.mynumber.web.dto.CollectionInfoDto;
+import com.athuman.mynumber.web.dto.CollectionInfoRegistDto;
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
 import com.athuman.mynumber.web.model.MyNumber;
@@ -48,7 +48,7 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Controller
-public class ColectionInfoRegistController {
+public class CollectionInfoRegistController {
 	
 	private static final int PREFIX_BASE64_TEXT_LENGTH = 22;
 	private String autoUUID = "";
@@ -61,8 +61,8 @@ public class ColectionInfoRegistController {
 		this.myNumberAPIService = myNumberAPIService;
 	}
 
-	// show colectionInfoRegist page
-	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.GET)
+	// show collectionInfoRegist page
+	@RequestMapping(value = MyNumberUrl.COLLECTION_INFO_REGIST, method = RequestMethod.GET)
 	public String show(Model model, HttpSession session) throws Exception {
 
 		// check session has exist
@@ -71,19 +71,19 @@ public class ColectionInfoRegistController {
 		}
 
 		initData(model, session);
-		model.addAttribute("colectionInfoRegistDto",
-				new ColectionInfoRegistDto());
-		return MyNumberJsp.COLECTION_INFO_REGIST;
+		model.addAttribute("collectionInfoRegistDto",
+				new CollectionInfoRegistDto());
+		return MyNumberJsp.COLLECTION_INFO_REGIST;
 	}
 	
-	// submit colectionInfoRegist page
-	@RequestMapping(value = MyNumberUrl.COLECTION_INFO_REGIST, method = RequestMethod.POST)
+	// submit collectionInfoRegist page
+	@RequestMapping(value = MyNumberUrl.COLLECTION_INFO_REGIST, method = RequestMethod.POST)
 	public String regist(@RequestBody String miteikyoRiyu, HttpSession session, Model model) throws Exception {
 		
 		postRequest(session, model);
 
 		ObjectMapper mapper = new ObjectMapper();
-		ColectionInfoRegistDto colectionInfoRegistForm = mapper.readValue(miteikyoRiyu, ColectionInfoRegistDto.class);
+		CollectionInfoRegistDto collectionInfoRegistForm = mapper.readValue(miteikyoRiyu, CollectionInfoRegistDto.class);
 		
 		if (!ValidateUtil.isNotNullSession(session, model)) {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
@@ -96,7 +96,7 @@ public class ColectionInfoRegistController {
 
 		// regist to DB
 		MyNumber myNumber = setData4MyNumber(staffInfo, autoUUID, shainInfoModel,
-				dependentInfo, colectionInfoRegistForm);
+				dependentInfo, collectionInfoRegistForm);
 
 		// store data directly to DB
 		String result = myNumberAPIService.registMyNumber(myNumber);
@@ -186,22 +186,22 @@ public class ColectionInfoRegistController {
 		autoUUID = generateUUID();
 
 		// set data for API
-		ColectionInfoDto colectionInfo = new ColectionInfoDto();
-		colectionInfo.setHimodukeNo(autoUUID);
-		colectionInfo.setStaffNo(staffInfoModel.getStaffNo());
-		colectionInfo.setShodakuFlag(staffInfoModel.getConsent());
+		CollectionInfoDto collectionInfo = new CollectionInfoDto();
+		collectionInfo.setHimodukeNo(autoUUID);
+		collectionInfo.setStaffNo(staffInfoModel.getStaffNo());
+		collectionInfo.setShodakuFlag(staffInfoModel.getConsent());
 		
 		List<Dependents> dependents = getValidDependentsList(dependentInfo.getDependents());
 		if (dependents != null && dependents.size() > 0) {
-			colectionInfo.setFuyoInfoList(dependents);
+			collectionInfo.setFuyoInfoList(dependents);
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String colectionInfoJson = toJsonString(mapper.writeValueAsString(colectionInfo));
+		String collectionInfoJson = toJsonString(mapper.writeValueAsString(collectionInfo));
 		  
 		model.addAttribute("staffInfoModel", staffInfoModel);
 		//store data to hidden field for passing data to API check
-		model.addAttribute("colectionInfo", colectionInfoJson);
+		model.addAttribute("collectionInfo", collectionInfoJson);
 	}
 	
 	
@@ -256,20 +256,20 @@ public class ColectionInfoRegistController {
 		autoUUID = generateUUID();
 
 		// set data for API
-		ColectionInfoDto colectionInfo = new ColectionInfoDto();
-		colectionInfo.setHimodukeNo(autoUUID);
-		colectionInfo.setStaffNo(staffInfoModel.getStaffNo());
-		colectionInfo.setShodakuFlag(staffInfoModel.getConsent());
+		CollectionInfoDto collectionInfo = new CollectionInfoDto();
+		collectionInfo.setHimodukeNo(autoUUID);
+		collectionInfo.setStaffNo(staffInfoModel.getStaffNo());
+		collectionInfo.setShodakuFlag(staffInfoModel.getConsent());
 		
 		List<Dependents> dependents = getValidDependentsList(dependentInfo.getDependents());
 		if (dependents != null && dependents.size() > 0) {
-			colectionInfo.setFuyoInfoList(dependents);
+			collectionInfo.setFuyoInfoList(dependents);
 		}
 		
 		com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper()
 				.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-		return mapper.writeValueAsString(colectionInfo);
+		return mapper.writeValueAsString(collectionInfo);
 		 
 	}
 
@@ -284,7 +284,7 @@ public class ColectionInfoRegistController {
 	 * @return MyNumber
 	 */
 	private MyNumber setData4MyNumber(StaffInfoModel staffInfo, String uuid, ShainInfoModel shainInfoModel,
-			DependentsInfoListModel dependentInfo, ColectionInfoRegistDto colectionInfoRegistForm) {
+			DependentsInfoListModel dependentInfo, CollectionInfoRegistDto collectionInfoRegistForm) {
 
 		MyNumber myNumber = new MyNumber();
 		Date today = new Date();
@@ -292,12 +292,12 @@ public class ColectionInfoRegistController {
 
 			myNumber.setHimodukeNo(AESUtil.encrypt(uuid));
 			if (ConstValues.CONSENT_VALUE_0.equals(staffInfo.getConsent())) {
-				myNumber.setMiteikyoRiyu1(colectionInfoRegistForm.getMiteikyoRiyu1());
-				myNumber.setMiteikyoRiyu2(colectionInfoRegistForm.getMiteikyoRiyu2());
-				myNumber.setMiteikyoRiyu3(colectionInfoRegistForm.getMiteikyoRiyu3());
-				myNumber.setMiteikyoRiyu4(colectionInfoRegistForm.getMiteikyoRiyu4());
-				myNumber.setMiteikyoRiyu5(colectionInfoRegistForm.getMiteikyoRiyu5());
-				myNumber.setMiteikyoRiyu6(colectionInfoRegistForm.getMiteikyoRiyu6());
+				myNumber.setMiteikyoRiyu1(collectionInfoRegistForm.getMiteikyoRiyu1());
+				myNumber.setMiteikyoRiyu2(collectionInfoRegistForm.getMiteikyoRiyu2());
+				myNumber.setMiteikyoRiyu3(collectionInfoRegistForm.getMiteikyoRiyu3());
+				myNumber.setMiteikyoRiyu4(collectionInfoRegistForm.getMiteikyoRiyu4());
+				myNumber.setMiteikyoRiyu5(collectionInfoRegistForm.getMiteikyoRiyu5());
+				myNumber.setMiteikyoRiyu6(collectionInfoRegistForm.getMiteikyoRiyu6());
 			} else {
 				myNumber.setMiteikyoRiyu1(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu2(ConstValues.CHECKBOX_NOT_SELECT);
@@ -336,7 +336,7 @@ public class ColectionInfoRegistController {
 				myNumber.setSonota(staffInfo.getOther());
 			}
 
-			String staffSign = colectionInfoRegistForm.getStaffSign();
+			String staffSign = collectionInfoRegistForm.getStaffSign();
 			staffSign = staffSign.substring(PREFIX_BASE64_TEXT_LENGTH);
 
 			myNumber.setHonninSyomei(staffSign.getBytes());

@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>
 <script src="resources/js/checkNetWork.js"></script>
-<script src="resources/js/colectionInfoRegist.js"></script>
+<script src="resources/js/collectionInfoRegist.js"></script>
 
 </head>
 <body>
@@ -34,11 +34,11 @@
                 <div class="logo_l"></div>
             </div>
             <div id="content">
-                <form:form id="colectionInfoRegistForm" modelAttribute="colectionInfoRegistDto" cssClass="txtCenterC">
+                <form:form id="collectionInfoRegistForm" modelAttribute="collectionInfoRegistDto" cssClass="txtCenterC">
                 
-                	<input type="hidden" name="colectionInfo" id="colectionInfo" value="${colectionInfo}">
+                	<input type="hidden" name="collectionInfo" id="collectionInfo" value="${collectionInfo}">
 
-	               	<div id ="checkColectionNetworkOffLine">
+	               	<div id ="checkCollectionNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
 					<div id ="checkRequiedCheckBox">
@@ -61,7 +61,7 @@
 							<fmt:param value="登録"/>
 						</fmt:message>
 					</div>
-					<form:errors path="*" cssClass="errorColectionInfoRegist" />
+					<form:errors path="*" cssClass="errorCollectionInfoRegist" />
 					<c:choose>
 	                	<c:when test="${staffInfoModel.consent == '0' }">
 	                		<div id="reasonForChoosing" class="font14">
