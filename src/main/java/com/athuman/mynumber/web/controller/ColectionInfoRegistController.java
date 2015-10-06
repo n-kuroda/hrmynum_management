@@ -299,7 +299,8 @@ public class ColectionInfoRegistController {
 				myNumber.setMiteikyoRiyu2(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu3(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu4(ConstValues.CHECKBOX_NOT_SELECT);
-
+				myNumber.setMiteikyoRiyu5(ConstValues.CHECKBOX_NOT_SELECT);
+				myNumber.setMiteikyoRiyu6(null);
 			}
 
 			List<Dependents> dependents = dependentInfo.getDependents();

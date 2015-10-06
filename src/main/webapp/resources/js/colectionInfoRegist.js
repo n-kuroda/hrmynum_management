@@ -9,7 +9,10 @@ function checkRequiedCheckBox() {
 		var miteikyoRiyu3 = document.getElementById('miteikyoRiyu3');
 		var miteikyoRiyu4 = document.getElementById('miteikyoRiyu4');
 		var miteikyoRiyu5 = document.getElementById('miteikyoRiyu5');
-		var miteikyoRiyu6 = document.getElementById('miteikyoRiyu6').value;
+		if(document.getElementById('reasonForChoosing') != null){
+			var miteikyoRiyu6 = document.getElementById('miteikyoRiyu6').value;
+		}
+		
 		if (reasonForChoosing != null) {
 			
 			var inputError = false;
@@ -77,7 +80,10 @@ function clearMessage() {
 	document.getElementById('checkRequiedCheckBox').style.display = 'none';
 	document.getElementById('checkOtherReson').style.display = 'none';
 	document.getElementById('checkOtherCheck').style.display = 'none';
-	document.getElementById('miteikyoRiyu6').className = '';
+	if(document.getElementById('reasonForChoosing') != null){
+		document.getElementById('miteikyoRiyu6').className = '';
+	}
+	
 }
 
 function getData(reasonForChoosing, miteikyoRiyu1, miteikyoRiyu2, miteikyoRiyu3, miteikyoRiyu4, miteikyoRiyu5, miteikyoRiyu6) {
