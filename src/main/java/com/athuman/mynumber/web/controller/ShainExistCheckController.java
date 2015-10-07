@@ -74,6 +74,7 @@ public class ShainExistCheckController {
 
 		// store to session
 		session.setAttribute("shainInfoModel", shainInfoModel);
+		model.addAttribute("shainExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.shain.url"));
 
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 

@@ -69,6 +69,7 @@ public class StaffExistCheckController {
 
 		// store to session
 		session.setAttribute("staffInfoModel", staffInfoModel);
+		model.addAttribute("staffExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.staff.url"));
 
 		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
