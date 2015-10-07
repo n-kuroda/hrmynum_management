@@ -63,10 +63,11 @@ function checkDataValidWhenSearch() {
 			 var shainNoValue = $('#shainNo').val();
 			 var tokenValue = $('#token').val();
 			 var shainInfoMsg = document.getElementById("messageInfoShainExistCheck");
+			 var url = $('#shainExistCheckApi').val();
 
 			 $.ajax({
 		            type: "GET",
-		            url: "http://10.170.122.93/tact-hr/api/shain/" + shainNoValue,
+		            url: url + shainNoValue,
 		            dataType: "jsonp",
 		            success: function(data, xhr, status) {
 		            	// API returned status code 204: No Content

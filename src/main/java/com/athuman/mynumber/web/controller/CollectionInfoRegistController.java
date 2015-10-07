@@ -219,7 +219,7 @@ public class CollectionInfoRegistController {
 			});
 			
 			// post request
-			URL url = new URL(PropertyUtil.getProperties("application.properties","tact.himoduke.url"));
+			URL url = new URL(PropertyUtil.getProperties("application.properties","tact.api.himoduke.url"));
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("POST");
 			http.setDoOutput(true);

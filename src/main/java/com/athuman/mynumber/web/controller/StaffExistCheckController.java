@@ -18,6 +18,7 @@ import com.athuman.mynumber.web.dto.StaffInfoDto;
 import com.athuman.mynumber.web.model.StaffInfoModel;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.PropertyUtil;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 
@@ -29,6 +30,7 @@ public class StaffExistCheckController {
 	
 		model.addAttribute("token", requestToken);
 		model.addAttribute("staffInfoModel", new StaffInfoModel());
+		model.addAttribute("staffExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.staff.url"));
 		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
 

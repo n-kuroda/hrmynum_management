@@ -42,9 +42,11 @@ function checkDataValidWhenSearch() {
 			var staffNoValue = $('#staffNo').val();
 			var tokenValue = $('#token').val();
 			var staffInfo = document.getElementById("messageInfoStaffExistCheck");
+			var url = $('#staffExistCheckApi').val();
+			
 			 $.ajax({
 				 type: "GET",
-		            url: "http://10.170.122.93/tact-hr/api/staff/" + staffNoValue,
+		            url: url + staffNoValue,
 		            dataType: "jsonp",
 		            success: function(data, xhr, status) {
 

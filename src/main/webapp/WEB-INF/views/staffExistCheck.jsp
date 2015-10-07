@@ -39,6 +39,7 @@
 			<div id="content">
 				<form:form id="staffExistCheckForm" methodParam="POST" modelAttribute="staffInfoModel" action="staffExistCheck" class="mt40">
 					<input type="hidden" name="token" id="token" value="${token}">
+					<input type="hidden" name="staffExistCheckApi" id="staffExistCheckApi" value="${staffExistCheckApi}">
 					<div class="subtitle"><spring:message text="スタッフNoを入力して検索ボタンを押してください。" /></div>
 					<form:label path="staffNo" cssClass="staffNoLable">
 						<spring:message text="スタッフNo"/>

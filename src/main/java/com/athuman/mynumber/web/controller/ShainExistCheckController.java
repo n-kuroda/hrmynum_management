@@ -18,6 +18,7 @@ import com.athuman.mynumber.web.dto.ShainInfoDto;
 import com.athuman.mynumber.web.model.ShainInfoModel;
 import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
+import com.athuman.mynumber.web.util.PropertyUtil;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.TokenProcessor;
 import com.athuman.mynumber.web.util.ValidateUtil;
@@ -34,6 +35,7 @@ public class ShainExistCheckController {
 
 		TokenProcessor.saveToken(request, model);
 		model.addAttribute("shainInfoModel", new ShainInfoModel());
+		model.addAttribute("shainExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.shain.url"));
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
 	}
 
