@@ -53,10 +53,10 @@
 	                	<input type="hidden" name="token" value="${token}">
 	                	<form:errors path="*" cssClass="errorStaffSigning mt10" />
 				    </div>
-	                <div class="txtCenterC mt40 mb40">
-	                    <button value="back" class="btn-back" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
+	                <div class="txtCenterC mt20 mb20">
+	                    <button value="back" class="btn-back-s7" onclick="if(backScreen()){return false;}"><spring:message text="戻る" /></button>
 						<button class="btn-next" onclick="if(signatureSave()){return false;}"><spring:message text="次へ" /></button>
-						<button value="clear" class="btn-skip" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
+						<button value="clear" class="btn-skip-s7" onclick="signatureClear();return false;"><spring:message text="クリア" /></button>
 	                </div>
                 </form:form>
             </div>

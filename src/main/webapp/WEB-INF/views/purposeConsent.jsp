@@ -78,9 +78,9 @@
 					<div id ="checkPurposeNetworkOffLine">
 						<fmt:message key="I00002"/>
 					</div>
-					<button class="btn-back"  onclick="if(backScreen()){return false;}">戻る</button>
+					<button class="btn-back-s3" onclick="if(backScreen()){return false;}">戻る</button>
 					<button class="btn-next" onclick="if(checkNetworkOffLine('checkPurposeNetworkOffLine', null)){return false;}">承諾する</button>
-					<button class="btn-skip" onclick="if(skipToSigning()){return false;}">その他</button>
+					<button class="btn-skip-s3" onclick="if(skipToSigning()){return false;}">その他</button>
 				</form:form>
 			</div>
 		</div>

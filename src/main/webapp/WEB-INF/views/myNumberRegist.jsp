@@ -21,7 +21,7 @@
 <script src="resources/js/myNumberRegist.js"></script>
 
 </head>
-<body style="zoom:50%">
+<body style="zoom:55%">
 	<div id="wrapper">
         <div id="main-content">
             <div id="header" class="h40">
@@ -56,7 +56,7 @@
 						<spring:message text="番号が記載された住民票記載事項証明書"/>
                     </p>
 					<div id="options" style="display: none;">
-						<p class="mt30 font14">
+						<p class="mt20 font14">
 							<spring:message text="本人確認提示書類" />
 							<br />
 							<spring:message text="①~⑦の場合はいずれか1つ、⑧~⑩の場合はいずれか2つを選択してください。" />
@@ -119,9 +119,9 @@
 						</div>
 					</div>
 					<div>
-	                    <form:button class="btn-next mt40" onclick="if(checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')){return false;}">
+	                    <form:button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkMyNumberNetworkOffLine', 'staffInfoModel.errors')){return false;}">
 							<spring:message text="次へ" /></form:button>
-						<form:button class="btn-back mt40" onclick="if(backScreen()){return false;}">
+						<form:button class="btn-back-s4 mt20" onclick="if(backScreen()){return false;}">
 							<spring:message text="戻る" /></form:button>
 					</div>
                 </form:form>

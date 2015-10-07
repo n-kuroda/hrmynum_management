@@ -38,7 +38,7 @@
 					<form:input path="shainNo" cssErrorClass="error"/>
 					<form:button class="btn-search mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
-					<div id="shainInfo" class="name">
+					<div id="shainInfo" class="shainname">
 						<div id="messageInfoShainExistCheck">
 							<table>
 								<c:if test="${!empty shainNo}">

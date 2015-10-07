@@ -161,10 +161,10 @@
 					<script>
 						initScreen();
 					</script>
-					<div class="confirmtext mt20">
+					<div class="confirmtext mt40">
 						<spring:message text="上記の内容で登録しますのでご確認ください。" />
 					</div>
-				   <button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
+				   <button class="btn-back-s9 mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="修正" />
 					</button>
 					<button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkRegistNetworkOffLine', null)){return false;}">
