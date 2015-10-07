@@ -9,11 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message text="扶養者登録画面" /></title>
+<title><spring:message text="マイナンバー収集システム" /></title>
 <meta name="viewport" content="width=600,initial-scale=1.45">
 <meta name="format-detection" content="telephone=no" />
-<meta name="keywords" content="扶養者登録画面">
-<meta name="description" content="扶養者登録画面">
+<meta name="keywords" content="マイナンバー収集システム">
+<meta name="description" content="マイナンバー収集システム">
 
 <link rel="stylesheet" href="resources/css/main.css" />
 <script src="resources/js/jquery-1.11.1.min.js"></script>

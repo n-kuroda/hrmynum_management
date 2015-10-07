@@ -6,9 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
@@ -207,16 +205,16 @@ public class CollectionInfoRegistController {
 	
 	private void postRequest(HttpSession session,  Model model) throws Exception {
 		// basicauth
-		try {
-			final String userName = PropertyUtil.getProperties("application.properties","basicauth.username");
-			final String password = PropertyUtil.getProperties("application.properties","basicauth.password");
-			
-			Authenticator.setDefault(new Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(userName, password
-							.toCharArray());
-				}
-			});
+//		try {
+//			final String userName = PropertyUtil.getProperties("application.properties","basicauth.username");
+//			final String password = PropertyUtil.getProperties("application.properties","basicauth.password");
+//			
+//			Authenticator.setDefault(new Authenticator() {
+//				protected PasswordAuthentication getPasswordAuthentication() {
+//					return new PasswordAuthentication(userName, password
+//							.toCharArray());
+//				}
+//			});
 			
 			// post request
 			URL url = new URL(PropertyUtil.getProperties("application.properties","tact.api.himoduke.url"));
@@ -240,9 +238,9 @@ public class CollectionInfoRegistController {
 				sbBody.append(s);
 				sbBody.append("\n");
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	private String createSendData(Model model, HttpSession session) throws Exception{
