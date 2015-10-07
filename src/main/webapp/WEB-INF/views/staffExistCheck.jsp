@@ -21,7 +21,7 @@
 <script src="resources/js/staffExistCheck.js"></script>
 
 </head>
-<body>
+<body style="zoom:70%">
 <script type="text/javascript">
     history.pushState(null, null, null);
     window.addEventListener("popstate", function() {
@@ -44,9 +44,9 @@
 						<spring:message text="スタッフNo"/>
 					</form:label>
 					<form:input path="staffNo" cssErrorClass="error" maxlength="9"/>
-					<form:button class="btn-next mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
+					<form:button class="btn-search mt40" onclick="if(checkDataValidWhenSearch()){return false;}">
 						<spring:message text="検索" /></form:button>
-					<div id="staffInfo" class="name">
+					<div id="staffInfo" class="staffname">
 						<div id="messageInfoStaffExistCheck">
 							<table>
 								<c:if test="${!empty staffNo}">
@@ -99,7 +99,7 @@
 							</fmt:message>
 						</div>
 					</div>
-					<form:button name="action" value="back" class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
+					<form:button name="action" value="back" class="btn-back-s2 mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
 					<form:button name="action" value="next" class="btn-next mt20" onclick="if(checkDataValid()){return false;}">

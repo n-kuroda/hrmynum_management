@@ -20,7 +20,7 @@
 <script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/dependentsRegist.js"></script>
 </head>
-<body>
+<body style="zoom:60%">
 <script type="text/javascript">
     history.pushState(null, null, null);
     window.addEventListener("popstate", function() {
@@ -44,7 +44,7 @@
 					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkDependentsNetworkOffLine','dependentsInfoListModel.errors')){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
-					<form:button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
+					<form:button class="btn-back-s5 mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
 				</div>
@@ -124,7 +124,7 @@
 					<form:button class="btn-next mt20" onclick="if(checkNetworkOffLine('checkDependentsNetworkOffLine','dependentsInfoListModel.errors')){return false;}">
 						<spring:message text="次へ" />
 					</form:button>
-                    <form:button class="btn-back mt20 btn-back-position" onclick="if(backScreen()){return false;}">
+                    <form:button class="btn-back-s5 mt20 btn-back-position" onclick="if(backScreen()){return false;}">
 						<spring:message text="戻る" />
 					</form:button>
 				</div>

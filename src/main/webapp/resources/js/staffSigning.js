@@ -22,7 +22,7 @@ function signatureCapture() {
 	}
 
 	canvas.width = 600;
-	canvas.height = 140;
+	canvas.height = 160;
 
 	context.fillStyle = "#fff";
 	context.strokeStyle = "#444";
