@@ -20,7 +20,7 @@
 <script src="resources/js/checkNetWork.js"></script>
 <script src="resources/js/dependentsRegist.js"></script>
 </head>
-<body style="zoom:60%">
+<body>
 <script type="text/javascript">
     history.pushState(null, null, null);
     window.addEventListener("popstate", function() {

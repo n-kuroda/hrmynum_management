@@ -44,6 +44,7 @@ import com.athuman.mynumber.web.util.PropertyUtil;
 import com.athuman.mynumber.web.util.StringUtil;
 import com.athuman.mynumber.web.util.ValidateUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mysql.jdbc.StringUtils;
 
 @Controller
 public class CollectionInfoRegistController {
@@ -295,7 +296,11 @@ public class CollectionInfoRegistController {
 				myNumber.setMiteikyoRiyu3(collectionInfoRegistForm.getMiteikyoRiyu3());
 				myNumber.setMiteikyoRiyu4(collectionInfoRegistForm.getMiteikyoRiyu4());
 				myNumber.setMiteikyoRiyu5(collectionInfoRegistForm.getMiteikyoRiyu5());
-				myNumber.setMiteikyoRiyu6(collectionInfoRegistForm.getMiteikyoRiyu6());
+				if(StringUtils.isNullOrEmpty(collectionInfoRegistForm.getMiteikyoRiyu6())){
+					myNumber.setMiteikyoRiyu6(null);
+				} else {
+					myNumber.setMiteikyoRiyu6(collectionInfoRegistForm.getMiteikyoRiyu6());
+				}
 			} else {
 				myNumber.setMiteikyoRiyu1(ConstValues.CHECKBOX_NOT_SELECT);
 				myNumber.setMiteikyoRiyu2(ConstValues.CHECKBOX_NOT_SELECT);

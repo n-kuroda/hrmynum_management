@@ -39,7 +39,7 @@
 		destroy-method="close">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/hrmynum" />
+			value="jdbc:mysql://localhost:3306/mynumber_collection" />
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="cresco" />
 	</beans:bean>
@@ -53,7 +53,7 @@
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="FyR$Zy%T" />
 	</beans:bean>
-	-->
+	-->	
 
 	<!-- Hibernate 4 SessionFactory Bean definition -->
 	<beans:bean id="hibernate4AnnotatedSessionFactory"
