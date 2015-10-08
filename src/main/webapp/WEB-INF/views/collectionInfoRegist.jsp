@@ -21,7 +21,7 @@
 <script src="resources/js/collectionInfoRegist.js"></script>
 
 </head>
-<body>
+<body style="zoom:65%">
 <script type="text/javascript">
     history.pushState(null, null, null);
     window.addEventListener("popstate", function() {
