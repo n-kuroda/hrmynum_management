@@ -21,7 +21,7 @@
 <script src="resources/js/myNumberRegist.js"></script>
 
 </head>
-<body style="zoom:55%">
+<body style="zoom:80%">
 <script type="text/javascript">
     history.pushState(null, null, null);
     window.addEventListener("popstate", function() {
