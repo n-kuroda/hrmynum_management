@@ -102,6 +102,7 @@ public class ShainExistCheckController {
 		} else {
 			binding.rejectValue("shainNo", "V00001", new Object [] {"社員番号"}, null);
 			shainInfoModel = new ShainInfoModel();
+			model.addAttribute("shainExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.shain.url"));
 			return MyNumberJsp.SHAIN_EXIST_CHECK;
 		}
 	}

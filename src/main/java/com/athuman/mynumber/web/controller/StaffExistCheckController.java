@@ -70,7 +70,6 @@ public class StaffExistCheckController {
 		// store to session
 		session.setAttribute("staffInfoModel", staffInfoModel);
 		model.addAttribute("staffExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.staff.url"));
-
 		return MyNumberJsp.STAFF_EXIST_CHECK;
 	}
 
@@ -95,6 +94,7 @@ public class StaffExistCheckController {
 			return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 		} else {
 			binding.rejectValue("staffNo", "V00001", new Object [] {"スタッフNo"}, null);
+			model.addAttribute("staffExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.staff.url"));
 			return MyNumberJsp.STAFF_EXIST_CHECK;
 		}
 	}
