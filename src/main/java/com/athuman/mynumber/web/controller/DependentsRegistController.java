@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.Dependents;
@@ -33,14 +32,13 @@ public class DependentsRegistController {
 
 	// show dependentsRegist page
 	@RequestMapping(value = MyNumberUrl.DEPENDENTS_REGIST, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
+	public String show(Model model, HttpSession session) {
 
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(session, model)) {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 		}
 				
-		model.addAttribute("token", requestToken);
 		DependentsInfoListModel lstDependents = (DependentsInfoListModel)session.getAttribute("dependentsInfoListModel");
 		if (lstDependents == null ||
 				lstDependents.getDependents() == null) {
@@ -58,13 +56,7 @@ public class DependentsRegistController {
 	public String next(
 			@ModelAttribute("dependentsInfoListModel")DependentsInfoListModel lstDependentsInfo,
 			BindingResult binding, Model model, HttpSession session,
-			WebRequest request, @RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			initModelList(model);
-			return MyNumberJsp.DEPENDENTS_REGIST;
-		}
+			WebRequest request) {
 				
 		// get staff name for validate
 		StaffInfoModel staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
@@ -93,13 +85,7 @@ public class DependentsRegistController {
 	public String back(Model model,
 			@ModelAttribute("dependentsInfoListModel")DependentsInfoListModel lstDependentsInfo,
 			BindingResult binding, HttpSession session,
-			WebRequest request, @RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return MyNumberJsp.DEPENDENTS_REGIST;
-		}
-				
+			WebRequest request) {
 		// get staff info form session
 		StaffInfoModel staffSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		// store session

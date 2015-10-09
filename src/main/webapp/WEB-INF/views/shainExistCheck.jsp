@@ -36,7 +36,6 @@
 			</div>
 			<div id="content">
 				<form:form methodParam="POST" modelAttribute="shainInfoModel" id="shainExistCheckForm" action="shainExistCheck" cssClass="mt20">
-					<input type="hidden" name="token" id="token" value="${token}">
 					<input type="hidden" name="shainExistCheckApi" id="shainExistCheckApi" value="${shainExistCheckApi}">
 					<div class="subtitle"><spring:message text="社員番号を入力して検索ボタンを押してください。" /></div>
 					<form:label path="shainNo" cssClass="color">

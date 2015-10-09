@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.StaffInfoModel;
@@ -22,15 +21,13 @@ public class StaffInputCompleteController {
 	// show staffInputComplete page
 	@RequestMapping(value = MyNumberUrl.STAFF_INPUT_COMPLETE, method = RequestMethod.GET)
 	public String show(Model model,
-			HttpSession session,
-			@RequestParam("token") String requestToken) {
+			HttpSession session) {
 		
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(session, model)) {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 		}
 				
-		model.addAttribute("token", requestToken);
 		return MyNumberJsp.STAFF_INPUT_COMPLETE;
 	}
 
@@ -38,14 +35,7 @@ public class StaffInputCompleteController {
 	public String complete(Model model,
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-		
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return MyNumberJsp.STAFF_INPUT_COMPLETE;
-		}
-		
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_SHAIN_REGIST_CONFIRM;
 	}
 }

@@ -36,7 +36,6 @@
 			<div id="content">
 
 				<form:form id= "registConfirmForm" action="shainRegistConfirm" modelAttribute="shainInfoModel" method="post">
-					<input type="hidden" name="token" value="${token}">
 					<form:errors path="*" cssClass="errorRegistConfirm" />
 					<div id ="checkRegistNetworkOffLine">
 						<fmt:message key="I00002"/>

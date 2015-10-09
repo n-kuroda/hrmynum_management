@@ -79,7 +79,6 @@
 					</p>
 				</div>
 				<form:form id="perposeConsentForm" action="purposeConsent" modelAttribute="staffInfoModel" method="post">
-					<input type="hidden" name="token" value="${token}">
 					<form:errors path="*" cssClass="errorPerposeConsent mb10"/>
 					<div id ="checkPurposeNetworkOffLine">
 						<fmt:message key="I00002"/>

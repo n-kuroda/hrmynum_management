@@ -56,7 +56,6 @@
 				      	<div id ="checkSigningNetworkOffLine">
 							<fmt:message key="I00002"/>
 						</div>
-	                	<input type="hidden" name="token" value="${token}">
 	                	<form:errors path="*" cssClass="errorStaffSigning mt10" />
 				    </div>
 	                <div class="txtCenterC mt20 mb20">

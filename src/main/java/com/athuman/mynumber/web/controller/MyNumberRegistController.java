@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.StaffInfoModel;
@@ -24,14 +23,13 @@ public class MyNumberRegistController {
 	private StaffInfoModel staffInfoModel;
 	// show myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
+	public String show(Model model, HttpSession session) {
 
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(session, model)) {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 		}
 	 	
-		model.addAttribute("token", requestToken);
 		staffInfoModel = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		if (staffInfoModel == null) {
 			staffInfoModel = new StaffInfoModel();
@@ -44,12 +42,7 @@ public class MyNumberRegistController {
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.MYNUMBER_REGIST, method = RequestMethod.POST)
 	public String next(@ModelAttribute("staffInfoModel") StaffInfoModel myNumberForm,
-			BindingResult binding, Model model, HttpSession session, WebRequest request, @RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
-			return MyNumberJsp.MYNUMBER_REGIST;
-		}
+			BindingResult binding, Model model, HttpSession session, WebRequest request) {
 
 		if (ValidateUtil.checkInputValid("myNumber", "マイナンバー", myNumberForm.getMyNumber(), binding, 12).hasErrors()) { // when form has error
 			return MyNumberJsp.MYNUMBER_REGIST;
@@ -75,13 +68,7 @@ public class MyNumberRegistController {
 	// submit myNumberRegist page
 	@RequestMapping(value = MyNumberUrl.BACK_TO_PURPOSE_CONSENT, method = RequestMethod.POST)
 	public String back(@ModelAttribute("staffInfoModel") StaffInfoModel myNumberForm,
-			BindingResult binding, Model model, WebRequest request, @RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("myNumber", request, requestToken, binding, model)) {
-			return MyNumberJsp.MYNUMBER_REGIST;
-		}
-
+			BindingResult binding, Model model, WebRequest request) {
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 

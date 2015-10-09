@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
@@ -22,7 +21,7 @@ import com.athuman.mynumber.web.util.ValidateUtil;
 public class PurposeConsentController {
 
 	@RequestMapping(value = MyNumberUrl.PURPOSE_CONSENT, method = RequestMethod.GET)
-	public String show(Model model, @RequestParam("token") String requestToken, HttpSession sesion) {
+	public String show(Model model, HttpSession sesion) {
 
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(sesion, model)) {
@@ -31,7 +30,6 @@ public class PurposeConsentController {
 	 	
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		model.addAttribute("staffInfo", staffInfoModelSession);
-		model.addAttribute("token", requestToken);
 		return MyNumberJsp.PURPOSE_CONSENT;
 	}
 
@@ -41,13 +39,7 @@ public class PurposeConsentController {
 			HttpSession session, 
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return resetData(model, session);
-		}
+			WebRequest request) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
 		staffInfoModelSession.setConsent(ConstValues.CONSENT_VALUE_1);
@@ -61,14 +53,7 @@ public class PurposeConsentController {
 			HttpSession session,
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return resetData(model, session);
-		}
-
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_STAFF_EXIST_CHECK;
 	}
 
@@ -78,12 +63,7 @@ public class PurposeConsentController {
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel, 
 			HttpSession sesion,
 			BindingResult binding, 
-			WebRequest request, @RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return resetData(model, session);
-		}
+			WebRequest request) {
 
 		StaffInfoModel staffInfoModelSession = (StaffInfoModel)sesion.getAttribute("staffInfoModel");
 		// clear staff info.
@@ -110,18 +90,5 @@ public class PurposeConsentController {
 
 		return MyNumberJsp.REDIRECT_STAFF_REGIST_CONFIRM;
 	}
-	
-	/**
-	 * reset data when load page
-	 *
-	 * @param model
-	 * @param session
-	 * @return String
-	 */
-	private String resetData(Model model, HttpSession session){
-		// get data form session.
-		StaffInfoModel staffInfoModelSession = (StaffInfoModel)session.getAttribute("staffInfoModel");
-		model.addAttribute("staffInfo", staffInfoModelSession);
-		return MyNumberJsp.PURPOSE_CONSENT;
-	}
+
 }

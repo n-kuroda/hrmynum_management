@@ -35,7 +35,6 @@
             </div>
             <div id="content">
                 <form:form action="myNumberRegist" id="myNumberRegistForm" modelAttribute="staffInfoModel" methodParam="POST">
-                	<input type="hidden" name="token" value="${token}">
                 	<form:errors path="*" cssClass="errorMyNumberRegist" />
                 	<div id ="checkMyNumberNetworkOffLine">
 						<fmt:message key="I00002"/>

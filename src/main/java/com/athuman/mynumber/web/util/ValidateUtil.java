@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.dto.Dependents;
 import com.athuman.mynumber.web.model.ShainInfoModel;
@@ -424,17 +423,6 @@ public class ValidateUtil {
 		}
 		return bindingResult;
 
-	}
-	
-	public static boolean isValidToken(String string, WebRequest request,
-			String requestToken, BindingResult binding, Model model) {
-		
-		if (!TokenProcessor.isTokenValid(request, requestToken)) {
-			binding.rejectValue(string, "S00002", new Object [] {}, null);
-			return false;
-		}
-		TokenProcessor.saveToken(request, model);
-		return true;
 	}
 	
 	/** check session is not null

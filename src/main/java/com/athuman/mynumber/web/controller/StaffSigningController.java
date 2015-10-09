@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.StaffInfoModel;
@@ -21,8 +20,7 @@ public class StaffSigningController {
 
 	// show staffSigning page
 	@RequestMapping(value = MyNumberUrl.STAFF_SIGNING, method = RequestMethod.GET)
-	public String show(Model model, 
-			@RequestParam("token") String requestToken,
+	public String show(Model model,
 			HttpSession session) {
 		
 		// check session has exist
@@ -30,7 +28,6 @@ public class StaffSigningController {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 		}
 				
-		model.addAttribute("token", requestToken);
 		return MyNumberJsp.STAFF_SIGNING;
 	}
 
@@ -38,14 +35,7 @@ public class StaffSigningController {
 	public String next(Model model,
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-		
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return MyNumberJsp.STAFF_SIGNING;
-		}
-		
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_STAFF_INPUT_COMPLETE;
 	}
 
@@ -54,14 +44,7 @@ public class StaffSigningController {
 			HttpSession sesion,
 			@ModelAttribute("staffInfoModel") StaffInfoModel staffInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return MyNumberJsp.STAFF_SIGNING;
-		}
-		
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_STAFF_REGIST_CONFIRM;
 	}
 }

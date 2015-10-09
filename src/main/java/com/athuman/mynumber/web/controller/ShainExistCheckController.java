@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
@@ -20,8 +19,6 @@ import com.athuman.mynumber.web.util.MyNumberJsp;
 import com.athuman.mynumber.web.util.MyNumberUrl;
 import com.athuman.mynumber.web.util.PropertyUtil;
 import com.athuman.mynumber.web.util.StringUtil;
-import com.athuman.mynumber.web.util.TokenProcessor;
-import com.athuman.mynumber.web.util.ValidateUtil;
 
 @Controller
 public class ShainExistCheckController {
@@ -33,7 +30,6 @@ public class ShainExistCheckController {
 		// clear all session
 		session.invalidate();
 
-		TokenProcessor.saveToken(request, model);
 		model.addAttribute("shainInfoModel", new ShainInfoModel());
 		model.addAttribute("shainExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.shain.url"));
 		return MyNumberJsp.SHAIN_EXIST_CHECK;
@@ -50,15 +46,6 @@ public class ShainExistCheckController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ShainInfoDto shainInfoDto = mapper.readValue(shainInfo, ShainInfoDto.class);
-
-		// Check token
-		if (!ValidateUtil.isValidToken("shainNo",
-										request, 
-										shainInfoDto.getToken(), 
-										binding, model)) {
-
-			return MyNumberJsp.SHAIN_EXIST_CHECK;
-		}
 
 		model.addAttribute("shainNo", shainInfoDto.getShainNo());
 		model.addAttribute("shainInfo", getShainInfo(shainInfoDto));
@@ -85,13 +72,7 @@ public class ShainExistCheckController {
 			BindingResult binding,
 			Model model,
 			HttpSession session, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-
-		// Check token
-		if (!ValidateUtil.isValidToken("shainNo", request, requestToken, binding, model)) {
-			return MyNumberJsp.SHAIN_EXIST_CHECK;
-		}
+			WebRequest request) {
 
 		ShainInfoModel shainInfoModel = (ShainInfoModel)session.getAttribute("shainInfoModel");
 

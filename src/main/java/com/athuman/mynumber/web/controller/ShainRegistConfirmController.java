@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.athuman.mynumber.web.model.DependentsInfoListModel;
@@ -27,14 +26,13 @@ public class ShainRegistConfirmController {
 
 	// show shainRegistConfirm page
 	@RequestMapping(value = MyNumberUrl.SHAIN_REGIST_CONFIRM, method = RequestMethod.GET)
-	public String show(Model model, HttpSession session, @RequestParam("token") String requestToken) {
+	public String show(Model model, HttpSession session) {
 
 		// check session has exist
 		if (!ValidateUtil.isNotNullSession(session, model)) {
 			return MyNumberJsp.REDIRECT_SHAIN_EXIST_CHECK;
 		}
 				
-		model.addAttribute("token", requestToken);
 		return resetData(model, session);
 	}
 
@@ -43,14 +41,7 @@ public class ShainRegistConfirmController {
 			HttpSession session,
 			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-		
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return resetData(model, session);
-		}
-		
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_COLLECTION_INFO_REGIST;
 	}
 
@@ -59,14 +50,7 @@ public class ShainRegistConfirmController {
 			HttpSession session,
 			@ModelAttribute("shainInfoModel") ShainInfoModel shainInfoModel,
 			BindingResult binding, 
-			WebRequest request, 
-			@RequestParam("token") String requestToken) {
-		
-		// Check token
-		if (!ValidateUtil.isValidToken("", request, requestToken, binding, model)) {
-			return resetData(model, session);
-		}
-		
+			WebRequest request) {
 		return MyNumberJsp.REDIRECT_PURPOSE_CONSENT;
 	}
 
