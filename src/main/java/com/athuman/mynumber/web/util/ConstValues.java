@@ -61,7 +61,9 @@ public class ConstValues {
 	public static final int DEPENDENTS_MAX_MONTH = 12;
 	public static final int DEPENDENTS_MIN_DAY_CHECK = 0;
 	public static final int DEPENDENTS_MIN_DAY = 1;
-	public static final int DEPENDENTS_MAX_DAY = 31;
+	public static final int DEPENDENTS_MAX_DAY = 31;	
+	public static final int DAISANGOHIHOKENSHA_MIN_AGE = 20;
+	public static final int DAISANGOHIHOKENSHA_MAX_AGE = 59;
 	public static final String DELETE_FLAG_VALUES_0 = "0";
 	public static final String COLLECT_INFO_REGIST_FAIL = "FAIL";
 	public static final String COLLECT_INFO_REGIST_OK = "OK";

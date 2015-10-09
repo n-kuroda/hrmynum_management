@@ -3,6 +3,7 @@ package com.athuman.mynumber.web.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -60,6 +61,8 @@ public class ValidateUtil {
 			checkRelationship(dependents, bindingResult, index);
 
 			checkMyNumber(dependents, bindingResult, index);
+			
+			checkDaisangoHihokensha(dependents, bindingResult, index);
 			
 		}
 
@@ -424,6 +427,64 @@ public class ValidateUtil {
 		return bindingResult;
 
 	}
+	
+	public static BindingResult checkDaisangoHihokensha(Dependents dependents,
+			BindingResult bindingResult, int index) {
+		// 第3号被保険者が選択されている場合
+		if (dependents.getDaisangoHihokensha().equals(
+				ConstValues.CHECKBOX_SELECT)) {
+			// 続柄が「妻」または「夫」でない場合
+			if (!dependents.getFuyoZokugara().equals(
+					ConstValues.DEPENDENTS_RELATIONSHIP_01)
+					&& !dependents.getFuyoZokugara().equals(
+							ConstValues.DEPENDENTS_RELATIONSHIP_02)) {
+				bindingResult.rejectValue("dependents[" + index
+						+ "].fuyoZokugara", "V00019", new Object[] { "扶養者"
+						+ (index + 1) }, null);
+			}
+			
+			Date today = new Date();
+			Date birthday = new Date();
+			String birthdayStr = dependents.getFuyoSeinengapiYear()
+					+ String.format("%02d",
+							new Integer(dependents.getFuyoSeinengapiMonth()))
+					+ String.format("%02d",
+							new Integer(dependents.getFuyoSeinengapiDay()));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			try {
+				birthday = sdf.parse(birthdayStr);
+			} catch (ParseException e) {
+				bindingResult.rejectValue("dependents[" + index + "].fuyoSeinengapiDay",
+						"V00007", new Object[] {"扶養者" + (index + 1)}, null );
+			}
+			int age = ValidateUtil.getAge(birthday, today);
+			// 20歳以上60歳未満でない場合
+			if (!(ConstValues.DAISANGOHIHOKENSHA_MIN_AGE <= age && age <= ConstValues.DAISANGOHIHOKENSHA_MAX_AGE)) {
+				bindingResult.rejectValue("dependents[" + index
+						+ "].fuyoSeinengapiYear", "V00020",
+						new Object[] { "扶養者" + (index + 1) }, null);
+			}
+		}
+		return bindingResult;
+	}
+	
+	public static int getAge(Date birthDay, Date specifiedDay){
+	    Calendar specified = Calendar.getInstance();
+	    specified.setTime(specifiedDay);
+	    Calendar birth = Calendar.getInstance();
+	    birth.setTime(birthDay);
+	    int age = specified.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+	    if (specified.get(Calendar.MONTH) == birth.get(Calendar.MONTH)) {
+	        if (specified.get(Calendar.DAY_OF_MONTH) < birth
+	            .get(Calendar.DAY_OF_MONTH)) {
+	            age--;
+	        }
+	    } else if (specified.get(Calendar.MONTH) < birth.get(Calendar.MONTH)) {
+	        age--;
+	    }
+	    return age;
+	}
+
 	
 	/** check session is not null
 	 *
