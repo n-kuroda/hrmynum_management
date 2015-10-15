@@ -24,7 +24,11 @@ import com.athuman.mynumber.web.util.StringUtil;
 public class StaffExistCheckController {
 
 	@RequestMapping(value = MyNumberUrl.STAFF_EXIST_CHECK, method = RequestMethod.GET)
-	public String show(Model model) {
+	public String show(Model model, HttpSession sesion) {
+		
+		// clear staff info
+		sesion.removeAttribute("staffInfoModel");
+		
 		model.addAttribute("staffInfoModel", new StaffInfoModel());
 		model.addAttribute("staffExistCheckApi", PropertyUtil.getProperties("application.properties","tact.api.staff.url"));
 		return MyNumberJsp.STAFF_EXIST_CHECK;
