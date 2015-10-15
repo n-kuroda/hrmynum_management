@@ -45,7 +45,7 @@
                 	<form:label path="myNumber" cssClass="color mt10">
 						<spring:message text="マイナンバー"/>
 					</form:label>
-					<form:input path="myNumber" cssErrorClass="error"/>
+					<form:input path="myNumber" cssErrorClass="error" maxlength="12"/>
 					<p class="mt30 font14"><spring:message text="マイナンバー確認提示書類"/></p>
                     <p class="font12">
 	                    <form:radiobutton path="myNumberConfirm" value="01"/>
