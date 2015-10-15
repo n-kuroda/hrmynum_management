@@ -73,6 +73,17 @@ function checkDataValidWhenSearch() {
 			            		$('#checkStaffExist').show();
 				        		document.getElementById('staffNo').className = 'error';
 				        		staffInfo.style.display = 'none';
+				        		
+				    			$.ajax({
+				    		        url: "removeSessionStaff", // remove session
+				    		        type: 'POST',
+				    		        cache:false,
+				    		        beforeSend: function(xhr) {
+				    		            xhr.setRequestHeader("Accept", "application/json");
+				    		            xhr.setRequestHeader("Content-Type", "application/json");
+				    		        }
+				    		    });
+				        		
 			            		return;
 		            		}
 		            		

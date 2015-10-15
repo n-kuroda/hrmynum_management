@@ -93,6 +93,18 @@ function checkDataValidWhenSearch() {
 			                		$('#checkShainExist').show();
 					        		document.getElementById('shainNo').className = 'error';
 					        		shainInfoMsg.style.display = 'none';
+					        		
+					    			$.ajax({
+					    		        url: "removeSessionShain", // remove session
+					    		        type: 'POST',
+					    		        cache:false,
+					    		        beforeSend: function(xhr) {
+					    		            xhr.setRequestHeader("Accept", "application/json");
+					    		            xhr.setRequestHeader("Content-Type", "application/json");
+					    		        }
+					    		    });
+
+					        		
 				            		return;
 		            		}
 
